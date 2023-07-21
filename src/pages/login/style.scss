@@ -1,0 +1,93 @@
+.Login_page {
+    background-color: #000;
+    background-image: url(../../assests/images/login/login-banner.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: 100%;
+    width: 100%;
+    max-width: 100%;
+    padding-bottom: 30px;
+
+    img {
+        width: 327px;
+        height: 340px;
+        margin: 0 auto;
+    }
+
+    h1 {
+        text-align: center;
+        // font-family: Pirulen;
+        font-size: 30px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 38px;
+        color: #fff;
+    }
+
+    p {
+        text-align: center;
+        font-family: Lato;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 24px;
+        color: #B2B9CD;
+    }
+
+    .form-label {
+        font-family: Lato;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 24px;
+        color: #B2B9CD;
+    }
+    label{
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 24px;
+        color: #FFFFFF;
+        font-family: Lato;
+    }
+
+    input {
+        border: 1px solid #B2B9CD;
+        background: #000;
+        box-shadow: 0px 1px 2px 0px rgb(16 24 40 / 5%);
+        color: #FFFFFF;
+        font-family: Lato;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 24px;
+
+        &:focus {
+            background: #000;
+            box-shadow: none;
+        }
+
+        &::placeholder {
+            color: #FFFFFF;
+        }
+    }
+    button{
+        border-radius: 10px;
+        background: #0ACEEC;
+        font-family: Lato;
+        font-size: 14px;
+        color: #000;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        width: 360px;
+        height: 42px;
+        padding: 11px 10px;
+        margin: 0 auto;
+        text-align: center;
+        &:hover{
+            background: #0ACEEC;
+        }
+    }
+}
