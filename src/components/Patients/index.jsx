@@ -1,15 +1,7 @@
 import React from "react";
 import "./style.scss";
-import TableSection from "../../components/TableSection"
-import {
-  Row,
-  Col,
-  Table,
-  InputGroup,
-  Dropdown,
-  Pagination,
-  Form,
-} from "react-bootstrap";
+import TableSection from "../../components/TableSection";
+import { Row, Col, Dropdown, Pagination } from "react-bootstrap";
 import Search from "../../assests/images/dashborad/Search.png";
 import Arrowleft from "../../assests/images/dashborad/arrow-left.png";
 import Arrowright from "../../assests/images/dashborad/arrow-right.png";

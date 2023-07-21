@@ -46,7 +46,7 @@ function SideBar() {
             <li>
               <span>
                 <img src={Clinics} className="image-first" />
-                <img src={ClinicsHover} className="image-hover d-none"/>
+                {/* <img src={ClinicsHover} className="image-hover d-none"/> */}
               </span>
               <span>Clinics</span>
             </li>
