@@ -1,8 +1,11 @@
 import "./style.scss";
 import Logo from "../../assests/images/sidebar/logo.png";
 import Dashboard from "../../assests/images/sidebar/dashboard.png";
+import DashboardHover from "../../assests/images/sidebar/dashboard-hover.png";
 import Patients from "../../assests/images/sidebar/patient.png";
+import PatientsHover from "../../assests/images/sidebar/patient-hover.png";
 import Organization from "../../assests/images/sidebar/organise.png";
+import Organizationhover from "../../assests/images/sidebar/organise-hover.png";
 import Clinics from "../../assests/images/sidebar/doct.png";
 import Doctors from "../../assests/images/sidebar/clinic.png";
 import Reports from "../../assests/images/sidebar/report.png";
@@ -21,34 +24,42 @@ function SideBar() {
           <ul>
             <li>
               <span>
-                <img src={Dashboard} />
+                <img src={Dashboard} className="image-first"/>
+                <img src={DashboardHover} className="image-hover d-none"/>
               </span>
               <span>Dashboard</span>
             </li>
             <li>
               <span>
-                <img src={Patients} />
+                <img src={Patients} className="image-first"/>
+                <img src={PatientsHover} className="image-hover d-none"/>
               </span>
               <span>Patients</span>
             </li>
             <li>
               <span>
-                <img src={Organization} />
+                <img src={Organization} className="image-first"/>
+                <img src={Organizationhover} className="image-hover d-none"/>
               </span>
               <span>Organization Clinics</span>
             </li>
             <li>
               <span>
-                <img src={Clinics} />
+                <img src={Clinics} className="image-first" />
+                <img src={ClinicsHover} className="image-hover d-none"/>
               </span>
               <span>Clinics</span>
             </li>
             <li>
-              <span><img src={Doctors}/></span>
+              <span><img src={Doctors} className="image-first"/>
+              <img src={DashboardHover} className="image-hover d-none"/>
+              </span>
               <span>Doctors</span>
             </li>
             <li>
-              <span><img src={Reports}/></span>
+              <span><img src={Reports} className="image-first"/>
+              <img src={DashboardHover} className="image-hover d-none"/>
+              </span>
               <span>Reports</span>
             </li>
           </ul>

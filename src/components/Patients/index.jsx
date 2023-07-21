@@ -66,7 +66,7 @@ function index() {
           </Col>
           <Col md={12}>
             <Pagination>
-              <Pagination.Prev>
+              <Pagination.Prev className="prev-li">
                 <img src={Arrowleft} className="pe-2" />
                 Previous
               </Pagination.Prev>
@@ -79,7 +79,7 @@ function index() {
               <Pagination.Item>{8}</Pagination.Item>
               <Pagination.Item>{9}</Pagination.Item>
               <Pagination.Item>{10}</Pagination.Item>
-              <Pagination.Next>
+              <Pagination.Next className="next-li">
                 Next
                 <img src={Arrowright} className="ps-2" />
               </Pagination.Next>

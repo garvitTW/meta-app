@@ -36,6 +36,13 @@
 
             &:hover {
                 background: #2D2F36;
+                color: #fff;
+                .image-first{
+                    display: none;
+                }
+                .image-hover{
+                    display: inline-block !important;
+                }
             }
             span{
                 &:last-child{
