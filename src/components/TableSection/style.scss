@@ -1,0 +1,89 @@
+.table-responsive {
+    border-radius: 20px;
+
+    .Patients-table {
+        margin: 0px !important;
+
+        .input-group {
+            margin: 0 !important;
+
+            .input-group-text {
+                padding: 0 !important;
+                border: 0 !important;
+
+                .form-check-input {
+                    margin: 0 !important;
+                    height: 20px;
+                    width: 20px;
+                    background-color: #282C38;
+                    border-color: #3C4254;
+                    &:focus{
+                        box-shadow: none;
+                    }
+                }
+
+                .form-check-input:checked {
+                    background-color: #246CF9;
+                    border-color: #3C4254;
+                }
+            }
+        }
+
+        th {
+            font-family: Inter;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+            color: #FFFFFF !important;
+            height: 50px !important;
+            //line-height: 50px !important;
+            //padding: 0 !important;
+            margin: 0 !important;
+            vertical-align: middle;
+            border-color: #282C38;
+
+            &:first-child {
+                padding-left: 27px;
+            }
+        }
+
+        td {
+            font-family: Inter;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            height: 50px !important;
+            //line-height: 50px !important;
+            //padding: 0 !important;
+            margin: 0 !important;
+            vertical-align: middle;
+            color: #B2B9CD;
+            border-color: #282C38;
+
+            &:first-child {
+                padding-left: 27px;
+            }
+        }
+
+        .name-text {
+            color: #0ACEEC;
+            text-decoration: underline;
+        }
+
+        .form-check-input {
+            width: 36px;
+            height: 20px;
+            &:checked {
+                background-color: #0ACEEC;
+                border-color: #0ACEEC;
+            }
+            &:focus{
+                box-shadow: none;
+            }
+        }
+
+        
+    }
+}

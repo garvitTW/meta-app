@@ -1,6 +1,11 @@
 import "./style.scss";
+import Patients from "../../../components/Patients";
 function PatientListing() {
-  return <>PatientListing</>;
+  return (
+    <>
+      <Patients />
+    </>
+  );
 }
 
 export default PatientListing;
