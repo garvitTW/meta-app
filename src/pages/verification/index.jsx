@@ -7,7 +7,7 @@ function Verification() {
         <div className="Login_page">
           <Container fluid>
             <Row>
-              <Col md={5} className="offset-md-4">
+              <Col className=" verification_page">
                 <div className="text-center">
                   <img src={Logo} />
                 </div>
