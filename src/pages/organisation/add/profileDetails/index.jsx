@@ -1,12 +1,13 @@
 import "./style.scss";
 import { Row, Col, Tabs, Tab, Form, Button } from "react-bootstrap";
+import ProfessionalDetails from "../professionalDetails"
 function AddOrganisationProfile() {
   return (
     <>
       <div className="Patients_section Organization-section AddOrganisationProfile">
         <Row>
           <Col>
-            <h1>Add Organization Clinic</h1>
+            <h1>Add Organization</h1>
           </Col>
           <Col md={12}>
             <Tabs
@@ -83,7 +84,7 @@ function AddOrganisationProfile() {
                 </Row>
               </Tab>
               <Tab eventKey="Professional" title="Professional Details">
-                Professional
+                <ProfessionalDetails/>
               </Tab>
               <Tab eventKey="Payment" title="Payment Plan">
                 Payment

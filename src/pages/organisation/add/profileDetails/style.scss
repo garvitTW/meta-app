@@ -6,9 +6,10 @@
         font-weight: 400;
         line-height: normal;
         color: #B2B9CD;
+        display: block;
     }
 
-    input {
+    input.form-control {
         border: 1px solid #3C4254;
         background: #1e1f25;
         height: 47px;

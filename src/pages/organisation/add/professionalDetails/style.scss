@@ -1,0 +1,194 @@
+.Add_Organisation_Professional {
+    .input-group {
+        .input-group-text {
+            background: transparent;
+            border: 0;
+            padding: 0;
+
+            input {
+                background-color: transparent;
+                border: 2px solid #B2B9CD;
+                height: 24px;
+                width: 24px;
+                border-radius: 8px;
+
+                &:focus {
+                    box-shadow: none;
+                }
+            }
+
+            .form-check-input:checked {
+                background-color: #0ACEEC;
+                box-shadow: none;
+                border-color: #0ACEEC;
+            }
+        }
+
+        .checkbox-label {
+            color: #FFF;
+            font-family: Lato;
+            font-size: 15px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 140%;
+            letter-spacing: 0.2px;
+            padding-left: 16px;
+        }
+    }
+
+    select {
+        border: 1px solid #3C4254;
+        background: #1e1f25;
+        height: 47px;
+        color: #FFF;
+        font-family: Lato;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        background-image: url(../../../../assests/images/dashborad/down.png);
+        background-repeat: no-repeat;
+        background-position: 98%;
+    }
+
+    .Languages_select {
+        margin-bottom: 24px;
+        width: 744px;
+    }
+
+    .select_tags {
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 12px;
+            margin-bottom: 44px;
+
+            li {
+                color: #FFF;
+                font-family: Lato;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: normal;
+                border: 1px solid #3C4254;
+                background: #1e1f25;
+                border-radius: 4px;
+                padding: 5px 10px;
+            }
+        }
+    }
+
+    .mendatory-feild {
+        color: #F93440;
+    }
+
+    .others_section {
+        display: inline-flex;
+
+        input {
+            width: 360px;
+        }
+
+        button {
+            width: 145px;
+            height: 48px;
+            border-radius: 10px;
+            background: #0ACEEC;
+            color: #1E1F25;
+            font-family: Inter;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+            border: #0ACEEC;
+            margin-left: 14px;
+        }
+    }
+
+}
+
+.Category_div {
+    gap: 10px;
+
+    p {
+        color: #fff;
+        font-family: Lato;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 140%;
+        letter-spacing: 0.2px;
+    }
+
+    select {
+        border: 1px solid #3C4254;
+        background: #1e1f25;
+        height: 47px;
+        color: #FFF;
+        font-family: Lato;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        background-image: url(../../../../assests/images/dashborad/down.png);
+        background-repeat: no-repeat;
+        background-position: 98%;
+        padding-right: 0;
+        width: 100px;
+    }
+
+    button {
+        background-color: transparent;
+        padding: 0;
+        border: 0;
+        &:hover{
+            background-color: transparent;
+        }
+        &:active{
+            background-color: transparent !important;
+        }
+    }
+}
+
+.add_morebtn {
+    color: #0ACEEC;
+    font-family: 'Lato';
+    font-size: 14.248px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    background: transparent;
+    border: 0;
+    padding: 0;
+}
+
+.blue-button {
+    border-radius: 10px;
+    background: #0ACEEC;
+    color: #1E1F25;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    border: 0;
+    height: 47px;
+    width: 194px;
+}
+
+.cancel-buttongry {
+    border: 1px solid #3C4254;
+    background: #1e1f25;
+    height: 47px;
+    color: #FFF;
+    font-family: Lato;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    border-radius: 10px;
+    width: 145px;
+    margin-right: 12px;
+}
