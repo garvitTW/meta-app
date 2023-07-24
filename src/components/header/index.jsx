@@ -11,7 +11,7 @@ function Header() {
           <div className="header_submenu">
             <ul className="d-inline-block">
               <li>home</li>
-              <li className="pe-3 ps-3"></li>
+              <li className="pe-3 ps-3 arrow-icon"></li>
               <li>Patients</li>
             </ul>
             <div className="text-right d-inline-block">

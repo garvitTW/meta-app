@@ -7,7 +7,10 @@ import PatientsHover from "../../assests/images/sidebar/patient-hover.png";
 import Organization from "../../assests/images/sidebar/organise.png";
 import Organizationhover from "../../assests/images/sidebar/organise-hover.png";
 import Clinics from "../../assests/images/sidebar/doct.png";
+import ClinicsHover from "../../assests/images/sidebar/doct-hover.png";
+
 import Doctors from "../../assests/images/sidebar/clinic.png";
+import Doctorshover from "../../assests/images/sidebar/clinic-hover.png";
 import Reports from "../../assests/images/sidebar/report.png";
 import Setting from "../../assests/images/sidebar/setting.png";
 import Logout from "../../assests/images/sidebar/logout.png";
@@ -46,13 +49,13 @@ function SideBar() {
             <li>
               <span>
                 <img src={Clinics} className="image-first" />
-                {/* <img src={ClinicsHover} className="image-hover d-none"/> */}
+                <img src={ClinicsHover} className="image-hover d-none"/>
               </span>
               <span>Clinics</span>
             </li>
             <li>
               <span><img src={Doctors} className="image-first"/>
-              <img src={DashboardHover} className="image-hover d-none"/>
+              <img src={Doctorshover} className="image-hover d-none"/>
               </span>
               <span>Doctors</span>
             </li>

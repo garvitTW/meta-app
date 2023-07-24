@@ -17,7 +17,8 @@
                     width: 20px;
                     background-color: #282C38;
                     border-color: #3C4254;
-                    &:focus{
+
+                    &:focus {
                         box-shadow: none;
                     }
                 }
@@ -75,15 +76,19 @@
         .form-check-input {
             width: 36px;
             height: 20px;
+            background-color: #282C38;
+            border-color: #3C4254;
+
             &:checked {
                 background-color: #0ACEEC;
                 border-color: #0ACEEC;
             }
-            &:focus{
+
+            &:focus {
                 box-shadow: none;
             }
         }
 
-        
+
     }
 }

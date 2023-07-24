@@ -27,7 +27,8 @@
         height: 42px;
         width: 100%;
         color: #0ACEEC;
-        &:hover{
+
+        &:hover {
             background-color: #0ACEEC;
             color: #1E1F25;
         }
@@ -41,64 +42,6 @@
 
     .table-margin {
         padding-top: 38px;
-    }
-
-    .pagination {
-        margin: 0;
-        padding-top: 19px;
-        .prev-li{
-            a{
-                border-radius: 20px 0px 0px 20px;
-            }
-            
-        }
-        .next-li{
-            a{
-                border-radius: 0px 20px 20px 0px;
-            }
-            
-        }
-
-        li {
-            
-            a {
-                background-color: #141518;
-                border-color: #282C38;
-                font-family: Lato;
-                font-size: 14px;
-                font-style: normal;
-                font-weight: 600;
-                line-height: normal;
-                color: #B2B9CD;
-                // height: 40px;
-                // width: 40px;
-                text-align: center;
-                line-height: 26px;
-            }
-            
-            span {
-                background-color: #141518;
-                border-color: #282C38;
-                font-family: Lato;
-                font-size: 14px;
-                font-style: normal;
-                font-weight: 600;
-                line-height: normal;
-                color: #B2B9CD;
-                // height: 40px;
-                // width: 40px;
-                text-align: center;
-                line-height: 26px;
-            }
-        }
-
-        .active {
-            span {
-                background: #0ACEEC !important;
-                color: #1E1F25;
-            }
-        }
-        
     }
 
     .status_dropdown {

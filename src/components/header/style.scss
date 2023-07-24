@@ -27,6 +27,14 @@
                 font-weight: 600;
                 line-height: normal;
                 text-transform: capitalize;
+                position: relative;
+            }
+            .arrow-icon::before{
+                position: absolute;
+                content: ">";
+                top: -13px;
+                left: 13px;
+                color: #757B8C;
             }
         }
 

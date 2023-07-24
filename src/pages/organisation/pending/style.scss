@@ -1,0 +1,172 @@
+.pending_table {
+    .pending_button {
+        border-radius: 5px;
+        background: #f9712433;
+        font-family: Lato;
+        padding: 6px 7px;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        letter-spacing: 0.48px;
+        color: #F97124;
+        border-color: transparent;
+
+        &:hover {
+            background: #f9712433;
+            color: #F97124;
+        }
+    }
+
+    .Decline_button {
+        border-radius: 6.25px;
+        color: #F93440;
+        background: transparent;
+        border: 1px dashed #F93440;
+        font-family: Lato;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        padding: 6px 24px;
+
+        &:hover {
+            color: #F93440;
+            background: transparent;
+            border-color: #F93440;
+        }
+    }
+
+    .Accept_button {
+        border-radius: 6.25px;
+        color: #1E1F23;
+        background: #0ACEEC;
+        font-family: Lato;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        border: 0;
+        margin-left: 7px;
+        padding: 6px 15px;
+
+        &:hover {
+            color: #1E1F23;
+            background: #0ACEEC;
+        }
+    }
+
+    .Edit_button {
+        background: transparent;
+        border: 0;
+        padding: 0;
+
+        &:hover {
+            background: transparent;
+        }
+    }
+}
+
+.decline_modal {
+    .modal-header {
+        border: 0;
+
+        .btn-close {
+            color: #fff;
+            background-image: url(../../../assests/images/dashborad/close.png);
+            background-size: 100%;
+            opacity: 1;
+            box-shadow: none;
+        }
+
+        .h4 {
+            font-family: Lato;
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 28px;
+            color: #fff;
+        }
+    }
+
+    .modal-content {
+        background: #282C38;
+
+        p {
+            font-family: Lato;
+            font-size: 13px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            color: #B2B9CD;
+            margin: 0;
+            padding-bottom: 7px;
+        }
+
+        textarea {
+            border: 1px solid #3C4254;
+            background: #1e1f25;
+            color: #fff;
+            font-family: Lato;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            padding: 20px;
+        }
+        textarea::placeholder {
+            color: #fff;
+            font-family: Lato;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+        }
+
+        select {
+            border: 1px solid #3C4254;
+            background: #1e1f25;
+            font-family: Lato;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            color: #fff;
+            height: 47px;
+            width: 100%;
+            border-radius: 8px;
+            padding: 13px;
+            margin-bottom: 23px;
+        }
+    }
+
+    .modal-footer {
+        border: 0;
+        justify-content: center;
+
+        .cancel_button {
+            border: 1px solid #3C4254;
+            background: transparent;
+            font-family: Lato;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 24px;
+            color: #fff;
+            width: 100%;
+        }
+
+        .confirm_button {
+            border-radius: 8px;
+            border: 1px solid #0ACEEC;
+            background: #0ACEEC;
+            font-family: Lato;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 24px;
+            color: #1E1F25;
+            width: 100%;
+        }
+    }
+}
