@@ -1,0 +1,54 @@
+.AddOrganisationProfile {
+    label {
+        font-family: Lato;
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        color: #B2B9CD;
+    }
+
+    input {
+        border: 1px solid #3C4254;
+        background: #1e1f25;
+        height: 47px;
+        color: #FFF;
+        font-family: Lato;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        margin-bottom: 24px;
+
+        &::placeholder {
+            color: #B2B9CD;
+        }
+    }
+    .Next_button{
+        border-radius: 10px;
+        background: #0ACEEC;
+        color: #1E1F25;
+        font-family: Inter;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        border: 0;
+        height: 47px;
+        width: 145px;
+    }
+
+    h2 {
+        color: #FFF;
+        font-family: Lato;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 28px;
+        margin-top: 20px;
+    }
+
+    .tab-pane {
+        padding-top: 35px;
+    }
+}
