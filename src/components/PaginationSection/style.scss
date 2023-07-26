@@ -4,7 +4,7 @@
 
     .prev-li {
         a {
-            border-radius: 20px 0px 0px 20px !important;
+            border-radius: 15px 0px 0px 15px !important;
             &:focus{
                 background-color: transparent;
                 box-shadow: none;
@@ -15,7 +15,7 @@
 
     .next-li {
         a {
-            border-radius: 0px 20px 20px 0px !important;
+            border-radius: 0px 15px 15px 0px !important;
             &:focus{
                 background-color: transparent;
                 box-shadow: none;

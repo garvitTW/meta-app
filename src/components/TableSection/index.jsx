@@ -2,8 +2,6 @@ import React from "react";
 import {
   Table,
   InputGroup,
-  Dropdown,
-  Pagination,
   Form,
 } from "react-bootstrap";
 import "./style.scss";
