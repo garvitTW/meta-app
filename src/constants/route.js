@@ -12,6 +12,7 @@ import EditOrganisationProfile from "../pages/organisation/edit/profileDetails";
 import EditOrganisationProfessional from "../pages/organisation/edit/professionalDetails";
 import ClinicListing from "../pages/clinic/listing";
 import DoctorListing from "../pages/doctor/listing";
+import Reports from "../pages/reports";
 
 const publicRoutes = [
   {
@@ -81,6 +82,11 @@ const protectedRoutes = [
     id: 13,
     path: URL.DOCTOR.LISTING,
     component: DoctorListing,
+  },
+  {
+    id: 13,
+    path: URL.REPORTS,
+    component: Reports,
   },
 ];
 

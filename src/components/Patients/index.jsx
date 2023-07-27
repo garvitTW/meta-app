@@ -16,7 +16,7 @@ function index() {
           </Col>
           <Col md={6}>
             <div className="position-relative">
-              <img className="search-img" src={Search} />
+              <img className="search-img" src={Search} alt="search" />
               <input
                 className="w-100 search-input"
                 placeholder="Search patients"
@@ -53,10 +53,10 @@ function index() {
         </Row>
         <Row className="table-margin">
           <Col md={12}>
-            <TableSection/>
+            <TableSection />
           </Col>
           <Col md={12}>
-            <PaginationSection/>
+            <PaginationSection />
           </Col>
         </Row>
       </div>

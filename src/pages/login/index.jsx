@@ -1,8 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
 import "./style.scss";
-import { Container, Row, Col, Button, Form } from "react-bootstrap";
+import { Container, Row, Col, Form } from "react-bootstrap";
 import Logo from "../../assests/images/login/logo.png";
+import { useFormik } from "formik";
+import { validationSchema } from "../../validation/login";
+import Input from "../../components/formGroupInput";
+import ButtonWithLoader from "../../components/buttonWithLoding";
+import { storageService } from "../../services/storage.service";
+import { STORAGE_KEYS } from "../../constants/common.constants";
+import { authService } from "../../services/auth.service";
+import { useNavigate } from "react-router-dom";
+import URL from "../../constants/routesURL";
+
 function Login() {
+  const navigate = useNavigate();
+
+  const details = storageService.getFromLocalStorage(
+    STORAGE_KEYS.REMEMBER_ME_DETAILS
+  );
+
+  const checkedValue = details ? true : false;
+  const [rememberMe, setRememberMe] = useState(checkedValue);
+
+  const initialValues = {
+    email: details?.email || "",
+    password: details?.password || "",
+    check: checkedValue,
+  };
+
+  const { errors, touched, handleSubmit, getFieldProps, isSubmitting } =
+    useFormik({
+      initialValues: initialValues,
+      validationSchema: validationSchema,
+      onSubmit: (values, action) => {
+        authService.setRememberMe(rememberMe, values);
+        console.log(values);
+        setRememberMe(false);
+        action.resetForm();
+        navigate(URL.VERIFICATION);
+      },
+    });
+
+  const formikProps = {
+    touched: touched,
+    errors: errors,
+    getFieldProps: getFieldProps,
+  };
+
   return (
     <>
       <div>
@@ -11,27 +55,38 @@ function Login() {
             <Row>
               <Col md={4} className="offset-md-4">
                 <div className="text-center">
-                  <img src={Logo} />
+                  <img src={Logo} alt="Logo" />
                 </div>
                 <h1>Admin Login</h1>
                 <p>Welcome back! Please enter your details.</p>
-                <Form>
-                  <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" placeholder="Enter your email" />
-                  </Form.Group>
-
-                  <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" />
-                  </Form.Group>
+                <Form onSubmit={handleSubmit}>
+                  <Input
+                    {...formikProps}
+                    name="email"
+                    type="email"
+                    placeholder="Enter your email"
+                    label="Email"
+                  />
+                  <Input
+                    {...formikProps}
+                    name="password"
+                    type="password"
+                    placeholder="Password"
+                    label="Password"
+                  />
                   <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Remember me" />
+                    <Form.Check
+                      checked={rememberMe}
+                      type="checkbox"
+                      label="Remember me"
+                      onChange={(e) => setRememberMe(e.target.checked)}
+                    />
                   </Form.Group>
                   <div className="text-center">
-                    <Button variant="primary" type="submit">
-                      Login
-                    </Button>
+                    <ButtonWithLoader
+                      isSubmitting={isSubmitting}
+                      label="Login"
+                    />
                   </div>
                 </Form>
               </Col>

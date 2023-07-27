@@ -19,11 +19,12 @@ const URL = {
     },
   },
   CLINIC: {
-    LISTING: "clinic/listing",
+    LISTING: "/clinic/listing",
   },
   DOCTOR: {
-    LISTING: "doctor/listing",
+    LISTING: "/doctor/listing",
   },
+  REPORTS: "/reports",
 };
 
 export default URL;

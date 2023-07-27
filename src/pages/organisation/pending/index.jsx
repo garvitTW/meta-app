@@ -13,12 +13,16 @@ import {
 } from "react-bootstrap";
 import EditIcon from "../../../assests/images/dashborad/edit.png";
 import CheckIcon from "../../../assests/images/dashborad/check.png";
+import { useNavigate } from "react-router-dom";
+import URL from "../../../constants/routesURL";
 
 function OrgnisationPending() {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const navigate = useNavigate();
   return (
     <>
       <Row className="table-margin">
@@ -109,7 +113,12 @@ function OrgnisationPending() {
                   </Button>
                 </td>
                 <td>
-                  <Button className="Edit_button">
+                  <Button
+                    className="Edit_button"
+                    onClick={() =>
+                      navigate(URL.ORGANISATION.EDIT.PROFILE_DETAIL)
+                    }
+                  >
                     <img src={EditIcon} />
                   </Button>
                 </td>

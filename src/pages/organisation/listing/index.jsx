@@ -5,7 +5,10 @@ import AddIcon from "../../../assests/images/dashborad/add.png";
 import "./style.scss";
 import Pending from "../../organisation/pending";
 import Decliend from "../../organisation/declined";
+import { useNavigate } from "react-router-dom";
+import URL from "../../../constants/routesURL";
 function OrganisationListing() {
+  const navigate = useNavigate();
   return (
     <>
       <div className="Patients_section Organization-section">
@@ -26,7 +29,10 @@ function OrganisationListing() {
             <button className="btn export-button">Export</button>
           </Col>
           <Col md={3}>
-            <button className="btn Organization-button">
+            <button
+              onClick={() => navigate(URL.ORGANISATION.CREATE.PROFILE_DETAIL)}
+              className="btn Organization-button"
+            >
               <img src={AddIcon} className="pe-2" />
               Add Organization
             </button>
@@ -264,7 +270,7 @@ function OrganisationListing() {
             <Pending />
           </Tab>
           <Tab eventKey="Declined" title="Declined(45)">
-            <Decliend/>
+            <Decliend />
           </Tab>
         </Tabs>
       </div>
