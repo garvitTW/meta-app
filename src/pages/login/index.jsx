@@ -7,17 +7,13 @@ import { validationSchema } from "../../validation/login";
 import Input from "../../components/formGroupInput";
 import ButtonWithLoader from "../../components/buttonWithLoding";
 import { storageService } from "../../services/storage.service";
-import { STORAGE_KEYS } from "../../constants/common.constants";
-import { authService } from "../../services/auth.service";
 import { useNavigate } from "react-router-dom";
 import URL from "../../constants/routesURL";
 
 function Login() {
   const navigate = useNavigate();
 
-  const details = storageService.getFromLocalStorage(
-    STORAGE_KEYS.REMEMBER_ME_DETAILS
-  );
+  const details = storageService.decryptCredentials();
 
   const checkedValue = details ? true : false;
   const [rememberMe, setRememberMe] = useState(checkedValue);
@@ -25,7 +21,6 @@ function Login() {
   const initialValues = {
     email: details?.email || "",
     password: details?.password || "",
-    check: checkedValue,
   };
 
   const { errors, touched, handleSubmit, getFieldProps, isSubmitting } =
@@ -33,7 +28,7 @@ function Login() {
       initialValues: initialValues,
       validationSchema: validationSchema,
       onSubmit: (values, action) => {
-        authService.setRememberMe(rememberMe, values);
+        storageService.encryptCredentials(rememberMe, values);
         console.log(values);
         setRememberMe(false);
         action.resetForm();

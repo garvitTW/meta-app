@@ -1,6 +1,6 @@
 import "./style.scss";
 import { Row, Col, Tabs, Tab, Form, Button } from "react-bootstrap";
-import ProfessionalDetails from "../professionalDetails"
+import ProfessionalDetails from "../professionalDetails";
 function AddOrganisationProfile() {
   return (
     <>
@@ -21,19 +21,32 @@ function AddOrganisationProfile() {
                     <Row>
                       <Col md={6}>
                         <Form.Label htmlFor="">Organisation Name</Form.Label>
-                        <Form.Control type="text" placeholder="Organisation Name" />
+                        <Form.Control
+                          type="text"
+                          placeholder="Organisation Name"
+                        />
                       </Col>
                       <Col md={6}>
                         <Form.Label htmlFor="">Organisation Email</Form.Label>
                         <Form.Control type="text" placeholder="Enter Email" />
                       </Col>
                       <Col md={6}>
-                        <Form.Label htmlFor="">Organization Phone Number</Form.Label>
-                        <Form.Control type="text" placeholder="Enter Clinic Phone Number" />
+                        <Form.Label htmlFor="">
+                          Organization Phone Number
+                        </Form.Label>
+                        <Form.Control
+                          type="text"
+                          placeholder="Enter Clinic Phone Number"
+                        />
                       </Col>
                       <Col md={6}>
-                        <Form.Label htmlFor="">Organization Fax (optional)</Form.Label>
-                        <Form.Control type="text" placeholder="Enter Clinic Fax (optional)" />
+                        <Form.Label htmlFor="">
+                          Organization Fax (optional)
+                        </Form.Label>
+                        <Form.Control
+                          type="text"
+                          placeholder="Enter Clinic Fax (optional)"
+                        />
                       </Col>
                     </Row>
                     <Row>
@@ -42,18 +55,28 @@ function AddOrganisationProfile() {
                       </Col>
                       <Col md={6}>
                         <Form.Label htmlFor="">First Name</Form.Label>
-                        <Form.Control type="text" placeholder="Enter First Name" />
+                        <Form.Control
+                          type="text"
+                          placeholder="Enter First Name"
+                        />
                       </Col>
                       <Col md={6}>
                         <Form.Label htmlFor="">Last Name</Form.Label>
-                        <Form.Control type="text" placeholder="Enter Last Name" />
+                        <Form.Control
+                          type="text"
+                          placeholder="Enter Last Name"
+                        />
                       </Col>
                       <Col md={6}>
-                        <Form.Label htmlFor="">Organization Representative Phone</Form.Label>
+                        <Form.Label htmlFor="">
+                          Organization Representative Phone
+                        </Form.Label>
                         <Form.Control type="text" placeholder="Enter Phone" />
                       </Col>
                       <Col md={6}>
-                        <Form.Label htmlFor="">Organization Representative Email</Form.Label>
+                        <Form.Label htmlFor="">
+                          Organization Representative Email
+                        </Form.Label>
                         <Form.Control type="text" placeholder="Enter Email" />
                       </Col>
                     </Row>
@@ -67,7 +90,10 @@ function AddOrganisationProfile() {
                       </Col>
                       <Col md={6}>
                         <Form.Label htmlFor="">Suite/Unit #</Form.Label>
-                        <Form.Control type="text" placeholder="Enter Suite/Unit #" />
+                        <Form.Control
+                          type="text"
+                          placeholder="Enter Suite/Unit #"
+                        />
                       </Col>
                       <Col md={6}>
                         <Form.Label htmlFor="">City</Form.Label>
@@ -80,11 +106,10 @@ function AddOrganisationProfile() {
                     </Row>
                     <Button className="Next_button">Next</Button>
                   </Col>
-                  
                 </Row>
               </Tab>
               <Tab eventKey="Professional" title="Professional Details">
-                <ProfessionalDetails/>
+                <ProfessionalDetails />
               </Tab>
               <Tab eventKey="Payment" title="Payment Plan">
                 Payment

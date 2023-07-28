@@ -1,12 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 @font-face {
-    font-family: Pirulen;
-    src: url("./assests/fonts/pirulen/pirulen\ rg.otf");
-    font-weight: 400;
-    font-style: normal;
-  }
-body{
-    background-color: #141518;
-    /* padding: 26px 35px; */
+  font-family: Pirulen;
+  src: url("./assests/fonts/pirulen/pirulen\ rg.otf");
+  font-weight: 400;
+  font-style: normal;
+}
+body {
+  background-color: #141518;
+  /* padding: 26px 35px; */
+}
+.maxWidth .modal-dialog {
+  max-width: 90%;
+  height: 90%;
+}
+
+.maxWidth .modal-content {
+  padding: 30px;
+  height: 100%;
 }

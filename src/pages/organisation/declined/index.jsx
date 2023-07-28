@@ -1,292 +1,284 @@
 import "./style.scss";
-import { useState } from "react";
 import PaginationSection from "../../../components/PaginationSection";
-import { Table, InputGroup, Row, Form, Col, Button,Modal } from "react-bootstrap";
+import {
+  Table,
+  InputGroup,
+  Row,
+  Col,
+  Button,
+  Tabs,
+  Tab,
+} from "react-bootstrap";
 import EditIcon from "../../../assests/images/dashborad/edit.png";
-import CheckIcon from "../../../assests/images/dashborad/check.png";
+import { useLocation, useNavigate } from "react-router-dom";
+import Search from "../../../assests/images/dashborad/Search.png";
+import AddIcon from "../../../assests/images/dashborad/add.png";
+import URL from "../../../constants/routesURL";
 function OrganisationDeclined() {
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const location = useLocation();
+  console.log(location);
+  const navigate = useNavigate();
+  const handleTabChange = (eventKey) => {
+    navigate(eventKey);
+  };
   return (
     <>
-      <Row className="table-margin">
-        <Col md={12}>
-          <Table
-            responsive
-            striped
-            className="Patients-table Decliend_table"
-            variant="dark"
-          >
-            <thead>
-              <tr>
-                <th>
-                  <InputGroup className="mb-3">
-                    <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-                  </InputGroup>
-                </th>
-                <th> Organizational Clinic Name</th>
-                <th> Email Address</th>
-                <th> Status</th>
-                <th> Reason</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <InputGroup className="mb-3">
-                    <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-                  </InputGroup>
-                </td>
-                <td className="name-text">Apollo Clinic</td>
-                <td>loremipsum@mail.com</td>
-                <td>
-                  <Button className="Declined_button" onClick={handleShow}>Declined</Button>
-                  <Modal
-                    className="decline_modal"
-                    show={show}
-                    onHide={handleClose}
-                  >
-                    <Modal.Header closeButton>
-                      <Modal.Title>Reason for declining.</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                      <p>Select Reason</p>
-                      <select>
-                        <option>Incorrect Details</option>
-                        <option value="1">Others</option>
-                      </select>
-                      <p>Describe the reason</p>
-                     <Form.Control
-                       as="textarea"
-                       placeholder="Details do not match"
-                     />
-                    </Modal.Body>
-                    <Modal.Footer>
-                      <Row className="p-0 w-100">
-                        <Col md={6} className="ps-0">
-                          <Button
-                            className="cancel_button"
-                            variant="secondary"
-                            onClick={handleClose}
-                          >
-                            Cancel
-                          </Button>
-                        </Col>
-
-                        <Col md={6} className="pe-0">
-                          <Button
-                            className="confirm_button"
-                            variant="primary"
-                            onClick={handleClose}
-                          >
-                            Confirm
-                          </Button>
-                        </Col>
-                      </Row>
-                    </Modal.Footer>
-                  </Modal>
-                </td>
-                <td>
-                  <div>
-                    Incorrect Information provided ......{" "}
-                    <a href="#" className="name-text">
-                      View More
-                    </a>
-                  </div>
-                </td>
-                <td>
-                  <Button className="Edit_button">
-                    <img src={EditIcon} />
-                  </Button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <InputGroup className="mb-3">
-                    <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-                  </InputGroup>
-                </td>
-                <td className="name-text">Apollo Clinic</td>
-                <td>loremipsum@mail.com</td>
-                <td>
-                  <Button className="Declined_button">Declined</Button>
-                </td>
-                <td>
-                  <div>
-                    Incorrect Information provided
-                  </div>
-                </td>
-                <td>
-                  <Button className="Edit_button">
-                    <img src={EditIcon} />
-                  </Button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <InputGroup className="mb-3">
-                    <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-                  </InputGroup>
-                </td>
-                <td className="name-text">Apollo Clinic</td>
-                <td>loremipsum@mail.com</td>
-                <td>
-                  <Button className="Declined_button">Declined</Button>
-                </td>
-                <td>
-                  <div>
-                    Incorrect Information provided
-                  </div>
-                </td>
-                <td>
-                  <Button className="Edit_button">
-                    <img src={EditIcon} />
-                  </Button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <InputGroup className="mb-3">
-                    <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-                  </InputGroup>
-                </td>
-                <td className="name-text">Apollo Clinic</td>
-                <td>loremipsum@mail.com</td>
-                <td>
-                  <Button className="Declined_button">Declined</Button>
-                </td>
-                <td>
-                  <div>
-                    Incorrect Information provided
-                  </div>
-                </td>
-                <td>
-                  <Button className="Edit_button">
-                    <img src={EditIcon} />
-                  </Button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <InputGroup className="mb-3">
-                    <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-                  </InputGroup>
-                </td>
-                <td className="name-text">Apollo Clinic</td>
-                <td>loremipsum@mail.com</td>
-                <td>
-                  <Button className="Declined_button">Declined</Button>
-                </td>
-                <td>
-                  <div>
-                    Incorrect Information provided
-                  </div>
-                </td>
-                <td>
-                  <Button className="Edit_button">
-                    <img src={EditIcon} />
-                  </Button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <InputGroup className="mb-3">
-                    <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-                  </InputGroup>
-                </td>
-                <td className="name-text">Apollo Clinic</td>
-                <td>loremipsum@mail.com</td>
-                <td>
-                  <Button className="Declined_button">Declined</Button>
-                </td>
-                <td>
-                  <div>
-                    Incorrect Information provided
-                  </div>
-                </td>
-                <td>
-                  <Button className="Edit_button">
-                    <img src={EditIcon} />
-                  </Button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <InputGroup className="mb-3">
-                    <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-                  </InputGroup>
-                </td>
-                <td className="name-text">ORG - 1</td>
-                <td>loremipsum@mail.com</td>
-                <td>
-                  <Button className="Declined_button">Declined</Button>
-                </td>
-                <td>
-                  <div>
-                    Incorrect Information provided
-                  </div>
-                </td>
-                <td>
-                  <Button className="Edit_button">
-                    <img src={EditIcon} />
-                  </Button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <InputGroup className="mb-3">
-                    <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-                  </InputGroup>
-                </td>
-                <td className="name-text">Apollo Clinic</td>
-                <td>loremipsum@mail.com</td>
-                <td>
-                  <Button className="Declined_button">Declined</Button>
-                </td>
-                <td>
-                  <div>
-                    Incorrect Information provided
-                  </div>
-                </td>
-                <td>
-                  <Button className="Edit_button">
-                    <img src={EditIcon} />
-                  </Button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <InputGroup className="mb-3">
-                    <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-                  </InputGroup>
-                </td>
-                <td className="name-text">ORG - 1</td>
-                <td>loremipsum@mail.com</td>
-                <td>
-                  <Button className="Declined_button">Declined</Button>
-                </td>
-                <td>
-                  <div>
-                    Incorrect Information provided
-                  </div>
-                </td>
-                <td>
-                  <Button className="Edit_button">
-                    <img src={EditIcon} />
-                  </Button>
-                </td>
-              </tr>
-              
-            </tbody>
-          </Table>
-        </Col>
-        <Col md={12}>
-          <PaginationSection />
-        </Col>
-      </Row>
+      <div className="Patients_section Organization-section">
+        <Row>
+          <Col md={3}>
+            <h1>Organization Clinics</h1>
+          </Col>
+          <Col md={4}>
+            <div className="position-relative">
+              <img className="search-img" src={Search} alt="search" />
+              <input
+                className="w-100 search-input"
+                placeholder="Search patients"
+              />
+            </div>
+          </Col>
+          <Col md={2}>
+            <button className="btn export-button">Export</button>
+          </Col>
+          <Col md={3}>
+            <button
+              onClick={() => navigate(URL.ORGANISATION.CREATE.PROFILE_DETAIL)}
+              className="btn Organization-button"
+            >
+              <img src={AddIcon} className="pe-2" alt="add" />
+              Add Organization
+            </button>
+          </Col>
+        </Row>
+        <Tabs
+          defaultActiveKey={URL.ORGANISATION.DECLINED}
+          id="uncontrolled-tab-example"
+          className="organise_tabs"
+          onSelect={handleTabChange}
+        >
+          <Tab
+            eventKey={URL.ORGANISATION.LISTING}
+            title="Registered (50)"
+          ></Tab>
+          <Tab eventKey={URL.ORGANISATION.PENDING} title="Pending(20)"></Tab>
+          <Tab eventKey={URL.ORGANISATION.DECLINED} title="Declined(45)"></Tab>
+        </Tabs>
+        <Row className="table-margin">
+          <Col md={12}>
+            <Table
+              responsive
+              striped
+              className="Patients-table Decliend_table"
+              variant="dark"
+            >
+              <thead>
+                <tr>
+                  <th>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+                    </InputGroup>
+                  </th>
+                  <th> Organizational Clinic Name</th>
+                  <th> Email Address</th>
+                  <th> Status</th>
+                  <th> Reason</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+                    </InputGroup>
+                  </td>
+                  <td className="name-text">Apollo Clinic</td>
+                  <td>loremipsum@mail.com</td>
+                  <td>
+                    <Button className="Declined_button">Declined</Button>
+                  </td>
+                  <td>
+                    <div>
+                      Incorrect Information provided ......{" "}
+                      <a href="#" className="name-text">
+                        View More
+                      </a>
+                    </div>
+                  </td>
+                  <td>
+                    <Button className="Edit_button">
+                      <img src={EditIcon} />
+                    </Button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+                    </InputGroup>
+                  </td>
+                  <td className="name-text">Apollo Clinic</td>
+                  <td>loremipsum@mail.com</td>
+                  <td>
+                    <Button className="Declined_button">Declined</Button>
+                  </td>
+                  <td>
+                    <div>Incorrect Information provided</div>
+                  </td>
+                  <td>
+                    <Button className="Edit_button">
+                      <img src={EditIcon} />
+                    </Button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+                    </InputGroup>
+                  </td>
+                  <td className="name-text">Apollo Clinic</td>
+                  <td>loremipsum@mail.com</td>
+                  <td>
+                    <Button className="Declined_button">Declined</Button>
+                  </td>
+                  <td>
+                    <div>Incorrect Information provided</div>
+                  </td>
+                  <td>
+                    <Button className="Edit_button">
+                      <img src={EditIcon} />
+                    </Button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+                    </InputGroup>
+                  </td>
+                  <td className="name-text">Apollo Clinic</td>
+                  <td>loremipsum@mail.com</td>
+                  <td>
+                    <Button className="Declined_button">Declined</Button>
+                  </td>
+                  <td>
+                    <div>Incorrect Information provided</div>
+                  </td>
+                  <td>
+                    <Button className="Edit_button">
+                      <img src={EditIcon} />
+                    </Button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+                    </InputGroup>
+                  </td>
+                  <td className="name-text">Apollo Clinic</td>
+                  <td>loremipsum@mail.com</td>
+                  <td>
+                    <Button className="Declined_button">Declined</Button>
+                  </td>
+                  <td>
+                    <div>Incorrect Information provided</div>
+                  </td>
+                  <td>
+                    <Button className="Edit_button">
+                      <img src={EditIcon} />
+                    </Button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+                    </InputGroup>
+                  </td>
+                  <td className="name-text">Apollo Clinic</td>
+                  <td>loremipsum@mail.com</td>
+                  <td>
+                    <Button className="Declined_button">Declined</Button>
+                  </td>
+                  <td>
+                    <div>Incorrect Information provided</div>
+                  </td>
+                  <td>
+                    <Button className="Edit_button">
+                      <img src={EditIcon} />
+                    </Button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+                    </InputGroup>
+                  </td>
+                  <td className="name-text">ORG - 1</td>
+                  <td>loremipsum@mail.com</td>
+                  <td>
+                    <Button className="Declined_button">Declined</Button>
+                  </td>
+                  <td>
+                    <div>Incorrect Information provided</div>
+                  </td>
+                  <td>
+                    <Button className="Edit_button">
+                      <img src={EditIcon} />
+                    </Button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+                    </InputGroup>
+                  </td>
+                  <td className="name-text">Apollo Clinic</td>
+                  <td>loremipsum@mail.com</td>
+                  <td>
+                    <Button className="Declined_button">Declined</Button>
+                  </td>
+                  <td>
+                    <div>Incorrect Information provided</div>
+                  </td>
+                  <td>
+                    <Button className="Edit_button">
+                      <img src={EditIcon} />
+                    </Button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+                    </InputGroup>
+                  </td>
+                  <td className="name-text">ORG - 1</td>
+                  <td>loremipsum@mail.com</td>
+                  <td>
+                    <Button className="Declined_button">Declined</Button>
+                  </td>
+                  <td>
+                    <div>Incorrect Information provided</div>
+                  </td>
+                  <td>
+                    <Button className="Edit_button">
+                      <img src={EditIcon} />
+                    </Button>
+                  </td>
+                </tr>
+              </tbody>
+            </Table>
+          </Col>
+          <Col md={12}>
+            <PaginationSection />
+          </Col>
+        </Row>
+      </div>
     </>
   );
 }

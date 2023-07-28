@@ -1,5 +1,5 @@
 export const STORAGE_KEYS = {
-  AUTH_TOKEN: "authToken",
-  USER_DETAILS: "userData",
-  REMEMBER_ME_DETAILS: "rememberDetails",
+  AUTH_TOKEN: "authTokenMetaDoc",
+  USER_DETAILS: "userDataMetaDoc",
+  REMEMBER_ME_DETAILS: "rememberDetailsMetaDoc",
 };

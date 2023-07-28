@@ -26,14 +26,6 @@ export const setUserDetails = (user) => {
   storageService.setToLocalStorage(STORAGE_KEYS.USER_DETAILS, user);
 };
 
-export const setRememberMe = (rememberMe, values) => {
-  if (rememberMe) {
-    storageService.setToLocalStorage(STORAGE_KEYS.REMEMBER_ME_DETAILS, values);
-  } else {
-    storageService.removeFromLocalStorage(STORAGE_KEYS.REMEMBER_ME_DETAILS);
-  }
-};
-
 export const setAuthToken = (token) => {
   storageService.setToLocalStorage(STORAGE_KEYS.AUTH_TOKEN, token);
 };
@@ -41,7 +33,6 @@ export const setAuthToken = (token) => {
 export const authService = {
   isAuthenticated,
   getUserDetails,
-  setRememberMe,
   logout,
   login,
 };
