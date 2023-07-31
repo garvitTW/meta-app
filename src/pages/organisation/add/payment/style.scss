@@ -1,0 +1,71 @@
+.payment_page {
+    p {
+        color: #B2B9CD;
+        font-family: Lato;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 28px;
+        margin: 0;
+    }
+
+    h3 {
+        color: #0ACEEC;
+        font-family: Lato;
+        font-size: 22px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 28px;
+
+        span {
+            color: #30E0A1;
+            font-family: Lato;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 28px;
+            padding-left: 16px;
+        }
+    }
+
+    .plan_details {
+        padding-top: 50px;
+        h4 {
+            color: #B2B9CD;
+            font-family: Lato;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 28px;
+        }
+        ul{
+            padding: 0;
+            list-style: none;
+            li{
+                position: relative;
+                font-family: Lato;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 28px;
+                letter-spacing: -0.48px;
+                color: #fff;
+                padding-bottom: 16px;
+                span{
+                    padding-left: 33px;
+                }
+                &::before{
+                    position: absolute;
+                    content: "";
+                    background-image: url("../../../../assests/images/dashborad/Circle_Check.svg");
+                    left: 0;
+                    height: 24px;
+                    width: 24px;
+                    background-repeat: no-repeat;
+                    background-size: 100%;
+                    top: 5px;
+                }
+            }
+        }
+    }
+}

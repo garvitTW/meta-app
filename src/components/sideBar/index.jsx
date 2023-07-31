@@ -4,6 +4,7 @@ import Setting from "../../assests/images/sidebar/setting.png";
 import Logout from "../../assests/images/sidebar/logout.png";
 import { useNavigate } from "react-router-dom";
 import sideBarItems from "./sideBarItems";
+import URL from "../../constants/routesURL";
 
 function SideBar() {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ function SideBar() {
           </ul>
           <p>ACCOUNT</p>
           <ul>
-            <li>
+            <li onClick={()=>navigate(URL.SETTINGS)}>
               <span>
                 <img src={Setting} alt="setting" />
               </span>

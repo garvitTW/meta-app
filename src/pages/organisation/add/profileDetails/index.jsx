@@ -1,7 +1,13 @@
 import "./style.scss";
 import { Row, Col, Tabs, Tab, Form, Button } from "react-bootstrap";
 import ProfessionalDetails from "../professionalDetails";
+import URL from "../../../../constants/routesURL";
+import { useNavigate } from "react-router-dom";
 function AddOrganisationProfile() {
+  const navigate = useNavigate();
+  const handleTabChange = (eventKey) => {
+    navigate(eventKey);
+  };
   return (
     <>
       <div className="Patients_section Organization-section AddOrganisationProfile">
@@ -11,12 +17,24 @@ function AddOrganisationProfile() {
           </Col>
           <Col md={12}>
             <Tabs
-              defaultActiveKey="Profile"
+              defaultActiveKey={URL.ORGANISATION.CREATE.PROFILE_DETAIL}
               id="uncontrolled-tab-example"
               className="organise_tabs"
+              onSelect={handleTabChange}
             >
-              <Tab eventKey="Profile" title="Profile Details">
-                <Row>
+              <Tab eventKey={URL.ORGANISATION.CREATE.PROFILE_DETAIL} title="Profile Details">
+               
+              </Tab>
+              <Tab eventKey={URL.ORGANISATION.CREATE.PROFESSIONAL_DETAIL} title="Professional Details">
+               
+              </Tab>
+              <Tab eventKey={URL.ORGANISATION.CREATE.PAYMENT} title="Payment Plan">
+                
+              </Tab>
+            </Tabs>
+          </Col>
+        </Row>
+        <Row>
                   <Col md={8}>
                     <Row>
                       <Col md={6}>
@@ -107,16 +125,6 @@ function AddOrganisationProfile() {
                     <Button className="Next_button">Next</Button>
                   </Col>
                 </Row>
-              </Tab>
-              <Tab eventKey="Professional" title="Professional Details">
-                <ProfessionalDetails />
-              </Tab>
-              <Tab eventKey="Payment" title="Payment Plan">
-                Payment
-              </Tab>
-            </Tabs>
-          </Col>
-        </Row>
       </div>
     </>
   );

@@ -1,12 +1,41 @@
 import "./style.scss";
-import { Row, Col, InputGroup, Form, Button } from "react-bootstrap";
+import { Row, Col, InputGroup, Form, Button, Tabs, Tab } from "react-bootstrap";
 import DeleteIcon from "../../../../assests/images/dashborad/delete.png";
 import AddIcon from "../../../../assests/images/dashborad/plus-circle.svg";
 import SaveIcon from "../../../../assests/images/dashborad/save.svg";
+import URL from "../../../../constants/routesURL";
+import { useNavigate } from "react-router-dom";
 function EditOrganisationProfessional() {
+  const navigate = useNavigate();
+  const handleTabChange = (eventKey) => {
+    navigate(eventKey);
+  };
   return (
     <>
-      <div className="Add_Organisation_Professional">
+      <div className="Add_Organisation_Professional Patients_section Organization-section AddOrganisationProfile">
+      <Row>
+          <Col>
+            <h1>Edit Organization</h1>
+          </Col>
+          <Col md={12}>
+            <Tabs
+              defaultActiveKey={URL.ORGANISATION.EDIT.PROFESSIONAL_DETAIL}
+              id="uncontrolled-tab-example"
+              className="organise_tabs"
+              onSelect={handleTabChange}
+            >
+              <Tab eventKey={URL.ORGANISATION.EDIT.PROFILE_DETAIL} title="Profile Details">
+               
+              </Tab>
+              <Tab eventKey={URL.ORGANISATION.EDIT.PROFESSIONAL_DETAIL} title="Professional Details">
+               
+              </Tab>
+              <Tab eventKey={URL.ORGANISATION.EDIT.PAYMENT} title="Payment Plan">
+ 
+              </Tab>
+            </Tabs>
+          </Col>
+        </Row>
         <Row className="AddOrganisationProfile ">
           <Col md={12}>
             <h2 className="mt-0">Services offered (Select Minimum 1)</h2>

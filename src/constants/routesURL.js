@@ -12,10 +12,12 @@ const URL = {
     CREATE: {
       PROFILE_DETAIL: "/organisation/create/profile-detail",
       PROFESSIONAL_DETAIL: "/organisation/create/professional-detail",
+      PAYMENT:"/organisation/create/payment"
     },
     EDIT: {
       PROFILE_DETAIL: "/organisation/edit/profile-detail",
       PROFESSIONAL_DETAIL: "/organisation/edit/professional-detail",
+      PAYMENT:"/organisation/edit/payment"
     },
   },
   CLINIC: {
@@ -25,6 +27,7 @@ const URL = {
     LISTING: "/doctor/listing",
   },
   REPORTS: "/reports",
+  SETTINGS:"/settings"
 };
 
 export default URL;

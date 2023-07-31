@@ -1,0 +1,62 @@
+.setting_page {
+    .border-bottomrow{
+        border-bottom: 1px solid #282C38;
+        margin-bottom: 20px;
+        &:last-child{
+            border: 0;
+        }
+    }
+    h1 {
+        font-family: Lato;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        color: #fff;
+        padding-top: 34px;
+        padding-bottom: 38px;
+    }
+    .form-check-input:checked{
+        background-color: #0ACEEC;
+        border-color: #0ACEEC;
+    }
+    .form-check-input{
+        width: 36px !important;
+        height: 20px;
+        background-color: #282C38;
+        border-color: #3C4254;
+        &:focus{
+            box-shadow: none;
+        }
+    }
+    h4{
+        font-family: Lato;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 20px;
+        color: #fff;
+    }
+    p{
+        color: #B2B9CD;
+        font-family: Lato;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 20px;
+        margin: 0;
+    }
+    .form-check-label{
+        font-family: Inter;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 20px;
+        padding-left: 8px;
+        color: #fff;
+    }
+    .form-switch{
+        padding-bottom: 16px;
+        margin: 0;
+    }
+}

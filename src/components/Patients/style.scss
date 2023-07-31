@@ -10,9 +10,11 @@
         color: #fff;
         margin: 0;
     }
-    .name-textunder{
+
+    .name-textunder {
         color: #0ACEEC !important;
     }
+
     .search-input {
         border-radius: 10px;
         border: 1px solid #3C4254;
@@ -82,4 +84,137 @@
         }
     }
 
+}
+
+.patient-info {
+    .bottom-info {
+        padding-top: 24px;
+
+        img {
+            margin-right: 10px;
+        }
+
+        .col-md-6 {
+            color: #fff;
+            font-family: Lato;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 20px;
+            letter-spacing: 0.07px;
+            margin-bottom: 16px;
+        }
+
+        p {
+            margin: 0;
+            text-align: right;
+        }
+    }
+
+    .modal-header {
+        border: 0;
+
+        .btn-close {
+            color: #fff;
+            background-image: url("../../assests/images/dashborad/close.png");
+            background-size: 100%;
+            opacity: 1;
+            box-shadow: none;
+        }
+    }
+
+    .modal-content {
+        border-radius: 12px;
+        background: #1E1F25;
+
+        .info_section {
+            text-align: center;
+
+            .info-bg {
+                border-radius: 100px;
+                background: #FFF;
+                color: #1E1F25;
+                font-family: Inter;
+                font-size: 24px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 28px;
+                letter-spacing: 0.12px;
+                width: 120px;
+                height: 120px;
+                text-align: center;
+                padding: 45px;
+                margin: 0 auto;
+
+            }
+
+            p {
+
+                text-align: center;
+                font-family: Inter;
+                font-size: 18px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 28px;
+                letter-spacing: 0.09px;
+                color: #fff;
+                padding-top: 12px;
+                margin-bottom: 5px;
+
+                &:last-child {
+                    color: #fff;
+                    text-align: center;
+                    font-family: Inter;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 28px;
+                    letter-spacing: 0.07px;
+                    padding: 0 0 24px 0px;
+                    border-bottom: 1px solid #282C38;
+                }
+            }
+
+        }
+    }
+
+    .modal-footer {
+        border: 0;
+
+        .delete-button {
+            color: #F93440;
+            font-family: Inter;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 20px;
+            letter-spacing: 0.07px;
+            text-transform: capitalize;
+            background: transparent;
+            border-color: #F93440;
+            height: 40px;
+            img{
+                margin-right: 4px;
+                vertical-align: bottom;
+            }
+        }
+
+        .edit-button {
+            font-family: Inter;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 20px;
+            letter-spacing: 0.07px;
+            color: #000;
+            background: #0ACEEC;
+            border-color: #0ACEEC;
+            text-transform: capitalize;
+            height: 40px;
+            img{
+                margin-right: 4px;
+                vertical-align: bottom;
+            }
+        }
+    }
 }

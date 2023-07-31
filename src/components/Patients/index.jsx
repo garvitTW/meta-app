@@ -2,11 +2,11 @@ import React from "react";
 import "./style.scss";
 import TableSection from "../../components/TableSection";
 import PaginationSection from "../../components/PaginationSection";
-import { Row, Col, Dropdown } from "react-bootstrap";
+import { Row, Col, Dropdown} from "react-bootstrap";
 import Search from "../../assests/images/dashborad/Search.png";
 import Dropdownarrow from "../../assests/images/dashborad/dropdown.png";
 
-function index() {
+function Patients() {
   return (
     <>
       <div className="Patients_section">
@@ -64,4 +64,4 @@ function index() {
   );
 }
 
-export default index;
+export default Patients;

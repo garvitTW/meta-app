@@ -13,6 +13,9 @@ import EditOrganisationProfessional from "../pages/organisation/edit/professiona
 import ClinicListing from "../pages/clinic/listing";
 import DoctorListing from "../pages/doctor/listing";
 import Reports from "../pages/reports";
+import Settings from "../pages/setting";
+import AddPayment from "../pages/organisation/add/payment";
+import EditPayment from "../pages/organisation/edit/payment";
 
 const publicRoutes = [
   {
@@ -64,6 +67,11 @@ const protectedRoutes = [
     component: AddOrganisationProfessional,
   },
   {
+    id: 16,
+    path: URL.ORGANISATION.CREATE.PAYMENT,
+    component: AddPayment,
+  },
+  {
     id: 10,
     path: URL.ORGANISATION.EDIT.PROFILE_DETAIL,
     component: EditOrganisationProfile,
@@ -72,6 +80,11 @@ const protectedRoutes = [
     id: 11,
     path: URL.ORGANISATION.EDIT.PROFESSIONAL_DETAIL,
     component: EditOrganisationProfessional,
+  },
+  {
+    id: 16,
+    path: URL.ORGANISATION.EDIT.PAYMENT,
+    component: EditPayment,
   },
   {
     id: 12,
@@ -84,9 +97,14 @@ const protectedRoutes = [
     component: DoctorListing,
   },
   {
-    id: 13,
+    id: 14,
     path: URL.REPORTS,
     component: Reports,
+  },
+  {
+    id: 15,
+    path: URL.SETTINGS,
+    component: Settings,
   },
 ];
 

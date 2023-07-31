@@ -1,0 +1,43 @@
+.patientlist_modal {
+    .status_dropdown {
+        button {
+            background-color: #000;
+        }
+    }
+
+    .search-input {
+        background-color: #000;
+    }
+
+    .modal-dialog {
+        width: 1100px;
+        margin: 0 auto;
+        max-width: 100%;
+        height: 100%;
+    }
+
+    .modal-content {
+        background: #1C1D20;
+        width: 1100px;
+        margin: 0 auto;
+        border-radius: 20px;
+        height: 96%;
+    }
+
+    .modal-header {
+        border: 0;
+        .btn-close{
+            color: #fff;
+            background-image: url("../../../assests/images/dashborad/close.png");
+            background-size: 100%;
+            opacity: 1;
+            box-shadow: none;
+        }
+    }
+
+    .modal-body {
+        padding: 35px 70px 70px 70px;
+    }
+
+    
+}

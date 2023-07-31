@@ -1,13 +1,45 @@
 import "./style.scss";
-import { Row, Col, InputGroup, Form, Button } from "react-bootstrap";
+import { Row, Col, InputGroup, Form, Button, Tabs, Tab } from "react-bootstrap";
 import DeleteIcon from "../../../../assests/images/dashborad/delete.png";
 import AddIcon from "../../../../assests/images/dashborad/plus-circle.svg";
 import CrossIcon from "../../../../assests/images/dashborad/cross.svg";
 import SaveIcon from "../../../../assests/images/dashborad/save.svg";
+import URL from "../../../../constants/routesURL";
+import { useNavigate } from "react-router-dom";
 function AddOrganisationProfessional() {
+  const navigate = useNavigate();
+  const handleTabChange = (eventKey) => {
+    navigate(eventKey);
+  };
   return (
     <>
-      <div className="Add_Organisation_Professional">
+      <div className="Patients_section Organization-section AddOrganisationProfile Add_Organisation_Professional">
+        <Row>
+          <Col>
+            <h1>Add Organization</h1>
+          </Col>
+          <Col md={12}>
+            <Tabs
+              defaultActiveKey={URL.ORGANISATION.CREATE.PROFESSIONAL_DETAIL}
+              id="uncontrolled-tab-example"
+              className="organise_tabs"
+              onSelect={handleTabChange}
+            >
+              <Tab
+                eventKey={URL.ORGANISATION.CREATE.PROFILE_DETAIL}
+                title="Profile Details"
+              ></Tab>
+              <Tab
+                eventKey={URL.ORGANISATION.CREATE.PROFESSIONAL_DETAIL}
+                title="Professional Details"
+              ></Tab>
+              <Tab
+                eventKey={URL.ORGANISATION.CREATE.PAYMENT}
+                title="Payment Plan"
+              ></Tab>
+            </Tabs>
+          </Col>
+        </Row>
         <Row className="AddOrganisationProfile ">
           <Col md={12}>
             <h2 className="mt-0">Services offered (Select Minimum 1)</h2>
@@ -98,8 +130,13 @@ function AddOrganisationProfessional() {
             <div className="select_tags">
               <ul>
                 <li>
-                  English<img src={CrossIcon}/></li>
-                <li>spanish<img src={CrossIcon}/></li>
+                  English
+                  <img src={CrossIcon} />
+                </li>
+                <li>
+                  spanish
+                  <img src={CrossIcon} />
+                </li>
               </ul>
             </div>
           </Col>
@@ -150,12 +187,8 @@ function AddOrganisationProfessional() {
         </button>
         <Row className="mt-5">
           <Col md={12}>
-            <button className="cancel-buttongry">
-            Cancel
-        </button>
-        <button className="blue-button">
-        Add Organization
-        </button>
+            <button className="cancel-buttongry">Cancel</button>
+            <button className="blue-button">Add Organization</button>
           </Col>
         </Row>
       </div>
