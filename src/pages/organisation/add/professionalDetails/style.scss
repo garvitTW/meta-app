@@ -58,6 +58,19 @@
     .Languages_select {
         margin-bottom: 24px;
         width: 744px;
+        font-family: Lato;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        color: #B2B9CD;
+        padding-left: 25px;
+
+        &:focus {
+            box-shadow: none;
+            outline: none;
+        }
+
     }
 
     .select_tags {
@@ -80,6 +93,7 @@
                 background: #1e1f25;
                 border-radius: 4px;
                 padding: 5px 10px;
+                text-transform: capitalize;
             }
         }
     }
@@ -175,7 +189,7 @@
     background: #0ACEEC;
     color: #1E1F25;
     font-family: Inter;
-    font-size: 14px;
+    font-size: 16px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -185,15 +199,15 @@
 }
 
 .cancel-buttongry {
+    font-family: Lato;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
     border: 1px solid #3C4254;
     background: #1e1f25;
     height: 47px;
     color: #FFF;
-    font-family: Lato;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
     border-radius: 10px;
     width: 145px;
     margin-right: 12px;

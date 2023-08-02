@@ -108,7 +108,7 @@ function AddOrganisationProfessional() {
               </Col>
               <Col md={12}>
                 <Form.Label htmlFor="" className="mt-3">
-                  Other
+                  Others
                 </Form.Label>
                 <div className="others_section">
                   <Form.Control type="text" placeholder="Other reason..." />
@@ -143,9 +143,9 @@ function AddOrganisationProfessional() {
           <Col md={12}>
             <h2 className="mt-0">Documents</h2>
             <hr />
-            <Form.Label htmlFor="" className="mt-3">
+            {/* <Form.Label htmlFor="" className="mt-3">
               Languages<span className="mendatory-feild">*</span>
-            </Form.Label>
+            </Form.Label> */}
           </Col>
         </Row>
         <div className="d-flex Category_div">
