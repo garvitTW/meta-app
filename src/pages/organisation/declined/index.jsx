@@ -33,7 +33,7 @@ function OrganisationDeclined() {
               <img className="search-img" src={Search} alt="search" />
               <input
                 className="w-100 search-input"
-                placeholder="Search patients"
+                placeholder="Search by Organisation Name"
               />
             </div>
           </Col>

@@ -11,10 +11,10 @@ function Patients() {
     <>
       <div className="Patients_section">
         <Row>
-          <Col md={4}>
+          <Col md={5}>
             <h1>Patients</h1>
           </Col>
-          <Col md={6}>
+          <Col md={5}>
             <div className="position-relative">
               <img className="search-img" src={Search} alt="search" />
               <input
@@ -28,7 +28,7 @@ function Patients() {
           </Col>
         </Row>
         <Row className="mt-4">
-          <Col md={3} className="status_dropdown">
+          <Col md={3} className="status_dropdown enable-status">
             <Dropdown>
               <Dropdown.Toggle variant="success" id="dropdown-basic">
                 <span>Status:</span> Enabled
@@ -40,7 +40,7 @@ function Patients() {
             </Dropdown>
           </Col>
           <Col md={4} className="status_dropdown">
-            <Dropdown>
+            <Dropdown className="posture-status">
               <Dropdown.Toggle variant="success" id="dropdown-basic">
                 <span>Posture Score:</span> 50% to 70%
                 <img src={Dropdownarrow} />

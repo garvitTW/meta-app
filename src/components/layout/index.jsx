@@ -10,7 +10,7 @@ function Layout({ children }) {
           <Col sm={3}>
             <SideBar />
           </Col>
-          <Col sm={9}>
+          <Col sm={9} className="ps-0">
             <Header />
             {children}
           </Col>

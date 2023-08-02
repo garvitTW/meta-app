@@ -23,6 +23,16 @@
         height: 42px;
         text-indent: 27px;
         background-color: #1E1F25;
+        font-family: Inter;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        color: #B2B9CD;
+
+        &::placeholder {
+            color: #B2B9CD;
+        }
     }
 
     .export-button {
@@ -46,6 +56,14 @@
 
     .table-margin {
         padding-top: 38px;
+    }
+
+    .enable-status {
+        width: 209px;
+    }
+
+    .posture-status {
+        width: 234px;
     }
 
     .status_dropdown {
@@ -87,6 +105,16 @@
 }
 
 .patient-info {
+    .modal-dialog {
+        max-width: 100%;
+        width: 480px;
+        position: absolute;
+        top: 47%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%) !important;
+        transform: translate(-50%, -50%) !important;
+    }
+
     .bottom-info {
         padding-top: 24px;
 
@@ -193,7 +221,8 @@
             background: transparent;
             border-color: #F93440;
             height: 40px;
-            img{
+
+            img {
                 margin-right: 4px;
                 vertical-align: bottom;
             }
@@ -211,7 +240,8 @@
             border-color: #0ACEEC;
             text-transform: capitalize;
             height: 40px;
-            img{
+
+            img {
                 margin-right: 4px;
                 vertical-align: bottom;
             }

@@ -1,9 +1,13 @@
 .Add_Organisation_Professional {
     .input-group {
+        align-items: end;
+
         .input-group-text {
             background: transparent;
             border: 0;
             padding: 0;
+            height: 24px;
+            width: 24px;
 
             input {
                 background-color: transparent;
@@ -143,10 +147,12 @@
         background-color: transparent;
         padding: 0;
         border: 0;
-        &:hover{
+
+        &:hover {
             background-color: transparent;
         }
-        &:active{
+
+        &:active {
             background-color: transparent !important;
         }
     }

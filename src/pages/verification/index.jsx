@@ -61,6 +61,7 @@ function Verification() {
           <Container fluid>
             <Row>
               <Col className=" verification_page">
+              <div className="form_alignverify">
                 <div className="text-center">
                   <img src={Logo} alt="logo" />
                 </div>
@@ -102,6 +103,7 @@ function Verification() {
                     </Button>
                   </div>
                 </Form>
+                </div>
               </Col>
             </Row>
           </Container>

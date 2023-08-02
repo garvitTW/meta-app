@@ -49,41 +49,43 @@ function Login() {
           <Container fluid>
             <Row>
               <Col md={4} className="offset-md-4">
-                <div className="text-center">
-                  <img src={Logo} alt="Logo" />
-                </div>
-                <h1>Admin Login</h1>
-                <p>Welcome back! Please enter your details.</p>
-                <Form onSubmit={handleSubmit}>
-                  <Input
-                    {...formikProps}
-                    name="email"
-                    type="email"
-                    placeholder="Enter your email"
-                    label="Email"
-                  />
-                  <Input
-                    {...formikProps}
-                    name="password"
-                    type="password"
-                    placeholder="Password"
-                    label="Password"
-                  />
-                  <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check
-                      checked={rememberMe}
-                      type="checkbox"
-                      label="Remember me"
-                      onChange={(e) => setRememberMe(e.target.checked)}
-                    />
-                  </Form.Group>
+                <div className="form_align">
                   <div className="text-center">
-                    <ButtonWithLoader
-                      isSubmitting={isSubmitting}
-                      label="Login"
-                    />
+                    <img src={Logo} alt="Logo" />
                   </div>
-                </Form>
+                  <h1>Admin Login</h1>
+                  <p className="text-center">Welcome back! Please enter your details.</p>
+                  <Form onSubmit={handleSubmit}>
+                    <Input
+                      {...formikProps}
+                      name="email"
+                      type="email"
+                      placeholder="Enter your email"
+                      label="Email"
+                    />
+                    <Input
+                      {...formikProps}
+                      name="password"
+                      type="password"
+                      placeholder="Password"
+                      label="Password"
+                    />
+                    <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                      <Form.Check
+                        checked={rememberMe}
+                        type="checkbox"
+                        label="Remember me"
+                        onChange={(e) => setRememberMe(e.target.checked)}
+                      />
+                    </Form.Group>
+                    <div className="text-center">
+                      <ButtonWithLoader
+                        isSubmitting={isSubmitting}
+                        label="Login"
+                      />
+                    </div>
+                  </Form>
+                </div>
               </Col>
             </Row>
           </Container>

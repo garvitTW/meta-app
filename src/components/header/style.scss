@@ -13,6 +13,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+
         ul {
             list-style: none;
             padding: 0;
@@ -28,8 +29,14 @@
                 line-height: normal;
                 text-transform: capitalize;
                 position: relative;
+
+                .profile-name{
+                    position: relative;
+                    top: 10px;
+                }
             }
-            .arrow-icon::before{
+
+            .arrow-icon::before {
                 position: absolute;
                 content: ">";
                 top: -13px;
@@ -62,7 +69,7 @@
                 background: transparent;
                 border: 0;
                 margin-left: 30px;
-                vertical-align: super;
+                vertical-align: middle;
 
                 &::after {
                     display: none;

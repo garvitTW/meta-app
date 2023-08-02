@@ -8,6 +8,15 @@
   width: 100%;
   max-width: 100%;
   padding-bottom: 30px;
+  .form_align{
+    max-width: 100%;
+    width: 450px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
 
   img {
     width: 327px;
@@ -16,6 +25,7 @@
   }
   .is-invalid-label {
     border-color: red;
+    text-align: left;
   }
 
   h1 {
@@ -29,7 +39,7 @@
   }
 
   p {
-    text-align: center;
+    text-align: left;
     font-family: Lato;
     font-size: 16px;
     font-style: normal;
@@ -82,7 +92,7 @@
     font-style: normal;
     font-weight: 700;
     line-height: normal;
-    width: 100%;
+    width: 360px;
     height: 42px;
     padding: 11px 10px;
     margin: 0 auto;

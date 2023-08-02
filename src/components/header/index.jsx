@@ -27,7 +27,7 @@ function Header() {
                   <div className="d-inline-block ps-3">
                     <img src={User} alt="User" />
                   </div>
-                  <div className="d-inline-block ps-3">
+                  <div className="profile-name d-inline-block ps-3">
                     <h3>Armia Abado</h3>
                     <p>Administrator</p>
                   </div>

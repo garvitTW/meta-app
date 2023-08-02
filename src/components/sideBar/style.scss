@@ -4,6 +4,8 @@
   // width: 249px;
   width: 100%;
   height: 100%;
+  max-width: 270px;
+  text-align: left;
   padding-bottom: 50px;
   .logo-border {
     //border-bottom: 1px solid #282C38;
@@ -11,6 +13,7 @@
     border-bottom: 1px solid #282c38;
     margin-bottom: 28px;
   }
+  
   p {
     font-family: Lato;
     font-size: 14px;

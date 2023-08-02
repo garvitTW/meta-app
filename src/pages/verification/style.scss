@@ -4,3 +4,19 @@
 .text-danger {
   color: red;
 }
+
+.form_alignverify{
+  max-width: 100%;
+  width: 550px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  input{
+    &:focus{
+      outline: 3px solid #fff !important;
+      border: 2px solid #0aceec !important;
+    }
+  }
+}
