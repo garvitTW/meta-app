@@ -8,6 +8,7 @@ import {
   Form,
   Button,
   Modal,
+  InputGroup,
 } from "react-bootstrap";
 import Search from "../../../assests/images/dashborad/Search.png";
 import Dropdownarrow from "../../../assests/images/dashborad/dropdown.png";
@@ -20,51 +21,55 @@ function DoctorListing() {
   return (
     <>
       <div className="Patients_section">
-        <Row>
-          <Col md={4}>
+        <div>
+          <div className="d-inline-block">
             <h1>Doctors</h1>
-          </Col>
-
-          <Col md={6}>
+          </div>
+          <div className="right-header">
             <div className="position-relative">
-              <img className="search-img" src={Search} />
-              <input
-                className="w-100 search-input"
-                placeholder="Search by Clinic Name, Clinic Email"
-              />
+              <img className="search-img" src={Search} alt="search" />
+              <input className=" search-input" placeholder="Search patients" />
             </div>
+            <div>
+              <button className="btn export-button w-export">Export</button>
+            </div>
+          </div>
+        </div>
+
+        <Row className="mt-4">
+          <Col md={3} className="status_dropdown enable-status">
+            <Dropdown>
+              <Dropdown.Toggle variant="success" id="dropdown-basic">
+                <span>Status:</span> Enabled
+                <img src={Dropdownarrow} />
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           </Col>
-          <Col md={2}>
-            <button className="btn export-button">Export</button>
+          <Col md={3} className="status_dropdown enable-status">
+            <Dropdown>
+              <Dropdown.Toggle variant="success" id="dropdown-basic">
+                <span>Clinic:</span> All
+                <img src={Dropdownarrow} />
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           </Col>
-          <Row className="mt-4">
-            <Col md={3} className="status_dropdown">
-              <Dropdown>
-                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                  <span>Status:</span> Enabled
-                  <img src={Dropdownarrow} />
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            </Col>
-            <Col md={3} className="status_dropdown">
-              <Dropdown>
-                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                  <span>Clinic:</span> All
-                  <img src={Dropdownarrow} />
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            </Col>
-          </Row>
+        </Row>
+        <Row>
           <Col md={12} className="mt-4">
             <Table responsive striped className="Patients-table" variant="dark">
               <thead>
                 <tr>
+                  <th>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+                    </InputGroup>
+                  </th>
                   <th>Doctor Name</th>
                   <th>Doctor ID</th>
                   <th>Doctor ID</th>
@@ -75,6 +80,11 @@ function DoctorListing() {
               </thead>
               <tbody>
                 <tr>
+                  <td>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+                    </InputGroup>
+                  </td>
                   <td className="name-text" onClick={handleShow}>
                     Dr. Jennifer Simpson
                   </td>
@@ -96,6 +106,11 @@ function DoctorListing() {
                   </td>
                 </tr>
                 <tr>
+                  <td>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+                    </InputGroup>
+                  </td>
                   <td className="name-text" onClick={handleShow}>
                     Dr. Jennifer Simpson
                   </td>
@@ -117,6 +132,11 @@ function DoctorListing() {
                   </td>
                 </tr>
                 <tr>
+                  <td>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+                    </InputGroup>
+                  </td>
                   <td className="name-text" onClick={handleShow}>
                     Dr. Jennifer Simpson
                   </td>
@@ -138,6 +158,11 @@ function DoctorListing() {
                   </td>
                 </tr>
                 <tr>
+                  <td>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+                    </InputGroup>
+                  </td>
                   <td className="name-text" onClick={handleShow}>
                     Dr. Jennifer Simpson
                   </td>
@@ -159,6 +184,11 @@ function DoctorListing() {
                   </td>
                 </tr>
                 <tr>
+                  <td>
+                    <InputGroup className="mb-3">
+                      <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+                    </InputGroup>
+                  </td>
                   <td className="name-text" onClick={handleShow}>
                     Dr. Jennifer Simpson
                   </td>
@@ -218,70 +248,70 @@ function DoctorListing() {
                     </div>
                   </Col>
                   <div className="mt-4">
-                  <Table
-                    responsive
-                    striped
-                    className="Patients-table"
-                    variant="dark"
-                  >
-                    <thead>
-                      <tr>
-                        <th> MRN</th>
-                        <th>Patient Name</th>
-                        <th>Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>######</td>
-                        <td className="name-text">Jennifer</td>
-                        <td>
-                          <div>
-                            <Form>
-                              <Form.Check
-                                type="switch"
-                                id="custom-switch"
-                                label=""
-                                checked
-                              />
-                            </Form>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>######</td>
-                        <td className="name-text">Jennifer</td>
-                        <td>
-                          <div>
-                            <Form>
-                              <Form.Check
-                                type="switch"
-                                id="custom-switch"
-                                label=""
-                                checked
-                              />
-                            </Form>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>######</td>
-                        <td className="name-text">mehek</td>
-                        <td>
-                          <div>
-                            <Form>
-                              <Form.Check
-                                type="switch"
-                                id="custom-switch"
-                                label=""
-                                checked
-                              />
-                            </Form>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </Table>
+                    <Table
+                      responsive
+                      striped
+                      className="Patients-table"
+                      variant="dark"
+                    >
+                      <thead>
+                        <tr>
+                          <th className="first-th"> MRN</th>
+                          <th className="sec-th">Patient Name</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>######</td>
+                          <td className="name-text">Jennifer</td>
+                          <td>
+                            <div>
+                              <Form>
+                                <Form.Check
+                                  type="switch"
+                                  id="custom-switch"
+                                  label=""
+                                  checked
+                                />
+                              </Form>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>######</td>
+                          <td className="name-text">Jennifer</td>
+                          <td>
+                            <div>
+                              <Form>
+                                <Form.Check
+                                  type="switch"
+                                  id="custom-switch"
+                                  label=""
+                                  checked
+                                />
+                              </Form>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>######</td>
+                          <td className="name-text">mehek</td>
+                          <td>
+                            <div>
+                              <Form>
+                                <Form.Check
+                                  type="switch"
+                                  id="custom-switch"
+                                  label=""
+                                  checked
+                                />
+                              </Form>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </Table>
                   </div>
                 </Row>
               </Modal.Body>

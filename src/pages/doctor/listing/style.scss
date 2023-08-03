@@ -1,4 +1,16 @@
 .patientlist_modal {
+    .table>:not(caption)>*>*{
+        background: #000000;
+    }
+    .table-striped>tbody>tr:nth-of-type(odd)>*{
+        background: #282C38;
+    }
+    .first-th{
+        width: 15%;
+    }
+    .sec-th{
+        width: 73%;
+    }
     .status_dropdown {
         button {
             background-color: #000;

@@ -2,6 +2,20 @@
     .name-textunder{
         color: #0ACEEC !important;
     }
+    .align-right{
+        text-align: right;
+        .w-export{
+            width: 102px;
+        }
+    }
+    
+    .Organization-header{
+        display: flex;
+        gap: 23px;
+        input{
+            width: 371px !important;
+        }
+    }
     .RegisteredButton {
         color: #30E0A1;
         border-radius: 5px;

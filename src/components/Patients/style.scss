@@ -1,6 +1,6 @@
 .Patients_section {
     padding-top: 24px;
-
+  
     h1 {
         font-family: Lato;
         font-size: 24px;
@@ -246,5 +246,17 @@
                 vertical-align: bottom;
             }
         }
+    }
+}
+
+.right-header{
+    display: flex;
+    gap: 20px;
+    float: right;
+    .w-export{
+        width: 102px;
+    }
+    .search-input{
+        width: 427px !important;
     }
 }

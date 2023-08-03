@@ -2,7 +2,7 @@ import React from "react";
 import "./style.scss";
 import TableSection from "../../components/TableSection";
 import PaginationSection from "../../components/PaginationSection";
-import { Row, Col, Dropdown} from "react-bootstrap";
+import { Row, Col, Dropdown } from "react-bootstrap";
 import Search from "../../assests/images/dashborad/Search.png";
 import Dropdownarrow from "../../assests/images/dashborad/dropdown.png";
 
@@ -10,23 +10,20 @@ function Patients() {
   return (
     <>
       <div className="Patients_section">
-        <Row>
-          <Col md={5}>
+        <div>
+          <div className="d-inline-block">
             <h1>Patients</h1>
-          </Col>
-          <Col md={5}>
+          </div>
+          <div className="right-header">
             <div className="position-relative">
               <img className="search-img" src={Search} alt="search" />
-              <input
-                className="w-100 search-input"
-                placeholder="Search patients"
-              />
+              <input className=" search-input" placeholder="Search patients" />
             </div>
-          </Col>
-          <Col md={2}>
-            <button className="btn export-button">Export</button>
-          </Col>
-        </Row>
+            <div>
+              <button className="btn export-button w-export">Export</button>
+            </div>
+          </div>
+        </div>
         <Row className="mt-4">
           <Col md={3} className="status_dropdown enable-status">
             <Dropdown>

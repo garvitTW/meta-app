@@ -23,23 +23,18 @@ function OrganisationListing() {
   return (
     <>
       <div className="Patients_section Organization-section">
-        <Row>
-          <Col md={3}>
+        <div>
+          <div className="d-inline-block">
             <h1>Organization Clinics</h1>
-          </Col>
-          <Col md={4}>
+          </div>
+          <div className="right-header">
             <div className="position-relative">
               <img className="search-img" src={Search} alt="search" />
-              <input
-                className="w-100 search-input"
-                placeholder="Search by Organisation Name"
-              />
+              <input className=" search-input" placeholder="Search by Organisation Name" />
             </div>
-          </Col>
-          <Col md={2}>
-            <button className="btn export-button">Export</button>
-          </Col>
-          <Col md={3}>
+            <div>
+              <button className="btn export-button w-export">Export</button>
+            </div>
             <button
               onClick={() => navigate(URL.ORGANISATION.CREATE.PROFILE_DETAIL)}
               className="btn Organization-button"
@@ -47,12 +42,13 @@ function OrganisationListing() {
               <img src={AddIcon} className="pe-2" alt="add" />
               Add Organization
             </button>
-          </Col>
-        </Row>
+          </div>
+        </div>
+     
         <Tabs
           defaultActiveKey={URL.ORGANISATION.LISTING}
           id="uncontrolled-tab-example"
-          className="organise_tabs"
+          className="organise_tabs w-100"
           onSelect={handleTabChange}
         >
           <Tab
