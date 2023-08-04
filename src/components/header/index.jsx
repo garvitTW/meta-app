@@ -4,9 +4,13 @@ import Notification from "../../assests/images/header/Notification.png";
 import User from "../../assests/images/header/user.png";
 import More from "../../assests/images/header/More.png";
 import { useLocation } from "react-router-dom";
+import headerNames from "./headerNames";
 function Header() {
   const { pathname } = useLocation();
-  const page = pathname.split("/")[1] || "";
+  const isPathinHeaderNames = Object.keys(headerNames).includes(pathname);
+  const page = isPathinHeaderNames
+    ? headerNames[pathname]
+    : pathname.split("/")[1] || "";
 
   return (
     <>

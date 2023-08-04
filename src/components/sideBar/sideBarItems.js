@@ -51,7 +51,7 @@ const sideBarItems = [
     id: 6,
     name: "Reports",
     image: Reports,
-    hoverIamge: Doctorshover,
+    hoverIamge: Reports,
     navigate: URL.REPORTS,
   },
 ];

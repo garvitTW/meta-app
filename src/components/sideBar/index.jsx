@@ -2,12 +2,22 @@ import "./style.scss";
 import Logo from "../../assests/images/sidebar/logo.png";
 import Setting from "../../assests/images/sidebar/setting.png";
 import Logout from "../../assests/images/sidebar/logout.png";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import sideBarItems from "./sideBarItems";
 import URL from "../../constants/routesURL";
 
 function SideBar() {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const Currentpage = pathname.split("/")[1] || "";
+
+  const acitveItem = (itemNavigation) => {
+    const itemPage = itemNavigation.split("/")[1] || "";
+    const isOrganisationPage = Currentpage === itemPage;
+    return pathname === itemNavigation || isOrganisationPage
+      ? "active_menu"
+      : "";
+  };
   return (
     <>
       <div>
@@ -17,7 +27,11 @@ function SideBar() {
           </div>
           <ul>
             {sideBarItems.map((item) => (
-              <li className="active_menu" key={item.id} onClick={() => navigate(item.navigate)}>
+              <li
+                className={acitveItem(item.navigate)}
+                key={item.id}
+                onClick={() => navigate(item.navigate)}
+              >
                 <span>
                   <img
                     src={item.image}
@@ -36,7 +50,7 @@ function SideBar() {
           </ul>
           <p>ACCOUNT</p>
           <ul>
-            <li onClick={()=>navigate(URL.SETTINGS)}>
+            <li onClick={() => navigate(URL.SETTINGS)}>
               <span>
                 <img src={Setting} alt="setting" />
               </span>

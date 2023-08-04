@@ -3,31 +3,31 @@ const URL = {
   VERIFICATION: "/verification",
   DASHBOARD: "/dashboard",
   PATIENT: {
-    LISTING: "/patient/listing",
+    LISTING: "/patients/listing",
   },
   ORGANISATION: {
-    LISTING: "/organisation/listing",
-    PENDING: "/organisation/pending",
-    DECLINED: "/organisation/declined",
+    LISTING: "/organisations/listing",
+    PENDING: "/organisations/pending",
+    DECLINED: "/organisations/declined",
     CREATE: {
-      PROFILE_DETAIL: "/organisation/create/profile-detail",
-      PROFESSIONAL_DETAIL: "/organisation/create/professional-detail",
-      PAYMENT:"/organisation/create/payment"
+      PROFILE_DETAIL: "/organisations/create/profile-detail",
+      PROFESSIONAL_DETAIL: "/organisations/create/professional-detail",
+      PAYMENT: "/organisations/create/payment",
     },
     EDIT: {
-      PROFILE_DETAIL: "/organisation/edit/profile-detail",
-      PROFESSIONAL_DETAIL: "/organisation/edit/professional-detail",
-      PAYMENT:"/organisation/edit/payment"
+      PROFILE_DETAIL: "/organisations/edit/profile-detail",
+      PROFESSIONAL_DETAIL: "/organisations/edit/professional-detail",
+      PAYMENT: "/organisations/edit/payment",
     },
   },
   CLINIC: {
-    LISTING: "/clinic/listing",
+    LISTING: "/clinics/listing",
   },
   DOCTOR: {
-    LISTING: "/doctor/listing",
+    LISTING: "/doctors/listing",
   },
   REPORTS: "/reports",
-  SETTINGS:"/settings"
+  SETTINGS: "/settings",
 };
 
 export default URL;
