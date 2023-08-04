@@ -4,7 +4,7 @@
   // width: 249px;
   width: 100%;
   height: 100%;
-  max-width: 270px;
+  // max-width: 270px;
   text-align: left;
   padding-bottom: 50px;
   .logo-border {
@@ -31,14 +31,23 @@
     list-style: none;
     margin: 0;
     padding: 0;
-
+    .active_menu {
+      background: #2d2f36;
+      color: #fff;
+      .image-first {
+        display: none;
+      }
+      .image-hover {
+        display: inline-block !important;
+      }
+    }
     li {
       color: #b2b9cd;
       margin-bottom: 22px;
       margin: 0px 14px;
       padding: 13px 16px;
       border-radius: 15px;
-
+      
       &:hover {
         background: #2d2f36;
         color: #fff;

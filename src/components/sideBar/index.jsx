@@ -17,7 +17,7 @@ function SideBar() {
           </div>
           <ul>
             {sideBarItems.map((item) => (
-              <li key={item.id} onClick={() => navigate(item.navigate)}>
+              <li className="active_menu" key={item.id} onClick={() => navigate(item.navigate)}>
                 <span>
                   <img
                     src={item.image}
