@@ -75,8 +75,7 @@ function OrgnisationPending() {
           <Col md={12}>
             <Table
               responsive
-              striped
-              className="Patients-table pending_table"
+              className="table-stripednew Patients-table pending_table"
               variant="dark"
             >
               <thead>

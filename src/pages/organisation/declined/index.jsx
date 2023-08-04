@@ -67,8 +67,7 @@ function OrganisationDeclined() {
           <Col md={12}>
             <Table
               responsive
-              striped
-              className="Patients-table Decliend_table"
+              className="table-stripednew Patients-table Decliend_table"
               variant="dark"
             >
               <thead>

@@ -3,6 +3,8 @@ import Logo from "../../assests/images/sidebar/logo.png";
 import Setting from "../../assests/images/sidebar/setting.png";
 import Logout from "../../assests/images/sidebar/logout.png";
 import { useLocation, useNavigate } from "react-router-dom";
+import SettingHover from "../../assests/images/sidebar/settin-hover.png";
+import LogoutHover from "../../assests/images/sidebar/logout-hover.png";
 import sideBarItems from "./sideBarItems";
 import URL from "../../constants/routesURL";
 
@@ -50,15 +52,17 @@ function SideBar() {
           </ul>
           <p>ACCOUNT</p>
           <ul>
-            <li onClick={() => navigate(URL.SETTINGS)}>
+            <li onClick={() => navigate(URL.SETTINGS)} className={acitveItem(URL.SETTINGS)}>
               <span>
-                <img src={Setting} alt="setting" />
+                <img src={Setting} alt="setting" className="image-first"/>
+                <img src={SettingHover} alt="setting"className="image-hover d-none" />
               </span>
               <span>Settings</span>
             </li>
             <li>
               <span>
-                <img src={Logout} alt="logout" />
+                <img src={Logout} alt="logout"className="image-first" />
+                <img src={LogoutHover} alt="logout" className="image-hover d-none"/>
               </span>
               <span>Logout</span>
             </li>

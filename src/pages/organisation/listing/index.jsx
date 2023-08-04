@@ -30,7 +30,10 @@ function OrganisationListing() {
           <div className="right-header">
             <div className="position-relative">
               <img className="search-img" src={Search} alt="search" />
-              <input className=" search-input" placeholder="Search by Organisation Name" />
+              <input
+                className=" search-input"
+                placeholder="Search by Organisation Name"
+              />
             </div>
             <div>
               <button className="btn export-button w-export">Export</button>
@@ -44,7 +47,7 @@ function OrganisationListing() {
             </button>
           </div>
         </div>
-     
+
         <Tabs
           defaultActiveKey={URL.ORGANISATION.LISTING}
           id="uncontrolled-tab-example"
@@ -64,7 +67,11 @@ function OrganisationListing() {
         </Tabs>
         <Row className="table-margin">
           <Col md={12}>
-            <Table responsive striped className="Patients-table" variant="dark">
+            <Table
+              responsive
+              className="stripednew table-stripednew Patients-table"
+              variant="dark"
+            >
               <thead>
                 <tr>
                   <th>

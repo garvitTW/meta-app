@@ -16,7 +16,7 @@ function AddOrganisationProfessional() {
       <div className="Patients_section Organization-section AddOrganisationProfile Add_Organisation_Professional">
         <Row>
           <Col>
-            <h1>Add Organization</h1>
+            <h1>Add Organisation Clinics</h1>
           </Col>
           <Col md={12}>
             <Tabs

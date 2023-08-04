@@ -9,6 +9,7 @@ import ClinicsHover from "../../assests/images/sidebar/doct-hover.png";
 import Doctors from "../../assests/images/sidebar/clinic.png";
 import Doctorshover from "../../assests/images/sidebar/clinic-hover.png";
 import Reports from "../../assests/images/sidebar/report.png";
+import ReportHover from "../../assests/images/sidebar/report-hover.png";
 import URL from "../../constants/routesURL";
 
 const sideBarItems = [
@@ -51,9 +52,10 @@ const sideBarItems = [
     id: 6,
     name: "Reports",
     image: Reports,
-    hoverIamge: Reports,
+    hoverIamge: ReportHover,
     navigate: URL.REPORTS,
   },
+  
 ];
 
 export default sideBarItems;

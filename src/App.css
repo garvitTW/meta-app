@@ -19,3 +19,9 @@ body {
   padding: 30px;
   height: 100%;
 }
+.table>:not(caption)>*>*{
+  background: #1E1F25 !important;
+}
+.table-stripednew>tbody>tr:nth-of-type(odd)>*{
+  background-color: #282C38!important;
+}

@@ -48,7 +48,7 @@ function ClinicListing() {
           </Col>
 
           <Col md={12} className="mt-4">
-            <Table responsive striped className="Patients-table" variant="dark">
+            <Table responsive className="table-stripednew Patients-table" variant="dark">
               <thead>
                 <tr>
                   <th>

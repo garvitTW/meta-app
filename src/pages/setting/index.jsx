@@ -132,7 +132,7 @@ function Settings() {
                 <Form.Check
                     type="switch"
                     id="custom-switch"
-                    label="Sms"
+                    label="SMS"
                     
                 />
                 </Form>
