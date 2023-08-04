@@ -1,12 +1,25 @@
 import { Col, Row } from "react-bootstrap";
 import Header from "../header";
 import SideBar from "../sideBar";
-
+import "./style.scss";
 function Layout({ children }) {
   return (
     <>
       <div className="p-4">
-        <Row>
+        <div className="main_wrapper">
+          <div className="side-wrapper">
+          <SideBar />
+          </div>
+          <div className="content-wrapper">
+          <Header />
+          {children}
+          </div>
+        </div>
+
+
+
+
+        {/* <Row>
           <Col sm={3}>
             <SideBar />
           </Col>
@@ -14,7 +27,7 @@ function Layout({ children }) {
             <Header />
             {children}
           </Col>
-        </Row>
+        </Row> */}
       </div>
     </>
   );

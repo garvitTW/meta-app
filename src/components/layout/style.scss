@@ -1,0 +1,11 @@
+.main_wrapper{
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    .side-wrapper{
+        max-width: 249px;
+    }
+    .content-wrapper{
+        width: calc(100vw - 249px);
+    }
+}
