@@ -10,15 +10,37 @@ import URL from "../../../constants/routesURL";
 import { useState } from "react";
 import ModalComponent from "../../../components/modal";
 import ClinicListing from "../../clinic/listing";
+import DoctorListing from "../../doctor/listing";
+import PatientListing from "../../patient/listing";
+
+const popUpComponents = [
+  {
+    name: "clinic",
+    component: <ClinicListing />,
+  },
+  {
+    name: "doctor",
+    component: <DoctorListing />,
+  },
+  {
+    name: "patient",
+    component: <PatientListing />,
+  },
+];
+
 function OrganisationListing() {
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = (name) => setShow(name);
+
   const navigate = useNavigate();
 
   const handleTabChange = (eventKey) => {
     navigate(eventKey);
+  };
+
+  const getPopUpComponent = () => {
+    return popUpComponents.find((comp) => comp.name === show)?.component;
   };
   return (
     <>
@@ -95,11 +117,33 @@ function OrganisationListing() {
                       <InputGroup.Checkbox aria-label="Checkbox for following text input" />
                     </InputGroup>
                   </td>
-                  <td className="name-textunder">ORG - 1</td>
+                  <td
+                    className="name-textunder"
+                    onClick={() =>
+                      navigate(URL.ORGANISATION.EDIT.PROFILE_DETAIL)
+                    }
+                  >
+                    ORG - 1111
+                  </td>
                   <td>loremipsum@mail.com</td>
-                  <td className="name-text">xx</td>
-                  <td className="name-text">xx</td>
-                  <td className="name-text">xx</td>
+                  <td
+                    className="name-text"
+                    onClick={() => handleShow(popUpComponents[0].name)}
+                  >
+                    xx
+                  </td>
+                  <td
+                    className="name-text"
+                    onClick={() => handleShow(popUpComponents[1].name)}
+                  >
+                    xx
+                  </td>
+                  <td
+                    className="name-text"
+                    onClick={() => handleShow(popUpComponents[2].name)}
+                  >
+                    xx
+                  </td>
                   <td>
                     <button className="RegisteredButton">Registered</button>
                   </td>
@@ -122,9 +166,7 @@ function OrganisationListing() {
                       <InputGroup.Checkbox aria-label="Checkbox for following text input" />
                     </InputGroup>
                   </td>
-                  <td className="name-textunder" onClick={handleShow}>
-                    ORG - 1111
-                  </td>
+                  <td className="name-textunder">ORG - 1</td>
                   <td>loremipsum@mail.com</td>
                   <td className="name-text">xx</td>
                   <td className="name-text">xx</td>
@@ -289,7 +331,7 @@ function OrganisationListing() {
         </Row>
       </div>
       <ModalComponent setShow={setShow} show={show} className="maxWidth">
-        <ClinicListing />
+        {getPopUpComponent()}
       </ModalComponent>
     </>
   );

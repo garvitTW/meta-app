@@ -1,21 +1,25 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./style.scss";
 import { Container, Row, Col, Form } from "react-bootstrap";
 import Logo from "../../assests/images/login/logo.png";
 import { useFormik } from "formik";
 import { validationSchema } from "../../validation/login";
 import Input from "../../components/formGroupInput";
-import ButtonWithLoader from "../../components/buttonWithLoding";
+import ButtonWithLoader from "../../components/buttonWithLoading";
 import { storageService } from "../../services/storage.service";
 import { useNavigate } from "react-router-dom";
 import URL from "../../constants/routesURL";
+import { authService } from "../../services/auth.service";
+import { Store } from "../../store/Store";
+import { Type } from "../../constants/storeAction.constants";
 
 function Login() {
+  const { dispatch } = useContext(Store);
   const navigate = useNavigate();
 
   const details = storageService.decryptCredentials();
 
-  const checkedValue = details ? true : false;
+  const checkedValue = Boolean(details);
   const [rememberMe, setRememberMe] = useState(checkedValue);
 
   const initialValues = {
@@ -27,12 +31,18 @@ function Login() {
     useFormik({
       initialValues: initialValues,
       validationSchema: validationSchema,
-      onSubmit: (values, action) => {
-        storageService.encryptCredentials(rememberMe, values);
-        console.log(values);
-        setRememberMe(false);
-        action.resetForm();
-        navigate(URL.VERIFICATION);
+      onSubmit: async (values, action) => {
+        try {
+          storageService.encryptCredentials(rememberMe, values);
+          const { data } = await authService.login(values);
+          dispatch({ type: Type.USER_LOGIN, payload: data });
+
+          setRememberMe(false);
+          action.resetForm();
+          navigate(URL.VERIFICATION);
+        } catch (err) {
+          console.log(err);
+        }
       },
     });
 
@@ -54,7 +64,9 @@ function Login() {
                     <img src={Logo} alt="Logo" />
                   </div>
                   <h1>Admin Login</h1>
-                  <p className="text-center">Welcome back! Please enter your details.</p>
+                  <p className="text-center">
+                    Welcome back! Please enter your details.
+                  </p>
                   <Form onSubmit={handleSubmit}>
                     <Input
                       {...formikProps}

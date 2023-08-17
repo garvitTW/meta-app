@@ -1,6 +1,6 @@
 import { Form } from "react-bootstrap";
 import { ErrorMessage } from "../errorMessage";
-
+import "./style.scss";
 function Input({
   touched,
   errors,
@@ -11,7 +11,7 @@ function Input({
   label,
 }) {
   return (
-    <Form.Group className="mb-3">
+    <Form.Group className="mb-3 errorClass">
       <Form.Label>{label}</Form.Label>
       <Form.Control
         type={type}

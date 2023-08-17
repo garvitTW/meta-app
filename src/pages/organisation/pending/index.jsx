@@ -19,7 +19,7 @@ import URL from "../../../constants/routesURL";
 import ModalComponent from "../../../components/modal";
 import DeclineReasonForm from "./declineReasonForm";
 
-function OrgnisationPending() {
+function OrganisationPending() {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -121,12 +121,7 @@ function OrgnisationPending() {
                     </Button>
                   </td>
                   <td>
-                    <Button
-                      className="Edit_button"
-                      onClick={() =>
-                        navigate(URL.ORGANISATION.EDIT.PROFILE_DETAIL)
-                      }
-                    >
+                    <Button className="Edit_button">
                       <img src={EditIcon} />
                     </Button>
                   </td>
@@ -263,4 +258,4 @@ function OrgnisationPending() {
   );
 }
 
-export default OrgnisationPending;
+export default OrganisationPending;

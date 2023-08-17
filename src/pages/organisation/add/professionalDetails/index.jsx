@@ -1,196 +1,432 @@
 import "./style.scss";
-import { Row, Col, InputGroup, Form, Button, Tabs, Tab } from "react-bootstrap";
+import { Row, Col, InputGroup, Form, Button } from "react-bootstrap";
 import DeleteIcon from "../../../../assests/images/dashborad/delete.png";
 import AddIcon from "../../../../assests/images/dashborad/plus-circle.svg";
 import CrossIcon from "../../../../assests/images/dashborad/cross.svg";
 import SaveIcon from "../../../../assests/images/dashborad/save.svg";
-import URL from "../../../../constants/routesURL";
+import UploadIcon from "../../../../assests/images/dashborad/upload.png";
+import URLS from "../../../../constants/routesURL";
 import { useNavigate } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Store } from "../../../../store/Store";
+import { OrganisationService } from "../../../../services/Organisation.service";
+import AddOrganisationTabs from "../../../../components/addOrganisationTabs";
+import { useFormik } from "formik";
+import validationSchemaProfessionalDetails from "../../../../validation/professionalDetails";
+import { ErrorMessage } from "../../../../components/errorMessage";
+import { Type } from "../../../../constants/storeAction.constants";
+
 function AddOrganisationProfessional() {
+  const { state, dispatch } = useContext(Store);
+  const { addOrganisationStep1 } = state;
+  const [languages, setLanguages] = useState([]);
+  const [servicesOffered, setServicesOffered] = useState([]);
+  const [newService, setNewService] = useState("");
   const navigate = useNavigate();
-  const handleTabChange = (eventKey) => {
-    navigate(eventKey);
+
+  useEffect(() => {
+    if (!addOrganisationStep1) {
+      navigate(URLS.ORGANISATION.CREATE.PROFILE_DETAIL);
+    } else {
+      const fetchData = async () => {
+        try {
+          const { data } = await OrganisationService.getServicesOffered();
+          const fetchedLanguages = await OrganisationService.getLanguages();
+          setServicesOffered(data);
+          setLanguages(fetchedLanguages);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      fetchData();
+    }
+  }, [addOrganisationStep1, navigate]);
+
+  const getMdValue = (index) => {
+    if (index % 3 === 0) {
+      return 4;
+    } else if (index % 3 === 1) {
+      return 3;
+    } else {
+      return 5;
+    }
   };
+
+  const documentObject = {
+    document_type: "",
+    file: "",
+    validity: "",
+    issuer_name: "",
+    category: "",
+    license_number: "",
+  };
+
+  const {
+    setFieldValue,
+    getFieldProps,
+    values,
+    touched,
+    errors,
+    handleSubmit,
+  } = useFormik({
+    initialValues: {
+      services_offered: [],
+      languages_spoken: [],
+      documents: [{ ...documentObject }],
+    },
+    validationSchema: validationSchemaProfessionalDetails,
+    onSubmit: async (values) => {
+      try {
+        const { documents, ...rest } = values;
+        const { organization_id } =
+          await OrganisationService.postOrganisationClinic({
+            ...addOrganisationStep1,
+            password: "password@123",
+            enabled: true,
+            user_type: "ORGANIZATION",
+            ...rest,
+          });
+
+        const uploadDocument = {
+          documents: documents,
+        };
+        await OrganisationService.postOrganisationClinicDocument(
+          organization_id,
+          uploadDocument
+        );
+        dispatch({ type: Type.REMOVE_ORGANISATION_STEP_1 });
+        navigate(URLS.ORGANISATION.LISTING);
+        console.log(values);
+      } catch (err) {
+        console.log(err);
+      }
+      // Handle form submission here
+    },
+  });
+
+  const addService = async () => {
+    try {
+      if (newService) {
+        const data = await OrganisationService.postServicesOffered({
+          name: newService,
+        });
+        setServicesOffered([...servicesOffered, data]);
+        setNewService("");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const handleServiceOffered = (service) => {
+    const updatedServices = values.services_offered.includes(service?.id)
+      ? values.services_offered.filter((id) => id !== service?.id)
+      : [...values.services_offered, service?.id];
+    setFieldValue("services_offered", updatedServices);
+  };
+
+  const handleLanguageSelection = (event) => {
+    const selectedLanguageId = Number(event.target.value);
+    if (
+      !values.languages_spoken.includes(selectedLanguageId) &&
+      selectedLanguageId
+    ) {
+      setFieldValue("languages_spoken", [
+        ...values.languages_spoken,
+        selectedLanguageId,
+      ]);
+    }
+  };
+
+  const removeLanguage = (selectedLanguageId) => {
+    const updatedLanguages = values.languages_spoken?.filter(
+      (languageId) => languageId !== selectedLanguageId
+    );
+    setFieldValue("languages_spoken", updatedLanguages);
+  };
+
+  const addDocument = () => {
+    setFieldValue("documents", [...values.documents, { ...documentObject }]);
+  };
+
+  const removeDocument = (index) => {
+    const updatedDocuments = values.documents.filter((_, i) => i !== index);
+    setFieldValue("documents", updatedDocuments);
+  };
+
+  console.log("<<<<", values);
+
+  if (!addOrganisationStep1) {
+    return null;
+  }
+
   return (
     <>
       <div className="Patients_section Organization-section AddOrganisationProfile Add_Organisation_Professional">
-        <Row>
-          <Col>
-            <h1>Add Organisation Clinics</h1>
-          </Col>
-          <Col md={12}>
-            <Tabs
-              defaultActiveKey={URL.ORGANISATION.CREATE.PROFESSIONAL_DETAIL}
-              id="uncontrolled-tab-example"
-              className="organise_tabs"
-              onSelect={handleTabChange}
-            >
-              <Tab
-                eventKey={URL.ORGANISATION.CREATE.PROFILE_DETAIL}
-                title="Profile Details"
-              ></Tab>
-              <Tab
-                eventKey={URL.ORGANISATION.CREATE.PROFESSIONAL_DETAIL}
-                title="Professional Details"
-              ></Tab>
-              <Tab
-                eventKey={URL.ORGANISATION.CREATE.PAYMENT}
-                title="Payment Plan"
-              ></Tab>
-            </Tabs>
-          </Col>
-        </Row>
-        <Row className="AddOrganisationProfile ">
-          <Col md={12}>
-            <h2 className="mt-0">Services offered (Select Minimum 1)</h2>
-            <hr />
-          </Col>
+        <AddOrganisationTabs />
+        <Form onSubmit={handleSubmit}>
+          <Row className="AddOrganisationProfile ">
+            <Col md={12}>
+              <h2 className="mt-0">Services offered (Select Minimum 1)</h2>
+              <hr />
+            </Col>
 
-          <Col md={10}>
-            <Row>
-              <Col md={4}>
-                <InputGroup className="mb-3">
-                  <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-                  <span className="checkbox-label">General Practitioner</span>
-                </InputGroup>
-              </Col>
-              <Col md={3}>
-                <InputGroup className="mb-3">
-                  <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-                  <span className="checkbox-label">Dentist</span>
-                </InputGroup>
-              </Col>
-              <Col md={5}>
-                <InputGroup className="mb-3">
-                  <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-                  <span className="checkbox-label">Chiropractor</span>
-                </InputGroup>
-              </Col>
-              <Col md={4}>
-                <InputGroup className="mb-3">
-                  <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-                  <span className="checkbox-label">
-                    Pain Management Specialist
-                  </span>
-                </InputGroup>
-              </Col>
-              <Col md={3}>
-                <InputGroup className="mb-3">
-                  <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-                  <span className="checkbox-label">Internist</span>
-                </InputGroup>
-              </Col>
-              <Col md={5}>
-                <InputGroup className="mb-3">
-                  <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-                  <span className="checkbox-label">
-                    Orthopedic Sports Medicine Specialist
-                  </span>
-                </InputGroup>
-              </Col>
-              <Col md={4}>
-                <InputGroup className="mb-3">
-                  <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-                  <span className="checkbox-label">Physical Therapist</span>
-                </InputGroup>
-              </Col>
-              <Col md={3}>
-                <InputGroup className="mb-3">
-                  <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-                  <span className="checkbox-label">Endocrinologist</span>
-                </InputGroup>
-              </Col>
-              <Col md={5}>
-                <InputGroup className="mb-3">
-                  <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-                  <span className="checkbox-label">Oncologist</span>
-                </InputGroup>
-              </Col>
-              <Col md={12}>
-                <Form.Label htmlFor="" className="mt-3">
-                  Others
-                </Form.Label>
-                <div className="others_section">
-                  <Form.Control type="text" placeholder="Other reason..." />
-                  <Button>Add</Button>
-                </div>
-              </Col>
-            </Row>
-          </Col>
-          <Col md={12}>
-            <h2 className="mt-0">Languages</h2>
-            <hr />
-            <Form.Label htmlFor="" className="mt-3">
-              Languages<span className="mendatory-feild">*</span>
-            </Form.Label>
-            <Form.Select className="Languages_select">
-              <option>Select Languages</option>
-              <option value="1">One</option>
-            </Form.Select>
-            <div className="select_tags">
-              <ul>
-                <li>
-                  English
-                  <img src={CrossIcon} />
-                </li>
-                <li>
-                  spanish
-                  <img src={CrossIcon} />
-                </li>
-              </ul>
+            <Col md={10}>
+              <Row>
+                {servicesOffered?.map((service, index) => {
+                  return (
+                    <Col md={getMdValue(index)} key={service?.id}>
+                      <InputGroup className="mb-3">
+                        <InputGroup.Checkbox
+                          id={`checkbox-${service?.id}`}
+                          checked={values.services_offered.includes(
+                            service?.id
+                          )}
+                          onChange={() => handleServiceOffered(service)}
+                        />
+                        <span className="checkbox-label">{service?.name}</span>
+                      </InputGroup>
+                    </Col>
+                  );
+                })}
+                <ErrorMessage
+                  errors={errors}
+                  touched={touched}
+                  name="services_offered"
+                />
+
+                <Col md={12}>
+                  <Form.Label htmlFor="" className="mt-3">
+                    Others
+                  </Form.Label>
+                  <div className="others_section">
+                    <Form.Control
+                      value={newService}
+                      onChange={(e) => setNewService(e.target.value)}
+                      type="text"
+                      placeholder="Other reason..."
+                    />
+                    <Button onClick={addService}>Add</Button>
+                  </div>
+                </Col>
+              </Row>
+            </Col>
+            <Col md={12}>
+              <h2 className="mt-0">Languages</h2>
+              <hr />
+              <Form.Label htmlFor="" className="mt-3">
+                Languages<span className="mendatory-feild">*</span>
+              </Form.Label>
+              <Form.Select
+                value=""
+                className="Languages_select"
+                onChange={(event) => handleLanguageSelection(event)}
+              >
+                <option value="">Select Languages</option>
+                {languages?.map((language) => (
+                  <option key={language?.id} value={language?.id}>
+                    {language?.name}
+                  </option>
+                ))}
+              </Form.Select>
+
+              <div className="select_tags">
+                <ul>
+                  {values.languages_spoken?.map((selectedLanguageId) => (
+                    <li key={selectedLanguageId}>
+                      {
+                        languages.find(
+                          (language) => language.id === selectedLanguageId
+                        )?.name
+                      }
+                      <img
+                        src={CrossIcon}
+                        alt="Remove"
+                        onClick={() => removeLanguage(selectedLanguageId)}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Col>
+            <Col md={12}>
+              <h2 className="mt-0">Documents</h2>
+              <hr />
+            </Col>
+          </Row>
+          {values.documents.map((document, index) => (
+            <div className="d-flex Category_div" key={index}>
+              <div>
+                <p>Category</p>
+                <Form.Select
+                  className=""
+                  defaultValue=""
+                  {...getFieldProps(`documents[${index}].category`)}
+                >
+                  <option disabled value="">
+                    Select{" "}
+                  </option>
+                  <option value="LICENSE">License </option>
+                  <option value="BUSINESS">Business</option>
+                  <option value="COMPLIANCE">Compliance</option>
+                </Form.Select>
+                {touched.documents?.[index]?.category &&
+                  errors.documents?.[index]?.category && (
+                    <p
+                      style={{
+                        fontWeight: 400,
+                        color: "red",
+                        fontSize: "14px",
+                      }}
+                    >
+                      {errors.documents[index].category}
+                    </p>
+                  )}
+              </div>
+              <div>
+                <p>Document Type</p>
+                <Form.Control
+                  {...getFieldProps(`documents[${index}].document_type`)}
+                  type="text"
+                  placeholder="Clinic License"
+                />
+                {touched.documents?.[index]?.document_type &&
+                  errors.documents?.[index]?.document_type && (
+                    <p
+                      style={{
+                        fontWeight: 400,
+                        color: "red",
+                        fontSize: "14px",
+                      }}
+                    >
+                      {errors.documents[index].document_type}
+                    </p>
+                  )}
+              </div>
+              <div>
+                <p>Issuer Name</p>
+                <Form.Control
+                  {...getFieldProps(`documents[${index}].issuer_name`)}
+                  type="text"
+                  placeholder="License Issuer"
+                />
+                {touched.documents?.[index]?.issuer_name &&
+                  errors.documents?.[index]?.issuer_name && (
+                    <p
+                      style={{
+                        fontWeight: 400,
+                        color: "red",
+                        fontSize: "14px",
+                      }}
+                    >
+                      {errors.documents[index].issuer_name}
+                    </p>
+                  )}
+              </div>
+              <div>
+                <p>License Number</p>
+                <Form.Control
+                  {...getFieldProps(`documents[${index}].license_number`)}
+                  type="text"
+                  placeholder="License Number (#)"
+                />
+                {touched.documents?.[index]?.license_number &&
+                  errors.documents?.[index]?.license_number && (
+                    <p
+                      style={{
+                        fontWeight: 400,
+                        color: "red",
+                        fontSize: "14px",
+                      }}
+                    >
+                      {errors.documents[index].license_number}
+                    </p>
+                  )}
+              </div>
+              <div>
+                <p>Validity</p>
+                <Form.Control
+                  {...getFieldProps(`documents[${index}].validity`)}
+                  type="datetime-local"
+                  placeholder="Validity"
+                />
+                {touched.documents?.[index]?.validity &&
+                  errors.documents?.[index]?.validity && (
+                    <p
+                      style={{
+                        fontWeight: 400,
+                        color: "red",
+                        fontSize: "14px",
+                      }}
+                    >
+                      {errors.documents[index].validity}
+                    </p>
+                  )}
+              </div>
+              <div className="d-flex Category_div">
+                {values.documents[index].file ? (
+                  <a
+                    href={URL.createObjectURL(values.documents[index].file)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img src={SaveIcon} alt="View" />
+                  </a>
+                ) : (
+                  <>
+                    <input
+                      {...getFieldProps(`documents[${index}].file`)}
+                      style={{ display: "none" }}
+                      type="file"
+                      id="file"
+                      onChange={(event) => {
+                        const file = event.target.files[0];
+                        setFieldValue(`documents[${index}].file`, file);
+                      }}
+                    />
+                    <label htmlFor="file">
+                      <img
+                        className="uploadIcon"
+                        src={UploadIcon}
+                        alt="Upload"
+                      />
+                    </label>
+                    {touched.documents?.[index]?.file &&
+                      errors.documents?.[index]?.file && (
+                        <p
+                          style={{
+                            fontWeight: 400,
+                            color: "red",
+                            fontSize: "14px",
+                          }}
+                        >
+                          {errors.documents[index].file}
+                        </p>
+                      )}
+                  </>
+                )}
+
+                {values.documents.length > 1 && (
+                  <Button onClick={() => removeDocument(index)}>
+                    <img src={DeleteIcon} alt="delete" />
+                  </Button>
+                )}
+              </div>
             </div>
-          </Col>
-          <Col md={12}>
-            <h2 className="mt-0">Documents</h2>
-            <hr />
-            {/* <Form.Label htmlFor="" className="mt-3">
-              Languages<span className="mendatory-feild">*</span>
-            </Form.Label> */}
-          </Col>
-        </Row>
-        <div className="d-flex Category_div">
-          <div>
-            <p>Category</p>
-            <Form.Select className="">
-              <option>License </option>
-              <option value="1">One</option>
-            </Form.Select>
-          </div>
-          <div>
-            <p>Document Type</p>
-            <Form.Control type="text" placeholder="Clinic License" />
-          </div>
-          <div>
-            <p>Issuer Name</p>
-            <Form.Control type="text" placeholder="License Issuer" />
-          </div>
-          <div>
-            <p>License Number</p>
-            <Form.Control type="text" placeholder="License Number (#)" />
-          </div>
-          <div>
-            <p>Validity</p>
-            <Form.Control type="text" placeholder="Validity" />
-          </div>
-          <div className="d-flex Category_div">
-            <Button>
-              <img src={SaveIcon} />
-            </Button>
-            <Button>
-              <img src={DeleteIcon} />
-            </Button>
-          </div>
-        </div>
-        <button className="add_morebtn">
-          <img src={AddIcon} className="me-2" />
-          Add More
-        </button>
-        <Row className="mt-5">
-          <Col md={12}>
-            <button className="cancel-buttongry">Cancel</button>
-            <button className="blue-button">Add Organization</button>
-          </Col>
-        </Row>
+          ))}
+
+          <button className="add_morebtn" onClick={addDocument}>
+            <img src={AddIcon} className="me-2" alt="add" />
+            Add More
+          </button>
+          <Row className="mt-5">
+            <Col md={12}>
+              <button className="cancel-buttongry">Cancel</button>
+              <button type="submit" className="blue-button">
+                Add Organization
+              </button>
+            </Col>
+          </Row>
+        </Form>
       </div>
     </>
   );

@@ -1,3 +1,4 @@
+import apiURL from "../constants/apiURL";
 import { STORAGE_KEYS } from "../constants/common.constants";
 import { apiService } from "./api.service";
 import { storageService } from "./storage.service";
@@ -19,7 +20,7 @@ const logout = () => {
 };
 
 const login = (values) => {
-  return apiService.post("login/", values);
+  return apiService.post(apiURL.LOGIN, values);
 };
 
 export const setUserDetails = (user) => {
