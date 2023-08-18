@@ -97,8 +97,8 @@ function EditOrganisationProfessional() {
     }
   };
   const handleServiceOffered = (service) => {
-    const updatedServices = values.services_offered.includes(service?.id)
-      ? values.services_offered.filter((id) => id !== service?.id)
+    const updatedServices = values?.services_offered?.includes(service?.id)
+      ? values?.services_offered?.filter((id) => id !== service?.id)
       : [...values.services_offered, service?.id];
     setFieldValue("services_offered", updatedServices);
   };
@@ -152,7 +152,7 @@ function EditOrganisationProfessional() {
                       <InputGroup className="mb-3">
                         <InputGroup.Checkbox
                           id={`checkbox-${service?.id}`}
-                          checked={values.services_offered.includes(
+                          checked={values?.services_offered?.includes(
                             service?.id
                           )}
                           onChange={() => handleServiceOffered(service)}

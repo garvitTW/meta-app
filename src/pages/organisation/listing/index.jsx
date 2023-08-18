@@ -4,7 +4,7 @@ import Search from "../../../assests/images/dashborad/Search.png";
 import AddIcon from "../../../assests/images/dashborad/add.png";
 import "./style.scss";
 import Pending from "../../organisation/pending";
-import Decliend from "../../organisation/declined";
+import Declined from "../../organisation/declined";
 import { useNavigate } from "react-router-dom";
 import URL from "../../../constants/routesURL";
 import { useContext, useEffect, useState } from "react";
@@ -14,9 +14,9 @@ import DoctorListing from "../../doctor/listing";
 import PatientListing from "../../patient/listing";
 import { OrganisationService } from "../../../services/Organisation.service";
 import { useDebounce } from "../../../hooks/debounce";
-import { itemsPerPage } from "../../../constants/common.constants";
 import { Store } from "../../../store/Store";
 import { Type } from "../../../constants/storeAction.constants";
+import LoaderSpinner from "../../../components/spinner";
 
 const popUpComponents = [
   {
@@ -39,6 +39,7 @@ function OrganisationListing() {
   const [search, setSearch] = useState("");
   const { dispatch } = useContext(Store);
   const [totalItems, setTotalItems] = useState(0);
+  const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
   const debouncedSearchTerm = useDebounce(search, 600);
@@ -53,21 +54,26 @@ function OrganisationListing() {
     return popUpComponents.find((comp) => comp.name === show)?.component;
   };
   const handleSearch = (e) => {
+    setCurrentPage(1);
     setSearch(e.target.value);
   };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         const { result, count } =
           await OrganisationService.getOrganisationSummary({
             search: debouncedSearchTerm,
             page: currentPage,
             // page_num: currentPage,
           });
+
         setOrganizations(result);
         setTotalItems(count);
+        setLoading(false);
       } catch (err) {
+        setLoading(false);
         console.log(err);
       }
     };
@@ -111,6 +117,7 @@ function OrganisationListing() {
             <h1>Organization Clinics</h1>
           </div>
           <div className="right-header">
+            <LoaderSpinner loading={loading} />
             <div className="position-relative">
               <img className="search-img" src={Search} alt="search" />
               <input
@@ -147,7 +154,7 @@ function OrganisationListing() {
             <Pending />
           </Tab>
           <Tab eventKey={URL.ORGANISATION.DECLINED} title="Declined(45)">
-            <Decliend />
+            <Declined />
           </Tab>
         </Tabs>
         <Row className="table-margin">
