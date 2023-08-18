@@ -92,6 +92,7 @@ function Login() {
                     </Form.Group>
                     <div className="text-center">
                       <ButtonWithLoader
+                        className="d-flex justify-content-center align-items-center"
                         variant="primary"
                         isSubmitting={isSubmitting}
                         label="Login"

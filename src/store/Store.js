@@ -6,6 +6,7 @@ export const Store = createContext();
 const initialState = {
   userInfo: null,
   addOrganisationStep1: null,
+  editOrganisationDetails: null,
 };
 
 function reducer(state, action) {
@@ -18,6 +19,9 @@ function reducer(state, action) {
 
     case Type.REMOVE_ORGANISATION_STEP_1:
       return { ...state, addOrganisationStep1: null };
+
+    case Type.EDIT_ORGANISATION_DETAILS:
+      return { ...state, editOrganisationDetails: action.payload };
 
     default:
       return state;

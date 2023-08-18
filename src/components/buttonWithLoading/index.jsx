@@ -11,7 +11,7 @@ function ButtonWithLoader({
       variant={variant}
       type="submit"
       disabled={isSubmitting}
-      className={`${className}  d-flex justify-content-center align-items-center`}
+      className={className}
     >
       {isSubmitting ? (
         <Spinner animation="border" role="status">

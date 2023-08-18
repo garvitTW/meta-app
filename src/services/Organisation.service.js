@@ -11,7 +11,10 @@ async function postServicesOffered(body) {
   return apiService.post(apiURL.ORGANISATION_SERVICE, body);
 }
 async function postOrganisationClinic(body) {
-  return apiService.post(apiURL.ADD_ORGANISATION_CLINIC, body);
+  return apiService.post(apiURL.ORGANISATION_CLINIC, body);
+}
+async function getOrganisationClinic(id) {
+  return apiService.get(apiURL.ORGANISATION_CLINIC + id + "/");
 }
 async function postOrganisationClinicDocument(id, body) {
   return apiService.postForm(
@@ -23,6 +26,10 @@ async function getOrganisationSummary(params) {
   return apiService.get(apiURL.ORGANISATION_SUMMARY_LIST, params);
 }
 
+async function changeOrganisationStatus(id, body) {
+  return apiService.put(apiURL.ORGANISATION_SUMMARY_LIST + id + "/", body);
+}
+
 export const OrganisationService = {
   getServicesOffered,
   getLanguages,
@@ -30,4 +37,6 @@ export const OrganisationService = {
   postOrganisationClinic,
   postOrganisationClinicDocument,
   getOrganisationSummary,
+  changeOrganisationStatus,
+  getOrganisationClinic,
 };

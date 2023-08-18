@@ -16,6 +16,8 @@ import validationSchemaProfessionalDetails from "../../../../validation/professi
 import { ErrorMessage } from "../../../../components/errorMessage";
 import { Type } from "../../../../constants/storeAction.constants";
 import ButtonWithLoader from "../../../../components/buttonWithLoading";
+import DocumentErrorMessage from "../../../../components/documentErrorMessage";
+import { numArray } from "../../../../constants/common.constants";
 
 function AddOrganisationProfessional() {
   const { state, dispatch } = useContext(Store);
@@ -23,6 +25,7 @@ function AddOrganisationProfessional() {
   const [languages, setLanguages] = useState([]);
   const [servicesOffered, setServicesOffered] = useState([]);
   const [newService, setNewService] = useState("");
+  const [loadingServiceAdd, setLoadingServiceAdd] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -102,20 +105,22 @@ function AddOrganisationProfessional() {
       } catch (err) {
         console.log(err);
       }
-      // Handle form submission here
     },
   });
 
   const addService = async () => {
     try {
       if (newService) {
+        setLoadingServiceAdd(true);
         const data = await OrganisationService.postServicesOffered({
           name: newService,
         });
         setServicesOffered([...servicesOffered, data]);
+        setLoadingServiceAdd(false);
         setNewService("");
       }
     } catch (err) {
+      setLoadingServiceAdd(false);
       console.log(err);
     }
   };
@@ -154,8 +159,6 @@ function AddOrganisationProfessional() {
     const updatedDocuments = values.documents.filter((_, i) => i !== index);
     setFieldValue("documents", updatedDocuments);
   };
-
-  console.log("<<<<", values);
 
   if (!addOrganisationStep1) {
     return null;
@@ -207,7 +210,9 @@ function AddOrganisationProfessional() {
                       type="text"
                       placeholder="Other reason..."
                     />
-                    <Button onClick={addService}>Add</Button>
+                    <Button disabled={loadingServiceAdd} onClick={addService}>
+                      Add
+                    </Button>
                   </div>
                 </Col>
               </Row>
@@ -256,7 +261,7 @@ function AddOrganisationProfessional() {
             </Col>
           </Row>
           {values.documents.map((document, index) => (
-            <div className="d-flex Category_div" key={index}>
+            <div className="d-flex Category_div" key={numArray[index]}>
               <div>
                 <p>Category</p>
                 <Form.Select
@@ -271,18 +276,12 @@ function AddOrganisationProfessional() {
                   <option value="BUSINESS">Business</option>
                   <option value="COMPLIANCE">Compliance</option>
                 </Form.Select>
-                {touched.documents?.[index]?.category &&
-                  errors.documents?.[index]?.category && (
-                    <p
-                      style={{
-                        fontWeight: 400,
-                        color: "red",
-                        fontSize: "14px",
-                      }}
-                    >
-                      {errors.documents[index].category}
-                    </p>
-                  )}
+                <DocumentErrorMessage
+                  touched={touched}
+                  errors={errors}
+                  index={index}
+                  name="category"
+                />
               </div>
               <div>
                 <p>Document Type</p>
@@ -291,18 +290,12 @@ function AddOrganisationProfessional() {
                   type="text"
                   placeholder="Clinic License"
                 />
-                {touched.documents?.[index]?.document_type &&
-                  errors.documents?.[index]?.document_type && (
-                    <p
-                      style={{
-                        fontWeight: 400,
-                        color: "red",
-                        fontSize: "14px",
-                      }}
-                    >
-                      {errors.documents[index].document_type}
-                    </p>
-                  )}
+                <DocumentErrorMessage
+                  touched={touched}
+                  errors={errors}
+                  index={index}
+                  name="document_type"
+                />
               </div>
               <div>
                 <p>Issuer Name</p>
@@ -311,18 +304,12 @@ function AddOrganisationProfessional() {
                   type="text"
                   placeholder="License Issuer"
                 />
-                {touched.documents?.[index]?.issuer_name &&
-                  errors.documents?.[index]?.issuer_name && (
-                    <p
-                      style={{
-                        fontWeight: 400,
-                        color: "red",
-                        fontSize: "14px",
-                      }}
-                    >
-                      {errors.documents[index].issuer_name}
-                    </p>
-                  )}
+                <DocumentErrorMessage
+                  touched={touched}
+                  errors={errors}
+                  index={index}
+                  name="issuer_name"
+                />
               </div>
               <div>
                 <p>License Number</p>
@@ -331,39 +318,27 @@ function AddOrganisationProfessional() {
                   type="text"
                   placeholder="License Number (#)"
                 />
-                {touched.documents?.[index]?.license_number &&
-                  errors.documents?.[index]?.license_number && (
-                    <p
-                      style={{
-                        fontWeight: 400,
-                        color: "red",
-                        fontSize: "14px",
-                      }}
-                    >
-                      {errors.documents[index].license_number}
-                    </p>
-                  )}
+                <DocumentErrorMessage
+                  touched={touched}
+                  errors={errors}
+                  index={index}
+                  name="license_number"
+                />
               </div>
               <div>
                 <p>Validity</p>
                 <Form.Control
                   {...getFieldProps(`documents[${index}].validity`)}
-                  type="datetime-local"
+                  type="date"
                   placeholder="Validity"
-                  min={new Date().toISOString().slice(0, 16)}
+                  min={new Date().toISOString().split("T")[0]}
                 />
-                {touched.documents?.[index]?.validity &&
-                  errors.documents?.[index]?.validity && (
-                    <p
-                      style={{
-                        fontWeight: 400,
-                        color: "red",
-                        fontSize: "14px",
-                      }}
-                    >
-                      {errors.documents[index].validity}
-                    </p>
-                  )}
+                <DocumentErrorMessage
+                  touched={touched}
+                  errors={errors}
+                  index={index}
+                  name="validity"
+                />
               </div>
               <div className="d-flex Category_div">
                 {values.documents[index].file ? (
@@ -381,6 +356,7 @@ function AddOrganisationProfessional() {
                       style={{ display: "none" }}
                       type="file"
                       id="file"
+                      accept="application/pdf"
                       onChange={(event) => {
                         const file = event.target.files[0];
                         setFieldValue(`documents[${index}].file`, file);
@@ -393,18 +369,12 @@ function AddOrganisationProfessional() {
                         alt="Upload"
                       />
                     </label>
-                    {touched.documents?.[index]?.file &&
-                      errors.documents?.[index]?.file && (
-                        <p
-                          style={{
-                            fontWeight: 400,
-                            color: "red",
-                            fontSize: "14px",
-                          }}
-                        >
-                          {errors.documents[index].file}
-                        </p>
-                      )}
+                    <DocumentErrorMessage
+                      touched={touched}
+                      errors={errors}
+                      index={index}
+                      name="file"
+                    />
                   </>
                 )}
 

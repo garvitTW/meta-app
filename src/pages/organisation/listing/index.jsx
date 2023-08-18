@@ -7,12 +7,16 @@ import Pending from "../../organisation/pending";
 import Decliend from "../../organisation/declined";
 import { useNavigate } from "react-router-dom";
 import URL from "../../../constants/routesURL";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ModalComponent from "../../../components/modal";
 import ClinicListing from "../../clinic/listing";
 import DoctorListing from "../../doctor/listing";
 import PatientListing from "../../patient/listing";
 import { OrganisationService } from "../../../services/Organisation.service";
+import { useDebounce } from "../../../hooks/debounce";
+import { itemsPerPage } from "../../../constants/common.constants";
+import { Store } from "../../../store/Store";
+import { Type } from "../../../constants/storeAction.constants";
 
 const popUpComponents = [
   {
@@ -32,10 +36,15 @@ const popUpComponents = [
 function OrganisationListing() {
   const [show, setShow] = useState(false);
   const [organizations, setOrganizations] = useState([]);
-  const handleShow = (name) => setShow(name);
+  const [search, setSearch] = useState("");
+  const { dispatch } = useContext(Store);
+  const [totalItems, setTotalItems] = useState(100);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const debouncedSearchTerm = useDebounce(search, 600);
 
   const navigate = useNavigate();
-
+  const handleShow = (name) => setShow(name);
   const handleTabChange = (eventKey) => {
     navigate(eventKey);
   };
@@ -43,18 +52,55 @@ function OrganisationListing() {
   const getPopUpComponent = () => {
     return popUpComponents.find((comp) => comp.name === show)?.component;
   };
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { results } = await OrganisationService.getOrganisationSummary();
+        const { results } = await OrganisationService.getOrganisationSummary({
+          search: debouncedSearchTerm,
+          // page: itemsPerPage,
+          // page_num: currentPage,
+        });
         setOrganizations(results);
       } catch (err) {
         console.log(err);
       }
     };
     fetchData();
-  }, []);
+  }, [debouncedSearchTerm, currentPage]);
+
+  const handleSwitchToggle = async (organization) => {
+    try {
+      const { organization_id, enabled } = organization;
+      const { data } = await OrganisationService.changeOrganisationStatus(
+        organization_id,
+        { enabled: !enabled }
+      );
+      const updatedOrganisation = organizations?.map((organization) => {
+        if (organization.organization_id === data.organization_id) {
+          organization.enabled = data.enabled;
+          return organization;
+        } else {
+          return organization;
+        }
+      });
+      setOrganizations(updatedOrganisation);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const handleEditOrganisation = async (id) => {
+    try {
+      const { data } = await OrganisationService.getOrganisationClinic(id);
+      dispatch({ type: Type.EDIT_ORGANISATION_DETAILS, payload: data });
+      navigate(URL.ORGANISATION.EDIT.PROFILE_DETAIL);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <>
@@ -67,6 +113,8 @@ function OrganisationListing() {
             <div className="position-relative">
               <img className="search-img" src={Search} alt="search" />
               <input
+                value={search}
+                onChange={(e) => handleSearch(e)}
                 className=" search-input"
                 placeholder="Search by Organisation Name"
               />
@@ -135,7 +183,7 @@ function OrganisationListing() {
                     <td
                       className="name-textunder"
                       onClick={() =>
-                        navigate(URL.ORGANISATION.EDIT.PROFILE_DETAIL)
+                        handleEditOrganisation(organization?.organization_id)
                       }
                     >
                       {organization?.organization_name}
@@ -160,7 +208,9 @@ function OrganisationListing() {
                       {organization?.patients_count}
                     </td>
                     <td>
-                      <button className="RegisteredButton">Registered</button>
+                      <button className="RegisteredButton">
+                        {organization?.organization_status}
+                      </button>
                     </td>
                     <td>
                       <div>
@@ -170,6 +220,7 @@ function OrganisationListing() {
                             id="custom-switch"
                             label=""
                             checked={organization?.enabled}
+                            onChange={() => handleSwitchToggle(organization)}
                           />
                         </Form>
                       </div>
@@ -180,7 +231,11 @@ function OrganisationListing() {
             </Table>
           </Col>
           <Col md={12}>
-            <PaginationSection />
+            <PaginationSection
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              count={totalItems}
+            />
           </Col>
         </Row>
       </div>

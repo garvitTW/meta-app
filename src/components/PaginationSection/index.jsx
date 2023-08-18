@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import "./style.scss";
 import { Pagination } from "react-bootstrap";
 import Arrowleft from "../../assests/images/dashborad/arrow-left.png";
 import Arrowright from "../../assests/images/dashborad/arrow-right.png";
+import { itemsPerPage } from "../../constants/common.constants";
 
-function Index() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 20; // Replace this with the total number of pages in your data
+function Index({ currentPage, setCurrentPage, count }) {
+  const totalPages = Math.ceil(count / itemsPerPage); // Replace this with the total number of pages in your data
   const visiblePages = 3; // Number of visible pagination items (excluding ellipsis)
 
   const handlePageClick = (pageNumber) => {
@@ -88,19 +88,21 @@ function Index() {
 
   return (
     <div>
-      <Pagination>
-        <Pagination.Prev className="prev-li" onClick={handlePrev}>
-          <img src={Arrowleft} className="pe-2" alt="Previous" />
-          Previous
-        </Pagination.Prev>
+      {totalPages > 1 && (
+        <Pagination>
+          <Pagination.Prev className="prev-li" onClick={handlePrev}>
+            <img src={Arrowleft} className="pe-2" alt="Previous" />
+            Previous
+          </Pagination.Prev>
 
-        {generatePaginationItems()}
+          {generatePaginationItems()}
 
-        <Pagination.Next className="next-li" onClick={handleNext}>
-          Next
-          <img src={Arrowright} className="ps-2" alt="Next" />
-        </Pagination.Next>
-      </Pagination>
+          <Pagination.Next className="next-li" onClick={handleNext}>
+            Next
+            <img src={Arrowright} className="ps-2" alt="Next" />
+          </Pagination.Next>
+        </Pagination>
+      )}
     </div>
   );
 }
