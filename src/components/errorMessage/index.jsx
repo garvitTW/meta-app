@@ -6,7 +6,8 @@ export const ErrorMessage = ({ touched, errors, name }) => {
           style={{
             fontWeight: 400,
             color: "red",
-            fontSize: "14px",
+            fontSize: "12px",
+            marginBottom: "0px",
           }}
         >
           {errors?.[name]}

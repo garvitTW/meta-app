@@ -11,7 +11,7 @@ function Input({
   label,
 }) {
   return (
-    <Form.Group className="mb-3 errorClass">
+    <Form.Group className="mb-4 errorClass">
       <Form.Label>{label}</Form.Label>
       <Form.Control
         type={type}

@@ -17,11 +17,12 @@ import {
   documentObject,
   numArray,
 } from "../../../../constants/common.constants";
-import { ErrorMessage, useFormik } from "formik";
+import {useFormik } from "formik";
 import ButtonWithLoader from "../../../../components/buttonWithLoading";
 import { Type } from "../../../../constants/storeAction.constants";
 import DocumentErrorMessage from "../../../../components/documentErrorMessage";
 import { getMdValue } from "../../../../utils/helperFunction";
+import  {ErrorMessage}  from "../../../../components/errorMessage";
 
 function EditOrganisationProfessional() {
   const { state, dispatch } = useContext(Store);
@@ -143,11 +144,11 @@ function EditOrganisationProfessional() {
               <hr />
             </Col>
 
-            <Col md={10}>
+            <Col md={12}>
               <Row>
                 {servicesOffered?.map((service, index) => {
                   return (
-                    <Col md={getMdValue(index)} key={service?.id}>
+                    <Col md={4} key={service?.id}>
                       <InputGroup className="mb-3">
                         <InputGroup.Checkbox
                           id={`checkbox-${service?.id}`}
@@ -186,7 +187,7 @@ function EditOrganisationProfessional() {
               </Row>
             </Col>
             <Col md={12}>
-              <h2 className="mt-0">Languages</h2>
+              <h2 className="mt-5">Languages</h2>
               <hr />
               <Form.Label htmlFor="" className="mt-3">
                 Languages<span className="mendatory-feild">*</span>
@@ -214,6 +215,7 @@ function EditOrganisationProfessional() {
                         )?.name
                       }
                       <img
+                        className="ms-1"
                         src={CrossIcon}
                         alt="Remove"
                         onClick={() => removeLanguage(selectedLanguageId)}
@@ -224,7 +226,7 @@ function EditOrganisationProfessional() {
               </div>
             </Col>
             <Col md={12}>
-              <h2 className="mt-0">Documents</h2>
+              <h2 className="mt-4">Documents  </h2>
               <hr />
             </Col>
           </Row>
@@ -256,7 +258,7 @@ function EditOrganisationProfessional() {
                 <Form.Control
                   {...getFieldProps(`documents[${index}].document_type`)}
                   type="text"
-                  placeholder="Clinic License"
+                  placeholder="Document Name"
                 />
                 <DocumentErrorMessage
                   touched={touched}
@@ -308,7 +310,7 @@ function EditOrganisationProfessional() {
                   name="validity"
                 />
               </div>
-              <div className="d-flex Category_div">
+              <div className="Category_div">
                 {values.documents[index].file ? (
                   <a
                     href={URL.createObjectURL(values.documents[index].file)}
@@ -330,11 +332,12 @@ function EditOrganisationProfessional() {
                         setFieldValue(`documents[${index}].file`, file);
                       }}
                     />
-                    <label htmlFor="file">
+                    <label htmlFor="file" className="toppad">
                       <img
                         className="uploadIcon"
                         src={UploadIcon}
                         alt="Upload"
+                        
                       />
                     </label>
                     <DocumentErrorMessage
@@ -355,7 +358,7 @@ function EditOrganisationProfessional() {
             </div>
           ))}
 
-          <button className="add_morebtn" onClick={addDocument}>
+          <button className="add_morebtn mt-3" onClick={addDocument}>
             <img src={AddIcon} className="me-2" alt="add" />
             Add More
           </button>

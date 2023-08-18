@@ -7,7 +7,9 @@ function DocumentErrorMessage({ name, index, touched, errors }) {
             style={{
               fontWeight: 400,
               color: "red",
-              fontSize: "14px",
+              fontSize: "12px",
+              marginBottom: "0px",
+              
             }}
           >
             {errors.documents[index]?.[name]}

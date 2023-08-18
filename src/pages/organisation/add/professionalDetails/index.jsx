@@ -160,11 +160,11 @@ function AddOrganisationProfessional() {
               <hr />
             </Col>
 
-            <Col md={10}>
+            <Col md={12}>
               <Row>
                 {servicesOffered?.map((service, index) => {
                   return (
-                    <Col md={getMdValue(index)} key={service?.id}>
+                    <Col md={4} key={service?.id}>
                       <InputGroup className="mb-3">
                         <InputGroup.Checkbox
                           id={`checkbox-${service?.id}`}
@@ -203,7 +203,7 @@ function AddOrganisationProfessional() {
               </Row>
             </Col>
             <Col md={12}>
-              <h2 className="mt-0">Languages</h2>
+              <h2 className="mt-5">Languages</h2>
               <hr />
               <Form.Label htmlFor="" className="mt-3">
                 Languages<span className="mendatory-feild">*</span>
@@ -231,6 +231,7 @@ function AddOrganisationProfessional() {
                         )?.name
                       }
                       <img
+                        className="ms-1"
                         src={CrossIcon}
                         alt="Remove"
                         onClick={() => removeLanguage(selectedLanguageId)}
@@ -241,13 +242,13 @@ function AddOrganisationProfessional() {
               </div>
             </Col>
             <Col md={12}>
-              <h2 className="mt-0">Documents</h2>
+              <h2 className="mt-4">Documents  </h2>
               <hr />
             </Col>
           </Row>
           {values.documents.map((document, index) => (
             <div className="d-flex Category_div" key={numArray[index]}>
-              <div>
+              <div  className="mb-2">
                 <p>Category</p>
                 <Form.Select
                   className=""
@@ -268,12 +269,12 @@ function AddOrganisationProfessional() {
                   name="category"
                 />
               </div>
-              <div>
+              <div className="mb-2">
                 <p>Document Type</p>
                 <Form.Control
                   {...getFieldProps(`documents[${index}].document_type`)}
                   type="text"
-                  placeholder="Clinic License"
+                  placeholder="Document Name"
                 />
                 <DocumentErrorMessage
                   touched={touched}
@@ -282,7 +283,7 @@ function AddOrganisationProfessional() {
                   name="document_type"
                 />
               </div>
-              <div>
+              <div className="mb-2">
                 <p>Issuer Name</p>
                 <Form.Control
                   {...getFieldProps(`documents[${index}].issuer_name`)}
@@ -296,7 +297,7 @@ function AddOrganisationProfessional() {
                   name="issuer_name"
                 />
               </div>
-              <div>
+              <div className="mb-2"> 
                 <p>License Number</p>
                 <Form.Control
                   {...getFieldProps(`documents[${index}].license_number`)}
@@ -310,7 +311,7 @@ function AddOrganisationProfessional() {
                   name="license_number"
                 />
               </div>
-              <div>
+              <div className="mb-2">
                 <p>Validity</p>
                 <Form.Control
                   {...getFieldProps(`documents[${index}].validity`)}
@@ -325,7 +326,7 @@ function AddOrganisationProfessional() {
                   name="validity"
                 />
               </div>
-              <div className="d-flex Category_div">
+              <div className="Category_div">
                 {values.documents[index].file ? (
                   <a
                     href={URL.createObjectURL(values.documents[index].file)}
@@ -347,12 +348,18 @@ function AddOrganisationProfessional() {
                         setFieldValue(`documents[${index}].file`, file);
                       }}
                     />
-                    <label htmlFor="file">
+                    <label htmlFor="file" className="toppad">
                       <img
                         className="uploadIcon"
                         src={UploadIcon}
                         alt="Upload"
+                        
                       />
+                       {values.documents.length > 1 && (
+                  <Button onClick={() => removeDocument(index)}>
+                    <img src={DeleteIcon} alt="delete" />
+                  </Button>
+                )}
                     </label>
                     <DocumentErrorMessage
                       touched={touched}
@@ -363,16 +370,12 @@ function AddOrganisationProfessional() {
                   </>
                 )}
 
-                {values.documents.length > 1 && (
-                  <Button onClick={() => removeDocument(index)}>
-                    <img src={DeleteIcon} alt="delete" />
-                  </Button>
-                )}
+               
               </div>
             </div>
           ))}
 
-          <button className="add_morebtn" onClick={addDocument}>
+          <button className="add_morebtn mt-3" onClick={addDocument}>
             <img src={AddIcon} className="me-2" alt="add" />
             Add More
           </button>
