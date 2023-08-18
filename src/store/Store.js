@@ -7,6 +7,7 @@ const initialState = {
   userInfo: null,
   addOrganisationStep1: null,
   editOrganisationDetails: null,
+  editOrganisationStep1: null,
 };
 
 function reducer(state, action) {
@@ -22,6 +23,9 @@ function reducer(state, action) {
 
     case Type.EDIT_ORGANISATION_DETAILS:
       return { ...state, editOrganisationDetails: action.payload };
+
+    case Type.ADD_EDIT_ORGANISATION_STEP_1:
+      return { ...state, editOrganisationStep1: action.payload };
 
     default:
       return state;

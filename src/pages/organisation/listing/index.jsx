@@ -38,7 +38,7 @@ function OrganisationListing() {
   const [organizations, setOrganizations] = useState([]);
   const [search, setSearch] = useState("");
   const { dispatch } = useContext(Store);
-  const [totalItems, setTotalItems] = useState(100);
+  const [totalItems, setTotalItems] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
 
   const debouncedSearchTerm = useDebounce(search, 600);
@@ -59,12 +59,14 @@ function OrganisationListing() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { results } = await OrganisationService.getOrganisationSummary({
-          search: debouncedSearchTerm,
-          // page: itemsPerPage,
-          // page_num: currentPage,
-        });
-        setOrganizations(results);
+        const { result, count } =
+          await OrganisationService.getOrganisationSummary({
+            search: debouncedSearchTerm,
+            page: currentPage,
+            // page_num: currentPage,
+          });
+        setOrganizations(result);
+        setTotalItems(count);
       } catch (err) {
         console.log(err);
       }
@@ -74,13 +76,12 @@ function OrganisationListing() {
 
   const handleSwitchToggle = async (organization) => {
     try {
-      const { organization_id, enabled } = organization;
-      const { data } = await OrganisationService.changeOrganisationStatus(
-        organization_id,
-        { enabled: !enabled }
-      );
+      const { id, enabled } = organization;
+      const { data } = await OrganisationService.changeOrganisationStatus(id, {
+        enabled: !enabled,
+      });
       const updatedOrganisation = organizations?.map((organization) => {
-        if (organization.organization_id === data.organization_id) {
+        if (organization.id === data.organization_id) {
           organization.enabled = data.enabled;
           return organization;
         } else {
@@ -174,7 +175,7 @@ function OrganisationListing() {
               </thead>
               <tbody>
                 {organizations?.map((organization) => (
-                  <tr key={organization?.organization_id}>
+                  <tr key={organization?.id}>
                     <td>
                       <InputGroup className="mb-3">
                         <InputGroup.Checkbox aria-label="Checkbox for following text input" />
@@ -182,34 +183,32 @@ function OrganisationListing() {
                     </td>
                     <td
                       className="name-textunder"
-                      onClick={() =>
-                        handleEditOrganisation(organization?.organization_id)
-                      }
+                      onClick={() => handleEditOrganisation(organization?.id)}
                     >
-                      {organization?.organization_name}
+                      {organization?.user}
                     </td>
-                    <td>{organization.organization_email}</td>
+                    <td>{organization?.email}</td>
                     <td
                       className="name-text"
                       onClick={() => handleShow(popUpComponents[0].name)}
                     >
-                      {organization?.clinics_count}
+                      {organization?.clinics}
                     </td>
                     <td
                       className="name-text"
                       onClick={() => handleShow(popUpComponents[1].name)}
                     >
-                      {organization?.doctors_count}
+                      {organization?.doctors}
                     </td>
                     <td
                       className="name-text"
                       onClick={() => handleShow(popUpComponents[2].name)}
                     >
-                      {organization?.patients_count}
+                      {organization?.patients}
                     </td>
                     <td>
                       <button className="RegisteredButton">
-                        {organization?.organization_status}
+                        {organization?.status}
                       </button>
                     </td>
                     <td>

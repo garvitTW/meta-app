@@ -1,7 +1,7 @@
 export const ErrorMessage = ({ touched, errors, name }) => {
   return (
     <>
-      {touched[name] && errors[name] && (
+      {touched?.[name] && errors?.[name] && (
         <p
           style={{
             fontWeight: 400,
@@ -9,7 +9,7 @@ export const ErrorMessage = ({ touched, errors, name }) => {
             fontSize: "14px",
           }}
         >
-          {errors[name]}
+          {errors?.[name]}
         </p>
       )}
     </>

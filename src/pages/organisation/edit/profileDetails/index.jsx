@@ -1,16 +1,32 @@
 import "./style.scss";
-import { Row, Col, Tabs, Tab, Form, Button } from "react-bootstrap";
+import { Row, Col, Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import URL from "../../../../constants/routesURL";
 import { useContext, useEffect } from "react";
 import { Store } from "../../../../store/Store";
+import { useFormik } from "formik";
+import validationSchemaProfileDetails from "../../../../validation/profileDetails";
+import { Type } from "../../../../constants/storeAction.constants";
+import Input from "../../../../components/formGroupInput";
+import { generateProfileDetailsInitialValue } from "../../../../utils/helperFunction";
+import EditOrganisationTabs from "../../../../components/editOrganisationTabs";
 function EditOrganisationProfile() {
   const { state, dispatch } = useContext(Store);
   const { editOrganisationDetails } = state;
+  const initialValues = generateProfileDetailsInitialValue(
+    editOrganisationDetails
+  );
+
+  const { errors, touched, handleSubmit, getFieldProps } = useFormik({
+    initialValues: initialValues,
+    validationSchema: validationSchemaProfileDetails,
+    onSubmit: (values, action) => {
+      dispatch({ type: Type.ADD_EDIT_ORGANISATION_STEP_1, payload: values });
+      navigate(URL.ORGANISATION.EDIT.PROFESSIONAL_DETAIL);
+    },
+  });
   const navigate = useNavigate();
-  const handleTabChange = (eventKey) => {
-    navigate(eventKey);
-  };
+
   useEffect(() => {
     if (!editOrganisationDetails) {
       navigate(URL.ORGANISATION.LISTING);
@@ -19,108 +35,142 @@ function EditOrganisationProfile() {
   if (!editOrganisationDetails) {
     return null;
   }
+  const formikProps = {
+    touched: touched,
+    errors: errors,
+    getFieldProps: getFieldProps,
+  };
   return (
     <>
       <div className="Patients_section Organization-section AddOrganisationProfile">
-        <Row>
-          <Col>
-            <h1>Edit Organization</h1>
-          </Col>
-          <Col md={12}>
-            <Tabs
-              defaultActiveKey={URL.ORGANISATION.EDIT.PROFILE_DETAIL}
-              id="uncontrolled-tab-example"
-              className="organise_tabs"
-              onSelect={handleTabChange}
-            >
-              <Tab
-                eventKey={URL.ORGANISATION.EDIT.PROFILE_DETAIL}
-                title="Profile Details"
-              ></Tab>
-              <Tab
-                eventKey={URL.ORGANISATION.EDIT.PROFESSIONAL_DETAIL}
-                title="Professional Details"
-              ></Tab>
-              <Tab
-                eventKey={URL.ORGANISATION.EDIT.PAYMENT}
-                title="Payment Plan"
-              ></Tab>
-            </Tabs>
-          </Col>
-        </Row>
+        <EditOrganisationTabs />
         <Row>
           <Col md={8}>
-            <Row>
-              <Col md={6}>
-                <Form.Label htmlFor="">Organisation Name</Form.Label>
-                <Form.Control type="text" placeholder="Organisation Name" />
-              </Col>
-              <Col md={6}>
-                <Form.Label htmlFor="">Organisation Email</Form.Label>
-                <Form.Control type="text" placeholder="Enter Email" />
-              </Col>
-              <Col md={6}>
-                <Form.Label htmlFor="">Organization Phone Number</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter Clinic Phone Number"
-                />
-              </Col>
-              <Col md={6}>
-                <Form.Label htmlFor="">Organization Fax (optional)</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter Clinic Fax (optional)"
-                />
-              </Col>
-            </Row>
-            <Row>
-              <Col md={12}>
-                <h2>Organization Representative Details</h2>
-              </Col>
-              <Col md={6}>
-                <Form.Label htmlFor="">First Name</Form.Label>
-                <Form.Control type="text" placeholder="Enter First Name" />
-              </Col>
-              <Col md={6}>
-                <Form.Label htmlFor="">Last Name</Form.Label>
-                <Form.Control type="text" placeholder="Enter Last Name" />
-              </Col>
-              <Col md={6}>
-                <Form.Label htmlFor="">
-                  Organization Representative Phone
-                </Form.Label>
-                <Form.Control type="text" placeholder="Enter Phone" />
-              </Col>
-              <Col md={6}>
-                <Form.Label htmlFor="">
-                  Organization Representative Email
-                </Form.Label>
-                <Form.Control type="text" placeholder="Enter Email" />
-              </Col>
-            </Row>
-            <Row>
-              <Col md={12}>
-                <h2>Organization Address</h2>
-              </Col>
-              <Col md={6}>
-                <Form.Label htmlFor="">Street</Form.Label>
-                <Form.Control type="text" placeholder="Enter Street" />
-              </Col>
-              <Col md={6}>
-                <Form.Label htmlFor="">Suite/Unit #</Form.Label>
-                <Form.Control type="text" placeholder="Enter Suite/Unit #" />
-              </Col>
-              <Col md={6}>
-                <Form.Label htmlFor="">City</Form.Label>
-                <Form.Control type="text" placeholder="Enter City" />
-              </Col>
-              <Col md={6}>
-                <Form.Label htmlFor="">State</Form.Label>
-                <Form.Control type="text" placeholder="Enter State" />
-              </Col>
-            </Row>
-            <Button className="Next_button">Next</Button>
+            <Form onSubmit={handleSubmit}>
+              <Row>
+                <Col md={6}>
+                  <Input
+                    {...formikProps}
+                    name="name"
+                    type="text"
+                    placeholder="Organisation Name"
+                    label="Organisation Name"
+                  />
+                </Col>
+                <Col md={6}>
+                  <Input
+                    {...formikProps}
+                    name="email"
+                    type="email"
+                    placeholder="Enter Email"
+                    label="Organisation Email"
+                  />
+                </Col>
+                <Col md={6}>
+                  <Input
+                    {...formikProps}
+                    name="phone_number"
+                    type="text"
+                    placeholder="Enter Clinic Phone Number"
+                    label="Organization Phone Number"
+                  />
+                </Col>
+                <Col md={6}>
+                  <Input
+                    {...formikProps}
+                    name="organization_fax"
+                    type="text"
+                    placeholder="Enter Clinic Fax (optional)"
+                    label="Organization Fax (optional)"
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col md={12}>
+                  <h2>Organization Representative Details</h2>
+                </Col>
+                <Col md={6}>
+                  <Input
+                    {...formikProps}
+                    name="organization_rep_first_name"
+                    type="text"
+                    placeholder="Enter First Name"
+                    label="First Name"
+                  />
+                </Col>
+                <Col md={6}>
+                  <Input
+                    {...formikProps}
+                    name="organization_rep_last_name"
+                    type="text"
+                    placeholder="Enter Last Name"
+                    label="Last Name"
+                  />
+                </Col>
+                <Col md={6}>
+                  <Input
+                    {...formikProps}
+                    name="organization_rep_phone"
+                    type="text"
+                    placeholder="Enter Phone"
+                    label="Organization Representative Phone"
+                  />
+                </Col>
+                <Col md={6}>
+                  <Input
+                    {...formikProps}
+                    name="organization_rep_email"
+                    type="text"
+                    placeholder="Enter Email"
+                    label="Organization Representative Email"
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col md={12}>
+                  <h2>Organization Address</h2>
+                </Col>
+                <Col md={6}>
+                  <Input
+                    {...formikProps}
+                    name="street"
+                    type="text"
+                    placeholder="Enter Street"
+                    label="Street"
+                  />
+                </Col>
+                <Col md={6}>
+                  <Input
+                    {...formikProps}
+                    name="suite_unit"
+                    type="text"
+                    placeholder="Enter Suite/Unit #"
+                    label="Suite/Unit #"
+                  />
+                </Col>
+                <Col md={6}>
+                  <Input
+                    {...formikProps}
+                    name="city"
+                    type="text"
+                    placeholder="Enter City"
+                    label="City"
+                  />
+                </Col>
+                <Col md={6}>
+                  <Input
+                    {...formikProps}
+                    name="state"
+                    type="text"
+                    placeholder="Enter State"
+                    label="State"
+                  />
+                </Col>
+              </Row>
+              <Button type="submit" className="Next_button">
+                Next
+              </Button>
+            </Form>
           </Col>
         </Row>
       </div>

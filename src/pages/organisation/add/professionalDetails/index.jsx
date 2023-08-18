@@ -17,7 +17,11 @@ import { ErrorMessage } from "../../../../components/errorMessage";
 import { Type } from "../../../../constants/storeAction.constants";
 import ButtonWithLoader from "../../../../components/buttonWithLoading";
 import DocumentErrorMessage from "../../../../components/documentErrorMessage";
-import { numArray } from "../../../../constants/common.constants";
+import {
+  documentObject,
+  numArray,
+} from "../../../../constants/common.constants";
+import { getMdValue } from "../../../../utils/helperFunction";
 
 function AddOrganisationProfessional() {
   const { state, dispatch } = useContext(Store);
@@ -45,25 +49,6 @@ function AddOrganisationProfessional() {
       fetchData();
     }
   }, [addOrganisationStep1, navigate]);
-
-  const getMdValue = (index) => {
-    if (index % 3 === 0) {
-      return 4;
-    } else if (index % 3 === 1) {
-      return 3;
-    } else {
-      return 5;
-    }
-  };
-
-  const documentObject = {
-    document_type: "",
-    file: "",
-    validity: "",
-    issuer_name: "",
-    category: "",
-    license_number: "",
-  };
 
   const {
     setFieldValue,
@@ -393,7 +378,15 @@ function AddOrganisationProfessional() {
           </button>
           <Row className="mt-5">
             <Col md={12}>
-              <button className="cancel-buttongry">Cancel</button>
+              <button
+                className="cancel-buttongry"
+                onClick={() => {
+                  dispatch({ type: Type.REMOVE_ORGANISATION_STEP_1 });
+                  navigate(URLS.ORGANISATION.LISTING);
+                }}
+              >
+                Cancel
+              </button>
               <ButtonWithLoader
                 isSubmitting={isSubmitting}
                 label="Add Organization"

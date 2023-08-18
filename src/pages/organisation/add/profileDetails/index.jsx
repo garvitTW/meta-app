@@ -9,25 +9,12 @@ import { useContext } from "react";
 import { Store } from "../../../../store/Store";
 import { Type } from "../../../../constants/storeAction.constants";
 import AddOrganisationTabs from "../../../../components/addOrganisationTabs";
+import { generateProfileDetailsInitialValue } from "../../../../utils/helperFunction";
 function AddOrganisationProfile() {
   const { state, dispatch } = useContext(Store);
   const { addOrganisationStep1 } = state;
-  const initialValues = {
-    name: addOrganisationStep1?.name || "",
-    email: addOrganisationStep1?.email || "",
-    phone_number: addOrganisationStep1?.phone_number || "",
-    organization_fax: addOrganisationStep1?.organization_fax || "",
-    organization_rep_first_name:
-      addOrganisationStep1?.organization_rep_first_name || "",
-    organization_rep_last_name:
-      addOrganisationStep1?.organization_rep_last_name || "",
-    organization_rep_phone: addOrganisationStep1?.organization_rep_phone || "",
-    organization_rep_email: addOrganisationStep1?.organization_rep_email || "",
-    street: addOrganisationStep1?.street || "",
-    suite_unit: addOrganisationStep1?.suite_unit || "",
-    city: addOrganisationStep1?.city || "",
-    state: addOrganisationStep1?.state || "",
-  };
+  const initialValues =
+    generateProfileDetailsInitialValue(addOrganisationStep1);
 
   const { errors, touched, handleSubmit, getFieldProps } = useFormik({
     initialValues: initialValues,
