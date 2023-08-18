@@ -15,6 +15,7 @@ import { useFormik } from "formik";
 import validationSchemaProfessionalDetails from "../../../../validation/professionalDetails";
 import { ErrorMessage } from "../../../../components/errorMessage";
 import { Type } from "../../../../constants/storeAction.constants";
+import ButtonWithLoader from "../../../../components/buttonWithLoading";
 
 function AddOrganisationProfessional() {
   const { state, dispatch } = useContext(Store);
@@ -67,6 +68,7 @@ function AddOrganisationProfessional() {
     values,
     touched,
     errors,
+    isSubmitting,
     handleSubmit,
   } = useFormik({
     initialValues: {
@@ -78,18 +80,18 @@ function AddOrganisationProfessional() {
     onSubmit: async (values) => {
       try {
         const { documents, ...rest } = values;
-        const { organization_id } =
-          await OrganisationService.postOrganisationClinic({
-            ...addOrganisationStep1,
-            password: "password@123",
-            enabled: true,
-            user_type: "ORGANIZATION",
-            ...rest,
-          });
+        const { results } = await OrganisationService.postOrganisationClinic({
+          ...addOrganisationStep1,
+          password: "password@123",
+          enabled: true,
+          user_type: "ORGANIZATION",
+          ...rest,
+        });
 
         const uploadDocument = {
           documents: documents,
         };
+        const { organization_id } = results;
         await OrganisationService.postOrganisationClinicDocument(
           organization_id,
           uploadDocument
@@ -348,6 +350,7 @@ function AddOrganisationProfessional() {
                   {...getFieldProps(`documents[${index}].validity`)}
                   type="datetime-local"
                   placeholder="Validity"
+                  min={new Date().toISOString().slice(0, 16)}
                 />
                 {touched.documents?.[index]?.validity &&
                   errors.documents?.[index]?.validity && (
@@ -421,9 +424,11 @@ function AddOrganisationProfessional() {
           <Row className="mt-5">
             <Col md={12}>
               <button className="cancel-buttongry">Cancel</button>
-              <button type="submit" className="blue-button">
-                Add Organization
-              </button>
+              <ButtonWithLoader
+                isSubmitting={isSubmitting}
+                label="Add Organization"
+                className="blue-button-loader"
+              />
             </Col>
           </Row>
         </Form>

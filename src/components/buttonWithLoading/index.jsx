@@ -1,8 +1,18 @@
 import { Button, Spinner } from "react-bootstrap";
 
-function ButtonWithLoader({ isSubmitting, label }) {
+function ButtonWithLoader({
+  variant = "",
+  isSubmitting,
+  label,
+  className = "",
+}) {
   return (
-    <Button variant="primary" type="submit" disabled={isSubmitting}>
+    <Button
+      variant={variant}
+      type="submit"
+      disabled={isSubmitting}
+      className={`${className}  d-flex justify-content-center align-items-center`}
+    >
       {isSubmitting ? (
         <Spinner animation="border" role="status">
           <span className="visually-hidden">Loading...</span>

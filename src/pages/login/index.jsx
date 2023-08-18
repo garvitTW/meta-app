@@ -92,6 +92,7 @@ function Login() {
                     </Form.Group>
                     <div className="text-center">
                       <ButtonWithLoader
+                        variant="primary"
                         isSubmitting={isSubmitting}
                         label="Login"
                       />

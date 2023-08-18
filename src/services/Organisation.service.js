@@ -19,6 +19,9 @@ async function postOrganisationClinicDocument(id, body) {
     body
   );
 }
+async function getOrganisationSummary(params) {
+  return apiService.get(apiURL.ORGANISATION_SUMMARY_LIST, params);
+}
 
 export const OrganisationService = {
   getServicesOffered,
@@ -26,4 +29,5 @@ export const OrganisationService = {
   postServicesOffered,
   postOrganisationClinic,
   postOrganisationClinicDocument,
+  getOrganisationSummary,
 };

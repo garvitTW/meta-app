@@ -7,11 +7,12 @@ import Pending from "../../organisation/pending";
 import Decliend from "../../organisation/declined";
 import { useNavigate } from "react-router-dom";
 import URL from "../../../constants/routesURL";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ModalComponent from "../../../components/modal";
 import ClinicListing from "../../clinic/listing";
 import DoctorListing from "../../doctor/listing";
 import PatientListing from "../../patient/listing";
+import { OrganisationService } from "../../../services/Organisation.service";
 
 const popUpComponents = [
   {
@@ -30,7 +31,7 @@ const popUpComponents = [
 
 function OrganisationListing() {
   const [show, setShow] = useState(false);
-
+  const [organizations, setOrganizations] = useState([]);
   const handleShow = (name) => setShow(name);
 
   const navigate = useNavigate();
@@ -42,6 +43,19 @@ function OrganisationListing() {
   const getPopUpComponent = () => {
     return popUpComponents.find((comp) => comp.name === show)?.component;
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { results } = await OrganisationService.getOrganisationSummary();
+        setOrganizations(results);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <>
       <div className="Patients_section Organization-section">
@@ -111,217 +125,57 @@ function OrganisationListing() {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>
-                    <InputGroup className="mb-3">
-                      <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-                    </InputGroup>
-                  </td>
-                  <td
-                    className="name-textunder"
-                    onClick={() =>
-                      navigate(URL.ORGANISATION.EDIT.PROFILE_DETAIL)
-                    }
-                  >
-                    ORG - 1111
-                  </td>
-                  <td>loremipsum@mail.com</td>
-                  <td
-                    className="name-text"
-                    onClick={() => handleShow(popUpComponents[0].name)}
-                  >
-                    xx
-                  </td>
-                  <td
-                    className="name-text"
-                    onClick={() => handleShow(popUpComponents[1].name)}
-                  >
-                    xx
-                  </td>
-                  <td
-                    className="name-text"
-                    onClick={() => handleShow(popUpComponents[2].name)}
-                  >
-                    xx
-                  </td>
-                  <td>
-                    <button className="RegisteredButton">Registered</button>
-                  </td>
-                  <td>
-                    <div>
-                      <Form>
-                        <Form.Check
-                          type="switch"
-                          id="custom-switch"
-                          label=""
-                          checked
-                        />
-                      </Form>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <InputGroup className="mb-3">
-                      <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-                    </InputGroup>
-                  </td>
-                  <td className="name-textunder">ORG - 1</td>
-                  <td>loremipsum@mail.com</td>
-                  <td className="name-text">xx</td>
-                  <td className="name-text">xx</td>
-                  <td className="name-text">xx</td>
-                  <td>
-                    <button className="RegisteredButton">Registered</button>
-                  </td>
-                  <td>
-                    <div>
-                      <Form>
-                        <Form.Check
-                          type="switch"
-                          id="custom-switch"
-                          label=""
-                          checked
-                        />
-                      </Form>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <InputGroup className="mb-3">
-                      <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-                    </InputGroup>
-                  </td>
-                  <td className="name-textunder">ORG - 1</td>
-                  <td>loremipsum@mail.com</td>
-                  <td className="name-text">xx</td>
-                  <td className="name-text">xx</td>
-                  <td className="name-text">xx</td>
-                  <td>
-                    <button className="RegisteredButton">Registered</button>
-                  </td>
-                  <td>
-                    <div>
-                      <Form>
-                        <Form.Check
-                          type="switch"
-                          id="custom-switch"
-                          label=""
-                          checked
-                        />
-                      </Form>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <InputGroup className="mb-3">
-                      <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-                    </InputGroup>
-                  </td>
-                  <td className="name-textunder">ORG - 1</td>
-                  <td>loremipsum@mail.com</td>
-                  <td className="name-text">xx</td>
-                  <td className="name-text">xx</td>
-                  <td className="name-text">xx</td>
-                  <td>
-                    <button className="RegisteredButton">Registered</button>
-                  </td>
-                  <td>
-                    <div>
-                      <Form>
-                        <Form.Check
-                          type="switch"
-                          id="custom-switch"
-                          label=""
-                          checked
-                        />
-                      </Form>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <InputGroup className="mb-3">
-                      <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-                    </InputGroup>
-                  </td>
-                  <td className="name-textunder">ORG - 1</td>
-                  <td>loremipsum@mail.com</td>
-                  <td className="name-text">xx</td>
-                  <td className="name-text">xx</td>
-                  <td className="name-text">xx</td>
-                  <td>
-                    <button className="RegisteredButton">Registered</button>
-                  </td>
-                  <td>
-                    <div>
-                      <Form>
-                        <Form.Check
-                          type="switch"
-                          id="custom-switch"
-                          label=""
-                          checked
-                        />
-                      </Form>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <InputGroup className="mb-3">
-                      <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-                    </InputGroup>
-                  </td>
-                  <td className="name-textunder">ORG - 1</td>
-                  <td>loremipsum@mail.com</td>
-                  <td className="name-text">xx</td>
-                  <td className="name-text">xx</td>
-                  <td className="name-text">xx</td>
-                  <td>
-                    <button className="RegisteredButton">Registered</button>
-                  </td>
-                  <td>
-                    <div>
-                      <Form>
-                        <Form.Check
-                          type="switch"
-                          id="custom-switch"
-                          label=""
-                          checked
-                        />
-                      </Form>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <InputGroup className="mb-3">
-                      <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-                    </InputGroup>
-                  </td>
-                  <td className="name-textunder">ORG - 1</td>
-                  <td>loremipsum@mail.com</td>
-                  <td className="name-text">xx</td>
-                  <td className="name-text">xx</td>
-                  <td className="name-text">xx</td>
-                  <td>
-                    <button className="RegisteredButton">Registered</button>
-                  </td>
-                  <td>
-                    <div>
-                      <Form>
-                        <Form.Check
-                          type="switch"
-                          id="custom-switch"
-                          label=""
-                          checked
-                        />
-                      </Form>
-                    </div>
-                  </td>
-                </tr>
+                {organizations?.map((organization) => (
+                  <tr key={organization?.organization_id}>
+                    <td>
+                      <InputGroup className="mb-3">
+                        <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+                      </InputGroup>
+                    </td>
+                    <td
+                      className="name-textunder"
+                      onClick={() =>
+                        navigate(URL.ORGANISATION.EDIT.PROFILE_DETAIL)
+                      }
+                    >
+                      {organization?.organization_name}
+                    </td>
+                    <td>{organization.organization_email}</td>
+                    <td
+                      className="name-text"
+                      onClick={() => handleShow(popUpComponents[0].name)}
+                    >
+                      {organization?.clinics_count}
+                    </td>
+                    <td
+                      className="name-text"
+                      onClick={() => handleShow(popUpComponents[1].name)}
+                    >
+                      {organization?.doctors_count}
+                    </td>
+                    <td
+                      className="name-text"
+                      onClick={() => handleShow(popUpComponents[2].name)}
+                    >
+                      {organization?.patients_count}
+                    </td>
+                    <td>
+                      <button className="RegisteredButton">Registered</button>
+                    </td>
+                    <td>
+                      <div>
+                        <Form>
+                          <Form.Check
+                            type="switch"
+                            id="custom-switch"
+                            label=""
+                            checked={organization?.enabled}
+                          />
+                        </Form>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </Table>
           </Col>
