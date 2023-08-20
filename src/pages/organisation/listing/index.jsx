@@ -7,7 +7,7 @@ import Pending from "../../organisation/pending";
 import Declined from "../../organisation/declined";
 import { useNavigate } from "react-router-dom";
 import URL from "../../../constants/routesURL";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import ModalComponent from "../../../components/modal";
 import ClinicListing from "../../clinic/listing";
 import DoctorListing from "../../doctor/listing";
@@ -21,15 +21,15 @@ import LoaderSpinner from "../../../components/spinner";
 const popUpComponents = [
   {
     name: "clinic",
-    component: <ClinicListing />,
+    component: ClinicListing ,
   },
   {
     name: "doctor",
-    component: <DoctorListing />,
+    component: DoctorListing ,
   },
   {
     name: "patient",
-    component: <PatientListing />,
+    component:PatientListing ,
   },
 ];
 
@@ -41,6 +41,7 @@ function OrganisationListing() {
   const [totalItems, setTotalItems] = useState(0);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [organisationIdForPopUp,setOrganisationIdForPopUp]=useState("");
 
   const debouncedSearchTerm = useDebounce(search, 600);
 
@@ -50,9 +51,16 @@ function OrganisationListing() {
     navigate(eventKey);
   };
 
-  const getPopUpComponent = () => {
-    return popUpComponents.find((comp) => comp.name === show)?.component;
-  };
+  const GetPopUpComponent = useMemo(() => {
+    const popUpComponent = popUpComponents.find((comp) => comp.name === show);
+    return popUpComponent ? popUpComponent.component : null;
+  }, [show]);
+
+
+  const handlePopUp=(name,id)=>{
+    setOrganisationIdForPopUp(id);
+    handleShow(name)
+  }
   const handleSearch = (e) => {
     setCurrentPage(1);
     setSearch(e.target.value);
@@ -82,6 +90,7 @@ function OrganisationListing() {
 
   const handleSwitchToggle = async (organization) => {
     try {
+      setLoading(true);
       const { id, enabled } = organization;
       const { data } = await OrganisationService.changeOrganisationStatus(id, {
         enabled: !enabled,
@@ -95,16 +104,21 @@ function OrganisationListing() {
         }
       });
       setOrganizations(updatedOrganisation);
+      setLoading(false);
     } catch (err) {
+      setLoading(false);
       console.log(err);
     }
   };
   const handleEditOrganisation = async (id) => {
     try {
+      setLoading(true);
       const { data } = await OrganisationService.getOrganisationClinic(id);
+      setLoading(false);
       dispatch({ type: Type.EDIT_ORGANISATION_DETAILS, payload: data });
       navigate(URL.ORGANISATION.EDIT.PROFILE_DETAIL);
     } catch (err) {
+      setLoading(false);
       console.log(err);
     }
   };
@@ -197,19 +211,19 @@ function OrganisationListing() {
                     <td>{organization?.email}</td>
                     <td
                       className="name-text"
-                      onClick={() => handleShow(popUpComponents[0].name)}
+                      onClick={() => handlePopUp(popUpComponents[0].name,organization?.id)}
                     >
                       {organization?.clinics}
                     </td>
                     <td
                       className="name-text"
-                      onClick={() => handleShow(popUpComponents[1].name)}
+                      onClick={() => handlePopUp(popUpComponents[1].name,organization?.id)}
                     >
                       {organization?.doctors}
                     </td>
                     <td
                       className="name-text"
-                      onClick={() => handleShow(popUpComponents[2].name)}
+                      onClick={() => handlePopUp(popUpComponents[2].name,organization?.id)}
                     >
                       {organization?.patients}
                     </td>
@@ -246,7 +260,7 @@ function OrganisationListing() {
         </Row>
       </div>
       <ModalComponent setShow={setShow} show={show} className="maxWidth">
-        {getPopUpComponent()}
+      {GetPopUpComponent && <GetPopUpComponent organization_id={organisationIdForPopUp} />}
       </ModalComponent>
     </>
   );

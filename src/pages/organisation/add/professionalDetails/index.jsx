@@ -21,7 +21,6 @@ import {
   documentObject,
   numArray,
 } from "../../../../constants/common.constants";
-import { getMdValue } from "../../../../utils/helperFunction";
 
 function AddOrganisationProfessional() {
   const { state, dispatch } = useContext(Store);

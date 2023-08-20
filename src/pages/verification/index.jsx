@@ -1,15 +1,19 @@
 import "./style.scss";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import Logo from "../../assests/images/login/logo.png";
-import { useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import URL from "../../constants/routesURL";
+import { Store } from "../../store/Store";
+import { authService, setAuthToken, setUserDetails } from "../../services/auth.service";
 function Verification() {
   const navigate = useNavigate();
   const number = [1, 2, 3, 4, 5, 6];
   const [otpValues, setOtpValues] = useState(["", "", "", "", "", ""]);
   const [rememberDevice, setRememberDevice] = useState(false);
   const [error, setError] = useState("");
+  const {state}=useContext(Store);
+  const {userInfo}=state
 
   const otpInputRefs = [
     useRef(),
@@ -19,6 +23,12 @@ function Verification() {
     useRef(),
     useRef(),
   ];
+
+  useEffect(()=>{
+if(!userInfo){
+  navigate(URL.LOGIN)
+}
+  },[navigate,userInfo])
 
   const handleOtpChange = (index, value) => {
     // Validate that the input contains only a single digit (0-9)
@@ -50,9 +60,15 @@ function Verification() {
 
       // Reset the OTP input fields after submission (optional)
       setOtpValues(["", "", "", "", "", ""]);
+      setUserDetails(userInfo);
+      setAuthToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c");
       navigate(URL.DASHBOARD);
     }
   };
+
+  if(!userInfo){
+    return null;
+  }
 
   return (
     <>

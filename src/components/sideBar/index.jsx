@@ -7,6 +7,7 @@ import SettingHover from "../../assests/images/sidebar/settin-hover.png";
 import LogoutHover from "../../assests/images/sidebar/logout-hover.png";
 import sideBarItems from "./sideBarItems";
 import URL from "../../constants/routesURL";
+import { authService } from "../../services/auth.service";
 
 function SideBar() {
   const navigate = useNavigate();
@@ -64,7 +65,8 @@ function SideBar() {
                 <img src={Logout} alt="logout"className="image-first" />
                 <img src={LogoutHover} alt="logout" className="image-hover d-none"/>
               </span>
-              <span>Logout</span>
+              <span onClick={()=>{authService.logout()
+              navigate(URL.LOGIN)}}>Logout</span>
             </li>
           </ul>
         </div>

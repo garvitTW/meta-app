@@ -64,7 +64,7 @@ function ClinicListing({ organization_id = "" }) {
     if (selectedOrganisation) {
       return organizations?.find(
         (org) => org?.organization_id === selectedOrganisation
-      ).name;
+      )?.name;
     } else {
       return "All";
     }
@@ -79,6 +79,7 @@ function ClinicListing({ organization_id = "" }) {
     }
   };
   const filterHandle = (slug, value) => {
+    setCurrentPage(1); 
     if (slug === "organization") {
       setSelectedOrganisation(value);
     }
@@ -86,8 +87,7 @@ function ClinicListing({ organization_id = "" }) {
       setStatus(value);
     }
     if (slug === "search") {
-      setCurrentPage(1);
-      setSearch(value);
+      setSearch(value); 
     }
   };
   return (

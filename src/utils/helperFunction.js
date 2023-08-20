@@ -15,14 +15,5 @@ const generateProfileDetailsInitialValue = (value) => {
   };
 };
 
-const getMdValue = (index) => {
-  if (index % 3 === 0) {
-    return 4;
-  } else if (index % 3 === 1) {
-    return 3;
-  } else {
-    return 5;
-  }
-};
 
-export { getMdValue, generateProfileDetailsInitialValue };
+export {  generateProfileDetailsInitialValue };

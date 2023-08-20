@@ -14,7 +14,7 @@ const responseBody = (response) => response?.data;
 
 agent.interceptors.request.use((config) => {
   const token = storageService.getFromLocalStorage(STORAGE_KEYS.AUTH_TOKEN);
-  if (token) config.headers.Authorization = `Bearer ${token}`;
+ // if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
 
@@ -46,6 +46,7 @@ agent.interceptors.response.use(
         toast.error(errorMessage);
         break;
       case 401:
+        toast.error(errorMessage);
         authService.logout();
         window.location.href = URL.LOGIN;
         break;

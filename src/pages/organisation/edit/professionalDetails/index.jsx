@@ -21,7 +21,6 @@ import {useFormik } from "formik";
 import ButtonWithLoader from "../../../../components/buttonWithLoading";
 import { Type } from "../../../../constants/storeAction.constants";
 import DocumentErrorMessage from "../../../../components/documentErrorMessage";
-import { getMdValue } from "../../../../utils/helperFunction";
 import  {ErrorMessage}  from "../../../../components/errorMessage";
 
 function EditOrganisationProfessional() {
@@ -34,12 +33,10 @@ function EditOrganisationProfessional() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // if (!editOrganisationDetails) {
-    //   navigate(URLS.ORGANISATION.LISTING);
-    // }
-    // if (editOrganisationStep1) {
-    //   navigate(URLS.ORGANISATION.EDIT.PROFILE_DETAIL);
-    // } else {
+  
+  if (!editOrganisationStep1) {
+      navigate(URLS.ORGANISATION.EDIT.PROFILE_DETAIL);
+    } else {
     const fetchData = async () => {
       try {
         const { data } = await OrganisationService.getServicesOffered();
@@ -51,7 +48,7 @@ function EditOrganisationProfessional() {
       }
     };
     fetchData();
-    // };
+    };
   }, [editOrganisationStep1, navigate]);
 
   const {
@@ -130,9 +127,9 @@ function EditOrganisationProfessional() {
     const updatedDocuments = values.documents.filter((_, i) => i !== index);
     setFieldValue("documents", updatedDocuments);
   };
-  // if (editOrganisationStep1 || !editOrganisationDetails) {
-  //   return null;
-  // }
+  if (!editOrganisationStep1 ) {
+    return null;
+  }
   return (
     <>
       <div className="Add_Organisation_Professional Patients_section Organization-section AddOrganisationProfile">
