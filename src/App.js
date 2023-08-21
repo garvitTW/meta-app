@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { protectedRoutes, publicRoutes } from "./constants/route";
 import Layout from "./components/layout";
 import ProtectedRoute from "./components/protectedRoutes";
+import NotFound from "./components/pageNotFound";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
               }
             />
           ))}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </div>
