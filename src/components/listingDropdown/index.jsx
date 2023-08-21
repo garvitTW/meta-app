@@ -1,6 +1,8 @@
 import { Dropdown } from "react-bootstrap";
 import Dropdownarrow from "../../assests/images/dashborad/dropdown.png";
 import { memo } from "react";
+import "./style.scss";
+
 function ListingDropDown({
   getFilterLabel,
   filterHandle,
@@ -15,7 +17,7 @@ function ListingDropDown({
         <span>{filterName}:</span> {getFilterLabel()}
         <img src={Dropdownarrow} alt="down arrow" />
       </Dropdown.Toggle>
-      <Dropdown.Menu>
+      <Dropdown.Menu className="listscroll">
         <Dropdown.Item onClick={() => filterHandle(filterName, "")}>
           All
         </Dropdown.Item>

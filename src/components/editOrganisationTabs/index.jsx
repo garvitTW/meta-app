@@ -11,7 +11,7 @@ function EditOrganisationTabs() {
   return (
     <Row>
       <Col>
-        <h1>Edit Organisation</h1>
+        <h1>Edit Organization</h1>
       </Col>
       <Col md={12}>
         <Tabs

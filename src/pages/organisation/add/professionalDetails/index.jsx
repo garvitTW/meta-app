@@ -339,6 +339,7 @@ function AddOrganisationProfessional() {
                     href={URL.createObjectURL(values.documents[index].file)}
                     target="_blank"
                     rel="noopener noreferrer"
+                    className={index===0?"fileico":"fileico2"}
                   >
                     <img src={SaveIcon} alt="View" />
                   </a>

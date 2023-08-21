@@ -71,6 +71,7 @@
         .name-text {
             color: #0ACEEC;
             text-decoration: underline;
+            cursor: pointer;
         }
 
         .form-check-input {
@@ -82,6 +83,7 @@
             &:checked {
                 background-color: #0ACEEC;
                 border-color: #0ACEEC;
+                cursor: pointer;
             }
 
             &:focus {
