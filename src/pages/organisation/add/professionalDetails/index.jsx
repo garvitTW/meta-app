@@ -148,6 +148,8 @@ function AddOrganisationProfessional() {
     return null;
   }
 
+  console.log("<<<", errors);
+
   return (
     <>
       <div className="Patients_section Organization-section AddOrganisationProfile Add_Organisation_Professional">
@@ -220,6 +222,11 @@ function AddOrganisationProfessional() {
                   </option>
                 ))}
               </Form.Select>
+              <ErrorMessage
+                errors={errors}
+                touched={touched}
+                name="languages_spoken"
+              />
 
               <div className="select_tags">
                 <ul>
@@ -242,14 +249,14 @@ function AddOrganisationProfessional() {
               </div>
             </Col>
             <Col md={12}>
-              <h2 className="mt-4">Documents  </h2>
+              <h2 className="mt-4">Documents </h2>
               <hr />
             </Col>
           </Row>
           {values.documents.map((document, index) => (
             <div className="d-flex Category_div" key={numArray[index]}>
-              <div  className="mb-2">
-               {index===0 && <p>Category</p>}
+              <div className="mb-2">
+                {index === 0 && <p>Category</p>}
                 <Form.Select
                   className=""
                   defaultValue=""
@@ -270,7 +277,7 @@ function AddOrganisationProfessional() {
                 />
               </div>
               <div className="mb-2">
-              {index===0 &&  <p>Document Type</p>}
+                {index === 0 && <p>Document Type</p>}
                 <Form.Control
                   {...getFieldProps(`documents[${index}].document_type`)}
                   type="text"
@@ -284,7 +291,7 @@ function AddOrganisationProfessional() {
                 />
               </div>
               <div className="mb-2">
-              {index===0 &&  <p>Issuer Name</p>}
+                {index === 0 && <p>Issuer Name</p>}
                 <Form.Control
                   {...getFieldProps(`documents[${index}].issuer_name`)}
                   type="text"
@@ -297,8 +304,8 @@ function AddOrganisationProfessional() {
                   name="issuer_name"
                 />
               </div>
-              <div className="mb-2"> 
-              {index===0 &&   <p>License Number</p>}
+              <div className="mb-2">
+                {index === 0 && <p>License Number</p>}
                 <Form.Control
                   {...getFieldProps(`documents[${index}].license_number`)}
                   type="text"
@@ -312,7 +319,7 @@ function AddOrganisationProfessional() {
                 />
               </div>
               <div className="mb-2">
-              {index===0 &&  <p>Validity</p>}
+                {index === 0 && <p>Validity</p>}
                 <Form.Control
                   {...getFieldProps(`documents[${index}].validity`)}
                   type="date"
@@ -353,13 +360,12 @@ function AddOrganisationProfessional() {
                         className="uploadIcon"
                         src={UploadIcon}
                         alt="Upload"
-                        
                       />
-                       {values.documents.length > 1 && (
-                  <Button onClick={() => removeDocument(index)}>
-                    <img src={DeleteIcon} alt="delete" />
-                  </Button>
-                )}
+                      {values.documents.length > 1 && (
+                        <Button onClick={() => removeDocument(index)}>
+                          <img src={DeleteIcon} alt="delete" />
+                        </Button>
+                      )}
                     </label>
                     <DocumentErrorMessage
                       touched={touched}
@@ -369,8 +375,6 @@ function AddOrganisationProfessional() {
                     />
                   </>
                 )}
-
-               
               </div>
             </div>
           ))}

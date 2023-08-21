@@ -1,4 +1,5 @@
 import "./style.scss";
+import { memo } from "react";
 import Logo from "../../assests/images/sidebar/logo.png";
 import Setting from "../../assests/images/sidebar/setting.png";
 import Logout from "../../assests/images/sidebar/logout.png";
@@ -53,20 +54,37 @@ function SideBar() {
           </ul>
           <p>ACCOUNT</p>
           <ul>
-            <li onClick={() => navigate(URL.SETTINGS)} className={acitveItem(URL.SETTINGS)}>
+            <li
+              onClick={() => navigate(URL.SETTINGS)}
+              className={acitveItem(URL.SETTINGS)}
+            >
               <span>
-                <img src={Setting} alt="setting" className="image-first"/>
-                <img src={SettingHover} alt="setting"className="image-hover d-none" />
+                <img src={Setting} alt="setting" className="image-first" />
+                <img
+                  src={SettingHover}
+                  alt="setting"
+                  className="image-hover d-none"
+                />
               </span>
               <span>Settings</span>
             </li>
             <li>
               <span>
-                <img src={Logout} alt="logout"className="image-first" />
-                <img src={LogoutHover} alt="logout" className="image-hover d-none"/>
+                <img src={Logout} alt="logout" className="image-first" />
+                <img
+                  src={LogoutHover}
+                  alt="logout"
+                  className="image-hover d-none"
+                />
               </span>
-              <span onClick={()=>{authService.logout()
-              navigate(URL.LOGIN)}}>Logout</span>
+              <span
+                onClick={() => {
+                  authService.logout();
+                  navigate(URL.LOGIN);
+                }}
+              >
+                Logout
+              </span>
             </li>
           </ul>
         </div>
@@ -75,4 +93,4 @@ function SideBar() {
   );
 }
 
-export default SideBar;
+export default memo(SideBar);

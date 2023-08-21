@@ -2,15 +2,7 @@ import * as Yup from "yup";
 const validationSchemaProfessionalDetails = Yup.object().shape({
   services_offered: Yup.array().min(1, "Please select at least one service"),
 
-  languages_spoken: Yup.array()
-    .required("Please select at least one language")
-    .test(
-      "unique-languages",
-      "Duplicate languages are not allowed",
-      (value) => {
-        return new Set(value).size === value.length;
-      }
-    ),
+  languages_spoken: Yup.array().min(1, "Please select at least one languages"),
 
   documents: Yup.array().of(
     Yup.object().shape({

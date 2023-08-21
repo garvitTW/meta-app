@@ -1,3 +1,4 @@
+import { memo } from "react";
 import Spinner from "react-bootstrap/Spinner";
 
 function LoaderSpinner({ loading }) {
@@ -10,4 +11,4 @@ function LoaderSpinner({ loading }) {
   );
 }
 
-export default LoaderSpinner;
+export default memo(LoaderSpinner);

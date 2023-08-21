@@ -10,13 +10,11 @@ import {
   Tab,
 } from "react-bootstrap";
 import EditIcon from "../../../assests/images/dashborad/edit.png";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Search from "../../../assests/images/dashborad/Search.png";
 import AddIcon from "../../../assests/images/dashborad/add.png";
 import URL from "../../../constants/routesURL";
 function OrganisationDeclined() {
-  const location = useLocation();
-  console.log(location);
   const navigate = useNavigate();
   const handleTabChange = (eventKey) => {
     navigate(eventKey);

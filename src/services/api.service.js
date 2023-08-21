@@ -14,7 +14,7 @@ const responseBody = (response) => response?.data;
 
 agent.interceptors.request.use((config) => {
   const token = storageService.getFromLocalStorage(STORAGE_KEYS.AUTH_TOKEN);
- // if (token) config.headers.Authorization = `Bearer ${token}`;
+  // if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
 
@@ -75,7 +75,7 @@ const getQueryString = (queryParams) => {
   }
   const filteredParams = Object.entries(queryParams).reduce(
     (acc, [key, value]) => {
-      if (value) {
+      if (value !== undefined && value !== null && value !== "") {
         acc[key] = value;
       }
       return acc;

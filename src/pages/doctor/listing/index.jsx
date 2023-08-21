@@ -6,16 +6,23 @@ import {
   Dropdown,
   Table,
   Form,
-  Button,
   Modal,
   InputGroup,
 } from "react-bootstrap";
 import Search from "../../../assests/images/dashborad/Search.png";
 import Dropdownarrow from "../../../assests/images/dashborad/dropdown.png";
 import PaginationSection from "../../../components/PaginationSection";
-function DoctorListing() {
+import { useDebounce } from "../../../hooks/debounce";
+function DoctorListing({ organization_id = "" }) {
   const [show, setShow] = useState(false);
+  const [clinics, setClinics] = useState([]);
+  const [status, setStatus] = useState("");
+  const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [loadingClinic, setLoadingClinic] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
+  const debouncedSearchTerm = useDebounce(search, 600);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   return (
@@ -62,7 +69,11 @@ function DoctorListing() {
         </Row>
         <Row>
           <Col md={12} className="mt-4">
-            <Table responsive className="table-stripednew Patients-table" variant="dark">
+            <Table
+              responsive
+              className="table-stripednew Patients-table"
+              variant="dark"
+            >
               <thead>
                 <tr>
                   <th>
@@ -315,14 +326,6 @@ function DoctorListing() {
                   </div>
                 </Row>
               </Modal.Body>
-              {/* <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                  Close
-                </Button>
-                <Button variant="primary" onClick={handleClose}>
-                  Save Changes
-                </Button>
-              </Modal.Footer> */}
             </Modal>
           </Col>
         </Row>

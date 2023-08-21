@@ -17,11 +17,11 @@ import {
   documentObject,
   numArray,
 } from "../../../../constants/common.constants";
-import {useFormik } from "formik";
+import { useFormik } from "formik";
 import ButtonWithLoader from "../../../../components/buttonWithLoading";
 import { Type } from "../../../../constants/storeAction.constants";
 import DocumentErrorMessage from "../../../../components/documentErrorMessage";
-import  {ErrorMessage}  from "../../../../components/errorMessage";
+import { ErrorMessage } from "../../../../components/errorMessage";
 
 function EditOrganisationProfessional() {
   const { state, dispatch } = useContext(Store);
@@ -33,22 +33,21 @@ function EditOrganisationProfessional() {
   const navigate = useNavigate();
 
   useEffect(() => {
-  
-  if (!editOrganisationStep1) {
+    if (!editOrganisationStep1) {
       navigate(URLS.ORGANISATION.EDIT.PROFILE_DETAIL);
     } else {
-    const fetchData = async () => {
-      try {
-        const { data } = await OrganisationService.getServicesOffered();
-        const fetchedLanguages = await OrganisationService.getLanguages();
-        setServicesOffered(data);
-        setLanguages(fetchedLanguages);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchData();
-    };
+      const fetchData = async () => {
+        try {
+          const { data } = await OrganisationService.getServicesOffered();
+          const fetchedLanguages = await OrganisationService.getLanguages();
+          setServicesOffered(data);
+          setLanguages(fetchedLanguages);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      fetchData();
+    }
   }, [editOrganisationStep1, navigate]);
 
   const {
@@ -127,7 +126,7 @@ function EditOrganisationProfessional() {
     const updatedDocuments = values.documents.filter((_, i) => i !== index);
     setFieldValue("documents", updatedDocuments);
   };
-  if (!editOrganisationStep1 ) {
+  if (!editOrganisationStep1) {
     return null;
   }
   return (
@@ -202,7 +201,11 @@ function EditOrganisationProfessional() {
                   </option>
                 ))}
               </Form.Select>
-
+              <ErrorMessage
+                errors={errors}
+                touched={touched}
+                name="languages_spoken"
+              />
               <div className="select_tags">
                 <ul>
                   {values.languages_spoken?.map((selectedLanguageId) => (
@@ -224,7 +227,7 @@ function EditOrganisationProfessional() {
               </div>
             </Col>
             <Col md={12}>
-              <h2 className="mt-4">Documents  </h2>
+              <h2 className="mt-4">Documents </h2>
               <hr />
             </Col>
           </Row>
@@ -336,7 +339,6 @@ function EditOrganisationProfessional() {
                         className="uploadIcon"
                         src={UploadIcon}
                         alt="Upload"
-                        
                       />
                       </span>
                       {values.documents.length > 1 && (

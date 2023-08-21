@@ -1,13 +1,14 @@
 import "./style.scss";
-import { Row, Col, Dropdown, Table, Form, InputGroup } from "react-bootstrap";
+import { Row, Col, Table, Form, InputGroup } from "react-bootstrap";
 import Search from "../../../assests/images/dashborad/Search.png";
-import Dropdownarrow from "../../../assests/images/dashborad/dropdown.png";
 import PaginationSection from "../../../components/PaginationSection";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useDebounce } from "../../../hooks/debounce";
 import LoaderSpinner from "../../../components/spinner";
 import { clinicService } from "../../../services/clinic.service";
 import { OrganisationService } from "../../../services/Organisation.service";
+import StatusDropDown from "../../../components/statusDropdown";
+import ListingDropDown from "../../../components/listingDropdown";
 function ClinicListing({ organization_id = "" }) {
   const [clinics, setClinics] = useState([]);
   const [organizations, setOrganizations] = useState([]);
@@ -17,8 +18,9 @@ function ClinicListing({ organization_id = "" }) {
   const [search, setSearch] = useState("");
   const [totalItems, setTotalItems] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [loadingOrganisation, setLoadingOrganisation] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalClinics, setTotalClinics] = useState(0);
+  const totalClinicsRef = useRef(0);
 
   const debouncedSearchTerm = useDebounce(search, 600);
 
@@ -35,7 +37,7 @@ function ClinicListing({ organization_id = "" }) {
           });
         setTotalItems(count);
         setClinics(results);
-        setTotalClinics(total_clinic_count);
+        totalClinicsRef.current = total_clinic_count;
         setLoading(false);
       } catch (err) {
         setLoading(false);
@@ -48,19 +50,19 @@ function ClinicListing({ organization_id = "" }) {
   useEffect(() => {
     const fetchOrganisation = async () => {
       try {
-        setLoading(true);
+        setLoadingOrganisation(true);
         const { data } = await OrganisationService.getOrganisationNameId();
         setOrganizations(data);
-        setLoading(false);
+        setLoadingOrganisation(false);
       } catch (err) {
-        setLoading(false);
+        setLoadingOrganisation(false);
         console.log(err);
       }
     };
     fetchOrganisation();
   }, []);
 
-  const getOrganisationFilter = () => {
+  const getOrganisationFilter = useCallback(() => {
     if (selectedOrganisation) {
       return organizations?.find(
         (org) => org?.organization_id === selectedOrganisation
@@ -68,26 +70,39 @@ function ClinicListing({ organization_id = "" }) {
     } else {
       return "All";
     }
-  };
-  const getStatusLabel = () => {
-    if (status === true) {
-      return "Enabled";
-    } else if (status === false) {
-      return "Disabled";
-    } else {
-      return "All";
-    }
-  };
-  const filterHandle = (slug, value) => {
-    setCurrentPage(1); 
-    if (slug === "organization") {
+  }, [organizations, selectedOrganisation]);
+
+  const filterHandle = useCallback((slug, value) => {
+    setCurrentPage(1);
+    if (slug === "Organization") {
       setSelectedOrganisation(value);
     }
     if (slug === "Status") {
       setStatus(value);
     }
     if (slug === "search") {
-      setSearch(value); 
+      setSearch(value);
+    }
+  }, []);
+
+  const handleSwitchToggle = async (clinic) => {
+    try {
+      setLoading(true);
+      const { id, is_enabled } = clinic;
+      const { data } = await clinicService.changeClinicStatus(id, {
+        enabled: !is_enabled,
+      });
+      const updatedClinic = clinics?.map((clinic) => {
+        if (clinic.id === data.clinic_id) {
+          clinic.is_enabled = data.enabled;
+        }
+        return clinic;
+      });
+      setClinics(updatedClinic);
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+      console.log(err);
     }
   };
   return (
@@ -95,10 +110,10 @@ function ClinicListing({ organization_id = "" }) {
       <div className="Patients_section">
         <div>
           <div className="d-inline-block">
-            <h1>Clinics ({totalClinics})</h1>
+            <h1>Clinics ({totalClinicsRef.current})</h1>
           </div>
           <div className="right-header">
-            <LoaderSpinner loading={loading} />
+            <LoaderSpinner loading={loading || loadingOrganisation} />
             <div className="position-relative">
               <img className="search-img" src={Search} alt="search" />
               <input
@@ -116,50 +131,18 @@ function ClinicListing({ organization_id = "" }) {
 
         <Row className="mt-4">
           <Col md={3} className="status_dropdown enable-status">
-            <Dropdown>
-              <Dropdown.Toggle variant="success" id="dropdown-basic">
-                <span>Status:</span> {getStatusLabel()}
-                <img src={Dropdownarrow} alt="down arrow" />
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item onClick={() => filterHandle("Status", "")}>
-                  All
-                </Dropdown.Item>
-                <Dropdown.Item onClick={() => filterHandle("Status", true)}>
-                  Enable
-                </Dropdown.Item>
-                <Dropdown.Item onClick={() => filterHandle("Status", false)}>
-                  Disable
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+            <StatusDropDown status={status} filterHandle={filterHandle} />
           </Col>
 
           <Col md={3} className="status_dropdown">
-            <Dropdown className="Organization_drop">
-              <Dropdown.Toggle variant="success" id="dropdown-basic">
-                <span>Organization:</span> {getOrganisationFilter()}
-                <img src={Dropdownarrow} alt="down arrow" />
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item onClick={() => filterHandle("organization", "")}>
-                  All
-                </Dropdown.Item>
-                {organizations?.map((organization) => (
-                  <Dropdown.Item
-                    onClick={() =>
-                      filterHandle(
-                        "organization",
-                        organization?.organization_id
-                      )
-                    }
-                    key={organization?.organization_id}
-                  >
-                    {organization?.name}
-                  </Dropdown.Item>
-                ))}
-              </Dropdown.Menu>
-            </Dropdown>
+            <ListingDropDown
+              getFilterLabel={getOrganisationFilter}
+              filterHandle={filterHandle}
+              values={organizations}
+              id="organization_id"
+              filterName="Organization"
+              className="Organization_drop"
+            />
           </Col>
 
           <Col md={12} className="mt-4">
@@ -204,6 +187,7 @@ function ClinicListing({ organization_id = "" }) {
                             id="custom-switch"
                             label=""
                             checked={clinic?.is_enabled}
+                            onChange={() => handleSwitchToggle(clinic)}
                           />
                         </Form>
                       </div>

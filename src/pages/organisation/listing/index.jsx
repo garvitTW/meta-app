@@ -7,7 +7,7 @@ import Pending from "../../organisation/pending";
 import Declined from "../../organisation/declined";
 import { useNavigate } from "react-router-dom";
 import URL from "../../../constants/routesURL";
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import ModalComponent from "../../../components/modal";
 import ClinicListing from "../../clinic/listing";
 import DoctorListing from "../../doctor/listing";
@@ -21,15 +21,15 @@ import LoaderSpinner from "../../../components/spinner";
 const popUpComponents = [
   {
     name: "clinic",
-    component: ClinicListing ,
+    component: ClinicListing,
   },
   {
     name: "doctor",
-    component: DoctorListing ,
+    component: DoctorListing,
   },
   {
     name: "patient",
-    component:PatientListing ,
+    component: PatientListing,
   },
 ];
 
@@ -41,7 +41,8 @@ function OrganisationListing() {
   const [totalItems, setTotalItems] = useState(0);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [organisationIdForPopUp,setOrganisationIdForPopUp]=useState("");
+  const [organisationIdForPopUp, setOrganisationIdForPopUp] = useState("");
+  const totalRegisteredClinicsRef = useRef(0);
 
   const debouncedSearchTerm = useDebounce(search, 600);
 
@@ -56,11 +57,10 @@ function OrganisationListing() {
     return popUpComponent ? popUpComponent.component : null;
   }, [show]);
 
-
-  const handlePopUp=(name,id)=>{
+  const handlePopUp = (name, id) => {
     setOrganisationIdForPopUp(id);
-    handleShow(name)
-  }
+    handleShow(name);
+  };
   const handleSearch = (e) => {
     setCurrentPage(1);
     setSearch(e.target.value);
@@ -70,7 +70,7 @@ function OrganisationListing() {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const { result, count } =
+        const { result, count, total_registered_count } =
           await OrganisationService.getOrganisationSummary({
             search: debouncedSearchTerm,
             page: currentPage,
@@ -79,6 +79,7 @@ function OrganisationListing() {
 
         setOrganizations(result);
         setTotalItems(count);
+        totalRegisteredClinicsRef.current = total_registered_count;
         setLoading(false);
       } catch (err) {
         setLoading(false);
@@ -162,7 +163,7 @@ function OrganisationListing() {
         >
           <Tab
             eventKey={URL.ORGANISATION.LISTING}
-            title="Registered (50)"
+            title={`Registered (${totalRegisteredClinicsRef.current})`}
           ></Tab>
           <Tab eventKey={URL.ORGANISATION.PENDING} title="Pending(20)">
             <Pending />
@@ -211,19 +212,25 @@ function OrganisationListing() {
                     <td>{organization?.email}</td>
                     <td
                       className="name-text"
-                      onClick={() => handlePopUp(popUpComponents[0].name,organization?.id)}
+                      onClick={() =>
+                        handlePopUp(popUpComponents[0].name, organization?.id)
+                      }
                     >
                       {organization?.clinics}
                     </td>
                     <td
                       className="name-text"
-                      onClick={() => handlePopUp(popUpComponents[1].name,organization?.id)}
+                      onClick={() =>
+                        handlePopUp(popUpComponents[1].name, organization?.id)
+                      }
                     >
                       {organization?.doctors}
                     </td>
                     <td
                       className="name-text"
-                      onClick={() => handlePopUp(popUpComponents[2].name,organization?.id)}
+                      onClick={() =>
+                        handlePopUp(popUpComponents[2].name, organization?.id)
+                      }
                     >
                       {organization?.patients}
                     </td>
@@ -260,7 +267,9 @@ function OrganisationListing() {
         </Row>
       </div>
       <ModalComponent setShow={setShow} show={show} className="maxWidth">
-      {GetPopUpComponent && <GetPopUpComponent organization_id={organisationIdForPopUp} />}
+        {GetPopUpComponent && (
+          <GetPopUpComponent organization_id={organisationIdForPopUp} />
+        )}
       </ModalComponent>
     </>
   );
