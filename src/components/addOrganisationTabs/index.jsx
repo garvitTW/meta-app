@@ -11,7 +11,7 @@ function AddOrganisationTabs() {
   return (
     <Row>
       <Col>
-        <h1>Add Organisation Clinics</h1>
+        <h1>Add Organization Clinics</h1>
       </Col>
       <Col md={12}>
         <Tabs

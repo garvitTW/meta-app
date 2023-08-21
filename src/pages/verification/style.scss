@@ -20,3 +20,19 @@
     }
   }
 }
+
+.remeberme{
+  margin-left: 12px;
+ }
+
+ .checkb{
+  width: 18px;
+  height: 18px;
+  vertical-align: text-top;
+  border-radius: 6px;
+  box-shadow: none !important;
+ }
+ 
+ input.checkb:focus{
+  outline: none !important;
+ }

@@ -41,7 +41,7 @@ function OrganisationPending() {
               <img className="search-img" src={Search} alt="search" />
               <input
                 className="w-100 search-input"
-                placeholder="Search by Organisation Name"
+                placeholder="Search by Organization Name"
               />
             </div>
           </Col>

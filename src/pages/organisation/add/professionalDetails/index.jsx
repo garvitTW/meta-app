@@ -155,22 +155,23 @@ function AddOrganisationProfessional() {
         <Form onSubmit={handleSubmit}>
           <Row className="AddOrganisationProfile ">
             <Col md={12}>
-              <h2 className="mt-0">Services offered (Select Minimum 1)</h2>
+              <h2 className="mt-0"></h2>
               <hr />
             </Col>
 
             <Col md={12}>
-              <Row>
+              <Row className="align-items-center">
                 {servicesOffered?.map((service, index) => {
                   return (
                     <Col md={4} key={service?.id}>
-                      <InputGroup className="mb-3">
+                      <InputGroup className="mb-3 checkbox-group">
                         <InputGroup.Checkbox
                           id={`checkbox-${service?.id}`}
                           checked={values.services_offered.includes(
                             service?.id
                           )}
                           onChange={() => handleServiceOffered(service)}
+                          className="checkbox-item"
                         />
                         <span className="checkbox-label">{service?.name}</span>
                       </InputGroup>
@@ -248,7 +249,7 @@ function AddOrganisationProfessional() {
           {values.documents.map((document, index) => (
             <div className="d-flex Category_div" key={numArray[index]}>
               <div  className="mb-2">
-                <p>Category</p>
+               {index===0 && <p>Category</p>}
                 <Form.Select
                   className=""
                   defaultValue=""
@@ -269,7 +270,7 @@ function AddOrganisationProfessional() {
                 />
               </div>
               <div className="mb-2">
-                <p>Document Type</p>
+              {index===0 &&  <p>Document Type</p>}
                 <Form.Control
                   {...getFieldProps(`documents[${index}].document_type`)}
                   type="text"
@@ -283,7 +284,7 @@ function AddOrganisationProfessional() {
                 />
               </div>
               <div className="mb-2">
-                <p>Issuer Name</p>
+              {index===0 &&  <p>Issuer Name</p>}
                 <Form.Control
                   {...getFieldProps(`documents[${index}].issuer_name`)}
                   type="text"
@@ -297,7 +298,7 @@ function AddOrganisationProfessional() {
                 />
               </div>
               <div className="mb-2"> 
-                <p>License Number</p>
+              {index===0 &&   <p>License Number</p>}
                 <Form.Control
                   {...getFieldProps(`documents[${index}].license_number`)}
                   type="text"
@@ -311,7 +312,7 @@ function AddOrganisationProfessional() {
                 />
               </div>
               <div className="mb-2">
-                <p>Validity</p>
+              {index===0 &&  <p>Validity</p>}
                 <Form.Control
                   {...getFieldProps(`documents[${index}].validity`)}
                   type="date"
@@ -347,7 +348,7 @@ function AddOrganisationProfessional() {
                         setFieldValue(`documents[${index}].file`, file);
                       }}
                     />
-                    <label htmlFor="file" className="toppad">
+                    <label htmlFor="file" className="toppad botmbox">
                       <img
                         className="uploadIcon"
                         src={UploadIcon}

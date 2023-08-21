@@ -3,17 +3,18 @@ function DocumentErrorMessage({ name, index, touched, errors }) {
     <>
       {touched.documents?.[index]?.[name] &&
         errors.documents?.[index]?.[name] && (
-          <p
+          <span
             style={{
               fontWeight: 400,
               color: "red",
               fontSize: "12px",
               marginBottom: "0px",
+              position: "relative"
               
             }}
           >
             {errors.documents[index]?.[name]}
-          </p>
+          </span>
         )}
     </>
   );

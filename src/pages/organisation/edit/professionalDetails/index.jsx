@@ -142,17 +142,18 @@ function EditOrganisationProfessional() {
             </Col>
 
             <Col md={12}>
-              <Row>
+              <Row className="align-items-center">
                 {servicesOffered?.map((service, index) => {
                   return (
                     <Col md={4} key={service?.id}>
-                      <InputGroup className="mb-3">
+                      <InputGroup className="mb-3 checkbox-group">
                         <InputGroup.Checkbox
                           id={`checkbox-${service?.id}`}
                           checked={values?.services_offered?.includes(
                             service?.id
                           )}
                           onChange={() => handleServiceOffered(service)}
+                          className="checkbox-item"
                         />
                         <span className="checkbox-label">{service?.name}</span>
                       </InputGroup>
@@ -329,14 +330,21 @@ function EditOrganisationProfessional() {
                         setFieldValue(`documents[${index}].file`, file);
                       }}
                     />
-                    <label htmlFor="file" className="toppad">
+                    <div htmlFor="file" className="toppad">
+                      <span>
                       <img
                         className="uploadIcon"
                         src={UploadIcon}
                         alt="Upload"
                         
                       />
-                    </label>
+                      </span>
+                      {values.documents.length > 1 && (
+                  <Button onClick={() => removeDocument(index)}>
+                    <img src={DeleteIcon} alt="delete" />
+                  </Button>
+                )}
+                    </div>
                     <DocumentErrorMessage
                       touched={touched}
                       errors={errors}
@@ -346,11 +354,7 @@ function EditOrganisationProfessional() {
                   </>
                 )}
 
-                {values.documents.length > 1 && (
-                  <Button onClick={() => removeDocument(index)}>
-                    <img src={DeleteIcon} alt="delete" />
-                  </Button>
-                )}
+               
               </div>
             </div>
           ))}

@@ -82,14 +82,25 @@ function Login() {
                       placeholder="Password"
                       label="Password"
                     />
-                    <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                      <Form.Check
+                    {/* <Form.Group className="mb-3" controlId="formBasicCheckbox"> */}
+                      
+                      {/* <Form.Check
                         checked={rememberMe}
                         type="checkbox"
                         label="Remember me"
                         onChange={(e) => setRememberMe(e.target.checked)}
-                      />
-                    </Form.Group>
+                      /> */}
+                      
+                    {/* </Form.Group> */}
+                  
+                    <input 
+                      checked={rememberMe}
+                      type="checkbox"
+                      className="checkb"
+
+                      onChange={(e) => setRememberMe(e.target.checked)}
+                    />
+                      <label className="remeberme">Remember me</label>
                     <div className="text-center">
                       <ButtonWithLoader
                         className="d-flex justify-content-center align-items-center"

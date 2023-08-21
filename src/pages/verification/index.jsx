@@ -105,14 +105,17 @@ if(!userInfo){
                   {error && (
                     <div className="text-center text-danger">{error}</div>
                   )}
-                  <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                  {/* <Form.Group className="mb-3" controlId="formBasicCheckbox">
                     <Form.Check
-                      type="checkbox"
-                      label="Remember this device for 30 days"
-                      checked={rememberDevice}
-                      onChange={(e) => setRememberDevice(e.target.checked)}
+                   
                     />
-                  </Form.Group>
+                  </Form.Group> */}
+                  <input
+                      type="checkbox"
+                      className="checkb"
+                      checked={rememberDevice}
+                      onChange={(e) => setRememberDevice(e.target.checked)} />
+                  <label className="remeberme">Remember this device for 30 days</label>
                   <div className="text-center">
                     <Button variant="primary" type="submit">
                       Verify

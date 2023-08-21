@@ -15,6 +15,7 @@
         height: 24px;
         width: 24px;
         border-radius: 8px;
+        margin: 0px;
 
         &:focus {
           box-shadow: none;
@@ -56,7 +57,7 @@
   }
 
   .Languages_select {
-    margin-bottom: 24px;
+    margin-bottom: 10px;
     width: 744px;
     font-family: Lato;
     font-size: 16px;
@@ -135,6 +136,12 @@
     width: 160px;
   }
 
+  a{
+    line-height: 47px;
+    display: inline-block;
+    margin-top: 29px;
+    margin-right: 5px;
+  }
   p {
     color: #fff;
     font-family: Lato;
@@ -159,7 +166,11 @@
     background-repeat: no-repeat;
     background-position: 98%;
     padding-right: 0;
-    width: 100%;
+    padding-right: 15px;
+    width: 160px;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   button {
@@ -238,4 +249,18 @@
   border: 0 !important;
   height: 47px !important;
   width: 194px !important;
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: center !important;
+  flex-wrap: unset !important;
+}
+.checkbox-item {
+  display: flex;
+  align-items: center;
+}
+
+.botmbox {
+  margin-bottom: 6px;
 }

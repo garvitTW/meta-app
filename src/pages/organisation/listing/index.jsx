@@ -138,7 +138,7 @@ function OrganisationListing() {
                 value={search}
                 onChange={(e) => handleSearch(e)}
                 className=" search-input"
-                placeholder="Search by Organisation Name"
+                placeholder="Search by Organization Name"
               />
             </div>
             <div>

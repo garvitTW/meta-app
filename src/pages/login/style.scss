@@ -95,7 +95,7 @@
     width: 360px;
     height: 42px;
     padding: 11px 10px;
-    margin: 0 auto;
+    margin:10px auto 0px;
     text-align: center;
     &:hover {
       background: #0aceec;
@@ -126,4 +126,18 @@
     max-width: 565px;
     margin: 0 auto;
   }
+
+
 }
+
+
+.remeberme{
+  margin-left: 12px;
+ }
+
+ .checkb{
+  width: 18px;
+  height: 18px;
+  vertical-align: text-top;
+  border-radius: 6px;
+ }

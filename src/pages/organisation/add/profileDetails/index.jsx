@@ -46,8 +46,8 @@ function AddOrganisationProfile() {
                     {...formikProps}
                     name="name"
                     type="text"
-                    placeholder="Organisation Name"
-                    label="Organisation Name"
+                    placeholder="Organization Name"
+                    label="Organization Name"
                   />
                 </Col>
                 <Col md={6}>
@@ -56,7 +56,7 @@ function AddOrganisationProfile() {
                     name="email"
                     type="email"
                     placeholder="Enter Email"
-                    label="Organisation Email"
+                    label="Organization Email"
                   />
                 </Col>
                 <Col md={6}>
