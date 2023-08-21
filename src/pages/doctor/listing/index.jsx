@@ -15,7 +15,7 @@ import PatientListing from "../../patient/listing";
 function DoctorListing({ organization_id = "" }) {
   const [show, setShow] = useState("");
   const [clinics, setClinics] = useState([]);
-  const [selectedClinic, setSelectedClinic] = useState(organization_id);
+  const [selectedClinic, setSelectedClinic] = useState();
   const [doctors, setDoctors] = useState([]);
   const [status, setStatus] = useState("");
   const [search, setSearch] = useState("");
@@ -169,7 +169,7 @@ function DoctorListing({ organization_id = "" }) {
                   </th>
                   <th>Doctor Name</th>
                   <th>Doctor ID</th>
-                  <th>Doctor ID</th>
+                  <th>Email Address</th>
                   <th>Clinic Name</th>
                   <th>Patients</th>
                   <th>Enable/Disable</th>
