@@ -79,6 +79,11 @@
             line-height: normal;
             text-align: left;
             width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            padding-right: 19px;
+            height: 42px;
 
             &:focus {
                 box-shadow: none;
@@ -88,6 +93,8 @@
 
             img {
                 float: right;
+                position: absolute;
+                right: 10px;
             }
         }
 
