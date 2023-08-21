@@ -157,7 +157,7 @@ function AddOrganisationProfessional() {
         <Form onSubmit={handleSubmit}>
           <Row className="AddOrganisationProfile ">
             <Col md={12}>
-              <h2 className="mt-0"></h2>
+              <h2 className="mt-0">Services offered (Select Minimum 1)</h2>
               <hr />
             </Col>
 
@@ -335,28 +335,38 @@ function AddOrganisationProfessional() {
               </div>
               <div className="Category_div">
                 {values.documents[index].file ? (
-                  <a
-                    href={URL.createObjectURL(values.documents[index].file)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={index===0?"fileico":"fileico2"}
-                  >
-                    <img src={SaveIcon} alt="View" />
-                  </a>
+                  <>
+                    <a
+                      href={URL.createObjectURL(values.documents[index].file)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img src={SaveIcon} alt="View" />
+                    </a>
+                    {values.documents.length > 1 && (
+                      <Button onClick={() => removeDocument(index)}>
+                        <img src={DeleteIcon} alt="delete" />
+                      </Button>
+                    )}
+                  </>
                 ) : (
                   <>
                     <input
                       {...getFieldProps(`documents[${index}].file`)}
                       style={{ display: "none" }}
                       type="file"
-                      id="file"
+                      id={`file-${index}`}
                       accept="application/pdf"
                       onChange={(event) => {
                         const file = event.target.files[0];
                         setFieldValue(`documents[${index}].file`, file);
                       }}
                     />
-                    <label htmlFor="file" className={index===0?"toppad":"botmbox"}>
+
+                    <label
+                      htmlFor={`file-${index}`}
+                      className={index === 0 ? "toppad" : "botmbox"}
+                    >
                       <img
                         className="uploadIcon"
                         src={UploadIcon}

@@ -234,7 +234,7 @@ function EditOrganisationProfessional() {
           {values.documents.map((document, index) => (
             <div className="d-flex Category_div" key={numArray[index]}>
               <div className="mb-2">
-              {index === 0 && <p>Category</p>}
+                {index === 0 && <p>Category</p>}
                 <Form.Select
                   className=""
                   defaultValue=""
@@ -255,7 +255,7 @@ function EditOrganisationProfessional() {
                 />
               </div>
               <div className="mb-2">
-              {index === 0 && <p>Document Type</p>}
+                {index === 0 && <p>Document Type</p>}
                 <Form.Control
                   {...getFieldProps(`documents[${index}].document_type`)}
                   type="text"
@@ -269,7 +269,7 @@ function EditOrganisationProfessional() {
                 />
               </div>
               <div className="mb-2">
-              {index === 0 && <p>Issuer Name</p>}
+                {index === 0 && <p>Issuer Name</p>}
                 <Form.Control
                   {...getFieldProps(`documents[${index}].issuer_name`)}
                   type="text"
@@ -283,7 +283,7 @@ function EditOrganisationProfessional() {
                 />
               </div>
               <div className="mb-2">
-              {index === 0 && <p> License Number</p>}
+                {index === 0 && <p> License Number</p>}
                 <Form.Control
                   {...getFieldProps(`documents[${index}].license_number`)}
                   type="text"
@@ -297,7 +297,7 @@ function EditOrganisationProfessional() {
                 />
               </div>
               <div className="mb-2">
-              {index === 0 && <p>Validity</p>}
+                {index === 0 && <p>Validity</p>}
                 <Form.Control
                   {...getFieldProps(`documents[${index}].validity`)}
                   type="date"
@@ -317,7 +317,7 @@ function EditOrganisationProfessional() {
                     href={URL.createObjectURL(values.documents[index].file)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={index===0?"fileico":"fileico2"}
+                    className={index === 0 ? "fileico" : "fileico2"}
                   >
                     <img src={SaveIcon} alt="View" />
                   </a>
@@ -334,19 +334,22 @@ function EditOrganisationProfessional() {
                         setFieldValue(`documents[${index}].file`, file);
                       }}
                     />
-                    <label htmlFor="file"  className={index===0?"toppad":"botmbox2"}>
+                    <label
+                      htmlFor="file"
+                      className={index === 0 ? "toppad" : "botmbox2"}
+                    >
                       <span>
-                      <img
-                        className="uploadIcon"
-                        src={UploadIcon}
-                        alt="Upload"
-                      />
+                        <img
+                          className="uploadIcon"
+                          src={UploadIcon}
+                          alt="Upload"
+                        />
                       </span>
                       {values.documents.length > 1 && (
-                  <Button onClick={() => removeDocument(index)}>
-                    <img src={DeleteIcon} alt="delete" />
-                  </Button>
-                )}
+                        <Button onClick={() => removeDocument(index)}>
+                          <img src={DeleteIcon} alt="delete" />
+                        </Button>
+                      )}
                     </label>
                     <DocumentErrorMessage
                       touched={touched}
@@ -356,8 +359,6 @@ function EditOrganisationProfessional() {
                     />
                   </>
                 )}
-
-               
               </div>
             </div>
           ))}

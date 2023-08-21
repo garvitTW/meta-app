@@ -9,7 +9,7 @@ async function changeDoctorStatus(id, body) {
   return apiService.put(apiURL.DOCTOR_SUMMARY + id + "/", body);
 }
 
-export const clinicService = {
+export const doctorService = {
   getDoctorSummary,
   changeDoctorStatus,
 };

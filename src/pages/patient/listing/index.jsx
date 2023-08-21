@@ -1,9 +1,9 @@
 import "./style.scss";
 import Patients from "../../../components/Patients";
-function PatientListing() {
+function PatientListing({ doctor_id = "" }) {
   return (
     <>
-      <Patients />
+      <Patients doctor_id={doctor_id} />
     </>
   );
 }

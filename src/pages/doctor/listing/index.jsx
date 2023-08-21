@@ -1,30 +1,120 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "./style.scss";
-import {
-  Row,
-  Col,
-  Dropdown,
-  Table,
-  Form,
-  Modal,
-  InputGroup,
-} from "react-bootstrap";
+import { Row, Col, Table, Form, InputGroup } from "react-bootstrap";
 import Search from "../../../assests/images/dashborad/Search.png";
-import Dropdownarrow from "../../../assests/images/dashborad/dropdown.png";
 import PaginationSection from "../../../components/PaginationSection";
 import { useDebounce } from "../../../hooks/debounce";
+import { doctorService } from "../../../services/doctor.service";
+import { clinicService } from "../../../services/clinic.service";
+import LoaderSpinner from "../../../components/spinner";
+import StatusDropdown from "../../../components/statusDropdown";
+import ListingDropdown from "../../../components/listingDropdown";
+import ModalComponent from "../../../components/modal";
+import PatientListing from "../../patient/listing";
+
 function DoctorListing({ organization_id = "" }) {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState("");
   const [clinics, setClinics] = useState([]);
+  const [selectedClinic, setSelectedClinic] = useState(organization_id);
+  const [doctors, setDoctors] = useState([]);
   const [status, setStatus] = useState("");
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
   const [loadingClinic, setLoadingClinic] = useState(false);
+
+  const [totalItems, setTotalItems] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
 
   const debouncedSearchTerm = useDebounce(search, 600);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+
+  const handleShow = (id) => setShow(id);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const { count, results } = await doctorService.getDoctorSummary({
+          organization_id: organization_id,
+          clinic_id: selectedClinic,
+          search: debouncedSearchTerm,
+          status: status,
+          page: currentPage,
+        });
+        setTotalItems(count);
+        setDoctors(results);
+        setLoading(false);
+      } catch (err) {
+        setLoading(false);
+        console.log(err);
+      }
+    };
+    fetchData();
+  }, [
+    debouncedSearchTerm,
+    status,
+    selectedClinic,
+    currentPage,
+    organization_id,
+  ]);
+
+  useEffect(() => {
+    const fetchClinics = async () => {
+      try {
+        setLoadingClinic(true);
+        const { data } = await clinicService.getClinicNameId();
+        setClinics(data);
+        setLoadingClinic(false);
+      } catch (err) {
+        setLoadingClinic(false);
+        console.log(err);
+      }
+    };
+    fetchClinics();
+  }, []);
+
+  const getClinicFilter = useCallback(() => {
+    if (selectedClinic) {
+      return clinics?.find((clinic) => clinic?.clinic_id === selectedClinic)
+        ?.name;
+    } else {
+      return "All";
+    }
+  }, [clinics, selectedClinic]);
+
+  const filterHandle = useCallback((slug, value) => {
+    setCurrentPage(1);
+    if (slug === "Clinic") {
+      setSelectedClinic(value);
+    }
+    if (slug === "Status") {
+      setStatus(value);
+    }
+    if (slug === "search") {
+      setSearch(value);
+    }
+  }, []);
+
+  const handleSwitchToggle = async (doctor) => {
+    try {
+      setLoading(true);
+      const { id, is_enabled } = doctor;
+      const { data } = await doctorService.changeDoctorStatus(id, {
+        enabled: !is_enabled,
+      });
+      const updatedDoctor = doctors?.map((doctor) => {
+        if (doctor.id === data.doctor_id) {
+          doctor.is_enabled = data.enabled;
+        }
+        return doctor;
+      });
+      setDoctors(updatedDoctor);
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+      console.log(err);
+    }
+  };
+
   return (
     <>
       <div className="Patients_section">
@@ -33,9 +123,15 @@ function DoctorListing({ organization_id = "" }) {
             <h1>Doctors</h1>
           </div>
           <div className="right-header">
+            <LoaderSpinner loading={loading || loadingClinic} />
             <div className="position-relative">
               <img className="search-img" src={Search} alt="search" />
-              <input className=" search-input" placeholder="Search patients" />
+              <input
+                value={search}
+                onChange={(e) => filterHandle("search", e.target.value)}
+                className=" search-input"
+                placeholder="Search patients"
+              />
             </div>
             <div>
               <button className="btn export-button w-export">Export</button>
@@ -45,26 +141,16 @@ function DoctorListing({ organization_id = "" }) {
 
         <Row className="mt-4">
           <Col md={3} className="status_dropdown enable-status">
-            <Dropdown>
-              <Dropdown.Toggle variant="success" id="dropdown-basic">
-                <span>Status:</span> Enabled
-                <img src={Dropdownarrow} />
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+            <StatusDropdown status={status} filterHandle={filterHandle} />
           </Col>
           <Col md={3} className="status_dropdown enable-status">
-            <Dropdown>
-              <Dropdown.Toggle variant="success" id="dropdown-basic">
-                <span>Clinic:</span> All
-                <img src={Dropdownarrow} />
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+            <ListingDropdown
+              getFilterLabel={getClinicFilter}
+              filterHandle={filterHandle}
+              values={clinics}
+              id="clinic_id"
+              filterName="Clinic"
+            />
           </Col>
         </Row>
         <Row>
@@ -90,246 +176,53 @@ function DoctorListing({ organization_id = "" }) {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>
-                    <InputGroup className="mb-3">
-                      <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-                    </InputGroup>
-                  </td>
-                  <td className="name-text" onClick={handleShow}>
-                    Dr. Jennifer Simpson
-                  </td>
-                  <td>xxxxxx</td>
-                  <td>loremipsum@mail.com</td>
-                  <td className="">NHS Family Clinic</td>
-                  <td className="name-text">234</td>
-                  <td>
-                    <div>
-                      <Form>
-                        <Form.Check
-                          type="switch"
-                          id="custom-switch"
-                          label=""
-                          checked
-                        />
-                      </Form>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <InputGroup className="mb-3">
-                      <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-                    </InputGroup>
-                  </td>
-                  <td className="name-text" onClick={handleShow}>
-                    Dr. Jennifer Simpson
-                  </td>
-                  <td>xxxxxx</td>
-                  <td>loremipsum@mail.com</td>
-                  <td className="">NHS Family Clinic</td>
-                  <td className="name-text">234</td>
-                  <td>
-                    <div>
-                      <Form>
-                        <Form.Check
-                          type="switch"
-                          id="custom-switch"
-                          label=""
-                          checked
-                        />
-                      </Form>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <InputGroup className="mb-3">
-                      <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-                    </InputGroup>
-                  </td>
-                  <td className="name-text" onClick={handleShow}>
-                    Dr. Jennifer Simpson
-                  </td>
-                  <td>xxxxxx</td>
-                  <td>loremipsum@mail.com</td>
-                  <td className="">NHS Family Clinic</td>
-                  <td className="name-text">234</td>
-                  <td>
-                    <div>
-                      <Form>
-                        <Form.Check
-                          type="switch"
-                          id="custom-switch"
-                          label=""
-                          checked
-                        />
-                      </Form>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <InputGroup className="mb-3">
-                      <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-                    </InputGroup>
-                  </td>
-                  <td className="name-text" onClick={handleShow}>
-                    Dr. Jennifer Simpson
-                  </td>
-                  <td>xxxxxx</td>
-                  <td>loremipsum@mail.com</td>
-                  <td className="">NHS Family Clinic</td>
-                  <td className="name-text">234</td>
-                  <td>
-                    <div>
-                      <Form>
-                        <Form.Check
-                          type="switch"
-                          id="custom-switch"
-                          label=""
-                          checked
-                        />
-                      </Form>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <InputGroup className="mb-3">
-                      <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-                    </InputGroup>
-                  </td>
-                  <td className="name-text" onClick={handleShow}>
-                    Dr. Jennifer Simpson
-                  </td>
-                  <td>xxxxxx</td>
-                  <td>loremipsum@mail.com</td>
-                  <td className="">NHS Family Clinic</td>
-                  <td className="name-text">234</td>
-                  <td>
-                    <div>
-                      <Form>
-                        <Form.Check
-                          type="switch"
-                          id="custom-switch"
-                          label=""
-                          checked
-                        />
-                      </Form>
-                    </div>
-                  </td>
-                </tr>
+                {doctors?.map((doctor) => (
+                  <tr key={doctor?.id}>
+                    <td>
+                      <InputGroup className="mb-3">
+                        <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+                      </InputGroup>
+                    </td>
+                    <td className="name-text" onClick={handleShow}>
+                      {doctor?.doctor_name}
+                    </td>
+                    <td>{doctor?.id}</td>
+                    <td>{doctor?.doctor_email}</td>
+                    <td className="">{doctor?.clinic_name}</td>
+                    <td
+                      className="name-text"
+                      onClick={() => handleShow(doctor?.id)}
+                    >
+                      {doctor?.patients_count}
+                    </td>
+                    <td>
+                      <div>
+                        <Form>
+                          <Form.Check
+                            type="switch"
+                            id="custom-switch"
+                            label=""
+                            checked={doctor?.is_enabled}
+                            onChange={() => handleSwitchToggle(doctor)}
+                          />
+                        </Form>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </Table>
-            <PaginationSection />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Modal
-              show={show}
-              onHide={handleClose}
-              className="patientlist_modal Patients_section "
-            >
-              <Modal.Header closeButton></Modal.Header>
-              <Modal.Body>
-                <Row>
-                  <Col md={3}>
-                    <h1>Patients</h1>
-                  </Col>
-                  <Col md={3} className="status_dropdown">
-                    <Dropdown>
-                      <Dropdown.Toggle variant="success" id="dropdown-basic">
-                        <span>Status:</span> Enabled
-                        <img src={Dropdownarrow} />
-                      </Dropdown.Toggle>
-                      <Dropdown.Menu>
-                        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                      </Dropdown.Menu>
-                    </Dropdown>
-                  </Col>
-                  <Col md={6}>
-                    <div className="position-relative">
-                      <img className="search-img" src={Search} />
-                      <input
-                        className="w-100 search-input"
-                        placeholder="Search by Clinic Name, Clinic Email"
-                      />
-                    </div>
-                  </Col>
-                  <div className="mt-4">
-                    <Table
-                      responsive
-                      striped
-                      className="Patients-table"
-                      variant="dark"
-                    >
-                      <thead>
-                        <tr>
-                          <th className="first-th"> MRN</th>
-                          <th className="sec-th">Patient Name</th>
-                          <th>Status</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>######</td>
-                          <td className="name-text">Jennifer</td>
-                          <td>
-                            <div>
-                              <Form>
-                                <Form.Check
-                                  type="switch"
-                                  id="custom-switch"
-                                  label=""
-                                  checked
-                                />
-                              </Form>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>######</td>
-                          <td className="name-text">Jennifer</td>
-                          <td>
-                            <div>
-                              <Form>
-                                <Form.Check
-                                  type="switch"
-                                  id="custom-switch"
-                                  label=""
-                                  checked
-                                />
-                              </Form>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>######</td>
-                          <td className="name-text">mehek</td>
-                          <td>
-                            <div>
-                              <Form>
-                                <Form.Check
-                                  type="switch"
-                                  id="custom-switch"
-                                  label=""
-                                  checked
-                                />
-                              </Form>
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </Table>
-                  </div>
-                </Row>
-              </Modal.Body>
-            </Modal>
+            <PaginationSection
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              count={totalItems}
+            />
           </Col>
         </Row>
       </div>
+      <ModalComponent setShow={setShow} show={show} className="maxWidth">
+        <PatientListing doctor_id={show} />
+      </ModalComponent>
     </>
   );
 }
