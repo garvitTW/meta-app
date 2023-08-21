@@ -8,8 +8,10 @@ const apiURL = {
   ORGANISATION_SUMMARY_LIST: "/organization/organization-summary/",
   CLINIC_SUMMARY: "/clinic/clinics-summary/",
   DOCTOR_SUMMARY: "/doctor/doctors-summary/",
+  PATIENT_SUMMARY: "/patient/patients-summary/",
   ORGANISATION_LIST: "/organization/organization-only-listing/",
   CLINIC_LIST: "/clinic/clinic-only-listing/",
+  DOCTOR_LIST: "/doctor/doctors-only-listing/",
 };
 
 export default apiURL;
