@@ -15,7 +15,7 @@ import PatientListing from "../../patient/listing";
 function DoctorListing({ organization_id = "" }) {
   const [show, setShow] = useState("");
   const [clinics, setClinics] = useState([]);
-  const [selectedClinic, setSelectedClinic] = useState();
+  const [selectedClinic, setSelectedClinic] = useState("");
   const [doctors, setDoctors] = useState([]);
   const [status, setStatus] = useState("");
   const [search, setSearch] = useState("");

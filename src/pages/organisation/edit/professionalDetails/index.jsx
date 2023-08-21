@@ -313,21 +313,28 @@ function EditOrganisationProfessional() {
               </div>
               <div className="Category_div">
                 {values.documents[index].file ? (
-                  <a
-                    href={URL.createObjectURL(values.documents[index].file)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={index === 0 ? "fileico" : "fileico2"}
-                  >
-                    <img src={SaveIcon} alt="View" />
-                  </a>
+                  <>
+                    <a
+                      href={URL.createObjectURL(values.documents[index].file)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={index === 0 ? "fileico" : "fileico2"}
+                    >
+                      <img src={SaveIcon} alt="View" />
+                    </a>
+                    {values.documents.length > 1 && (
+                      <Button onClick={() => removeDocument(index)}>
+                        <img src={DeleteIcon} alt="delete" />
+                      </Button>
+                    )}
+                  </>
                 ) : (
                   <>
                     <input
                       {...getFieldProps(`documents[${index}].file`)}
                       style={{ display: "none" }}
                       type="file"
-                      id="file"
+                      id={`file-${index}`}
                       accept="application/pdf"
                       onChange={(event) => {
                         const file = event.target.files[0];
@@ -335,7 +342,7 @@ function EditOrganisationProfessional() {
                       }}
                     />
                     <label
-                      htmlFor="file"
+                      htmlFor={`file-${index}`}
                       className={index === 0 ? "toppad" : "botmbox2"}
                     >
                       <span>
