@@ -233,8 +233,8 @@ function EditOrganisationProfessional() {
           </Row>
           {values.documents.map((document, index) => (
             <div className="d-flex Category_div" key={numArray[index]}>
-              <div>
-                <p>Category</p>
+              <div className="mb-2">
+              {index === 0 && <p>Category</p>}
                 <Form.Select
                   className=""
                   defaultValue=""
@@ -254,8 +254,8 @@ function EditOrganisationProfessional() {
                   name="category"
                 />
               </div>
-              <div>
-                <p>Document Type</p>
+              <div className="mb-2">
+              {index === 0 && <p>Document Type</p>}
                 <Form.Control
                   {...getFieldProps(`documents[${index}].document_type`)}
                   type="text"
@@ -268,8 +268,8 @@ function EditOrganisationProfessional() {
                   name="document_type"
                 />
               </div>
-              <div>
-                <p>Issuer Name</p>
+              <div className="mb-2">
+              {index === 0 && <p>Issuer Name</p>}
                 <Form.Control
                   {...getFieldProps(`documents[${index}].issuer_name`)}
                   type="text"
@@ -282,8 +282,8 @@ function EditOrganisationProfessional() {
                   name="issuer_name"
                 />
               </div>
-              <div>
-                <p>License Number</p>
+              <div className="mb-2">
+              {index === 0 && <p> License Number</p>}
                 <Form.Control
                   {...getFieldProps(`documents[${index}].license_number`)}
                   type="text"
@@ -296,8 +296,8 @@ function EditOrganisationProfessional() {
                   name="license_number"
                 />
               </div>
-              <div>
-                <p>Validity</p>
+              <div className="mb-2">
+              {index === 0 && <p>Validity</p>}
                 <Form.Control
                   {...getFieldProps(`documents[${index}].validity`)}
                   type="date"
@@ -333,7 +333,7 @@ function EditOrganisationProfessional() {
                         setFieldValue(`documents[${index}].file`, file);
                       }}
                     />
-                    <div htmlFor="file" className="toppad">
+                    <label htmlFor="file"  className={index===0?"toppad":"botmbox2"}>
                       <span>
                       <img
                         className="uploadIcon"
@@ -346,7 +346,7 @@ function EditOrganisationProfessional() {
                     <img src={DeleteIcon} alt="delete" />
                   </Button>
                 )}
-                    </div>
+                    </label>
                     <DocumentErrorMessage
                       touched={touched}
                       errors={errors}

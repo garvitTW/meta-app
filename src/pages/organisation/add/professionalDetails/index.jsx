@@ -267,7 +267,7 @@ function AddOrganisationProfessional() {
                   </option>
                   <option value="LICENSE">License </option>
                   <option value="BUSINESS">Business</option>
-                  <option value="COMPLIANCE">Compliance</option>
+                  <option value="COMPLIANCE DOCUMENTS">Compliance</option>
                 </Form.Select>
                 <DocumentErrorMessage
                   touched={touched}
@@ -355,7 +355,7 @@ function AddOrganisationProfessional() {
                         setFieldValue(`documents[${index}].file`, file);
                       }}
                     />
-                    <label htmlFor="file" className="toppad botmbox">
+                    <label htmlFor="file" className={index===0?"toppad":"botmbox"}>
                       <img
                         className="uploadIcon"
                         src={UploadIcon}

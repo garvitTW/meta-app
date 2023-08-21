@@ -129,7 +129,7 @@
 }
 
 .Category_div {
-  align-items: center;
+  align-items: start;
   gap: 10px;
 
   div{
@@ -139,7 +139,7 @@
   a{
     line-height: 47px;
     display: inline-block;
-    margin-top: 29px;
+    margin-top:37px;
     margin-right: 5px;
   }
   p {
@@ -188,7 +188,7 @@
   }
 
   .toppad{
-    margin-top: 36px;
+    margin-top:41px;
     margin-bottom: 7px;
   }
 }
@@ -235,6 +235,7 @@
 }
 .uploadIcon {
   width: 35px;
+  cursor: pointer;
 }
 
 .blue-button-loader {
@@ -262,5 +263,9 @@
 }
 
 .botmbox {
-  margin-bottom: 6px;
+  margin-bottom: 10px;
+}
+.botmbox2{
+  margin-bottom: 5px;
+  padding-top: 6px;
 }
