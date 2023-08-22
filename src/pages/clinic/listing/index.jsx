@@ -205,7 +205,7 @@ function ClinicListing({ organization_id = "" }) {
                     <td>{clinic?.email}</td>
                     <td>{clinic?.organization_clinic}</td>
                     <td
-                      className="name-textunder"
+                      className="name-text"
                       onClick={() =>
                         handlePopUp(
                           popUpComponents[0].name,
@@ -217,7 +217,7 @@ function ClinicListing({ organization_id = "" }) {
                       {clinic?.doctors_count}
                     </td>
                     <td
-                      className="name-textunder"
+                      className="name-text"
                       onClick={() =>
                         handlePopUp(
                           popUpComponents[1].name,
