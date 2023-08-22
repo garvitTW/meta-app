@@ -267,7 +267,7 @@ function AddOrganisationProfessional() {
                   </option>
                   <option value="LICENSE">License </option>
                   <option value="BUSINESS">Business</option>
-                  <option value="COMPLIANCE DOCUMENTS">Compliance</option>
+                  <option value="COMPLIANCE">Compliance</option>
                 </Form.Select>
                 <DocumentErrorMessage
                   touched={touched}
