@@ -126,20 +126,43 @@ function OrganisationListing() {
       console.log(err);
     }
   };
-  function getEnableDisableValue(organization) {
-    return organization.enabled ? "Enabled" : "Disabled";
-  }
+
   const downloadData = () => {
+    if(organizations.length>0){
     const pdf = new jsPDF();
-    pdf.autoTable({
-      html: "#table",
-      didParseCell: function (data) {
-        if (data.cell.raw && data.cell.raw.type === "switch") {
-          data.text = getEnableDisableValue(organizations[data.row.index]);
-        }
-      },
-    });
-    pdf.save("Organizations.pdf");
+  const tableData = [];
+
+  // Iterate through organizations and prepare data for the PDF table
+  organizations.forEach((organization) => {
+    tableData.push([
+      organization.user,
+      organization.email,
+      organization.clinics,
+      organization.doctors,
+      organization.patients,
+      organization.status,
+      organization.enabled ? "Enabled" : "Disabled"
+    ]);
+  });
+
+  // Add table headers
+  const tableHeaders = [
+    "Organizational Clinic Name",
+    "Email Address",
+    "Clinics",
+    "Doctors",
+    "Patients",
+    "Status",
+    "Enable/Disable",
+  ];
+  
+  pdf.autoTable({
+    head: [tableHeaders],
+    body: tableData,
+  });
+  
+  pdf.save('Organizations.pdf');
+}
   };
 
   return (
