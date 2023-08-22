@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "./style.scss";
 import { Row, Col, Table, Form, InputGroup } from "react-bootstrap";
 import Search from "../../../assests/images/dashborad/Search.png";
@@ -12,18 +12,15 @@ import ListingDropdown from "../../../components/listingDropdown";
 import ModalComponent from "../../../components/modal";
 import PatientListing from "../../patient/listing";
 
-function DoctorListing({ organization_id = "", subItemCount = "" }) {
+function DoctorListing({ organization_id = "", clinic_id = "" }) {
   const [show, setShow] = useState("");
   const [clinics, setClinics] = useState([]);
-  const [selectedClinic, setSelectedClinic] = useState("");
+  const [selectedClinic, setSelectedClinic] = useState(clinic_id);
   const [doctors, setDoctors] = useState([]);
   const [status, setStatus] = useState("");
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
   const [loadingClinic, setLoadingClinic] = useState(false);
-  const [patientCountForPopUp, setPatientCountForPopUp] = useState("");
-  const totalDoctorsRef = useRef(0);
-  const doctorCount = subItemCount || totalDoctorsRef.current;
 
   const [totalItems, setTotalItems] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
@@ -33,7 +30,6 @@ function DoctorListing({ organization_id = "", subItemCount = "" }) {
   const handleShow = (id, count) => {
     if (count > 0) {
       setShow(id);
-      setPatientCountForPopUp(count);
     }
   };
 
@@ -41,17 +37,16 @@ function DoctorListing({ organization_id = "", subItemCount = "" }) {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const { count, results, total_doctor_count } =
-          await doctorService.getDoctorSummary({
-            organization_id: organization_id,
-            clinic_id: selectedClinic,
-            search: debouncedSearchTerm,
-            status: status,
-            page: currentPage,
-          });
+        const { count, results } = await doctorService.getDoctorSummary({
+          organization_id: organization_id,
+          clinic_id: selectedClinic,
+          search: debouncedSearchTerm,
+          status: status,
+          page: currentPage,
+        });
         setTotalItems(count);
         setDoctors(results);
-        totalDoctorsRef.current = total_doctor_count;
+
         setLoading(false);
       } catch (err) {
         setLoading(false);
@@ -130,7 +125,7 @@ function DoctorListing({ organization_id = "", subItemCount = "" }) {
       <div className="Patients_section">
         <div>
           <div className="d-inline-block">
-            <h1>Doctors ({doctorCount})</h1>
+            <h1>Doctors ({totalItems})</h1>
           </div>
           <div className="right-header">
             <LoaderSpinner loading={loading || loadingClinic} />
@@ -231,7 +226,7 @@ function DoctorListing({ organization_id = "", subItemCount = "" }) {
         </Row>
       </div>
       <ModalComponent setShow={setShow} show={show} className="maxWidth">
-        <PatientListing doctor_id={show} subItemCount={patientCountForPopUp} />
+        <PatientListing doctor_id={show} />
       </ModalComponent>
     </>
   );

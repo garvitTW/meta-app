@@ -2,14 +2,30 @@ import "./style.scss";
 import { Row, Col, Table, Form, InputGroup } from "react-bootstrap";
 import Search from "../../../assests/images/dashborad/Search.png";
 import PaginationSection from "../../../components/PaginationSection";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useDebounce } from "../../../hooks/debounce";
 import LoaderSpinner from "../../../components/spinner";
 import { clinicService } from "../../../services/clinic.service";
 import { OrganisationService } from "../../../services/Organisation.service";
 import StatusDropDown from "../../../components/statusDropdown";
 import ListingDropDown from "../../../components/listingDropdown";
-function ClinicListing({ organization_id = "", subItemCount = "" }) {
+import DoctorListing from "../../doctor/listing";
+import PatientListing from "../../patient/listing";
+import ModalComponent from "../../../components/modal";
+
+const popUpComponents = [
+  {
+    name: "doctor",
+    component: DoctorListing,
+  },
+  {
+    name: "patient",
+    component: PatientListing,
+  },
+];
+
+function ClinicListing({ organization_id = "" }) {
+  const [show, setShow] = useState(false);
   const [clinics, setClinics] = useState([]);
   const [organizations, setOrganizations] = useState([]);
   const [status, setStatus] = useState("");
@@ -20,25 +36,22 @@ function ClinicListing({ organization_id = "", subItemCount = "" }) {
   const [loading, setLoading] = useState(false);
   const [loadingOrganisation, setLoadingOrganisation] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const totalClinicsRef = useRef(0);
-  const clinicCount = subItemCount || totalClinicsRef.current;
-
+  const [clinicIdForPopUp, setClinicIdForPopUp] = useState("");
   const debouncedSearchTerm = useDebounce(search, 600);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const { count, results, total_clinic_count } =
-          await clinicService.getClinicSummary({
-            organization_id: selectedOrganisation,
-            search: debouncedSearchTerm,
-            status: status,
-            page: currentPage,
-          });
+        const { count, results } = await clinicService.getClinicSummary({
+          organization_id: selectedOrganisation,
+          search: debouncedSearchTerm,
+          status: status,
+          page: currentPage,
+        });
         setTotalItems(count);
         setClinics(results);
-        totalClinicsRef.current = total_clinic_count;
+
         setLoading(false);
       } catch (err) {
         setLoading(false);
@@ -62,6 +75,19 @@ function ClinicListing({ organization_id = "", subItemCount = "" }) {
     };
     fetchOrganisation();
   }, []);
+
+  const GetPopUpComponent = useMemo(() => {
+    const popUpComponent = popUpComponents.find((comp) => comp.name === show);
+    return popUpComponent ? popUpComponent.component : null;
+  }, [show]);
+  const handleShow = (name) => setShow(name);
+
+  const handlePopUp = (name, id, count) => {
+    if (count > 0) {
+      setClinicIdForPopUp(id);
+      handleShow(name);
+    }
+  };
 
   const getOrganisationFilter = useCallback(() => {
     if (selectedOrganisation) {
@@ -111,7 +137,7 @@ function ClinicListing({ organization_id = "", subItemCount = "" }) {
       <div className="Patients_section">
         <div>
           <div className="d-inline-block">
-            <h1>Clinics ({clinicCount})</h1>
+            <h1>Clinics ({totalItems})</h1>
           </div>
           <div className="right-header">
             <LoaderSpinner loading={loading || loadingOrganisation} />
@@ -178,8 +204,30 @@ function ClinicListing({ organization_id = "", subItemCount = "" }) {
                     <td className="name-text">{clinic?.user}</td>
                     <td>{clinic?.email}</td>
                     <td>{clinic?.organization_clinic}</td>
-                    <td className="name-textunder">{clinic?.doctors_count}</td>
-                    <td className="name-textunder">{clinic?.patients_count}</td>
+                    <td
+                      className="name-textunder"
+                      onClick={() =>
+                        handlePopUp(
+                          popUpComponents[0].name,
+                          clinic?.id,
+                          clinic?.doctors_count
+                        )
+                      }
+                    >
+                      {clinic?.doctors_count}
+                    </td>
+                    <td
+                      className="name-textunder"
+                      onClick={() =>
+                        handlePopUp(
+                          popUpComponents[1].name,
+                          clinic?.id,
+                          clinic?.patients_count
+                        )
+                      }
+                    >
+                      {clinic?.patients_count}
+                    </td>
                     <td>
                       <div>
                         <Form>
@@ -205,6 +253,11 @@ function ClinicListing({ organization_id = "", subItemCount = "" }) {
           </Col>
         </Row>
       </div>
+      <ModalComponent setShow={setShow} show={show} className="maxWidth">
+        {GetPopUpComponent && (
+          <GetPopUpComponent clinic_id={clinicIdForPopUp} />
+        )}
+      </ModalComponent>
     </>
   );
 }

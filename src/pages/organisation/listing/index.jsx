@@ -7,7 +7,7 @@ import Pending from "../../organisation/pending";
 import Declined from "../../organisation/declined";
 import { useNavigate } from "react-router-dom";
 import URL from "../../../constants/routesURL";
-import { useContext, useEffect, useMemo, useRef, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import ModalComponent from "../../../components/modal";
 import ClinicListing from "../../clinic/listing";
 import DoctorListing from "../../doctor/listing";
@@ -42,8 +42,6 @@ function OrganisationListing() {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [organisationIdForPopUp, setOrganisationIdForPopUp] = useState("");
-  const totalRegisteredClinicsRef = useRef(0);
-  const [subItemCount, setSubItemCount] = useState("");
 
   const debouncedSearchTerm = useDebounce(search, 600);
 
@@ -60,7 +58,6 @@ function OrganisationListing() {
 
   const handlePopUp = (name, id, count) => {
     if (count > 0) {
-      setSubItemCount(count);
       setOrganisationIdForPopUp(id);
       handleShow(name);
     }
@@ -74,7 +71,7 @@ function OrganisationListing() {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const { result, count, total_registered_count } =
+        const { result, count } =
           await OrganisationService.getOrganisationSummary({
             search: debouncedSearchTerm,
             page: currentPage,
@@ -83,7 +80,7 @@ function OrganisationListing() {
 
         setOrganizations(result);
         setTotalItems(count);
-        totalRegisteredClinicsRef.current = total_registered_count;
+
         setLoading(false);
       } catch (err) {
         setLoading(false);
@@ -167,7 +164,7 @@ function OrganisationListing() {
         >
           <Tab
             eventKey={URL.ORGANISATION.LISTING}
-            title={`Registered (${totalRegisteredClinicsRef.current})`}
+            title={`Registered (${totalItems})`}
           ></Tab>
           <Tab eventKey={URL.ORGANISATION.PENDING} title="Pending(20)">
             <Pending />
@@ -284,10 +281,7 @@ function OrganisationListing() {
       </div>
       <ModalComponent setShow={setShow} show={show} className="maxWidth">
         {GetPopUpComponent && (
-          <GetPopUpComponent
-            organization_id={organisationIdForPopUp}
-            subItemCount={subItemCount}
-          />
+          <GetPopUpComponent organization_id={organisationIdForPopUp} />
         )}
       </ModalComponent>
     </>
