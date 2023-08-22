@@ -12,7 +12,7 @@ import ListingDropdown from "../../../components/listingDropdown";
 import ModalComponent from "../../../components/modal";
 import PatientListing from "../../patient/listing";
 
-function DoctorListing({ organization_id = "" }) {
+function DoctorListing({ organization_id = "", subItemCount = "" }) {
   const [show, setShow] = useState("");
   const [clinics, setClinics] = useState([]);
   const [selectedClinic, setSelectedClinic] = useState("");
@@ -21,14 +21,21 @@ function DoctorListing({ organization_id = "" }) {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
   const [loadingClinic, setLoadingClinic] = useState(false);
+  const [patientCountForPopUp, setPatientCountForPopUp] = useState("");
   const totalDoctorsRef = useRef(0);
+  const doctorCount = subItemCount || totalDoctorsRef.current;
 
   const [totalItems, setTotalItems] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
 
   const debouncedSearchTerm = useDebounce(search, 600);
 
-  const handleShow = (id) => setShow(id);
+  const handleShow = (id, count) => {
+    if (count > 0) {
+      setShow(id);
+      setPatientCountForPopUp(count);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -123,7 +130,7 @@ function DoctorListing({ organization_id = "" }) {
       <div className="Patients_section">
         <div>
           <div className="d-inline-block">
-            <h1>Doctors ({totalDoctorsRef.current})</h1>
+            <h1>Doctors ({doctorCount})</h1>
           </div>
           <div className="right-header">
             <LoaderSpinner loading={loading || loadingClinic} />
@@ -133,7 +140,7 @@ function DoctorListing({ organization_id = "" }) {
                 value={search}
                 onChange={(e) => filterHandle("search", e.target.value)}
                 className=" search-input"
-                placeholder="Search patients"
+                placeholder="Search doctors"
               />
             </div>
             <div>
@@ -192,7 +199,9 @@ function DoctorListing({ organization_id = "" }) {
                     <td className="">{doctor?.clinic_name}</td>
                     <td
                       className="name-text"
-                      onClick={() => handleShow(doctor?.id)}
+                      onClick={() =>
+                        handleShow(doctor?.id, doctor?.patients_count)
+                      }
                     >
                       {doctor?.patients_count}
                     </td>
@@ -222,7 +231,7 @@ function DoctorListing({ organization_id = "" }) {
         </Row>
       </div>
       <ModalComponent setShow={setShow} show={show} className="maxWidth">
-        <PatientListing doctor_id={show} />
+        <PatientListing doctor_id={show} subItemCount={patientCountForPopUp} />
       </ModalComponent>
     </>
   );

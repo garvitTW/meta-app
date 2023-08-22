@@ -43,6 +43,7 @@ function OrganisationListing() {
   const [currentPage, setCurrentPage] = useState(1);
   const [organisationIdForPopUp, setOrganisationIdForPopUp] = useState("");
   const totalRegisteredClinicsRef = useRef(0);
+  const [subItemCount, setSubItemCount] = useState("");
 
   const debouncedSearchTerm = useDebounce(search, 600);
 
@@ -57,9 +58,12 @@ function OrganisationListing() {
     return popUpComponent ? popUpComponent.component : null;
   }, [show]);
 
-  const handlePopUp = (name, id) => {
-    setOrganisationIdForPopUp(id);
-    handleShow(name);
+  const handlePopUp = (name, id, count) => {
+    if (count > 0) {
+      setSubItemCount(count);
+      setOrganisationIdForPopUp(id);
+      handleShow(name);
+    }
   };
   const handleSearch = (e) => {
     setCurrentPage(1);
@@ -213,7 +217,11 @@ function OrganisationListing() {
                     <td
                       className="name-text"
                       onClick={() =>
-                        handlePopUp(popUpComponents[0].name, organization?.id)
+                        handlePopUp(
+                          popUpComponents[0].name,
+                          organization?.id,
+                          organization?.clinics
+                        )
                       }
                     >
                       {organization?.clinics}
@@ -221,7 +229,11 @@ function OrganisationListing() {
                     <td
                       className="name-text"
                       onClick={() =>
-                        handlePopUp(popUpComponents[1].name, organization?.id)
+                        handlePopUp(
+                          popUpComponents[1].name,
+                          organization?.id,
+                          organization?.doctors
+                        )
                       }
                     >
                       {organization?.doctors}
@@ -229,7 +241,11 @@ function OrganisationListing() {
                     <td
                       className="name-text"
                       onClick={() =>
-                        handlePopUp(popUpComponents[2].name, organization?.id)
+                        handlePopUp(
+                          popUpComponents[2].name,
+                          organization?.id,
+                          organization?.patients
+                        )
                       }
                     >
                       {organization?.patients}
@@ -268,7 +284,10 @@ function OrganisationListing() {
       </div>
       <ModalComponent setShow={setShow} show={show} className="maxWidth">
         {GetPopUpComponent && (
-          <GetPopUpComponent organization_id={organisationIdForPopUp} />
+          <GetPopUpComponent
+            organization_id={organisationIdForPopUp}
+            subItemCount={subItemCount}
+          />
         )}
       </ModalComponent>
     </>

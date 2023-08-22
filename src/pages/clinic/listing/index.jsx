@@ -9,7 +9,7 @@ import { clinicService } from "../../../services/clinic.service";
 import { OrganisationService } from "../../../services/Organisation.service";
 import StatusDropDown from "../../../components/statusDropdown";
 import ListingDropDown from "../../../components/listingDropdown";
-function ClinicListing({ organization_id = "" }) {
+function ClinicListing({ organization_id = "", subItemCount = "" }) {
   const [clinics, setClinics] = useState([]);
   const [organizations, setOrganizations] = useState([]);
   const [status, setStatus] = useState("");
@@ -21,6 +21,7 @@ function ClinicListing({ organization_id = "" }) {
   const [loadingOrganisation, setLoadingOrganisation] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const totalClinicsRef = useRef(0);
+  const clinicCount = subItemCount || totalClinicsRef.current;
 
   const debouncedSearchTerm = useDebounce(search, 600);
 
@@ -110,7 +111,7 @@ function ClinicListing({ organization_id = "" }) {
       <div className="Patients_section">
         <div>
           <div className="d-inline-block">
-            <h1>Clinics ({totalClinicsRef.current})</h1>
+            <h1>Clinics ({clinicCount})</h1>
           </div>
           <div className="right-header">
             <LoaderSpinner loading={loading || loadingOrganisation} />

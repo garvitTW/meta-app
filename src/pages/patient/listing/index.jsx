@@ -1,5 +1,5 @@
 import "./style.scss";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useDebounce } from "../../../hooks/debounce";
 import { patientService } from "../../../services/patient.service";
 import { clinicService } from "../../../services/clinic.service";
@@ -15,6 +15,7 @@ function PatientListing({
   doctor_id = "",
   organization_id = "",
   clinic_id = "",
+  subItemCount = "",
 }) {
   const [clinics, setClinics] = useState([]);
   const [selectedClinic, setSelectedClinic] = useState(clinic_id);
@@ -27,21 +28,24 @@ function PatientListing({
   const [patients, setPatients] = useState([]);
   const [totalItems, setTotalItems] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-
+  const totalPatientsRef = useRef(0);
+  const PatientCount = subItemCount || totalPatientsRef.current;
   const debouncedSearchTerm = useDebounce(search, 600);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const { count, results } = await patientService.getPatientSummary({
-          organization_id: organization_id,
-          clinic_id: selectedClinic,
-          doctor_id: selectedDoctor,
-          search: debouncedSearchTerm,
-          status: status,
-          page: currentPage,
-        });
+        const { count, results, total_patient_count } =
+          await patientService.getPatientSummary({
+            organization_id: organization_id,
+            clinic_id: selectedClinic,
+            doctor_id: selectedDoctor,
+            search: debouncedSearchTerm,
+            status: status,
+            page: currentPage,
+          });
+        totalPatientsRef.current = total_patient_count;
         setTotalItems(count);
         setPatients(results);
         setLoading(false);
@@ -137,7 +141,7 @@ function PatientListing({
       <div className="Patients_section">
         <div>
           <div className="d-inline-block">
-            <h1>Patients</h1>
+            <h1>Patients ({PatientCount})</h1>
           </div>
           <div className="right-header">
             <LoaderSpinner loading={loading || loadingClinic} />

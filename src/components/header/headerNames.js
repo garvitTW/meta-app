@@ -4,12 +4,12 @@ const headerNames = {
   [URL.ORGANISATION.LISTING]: "Organization Clinics",
   [URL.ORGANISATION.PENDING]: "Organization Clinics",
   [URL.ORGANISATION.DECLINED]: "Organization Clinics",
-  [URL.ORGANISATION.CREATE.PROFILE_DETAIL]: "Add Organisation Clinics",
-  [URL.ORGANISATION.CREATE.PROFESSIONAL_DETAIL]: "Add Organisation Clinics",
-  [URL.ORGANISATION.CREATE.PAYMENT]: "Add Organisation Clinics",
-  [URL.ORGANISATION.EDIT.PROFILE_DETAIL]: "Edit Organisation Clinics",
-  [URL.ORGANISATION.EDIT.PROFESSIONAL_DETAIL]: "Edit Organisation Clinics",
-  [URL.ORGANISATION.EDIT.PAYMENT]: "Edit Organisation Clinics",
+  [URL.ORGANISATION.CREATE.PROFILE_DETAIL]: "Add Organization Clinics",
+  [URL.ORGANISATION.CREATE.PROFESSIONAL_DETAIL]: "Add Organization Clinics",
+  [URL.ORGANISATION.CREATE.PAYMENT]: "Add Organization Clinics",
+  [URL.ORGANISATION.EDIT.PROFILE_DETAIL]: "Edit Organization Clinics",
+  [URL.ORGANISATION.EDIT.PROFESSIONAL_DETAIL]: "Edit Organization Clinics",
+  [URL.ORGANISATION.EDIT.PAYMENT]: "Edit Organization Clinics",
 };
 
 export default headerNames;
