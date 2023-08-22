@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import "./style.scss";
 import { Row, Col, Table, Form, InputGroup } from "react-bootstrap";
 import Search from "../../../assests/images/dashborad/Search.png";
@@ -21,6 +21,7 @@ function DoctorListing({ organization_id = "" }) {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
   const [loadingClinic, setLoadingClinic] = useState(false);
+  const totalDoctorsRef = useRef(0);
 
   const [totalItems, setTotalItems] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
@@ -33,15 +34,17 @@ function DoctorListing({ organization_id = "" }) {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const { count, results } = await doctorService.getDoctorSummary({
-          organization_id: organization_id,
-          clinic_id: selectedClinic,
-          search: debouncedSearchTerm,
-          status: status,
-          page: currentPage,
-        });
+        const { count, results, total_doctor_count } =
+          await doctorService.getDoctorSummary({
+            organization_id: organization_id,
+            clinic_id: selectedClinic,
+            search: debouncedSearchTerm,
+            status: status,
+            page: currentPage,
+          });
         setTotalItems(count);
         setDoctors(results);
+        totalDoctorsRef.current = total_doctor_count;
         setLoading(false);
       } catch (err) {
         setLoading(false);
@@ -120,7 +123,7 @@ function DoctorListing({ organization_id = "" }) {
       <div className="Patients_section">
         <div>
           <div className="d-inline-block">
-            <h1>Doctors</h1>
+            <h1>Doctors ({totalDoctorsRef.current})</h1>
           </div>
           <div className="right-header">
             <LoaderSpinner loading={loading || loadingClinic} />
@@ -183,9 +186,7 @@ function DoctorListing({ organization_id = "" }) {
                         <InputGroup.Checkbox aria-label="Checkbox for following text input" />
                       </InputGroup>
                     </td>
-                    <td className="name-text" onClick={handleShow}>
-                      {doctor?.doctor_name}
-                    </td>
+                    <td className="name-text">{doctor?.doctor_name}</td>
                     <td>{doctor?.id}</td>
                     <td>{doctor?.doctor_email}</td>
                     <td className="">{doctor?.clinic_name}</td>

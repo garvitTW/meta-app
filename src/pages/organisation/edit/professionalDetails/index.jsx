@@ -126,6 +126,14 @@ function EditOrganisationProfessional() {
     const updatedDocuments = values.documents.filter((_, i) => i !== index);
     setFieldValue("documents", updatedDocuments);
   };
+
+  const generateFileUrl = (file) => {
+    const type = typeof file;
+    return type === "string"
+      ? process.env.REACT_APP_API_URL + file
+      : URL.createObjectURL(file);
+  };
+
   if (!editOrganisationStep1) {
     return null;
   }
@@ -315,7 +323,7 @@ function EditOrganisationProfessional() {
                 {values.documents[index].file ? (
                   <>
                     <a
-                      href={URL.createObjectURL(values.documents[index].file)}
+                      href={generateFileUrl(values.documents[index].file)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className={index === 0 ? "fileico" : "fileico2"}
