@@ -70,6 +70,19 @@ function EditOrganisationProfessional() {
     validationSchema: validationSchemaProfessionalDetails,
     onSubmit: async (values) => {
       try {
+        const { documents, ...rest } = values;
+        const { data } = await OrganisationService.updateOrganisationClinic(
+          editOrganisationDetails.id,
+          {
+            ...editOrganisationStep1,
+            password: "password@123",
+            enabled: true,
+            user_type: "ORGANIZATION",
+            ...rest,
+          }
+        );
+        dispatch({ type: Type.REMOVE_EDIT_ORGANISATION_DETAILS });
+        navigate(URLS.ORGANISATION.LISTING);
         console.log(values);
       } catch (err) {
         console.log(err);

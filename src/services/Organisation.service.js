@@ -16,6 +16,9 @@ async function postOrganisationClinic(body) {
 async function getOrganisationClinic(id) {
   return apiService.get(apiURL.ORGANISATION_CLINIC + id + "/");
 }
+async function updateOrganisationClinic(id, body) {
+  return apiService.put(apiURL.ORGANISATION_CLINIC + id + "/", body);
+}
 async function postOrganisationClinicDocument(id, body) {
   return apiService.postForm(
     apiURL.ADD_ORGANISATION_CLINIC_DOCUMENT + id,
@@ -43,4 +46,5 @@ export const OrganisationService = {
   changeOrganisationStatus,
   getOrganisationClinic,
   getOrganisationNameId,
+  updateOrganisationClinic,
 };

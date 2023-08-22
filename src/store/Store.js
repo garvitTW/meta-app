@@ -27,6 +27,13 @@ function reducer(state, action) {
     case Type.ADD_EDIT_ORGANISATION_STEP_1:
       return { ...state, editOrganisationStep1: action.payload };
 
+    case Type.REMOVE_EDIT_ORGANISATION_DETAILS:
+      return {
+        ...state,
+        editOrganisationDetails: null,
+        editOrganisationStep1: null,
+      };
+
     default:
       return state;
   }
