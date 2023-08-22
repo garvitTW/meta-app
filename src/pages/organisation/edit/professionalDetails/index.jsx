@@ -323,7 +323,11 @@ function EditOrganisationProfessional() {
                   {...getFieldProps(`documents[${index}].validity`)}
                   type="date"
                   placeholder="Validity"
-                  min={new Date().toISOString().split("T")[0]}
+                  min={
+                    !document?.id
+                      ? new Date().toISOString().split("T")[0]
+                      : undefined
+                  }
                 />
                 <DocumentErrorMessage
                   touched={touched}
