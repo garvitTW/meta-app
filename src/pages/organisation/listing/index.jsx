@@ -17,6 +17,8 @@ import { useDebounce } from "../../../hooks/debounce";
 import { Store } from "../../../store/Store";
 import { Type } from "../../../constants/storeAction.constants";
 import LoaderSpinner from "../../../components/spinner";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 const popUpComponents = [
   {
@@ -124,6 +126,21 @@ function OrganisationListing() {
       console.log(err);
     }
   };
+  function getEnableDisableValue(organization) {
+    return organization.enabled ? "Enabled" : "Disabled";
+  }
+  const downloadData = () => {
+    const pdf = new jsPDF();
+    pdf.autoTable({
+      html: "#table",
+      didParseCell: function (data) {
+        if (data.cell.raw && data.cell.raw.type === "switch") {
+          data.text = getEnableDisableValue(organizations[data.row.index]);
+        }
+      },
+    });
+    pdf.save("Organizations.pdf");
+  };
 
   return (
     <>
@@ -144,7 +161,12 @@ function OrganisationListing() {
               />
             </div>
             <div>
-              <button className="btn export-button w-export">Export</button>
+              <button
+                onClick={downloadData}
+                className="btn export-button w-export"
+              >
+                Export
+              </button>
             </div>
             <button
               onClick={() => navigate(URL.ORGANISATION.CREATE.PROFILE_DETAIL)}
@@ -179,6 +201,7 @@ function OrganisationListing() {
               responsive
               className="stripednew table-stripednew Patients-table"
               variant="dark"
+              id="table"
             >
               <thead>
                 <tr>

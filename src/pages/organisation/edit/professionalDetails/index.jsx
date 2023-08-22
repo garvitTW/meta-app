@@ -81,6 +81,14 @@ function EditOrganisationProfessional() {
             ...rest,
           }
         );
+        // const uploadDocument = {
+        //   documents: documents,
+        // };
+        // const { id } = data;
+        // await OrganisationService.postOrganisationClinicDocument(
+        //   id,
+        //   uploadDocument
+        // );
         dispatch({ type: Type.REMOVE_EDIT_ORGANISATION_DETAILS });
         navigate(URLS.ORGANISATION.LISTING);
         console.log(values);
