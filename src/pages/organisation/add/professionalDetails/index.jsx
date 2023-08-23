@@ -75,17 +75,20 @@ function AddOrganisationProfessional() {
           ...rest,
         });
 
-        const uploadDocument = {
-          documents: documents,
-        };
         const { organization_id } = results;
+        const documentsWithOrganisationId = documents.map((document) => {
+          document.organization = organization_id;
+          return document;
+        });
+        const uploadDocument = {
+          documents: documentsWithOrganisationId,
+        };
         await OrganisationService.postOrganisationClinicDocument(
           organization_id,
           uploadDocument
         );
         dispatch({ type: Type.REMOVE_ORGANISATION_STEP_1 });
         navigate(URLS.ORGANISATION.LISTING);
-        console.log(values);
       } catch (err) {
         console.log(err);
       }
@@ -147,8 +150,6 @@ function AddOrganisationProfessional() {
   if (!addOrganisationStep1) {
     return null;
   }
-
-  console.log("<<<", errors);
 
   return (
     <>

@@ -65,7 +65,7 @@ function EditOrganisationProfessional() {
       documents:
         editOrganisationDetails?.document.length > 0
           ? editOrganisationDetails?.document
-          : [{ ...documentObject, organization: editOrganisationDetails.id }],
+          : [{ ...documentObject, organization: editOrganisationDetails?.id }],
     },
     validationSchema: validationSchemaProfessionalDetails,
     onSubmit: async (values) => {
