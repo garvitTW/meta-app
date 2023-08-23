@@ -1,12 +1,17 @@
 # Follow bellow steps to run code on local
 
+Note:- Make sure node is install in your system.
+
 1. Clone the repository
-2. Create .env.development.local file in root dir.
+2. Create .env file in root dir.
    Put following keys in it:-
-   REACT_APP_API_URL=server_api_URL // put your server api url here
-   REACT_APP_SECRET_KEY=your_secret_key_here // here write any secret message to store login credential in secure format
+
+   REACT_APP_API_URL=server_api_URL // put your server api url in place of "server_api_URL"
+
+   REACT_APP_SECRET_KEY=your_secret_key // In place of "your_secret_key" write any secret message to store login credential in secure format
+
 3. Run "npm install" command
-4. now run num start to run project
+4. now run "npm start" to run project
 
 ## Available Scripts
 

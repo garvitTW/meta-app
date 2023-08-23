@@ -54,7 +54,7 @@ function Tablemy({ data, handleSwitchToggle }) {
               </td>
               <td>{patient?.MRN}</td>
               <td className="name-text">{patient?.patient_name}</td>
-              <td>{patient?.posture_score}</td>
+              <td>{patient?.posture_score}%</td>
               <td>{patient?.last_doctors_appointment}</td>
               <td>{patient?.last_self_scan}</td>
               <td>{patient?.next_scan}</td>
@@ -89,28 +89,28 @@ function Tablemy({ data, handleSwitchToggle }) {
                 <div className="bottom-info">
                   <Row>
                     <Col md={6}>
-                      <img src={Emailimg} />
+                      <img src={Emailimg} alt="email" />
                       Email
                     </Col>
                     <Col md={6}>
                       <p>Jennifer Graham@mail.com</p>
                     </Col>
                     <Col md={6}>
-                      <img src={Phoneimg} />
+                      <img src={Phoneimg} alt="phn" />
                       Phone
                     </Col>
                     <Col md={6}>
                       <p>050 414 8778</p>
                     </Col>
                     <Col md={6}>
-                      <img src={Faximg} />
+                      <img src={Faximg} alt="fax" />
                       Fax
                     </Col>
                     <Col md={6}>
                       <p>050 414 8778</p>
                     </Col>
                     <Col md={6}>
-                      <img src={Addressimg} />
+                      <img src={Addressimg} alt="address" />
                       Address
                     </Col>
                     <Col md={6}>
@@ -127,7 +127,7 @@ function Tablemy({ data, handleSwitchToggle }) {
               className="delete-button"
               onClick={handleClose}
             >
-              <img src={Delete} />
+              <img src={Delete} alt="delete" />
               delete
             </Button>
             <Button
@@ -135,7 +135,7 @@ function Tablemy({ data, handleSwitchToggle }) {
               className="edit-button"
               onClick={handleClose}
             >
-              <img src={Edit} />
+              <img src={Edit} alt="edit" />
               edit
             </Button>
           </Modal.Footer>

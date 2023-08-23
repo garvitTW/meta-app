@@ -1,5 +1,4 @@
 import { Col, Row } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
 import "./style.scss";
 import AddOrganisationTabs from "../../../../components/addOrganisationTabs";
 function Payment() {

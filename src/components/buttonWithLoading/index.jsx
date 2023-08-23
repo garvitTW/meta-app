@@ -11,7 +11,7 @@ function ButtonWithLoader({
       variant={variant}
       type="submit"
       disabled={isSubmitting}
-      className={className}
+      className={`${className} btn-primary`}
     >
       {isSubmitting ? (
         <Spinner animation="border" role="status">

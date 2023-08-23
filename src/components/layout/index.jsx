@@ -1,4 +1,3 @@
-import { Col, Row } from "react-bootstrap";
 import Header from "../header";
 import SideBar from "../sideBar";
 import "./style.scss";
@@ -8,16 +7,13 @@ function Layout({ children }) {
       <div className="p-4">
         <div className="main_wrapper">
           <div className="side-wrapper">
-          <SideBar />
+            <SideBar />
           </div>
           <div className="content-wrapper">
-          <Header />
-          {children}
+            <Header />
+            {children}
           </div>
         </div>
-
-
-
 
         {/* <Row>
           <Col sm={3}>

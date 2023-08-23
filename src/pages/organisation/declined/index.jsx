@@ -104,7 +104,7 @@ function OrganisationDeclined() {
                   </td>
                   <td>
                     <Button className="Edit_button">
-                      <img src={EditIcon} />
+                      <img src={EditIcon} alt="edit" />
                     </Button>
                   </td>
                 </tr>
@@ -124,7 +124,7 @@ function OrganisationDeclined() {
                   </td>
                   <td>
                     <Button className="Edit_button">
-                      <img src={EditIcon} />
+                      <img src={EditIcon} alt="edit" />
                     </Button>
                   </td>
                 </tr>
@@ -144,7 +144,7 @@ function OrganisationDeclined() {
                   </td>
                   <td>
                     <Button className="Edit_button">
-                      <img src={EditIcon} />
+                      <img src={EditIcon} alt="edit" />
                     </Button>
                   </td>
                 </tr>
@@ -164,7 +164,7 @@ function OrganisationDeclined() {
                   </td>
                   <td>
                     <Button className="Edit_button">
-                      <img src={EditIcon} />
+                      <img src={EditIcon} alt="edit" />
                     </Button>
                   </td>
                 </tr>
@@ -184,7 +184,7 @@ function OrganisationDeclined() {
                   </td>
                   <td>
                     <Button className="Edit_button">
-                      <img src={EditIcon} />
+                      <img src={EditIcon} alt="edit" />
                     </Button>
                   </td>
                 </tr>
@@ -204,7 +204,7 @@ function OrganisationDeclined() {
                   </td>
                   <td>
                     <Button className="Edit_button">
-                      <img src={EditIcon} />
+                      <img src={EditIcon} alt="edit" />
                     </Button>
                   </td>
                 </tr>
@@ -224,7 +224,7 @@ function OrganisationDeclined() {
                   </td>
                   <td>
                     <Button className="Edit_button">
-                      <img src={EditIcon} />
+                      <img src={EditIcon} alt="edit" />
                     </Button>
                   </td>
                 </tr>
@@ -244,7 +244,7 @@ function OrganisationDeclined() {
                   </td>
                   <td>
                     <Button className="Edit_button">
-                      <img src={EditIcon} />
+                      <img src={EditIcon} alt="edit" />
                     </Button>
                   </td>
                 </tr>
@@ -264,7 +264,7 @@ function OrganisationDeclined() {
                   </td>
                   <td>
                     <Button className="Edit_button">
-                      <img src={EditIcon} />
+                      <img src={EditIcon} alt="edit" />
                     </Button>
                   </td>
                 </tr>

@@ -11,7 +11,7 @@ function Dashboard() {
           <Col md={4}>
             <div className="inner_div">
               <div>
-                <img src={Dashboardfirst} />
+                <img src={Dashboardfirst} alt="img" />
               </div>
               <div className="ps-3">
                 <p>Clinics</p>
@@ -22,7 +22,7 @@ function Dashboard() {
           <Col md={4}>
             <div className="inner_div">
               <div>
-                <img src={Dashboardsecond} />
+                <img src={Dashboardsecond} alt="img" />
               </div>
               <div className="ps-3">
                 <p>Total Patients</p>
@@ -33,7 +33,7 @@ function Dashboard() {
           <Col md={4}>
             <div className="inner_div">
               <div>
-                <img src={Dashboardthird} />
+                <img src={Dashboardthird} alt="img" />
               </div>
               <div className="ps-3">
                 <p>Total Doctors</p>
@@ -44,7 +44,7 @@ function Dashboard() {
           <Col md={4}>
             <div className="inner_div">
               <div>
-                <img src={Dashboardfirst} />
+                <img src={Dashboardfirst} alt="img" />
               </div>
               <div className="ps-3">
                 <p>Organisations</p>

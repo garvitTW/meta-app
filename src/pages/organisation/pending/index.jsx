@@ -116,13 +116,13 @@ function OrganisationPending() {
                       <DeclineReasonForm handleClose={handleClose} />
                     </ModalComponent>
                     <Button className="Accept_button">
-                      <img src={CheckIcon} className="pe-2" />
+                      <img src={CheckIcon} className="pe-2" alt="check" />
                       Accept
                     </Button>
                   </td>
                   <td>
                     <Button className="Edit_button">
-                      <img src={EditIcon} />
+                      <img src={EditIcon} alt="edit" />
                     </Button>
                   </td>
                 </tr>
@@ -140,13 +140,13 @@ function OrganisationPending() {
                   <td>
                     <Button className="Decline_button">Decline</Button>
                     <Button className="Accept_button">
-                      <img src={CheckIcon} className="pe-2" />
+                      <img src={CheckIcon} className="pe-2" alt="check" />
                       Accept
                     </Button>
                   </td>
                   <td>
                     <Button className="Edit_button">
-                      <img src={EditIcon} />
+                      <img src={EditIcon} alt="edit" />
                     </Button>
                   </td>
                 </tr>
@@ -164,13 +164,13 @@ function OrganisationPending() {
                   <td>
                     <Button className="Decline_button">Decline</Button>
                     <Button className="Accept_button">
-                      <img src={CheckIcon} className="pe-2" />
+                      <img src={CheckIcon} className="pe-2" alt="check" />
                       Accept
                     </Button>
                   </td>
                   <td>
                     <Button className="Edit_button">
-                      <img src={EditIcon} />
+                      <img src={EditIcon} alt="edit" />
                     </Button>
                   </td>
                 </tr>
@@ -188,13 +188,13 @@ function OrganisationPending() {
                   <td>
                     <Button className="Decline_button">Decline</Button>
                     <Button className="Accept_button">
-                      <img src={CheckIcon} className="pe-2" />
+                      <img src={CheckIcon} className="pe-2" alt="check" />
                       Accept
                     </Button>
                   </td>
                   <td>
                     <Button className="Edit_button">
-                      <img src={EditIcon} />
+                      <img src={EditIcon} alt="edit" />
                     </Button>
                   </td>
                 </tr>
@@ -212,13 +212,13 @@ function OrganisationPending() {
                   <td>
                     <Button className="Decline_button">Decline</Button>
                     <Button className="Accept_button">
-                      <img src={CheckIcon} className="pe-2" />
+                      <img src={CheckIcon} className="pe-2" alt="check" />
                       Accept
                     </Button>
                   </td>
                   <td>
                     <Button className="Edit_button">
-                      <img src={EditIcon} />
+                      <img src={EditIcon} alt="edit" />
                     </Button>
                   </td>
                 </tr>
@@ -236,13 +236,13 @@ function OrganisationPending() {
                   <td>
                     <Button className="Decline_button">Decline</Button>
                     <Button className="Accept_button">
-                      <img src={CheckIcon} className="pe-2" />
+                      <img src={CheckIcon} className="pe-2" alt="check" />
                       Accept
                     </Button>
                   </td>
                   <td>
                     <Button className="Edit_button">
-                      <img src={EditIcon} />
+                      <img src={EditIcon} alt="edit" />
                     </Button>
                   </td>
                 </tr>
