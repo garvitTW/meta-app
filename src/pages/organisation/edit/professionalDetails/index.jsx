@@ -65,7 +65,7 @@ function EditOrganisationProfessional() {
       documents:
         editOrganisationDetails?.document.length > 0
           ? editOrganisationDetails?.document
-          : [{ ...documentObject }],
+          : [{ ...documentObject, organization: editOrganisationDetails.id }],
     },
     validationSchema: validationSchemaProfessionalDetails,
     onSubmit: async (values) => {
@@ -81,14 +81,14 @@ function EditOrganisationProfessional() {
             ...rest,
           }
         );
-        // const uploadDocument = {
-        //   documents: documents,
-        // };
-        // const { id } = data;
-        // await OrganisationService.postOrganisationClinicDocument(
-        //   id,
-        //   uploadDocument
-        // );
+        const uploadDocument = {
+          documents: documents,
+        };
+        const { id } = data;
+        await OrganisationService.postOrganisationClinicDocument(
+          id,
+          uploadDocument
+        );
         dispatch({ type: Type.REMOVE_EDIT_ORGANISATION_DETAILS });
         navigate(URLS.ORGANISATION.LISTING);
         console.log(values);
@@ -97,6 +97,10 @@ function EditOrganisationProfessional() {
       }
     },
   });
+  if (!editOrganisationStep1) {
+    return null;
+  }
+
   const addService = async () => {
     try {
       if (newService) {
@@ -140,12 +144,24 @@ function EditOrganisationProfessional() {
   };
 
   const addDocument = () => {
-    setFieldValue("documents", [...values.documents, { ...documentObject }]);
+    setFieldValue("documents", [
+      ...values.documents,
+      { ...documentObject, organization: editOrganisationDetails.id },
+    ]);
   };
 
-  const removeDocument = (index) => {
-    const updatedDocuments = values.documents.filter((_, i) => i !== index);
-    setFieldValue("documents", updatedDocuments);
+  const removeDocument = async (index) => {
+    try {
+      if (values.documents[index]?.id) {
+        await OrganisationService.deleteOrganisationDocument(
+          values.documents[index].id
+        );
+      }
+      const updatedDocuments = values.documents.filter((_, i) => i !== index);
+      setFieldValue("documents", updatedDocuments);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const generateFileUrl = (file) => {

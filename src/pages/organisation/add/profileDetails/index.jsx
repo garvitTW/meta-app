@@ -10,20 +10,30 @@ import { Store } from "../../../../store/Store";
 import { Type } from "../../../../constants/storeAction.constants";
 import AddOrganisationTabs from "../../../../components/addOrganisationTabs";
 import { generateProfileDetailsInitialValue } from "../../../../utils/helperFunction";
+import ButtonWithLoader from "../../../../components/buttonWithLoading";
+import { OrganisationService } from "../../../../services/Organisation.service";
 function AddOrganisationProfile() {
   const { state, dispatch } = useContext(Store);
   const { addOrganisationStep1 } = state;
   const initialValues =
     generateProfileDetailsInitialValue(addOrganisationStep1);
 
-  const { errors, touched, handleSubmit, getFieldProps } = useFormik({
-    initialValues: initialValues,
-    validationSchema: validationSchemaProfileDetails,
-    onSubmit: (values, action) => {
-      dispatch({ type: Type.ADD_ORGANISATION_STEP_1, payload: values });
-      navigate(URL.ORGANISATION.CREATE.PROFESSIONAL_DETAIL);
-    },
-  });
+  const { errors, touched, handleSubmit, getFieldProps, isSubmitting } =
+    useFormik({
+      initialValues: initialValues,
+      validationSchema: validationSchemaProfileDetails,
+      onSubmit: async (values, action) => {
+        try {
+          await OrganisationService.checkOrganisationMail({
+            email: values.email,
+          });
+          dispatch({ type: Type.ADD_ORGANISATION_STEP_1, payload: values });
+          navigate(URL.ORGANISATION.CREATE.PROFESSIONAL_DETAIL);
+        } catch (err) {
+          console.log(err);
+        }
+      },
+    });
 
   const formikProps = {
     touched: touched,
@@ -160,9 +170,11 @@ function AddOrganisationProfile() {
                   />
                 </Col>
               </Row>
-              <Button type="submit" className="Next_button">
-                Next
-              </Button>
+              <ButtonWithLoader
+                isSubmitting={isSubmitting}
+                label="Next"
+                className="Next_button"
+              />
             </Form>
           </Col>
         </Row>

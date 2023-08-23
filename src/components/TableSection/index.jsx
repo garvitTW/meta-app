@@ -38,7 +38,7 @@ function Tablemy({ data, handleSwitchToggle }) {
             <th> MRN</th>
             <th> Patient Name</th>
             <th> Posture Score</th>
-            <th> Last Doctor’s Apointment</th>
+            <th> Last Doctor’s Appointment</th>
             <th> Last Self Scan</th>
             <th> Next Scan</th>
             <th> Status</th>

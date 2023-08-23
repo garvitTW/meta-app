@@ -128,41 +128,41 @@ function OrganisationListing() {
   };
 
   const downloadData = () => {
-    if(organizations.length>0){
-    const pdf = new jsPDF();
-  const tableData = [];
+    if (organizations.length > 0) {
+      const pdf = new jsPDF();
+      const tableData = [];
 
-  // Iterate through organizations and prepare data for the PDF table
-  organizations.forEach((organization) => {
-    tableData.push([
-      organization.user,
-      organization.email,
-      organization.clinics,
-      organization.doctors,
-      organization.patients,
-      organization.status,
-      organization.enabled ? "Enabled" : "Disabled"
-    ]);
-  });
+      // Iterate through organizations and prepare data for the PDF table
+      organizations.forEach((organization) => {
+        tableData.push([
+          organization.user,
+          organization.email,
+          organization.clinics,
+          organization.doctors,
+          organization.patients,
+          organization.status,
+          organization.enabled ? "Enabled" : "Disabled",
+        ]);
+      });
 
-  // Add table headers
-  const tableHeaders = [
-    "Organizational Clinic Name",
-    "Email Address",
-    "Clinics",
-    "Doctors",
-    "Patients",
-    "Status",
-    "Enable/Disable",
-  ];
-  
-  pdf.autoTable({
-    head: [tableHeaders],
-    body: tableData,
-  });
-  
-  pdf.save('Organizations.pdf');
-}
+      // Add table headers
+      const tableHeaders = [
+        "Organizational Clinic Name",
+        "Email Address",
+        "Clinics",
+        "Doctors",
+        "Patients",
+        "Status",
+        "Enable/Disable",
+      ];
+
+      pdf.autoTable({
+        head: [tableHeaders],
+        body: tableData,
+      });
+
+      pdf.save("Organizations.pdf");
+    }
   };
 
   return (
@@ -224,7 +224,6 @@ function OrganisationListing() {
               responsive
               className="stripednew table-stripednew Patients-table"
               variant="dark"
-              id="table"
             >
               <thead>
                 <tr>

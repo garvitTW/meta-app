@@ -11,6 +11,8 @@ import StatusDropdown from "../../../components/statusDropdown";
 import ListingDropdown from "../../../components/listingDropdown";
 import ModalComponent from "../../../components/modal";
 import PatientListing from "../../patient/listing";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 function DoctorListing({ organization_id = "", clinic_id = "" }) {
   const [show, setShow] = useState("");
@@ -120,6 +122,41 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
     }
   };
 
+  const downloadData = () => {
+    if (doctors.length > 0) {
+      const pdf = new jsPDF();
+      const tableData = [];
+
+      doctors.forEach((doctor) => {
+        tableData.push([
+          doctor?.doctor_name,
+          doctor?.doctor_uniqueid,
+          doctor?.doctor_email,
+          doctor?.clinic_name,
+          doctor?.patients_count,
+          doctor?.is_enabled ? "Enabled" : "Disabled",
+        ]);
+      });
+
+      // Add table headers
+      const tableHeaders = [
+        "Doctor Name",
+        "Doctor ID",
+        "Email Address",
+        "Clinic Name",
+        "Patients",
+        "Enable/Disable",
+      ];
+
+      pdf.autoTable({
+        head: [tableHeaders],
+        body: tableData,
+      });
+
+      pdf.save("Doctors.pdf");
+    }
+  };
+
   return (
     <>
       <div className="Patients_section">
@@ -139,7 +176,12 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
               />
             </div>
             <div>
-              <button className="btn export-button w-export">Export</button>
+              <button
+                onClick={downloadData}
+                className="btn export-button w-export"
+              >
+                Export
+              </button>
             </div>
           </div>
         </div>
@@ -189,7 +231,7 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
                       </InputGroup>
                     </td>
                     <td className="name-text">{doctor?.doctor_name}</td>
-                    <td>{doctor?.id}</td>
+                    <td>{doctor?.doctor_uniqueid}</td>
                     <td>{doctor?.doctor_email}</td>
                     <td className="">{doctor?.clinic_name}</td>
                     <td

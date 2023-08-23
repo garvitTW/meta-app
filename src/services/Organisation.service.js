@@ -36,6 +36,14 @@ async function changeOrganisationStatus(id, body) {
   return apiService.put(apiURL.ORGANISATION_SUMMARY_LIST + id + "/", body);
 }
 
+async function checkOrganisationMail(params) {
+  return apiService.get(apiURL.ORGANISATION_EMAIL_CHECK, params);
+}
+
+async function deleteOrganisationDocument(id) {
+  return apiService.delete(apiURL.ORGANISATION_DOCUMENT + id + "/");
+}
+
 export const OrganisationService = {
   getServicesOffered,
   getLanguages,
@@ -47,4 +55,6 @@ export const OrganisationService = {
   getOrganisationClinic,
   getOrganisationNameId,
   updateOrganisationClinic,
+  checkOrganisationMail,
+  deleteOrganisationDocument,
 };

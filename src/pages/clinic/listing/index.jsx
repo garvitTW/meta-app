@@ -12,6 +12,8 @@ import ListingDropDown from "../../../components/listingDropdown";
 import DoctorListing from "../../doctor/listing";
 import PatientListing from "../../patient/listing";
 import ModalComponent from "../../../components/modal";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 const popUpComponents = [
   {
@@ -132,6 +134,42 @@ function ClinicListing({ organization_id = "" }) {
       console.log(err);
     }
   };
+
+  const downloadData = () => {
+    if (clinics.length > 0) {
+      const pdf = new jsPDF();
+      const tableData = [];
+
+      clinics.forEach((clinic) => {
+        tableData.push([
+          clinic.user,
+          clinic.email,
+          clinic?.organization_clinic,
+          clinic?.doctors_count,
+          clinic?.patients_count,
+          clinic?.is_enabled ? "Enabled" : "Disabled",
+        ]);
+      });
+
+      // Add table headers
+      const tableHeaders = [
+        "Clinic Name",
+        "Email Address",
+        "Organization Clinic",
+        "Doctors",
+        "Patients",
+        "Enable/Disable",
+      ];
+
+      pdf.autoTable({
+        head: [tableHeaders],
+        body: tableData,
+      });
+
+      pdf.save("Clinics.pdf");
+    }
+  };
+
   return (
     <>
       <div className="Patients_section">
@@ -151,7 +189,12 @@ function ClinicListing({ organization_id = "" }) {
               />
             </div>
             <div>
-              <button className="btn export-button w-export">Export</button>
+              <button
+                onClick={downloadData}
+                className="btn export-button w-export"
+              >
+                Export
+              </button>
             </div>
           </div>
         </div>

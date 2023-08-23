@@ -11,6 +11,9 @@ import ListingDropdown from "../../../components/listingDropdown";
 import LoaderSpinner from "../../../components/spinner";
 import PaginationSection from "../../../components/PaginationSection";
 import TableSection from "../../../components/TableSection";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
+
 function PatientListing({
   doctor_id = "",
   organization_id = "",
@@ -133,6 +136,43 @@ function PatientListing({
     }
   };
 
+  const downloadData = () => {
+    if (patients.length > 0) {
+      const pdf = new jsPDF();
+      const tableData = [];
+
+      patients.forEach((patient) => {
+        tableData.push([
+          patient?.MRN,
+          patient?.patient_name,
+          patient?.posture_score,
+          patient?.last_doctors_appointment,
+          patient?.last_self_scan,
+          patient?.next_scan,
+          patient?.is_enabled ? "Enabled" : "Disabled",
+        ]);
+      });
+
+      // Add table headers
+      const tableHeaders = [
+        "MRN",
+        "Patient Name",
+        "Posture Score",
+        "Last Doctor’s Appointment",
+        "Last Self Scan",
+        "Next Scan",
+        "Status",
+      ];
+
+      pdf.autoTable({
+        head: [tableHeaders],
+        body: tableData,
+      });
+
+      pdf.save("Patients.pdf");
+    }
+  };
+
   return (
     <>
       <div className="Patients_section">
@@ -152,7 +192,12 @@ function PatientListing({
               />
             </div>
             <div>
-              <button className="btn export-button w-export">Export</button>
+              <button
+                onClick={downloadData}
+                className="btn export-button w-export"
+              >
+                Export
+              </button>
             </div>
           </div>
         </div>
