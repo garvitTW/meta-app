@@ -14,6 +14,7 @@ const responseBody = (response) => response?.data;
 
 agent.interceptors.request.use((config) => {
   const token = storageService.getFromLocalStorage(STORAGE_KEYS.AUTH_TOKEN);
+  console.log(token);
   // if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 });

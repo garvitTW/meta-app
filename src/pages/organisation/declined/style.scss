@@ -1,27 +1,26 @@
 .Decliend_table {
-    .Declined_button {
-        font-family: Lato;
-        font-size: 12px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: normal;
-        letter-spacing: 0.48px;
-        color: #F93440;
-        border-radius: 5px;
-        background: #f9247d33;
-        border: #f9247d33;
-        &:hover{
-            background: #f9247d33;
-        }
+  .Declined_button {
+    font-family: Lato, Sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.48px;
+    color: #f93440;
+    border-radius: 5px;
+    background: #f9247d33;
+    border: #f9247d33;
+    &:hover {
+      background: #f9247d33;
     }
+  }
 
-    .Edit_button {
-        background-color: transparent;
-        padding: 0;
-        border: 0;
-    &:hover{
-        background-color: transparent;
+  .Edit_button {
+    background-color: transparent;
+    padding: 0;
+    border: 0;
+    &:hover {
+      background-color: transparent;
     }
-
-    }
+  }
 }

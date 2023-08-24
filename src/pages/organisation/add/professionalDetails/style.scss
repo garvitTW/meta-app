@@ -31,7 +31,7 @@
 
     .checkbox-label {
       color: #fff;
-      font-family: Lato;
+      font-family: Lato, Sans-serif;
       font-size: 15px;
       font-style: normal;
       font-weight: 500;
@@ -46,7 +46,7 @@
     background: #1e1f25;
     height: 47px;
     color: #fff;
-    font-family: Lato;
+    font-family: Lato, Sans-serif;
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -59,7 +59,7 @@
   .Languages_select {
     margin-bottom: 10px;
     width: 744px;
-    font-family: Lato;
+    font-family: Lato, Sans-serif;
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -71,8 +71,6 @@
       box-shadow: none;
       outline: none;
     }
-
-   
   }
 
   .select_tags {
@@ -86,7 +84,7 @@
 
       li {
         color: #fff;
-        font-family: Lato;
+        font-family: Lato, Sans-serif;
         font-size: 16px;
         font-style: normal;
         font-weight: 500;
@@ -117,7 +115,7 @@
       border-radius: 10px;
       background: #0aceec;
       color: #1e1f25;
-      font-family: Inter;
+      font-family: Inter, Sans-serif;
       font-size: 14px;
       font-style: normal;
       font-weight: 600;
@@ -132,25 +130,25 @@
   align-items: start;
   gap: 10px;
 
-  div{
+  div {
     width: 160px;
   }
 
-  a.fileico{
+  a.fileico {
     line-height: 47px;
     display: inline-block;
-    margin-top:37px;
+    margin-top: 37px;
     margin-right: 5px;
   }
-  a.fileico2{
+  a.fileico2 {
     line-height: 47px;
     display: inline-block;
-    margin-top:0px;
+    margin-top: 0px;
     margin-right: 5px;
   }
   p {
     color: #fff;
-    font-family: Lato;
+    font-family: Lato, Sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
@@ -163,7 +161,7 @@
     background: #1e1f25;
     height: 47px;
     color: #fff;
-    font-family: Lato;
+    font-family: Lato, Sans-serif;
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -193,15 +191,15 @@
     }
   }
 
-  .toppad{
-    margin-top:41px;
+  .toppad {
+    margin-top: 41px;
     margin-bottom: 7px;
   }
 }
 
 .add_morebtn {
   color: #0aceec;
-  font-family: "Lato";
+  font-family: "Lato", Sans-serif;
   font-size: 14.248px;
   font-style: normal;
   font-weight: 700;
@@ -215,7 +213,7 @@
   border-radius: 10px;
   background: #0aceec;
   color: #1e1f25;
-  font-family: Inter;
+  font-family: Inter, Sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 600;
@@ -226,7 +224,7 @@
 }
 
 .cancel-buttongry {
-  font-family: Lato;
+  font-family: Lato, Sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 600;
@@ -248,7 +246,7 @@
   border-radius: 10px !important;
   background: #0aceec !important;
   color: #1e1f25 !important;
-  font-family: Inter !important;
+  font-family: Inter, Sans-serif !important;
   font-size: 16px !important;
   font-style: normal !important;
   font-weight: 600 !important;
@@ -272,7 +270,7 @@
   margin-bottom: 6px;
   padding-top: 6px;
 }
-.botmbox2{
+.botmbox2 {
   margin-bottom: 5px;
   padding-top: 6px;
 }

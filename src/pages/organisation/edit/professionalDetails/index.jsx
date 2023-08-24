@@ -1,4 +1,3 @@
-import "./style.scss";
 import { Row, Col, InputGroup, Form, Button } from "react-bootstrap";
 import DeleteIcon from "../../../../assests/images/dashborad/delete.png";
 import AddIcon from "../../../../assests/images/dashborad/plus-circle.svg";

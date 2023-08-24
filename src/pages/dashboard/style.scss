@@ -1,32 +1,32 @@
 .dashboard_page {
-    padding-top: 17px;
-    .inner_div {
-        border-radius: 10px;
-        background: #1E1F25;
-        padding: 22px;
-        display: flex;
-        margin-bottom: 15px;
+  padding-top: 17px;
+  .inner_div {
+    border-radius: 10px;
+    background: #1e1f25;
+    padding: 22px;
+    display: flex;
+    margin-bottom: 15px;
 
-        p {
-            margin: 0;
+    p {
+      margin: 0;
 
-            &:first-child {
-                color: #B2B9CD;
-                font-family: Lato;
-                font-size: 14px;
-                font-style: normal;
-                font-weight: 400;
-                line-height: normal;
-            }
+      &:first-child {
+        color: #b2b9cd;
+        font-family: Lato, Sans-serif;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+      }
 
-            &:last-child {
-                color: #FFF;
-                font-family: Lato;
-                font-size: 20px;
-                font-style: normal;
-                font-weight: 500;
-                line-height: normal;
-            }
-        }
+      &:last-child {
+        color: #fff;
+        font-family: Lato, Sans-serif;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+      }
     }
+  }
 }

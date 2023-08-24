@@ -1,4 +1,3 @@
-import "../src/assests/styles/globleStyle.scss";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { protectedRoutes, publicRoutes } from "./constants/route";
 import Layout from "./components/layout";
@@ -27,9 +26,9 @@ function App() {
               path={route.path}
               element={
                 <ProtectedRoute>
-                <Layout>
-                  <route.component />
-                </Layout>
+                  <Layout>
+                    <route.component />
+                  </Layout>
                 </ProtectedRoute>
               }
             />

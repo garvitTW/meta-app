@@ -1,75 +1,69 @@
 .pagination {
-    margin: 0;
-    padding-top: 19px;
+  margin: 0;
+  padding-top: 19px;
 
-    .prev-li {
-        a {
-            border-radius: 15px 0px 0px 15px !important;
-            &:focus{
-                background-color: transparent;
-                box-shadow: none;
-            }
-        }
+  .prev-li {
+    a {
+      border-radius: 15px 0px 0px 15px !important;
+      &:focus {
+        background-color: transparent;
+        box-shadow: none;
+      }
+    }
+  }
 
+  .next-li {
+    a {
+      border-radius: 0px 15px 15px 0px !important;
+      &:focus {
+        background-color: transparent;
+        box-shadow: none;
+      }
+    }
+  }
+
+  li {
+    a {
+      background-color: #141518;
+      border-color: #282c38;
+      font-family: Lato, Sans-serif;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 600;
+      color: #b2b9cd;
+      // height: 40px;
+      // width: 40px;
+      text-align: center;
+      line-height: 26px;
+      &:hover {
+        background-color: transparent;
+        border-color: #282c38;
+      }
+      &:focus {
+        background-color: transparent;
+        box-shadow: none;
+      }
     }
 
-    .next-li {
-        a {
-            border-radius: 0px 15px 15px 0px !important;
-            &:focus{
-                background-color: transparent;
-                box-shadow: none;
-            }
-        }
-
+    span {
+      background-color: #141518;
+      border-color: #282c38;
+      font-family: Lato, Sans-serif;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 600;
+      color: #b2b9cd;
+      // height: 40px;
+      // width: 40px;
+      text-align: center;
+      line-height: 26px;
     }
+  }
 
-    li {
-
-        a {
-            background-color: #141518;
-            border-color: #282C38;
-            font-family: Lato;
-            font-size: 14px;
-            font-style: normal;
-            font-weight: 600;
-            line-height: normal;
-            color: #B2B9CD;
-            // height: 40px;
-            // width: 40px;
-            text-align: center;
-            line-height: 26px;
-            &:hover{
-                background-color:transparent ;
-                border-color: #282C38;
-            }
-            &:focus{
-                background-color: transparent;
-                box-shadow: none;
-            }
-        }
-
-        span {
-            background-color: #141518;
-            border-color: #282C38;
-            font-family: Lato;
-            font-size: 14px;
-            font-style: normal;
-            font-weight: 600;
-            line-height: normal;
-            color: #B2B9CD;
-            // height: 40px;
-            // width: 40px;
-            text-align: center;
-            line-height: 26px;
-        }
+  .active {
+    span {
+      background: #0aceec !important;
+      color: #1e1f25;
     }
-
-    .active {
-        span {
-            background: #0ACEEC !important;
-            color: #1E1F25;
-        }
-    }
-
+  }
 }
