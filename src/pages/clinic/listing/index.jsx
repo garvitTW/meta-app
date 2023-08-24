@@ -169,10 +169,11 @@ function ClinicListing({ organization_id = "" }) {
       pdf.save("Clinics.pdf");
     }
   };
-
+  const className =
+    organization_id && show ? "make_display_none" : "Patients_section";
   return (
     <>
-      <div className="Patients_section">
+      <div className={className}>
         <div>
           <div className="d-inline-block">
             <h1>Clinics ({totalItems})</h1>
