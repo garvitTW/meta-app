@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./style.scss";
 import { Container, Row, Col, Form } from "react-bootstrap";
 import Logo from "../../assests/images/login/logo.png";
@@ -18,6 +18,13 @@ function Login() {
   const navigate = useNavigate();
 
   const details = storageService.decryptCredentials();
+  const token = authService.isAuthenticated();
+
+  useEffect(() => {
+    if (token) {
+      navigate(URL.DASHBOARD);
+    }
+  }, [navigate, token]);
 
   const checkedValue = Boolean(details);
   const [rememberMe, setRememberMe] = useState(checkedValue);
@@ -51,7 +58,9 @@ function Login() {
     errors: errors,
     getFieldProps: getFieldProps,
   };
-
+  if (token) {
+    return null;
+  }
   return (
     <>
       <div>
@@ -83,24 +92,23 @@ function Login() {
                       label="Password"
                     />
                     {/* <Form.Group className="mb-3" controlId="formBasicCheckbox"> */}
-                      
-                      {/* <Form.Check
+
+                    {/* <Form.Check
                         checked={rememberMe}
                         type="checkbox"
                         label="Remember me"
                         onChange={(e) => setRememberMe(e.target.checked)}
                       /> */}
-                      
+
                     {/* </Form.Group> */}
-                  
-                    <input 
+
+                    <input
                       checked={rememberMe}
                       type="checkbox"
                       className="checkb"
-
                       onChange={(e) => setRememberMe(e.target.checked)}
                     />
-                      <label className="remeberme">Remember me</label>
+                    <label className="remeberme">Remember me</label>
                     <div className="text-center">
                       <ButtonWithLoader
                         className="d-flex justify-content-center align-items-center"
