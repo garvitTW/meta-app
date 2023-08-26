@@ -1,0 +1,56 @@
+.DoctoreDetail{
+    label {
+        font-family: Lato, Sans-serif;
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        color: #b2b9cd;
+        display: block;
+        margin-bottom: 0.5rem;
+
+      }
+    
+      input.form-control {
+        border: 1px solid #3c4254;
+        background: #1e1f25;
+        height: 47px;
+        color: #fff;
+        font-family: Lato, Sans-serif;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    
+        &::placeholder {
+          color: #b2b9cd;
+        }
+      }
+      .Next_button {
+        border-radius: 10px;
+        background: #0aceec;
+        color: #1e1f25;
+        font-family: Inter, Sans-serif;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        border: 0;
+        height: 47px;
+        width: 145px;
+      }
+    
+      h2 {
+        color: #fff;
+        font-family: Lato, Sans-serif;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 28px;
+        margin-top: 20px;
+      }
+    
+      .tab-pane {
+        padding-top: 35px;
+      }
+}

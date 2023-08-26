@@ -38,12 +38,44 @@ function ClinicProfessionalDetailsForm({
   };
   return (
     <Form onSubmit={handleSubmit}>
-      <Row className="AddOrganisationProfile ">
-        <Col md={12}>
+      <div className="AddOrganisationProfile ">
+     
+          <h2 className="mt-0">Years of experience</h2>
+          <hr />
+      
+        </div>
+        <Row className="mb-4">
+           <Col md={6}>
+             <Row>
+             <Col md={6}>
+             <div className="mb-3">
+             <label className="form-label">Years</label>
+              <input       
+              name="email"
+              type="text"
+              placeholder="Years"
+              className="form-control" />
+              </div>
+             </Col>
+             <Col md={6}>
+             <div className="mb-3">
+             <label className="form-label">Months</label>
+              <input       
+              name="email"
+              type="text"
+              placeholder="Years"
+              className="form-control" />
+              </div>
+             </Col>
+             </Row>
+           </Col>
+        </Row>
+       
+        <div>
           <h2 className="mt-0">Services offered (Select Minimum 1)</h2>
           <hr />
-        </Col>
-
+        </div>
+        <Row>
         <Col md={12}>
           <Row className="align-items-center">
             {servicesOffered?.map((service, index) => {
