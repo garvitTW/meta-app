@@ -4,8 +4,10 @@ import "./style.scss";
 function AddDoctorProfile() {
   return (
     <>
-      <TabsWithNavigation tabs={addDoctorTabs} heading="Add Doctor" />
-      DoctorAddProfile
+      <div className="Patients_section Organization-section AddOrganisationProfile Add_Organisation_Professional">
+        <TabsWithNavigation tabs={addDoctorTabs} heading="Add Doctor" />
+        DoctorAddProfile
+      </div>
     </>
   );
 }

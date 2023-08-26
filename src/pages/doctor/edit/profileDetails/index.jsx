@@ -4,8 +4,10 @@ import "./style.scss";
 function EditDoctorProfile() {
   return (
     <>
-      <TabsWithNavigation tabs={editDoctorTabs} heading="Edit Doctor" />
-      DoctorEditProfile
+      <div className="Patients_section Organization-section AddOrganisationProfile Add_Organisation_Professional">
+        <TabsWithNavigation tabs={editDoctorTabs} heading="Edit Doctor" />
+        DoctorEditProfile
+      </div>
     </>
   );
 }

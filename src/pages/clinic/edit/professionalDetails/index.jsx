@@ -145,7 +145,7 @@ function EditClinicProfessional() {
   };
 
   const handleCancel = () => {
-    dispatch({ type: Type.REMOVE_CLINIC_STEP_1 });
+    dispatch({ type: Type.REMOVE_EDIT_CLINIC_DETAILS });
     navigate(URLS.CLINIC.LISTING);
   };
 

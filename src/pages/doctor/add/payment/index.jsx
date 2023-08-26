@@ -1,11 +1,14 @@
+import PaymentComp from "../../../../components/payment";
 import TabsWithNavigation from "../../../../components/tabsWithNavigation";
 import { addDoctorTabs } from "../../../../constants/doctor.constants";
 import "./style.scss";
 function AddDoctorPayment() {
   return (
     <>
-      <TabsWithNavigation tabs={addDoctorTabs} heading="Add Doctor" />
-      DoctorAddPayment
+      <div className="Patients_section Organization-section AddOrganisationProfile Add_Organisation_Professional">
+        <TabsWithNavigation tabs={addDoctorTabs} heading="Add Doctor" />
+        <PaymentComp />
+      </div>
     </>
   );
 }
