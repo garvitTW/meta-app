@@ -1,0 +1,276 @@
+.Add_Organisation_Professional {
+  .input-group {
+    align-items: end;
+
+    .input-group-text {
+      background: transparent;
+      border: 0;
+      padding: 0;
+      height: 24px;
+      width: 24px;
+
+      input {
+        background-color: transparent;
+        border: 2px solid #b2b9cd;
+        height: 24px;
+        width: 24px;
+        border-radius: 8px;
+        margin: 0px;
+
+        &:focus {
+          box-shadow: none;
+        }
+      }
+
+      .form-check-input:checked {
+        background-color: #0aceec;
+        box-shadow: none;
+        border-color: #0aceec;
+      }
+    }
+
+    .checkbox-label {
+      color: #fff;
+      font-family: Lato, Sans-serif;
+      font-size: 15px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 140%;
+      letter-spacing: 0.2px;
+      padding-left: 16px;
+    }
+  }
+
+  select {
+    border: 1px solid #3c4254;
+    background: #1e1f25;
+    height: 47px;
+    color: #fff;
+    font-family: Lato, Sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    background-image: url(../../../../assests/images/dashborad/down.png);
+    background-repeat: no-repeat;
+    background-position: 98%;
+  }
+
+  .Languages_select {
+    margin-bottom: 10px;
+    width: 744px;
+    font-family: Lato, Sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: #b2b9cd;
+    padding-left: 25px;
+
+    &:focus {
+      box-shadow: none;
+      outline: none;
+    }
+  }
+
+  .select_tags {
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      gap: 12px;
+      // margin-bottom: 44px;
+
+      li {
+        color: #fff;
+        font-family: Lato, Sans-serif;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        border: 1px solid #3c4254;
+        background: #1e1f25;
+        border-radius: 4px;
+        padding: 5px 10px;
+        text-transform: capitalize;
+      }
+    }
+  }
+
+  .mendatory-feild {
+    color: #f93440;
+  }
+
+  .others_section {
+    display: inline-flex;
+
+    input {
+      width: 360px;
+    }
+
+    button {
+      width: 145px;
+      height: 48px;
+      border-radius: 10px;
+      background: #0aceec;
+      color: #1e1f25;
+      font-family: Inter, Sans-serif;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      border: #0aceec;
+      margin-left: 14px;
+    }
+  }
+}
+
+.Category_div {
+  align-items: start;
+  gap: 10px;
+
+  div {
+    width: 160px;
+  }
+
+  a.fileico {
+    line-height: 47px;
+    display: inline-block;
+    margin-top: 37px;
+    margin-right: 5px;
+  }
+  a.fileico2 {
+    line-height: 47px;
+    display: inline-block;
+    margin-top: 0px;
+    margin-right: 5px;
+  }
+  p {
+    color: #fff;
+    font-family: Lato, Sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%;
+    letter-spacing: 0.2px;
+  }
+
+  select {
+    border: 1px solid #3c4254;
+    background: #1e1f25;
+    height: 47px;
+    color: #fff;
+    font-family: Lato, Sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    background-image: url(../../../../assests/images/dashborad/down.png);
+    background-repeat: no-repeat;
+    background-position: 98%;
+    padding-right: 0;
+    padding-right: 15px;
+    width: 160px;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  button {
+    background-color: transparent;
+    padding: 0;
+    border: 0;
+
+    &:hover {
+      background-color: transparent;
+    }
+
+    &:active {
+      background-color: transparent !important;
+    }
+  }
+
+  .toppad {
+    margin-top: 41px;
+    margin-bottom: 7px;
+  }
+}
+
+.add_morebtn {
+  color: #0aceec;
+  font-family: "Lato", Sans-serif;
+  font-size: 14.248px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+
+.blue-button {
+  border-radius: 10px;
+  background: #0aceec;
+  color: #1e1f25;
+  font-family: Inter, Sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  border: 0;
+  height: 47px;
+  width: 194px;
+}
+
+.cancel-buttongry {
+  font-family: Lato, Sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  border: 1px solid #3c4254;
+  background: #1e1f25;
+  height: 47px;
+  color: #fff;
+  border-radius: 10px;
+  width: 145px;
+  margin-right: 12px;
+}
+.uploadIcon {
+  width: 35px;
+  cursor: pointer;
+}
+
+.blue-button-loader {
+  border-radius: 10px !important;
+  background: #0aceec !important;
+  color: #1e1f25 !important;
+  font-family: Inter, Sans-serif !important;
+  font-size: 16px !important;
+  font-style: normal !important;
+  font-weight: 600 !important;
+  line-height: normal !important;
+  border: 0 !important;
+  height: 47px !important;
+  width: 194px !important;
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: center !important;
+  flex-wrap: unset !important;
+}
+.checkbox-item {
+  display: flex;
+  align-items: center;
+}
+
+.botmbox {
+  margin-bottom: 6px;
+  padding-top: 6px;
+}
+.botmbox2 {
+  margin-bottom: 5px;
+  padding-top: 6px;
+}

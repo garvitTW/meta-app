@@ -6,3 +6,20 @@
 .make_display_none {
   display: none;
 }
+.Patients_section {
+  .Clinic-button {
+    border-radius: 10px;
+    background: #0aceec;
+    font-family: Lato, Sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    color: #000000;
+    width: 100%;
+    padding: 11px 10px;
+    &:hover {
+      background: #0aceec;
+    }
+  }
+}

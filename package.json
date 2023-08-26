@@ -46,6 +46,7 @@
     ]
   },
   "devDependencies": {
-    "sass": "^1.64.0"
+    "sass": "^1.64.0",
+    "sonarqube-scanner": "^3.0.1"
   }
 }

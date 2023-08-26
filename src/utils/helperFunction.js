@@ -15,5 +15,24 @@ const generateProfileDetailsInitialValue = (value) => {
   };
 };
 
+const generateClinicProfileDetailsInitialValue = (value) => {
+  return {
+    name: value?.name || "",
+    email: value?.email || "",
+    phone_number: value?.phone_number || "",
+    clinic_extension: value?.clinic_extension || "",
+    clinic_fax: value?.clinic_fax || "",
+    clinic_rep_name: value?.clinic_rep_name || "",
+    clinic_rep_phone: value?.clinic_rep_phone || "",
+    clinic_rep_email: value?.clinic_rep_email || "",
+    street: value?.street || "",
+    suite_unit: value?.suite_unit || "",
+    city: value?.city || "",
+    state: value?.state || "",
+  };
+};
 
-export {  generateProfileDetailsInitialValue };
+export {
+  generateProfileDetailsInitialValue,
+  generateClinicProfileDetailsInitialValue,
+};

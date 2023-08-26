@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import "./style.scss";
 import { Row, Col, Table, Form, InputGroup } from "react-bootstrap";
 import Search from "../../../assests/images/dashborad/Search.png";
+import AddIcon from "../../../assests/images/dashborad/add.png";
 import PaginationSection from "../../../components/PaginationSection";
 import { useDebounce } from "../../../hooks/debounce";
 import { doctorService } from "../../../services/doctor.service";
@@ -13,9 +14,12 @@ import ModalComponent from "../../../components/modal";
 import PatientListing from "../../patient/listing";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import URL from "../../../constants/routesURL";
+import { useNavigate } from "react-router-dom";
 
 function DoctorListing({ organization_id = "", clinic_id = "" }) {
   const [show, setShow] = useState("");
+  const navigate = useNavigate();
   const [clinics, setClinics] = useState([]);
   const [selectedClinic, setSelectedClinic] = useState(clinic_id);
   const [doctors, setDoctors] = useState([]);
@@ -100,6 +104,10 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
       setSearch(value);
     }
   }, []);
+
+  const handleEditDoctor = (id) => {
+    navigate(URL.DOCTOR.EDIT.PROFILE_DETAIL);
+  };
 
   const handleSwitchToggle = async (doctor) => {
     try {
@@ -188,6 +196,13 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
                 Export
               </button>
             </div>
+            <button
+              onClick={() => navigate(URL.DOCTOR.CREATE.PROFILE_DETAIL)}
+              className="btn Clinic-button"
+            >
+              <img src={AddIcon} className="pe-2" alt="add" />
+              Add Doctor
+            </button>
           </div>
         </div>
 
@@ -235,7 +250,12 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
                         <InputGroup.Checkbox aria-label="Checkbox for following text input" />
                       </InputGroup>
                     </td>
-                    <td className="name-text">{doctor?.doctor_name}</td>
+                    <td
+                      className="name-text"
+                      onClick={() => handleEditDoctor(doctor?.id)}
+                    >
+                      {doctor?.doctor_name}
+                    </td>
                     <td>{doctor?.doctor_uniqueid}</td>
                     <td>{doctor?.doctor_email}</td>
                     <td className="">{doctor?.clinic_name}</td>

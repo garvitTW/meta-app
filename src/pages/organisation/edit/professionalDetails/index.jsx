@@ -435,7 +435,7 @@ function EditOrganisationProfessional() {
               </button>
               <ButtonWithLoader
                 isSubmitting={isSubmitting}
-                label="Add Organization"
+                label="Edit Organization"
                 className="blue-button-loader"
               />
             </Col>

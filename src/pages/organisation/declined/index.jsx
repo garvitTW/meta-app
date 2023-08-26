@@ -97,7 +97,7 @@ function OrganisationDeclined() {
                   <td>
                     <div>
                       Incorrect Information provided ......{" "}
-                      <button className="name-text">View More</button>
+                      <span className="name-text">View More</span>
                     </div>
                   </td>
                   <td>

@@ -22,9 +22,29 @@ const URL = {
   },
   CLINIC: {
     LISTING: "/clinics/listing",
+    CREATE: {
+      PROFILE_DETAIL: "/clinics/create/profile-detail",
+      PROFESSIONAL_DETAIL: "/clinics/create/professional-detail",
+      PAYMENT: "/clinics/create/payment",
+    },
+    EDIT: {
+      PROFILE_DETAIL: "/clinics/edit/profile-detail",
+      PROFESSIONAL_DETAIL: "/clinics/edit/professional-detail",
+      PAYMENT: "/clinics/edit/payment",
+    },
   },
   DOCTOR: {
     LISTING: "/doctors/listing",
+    CREATE: {
+      PROFILE_DETAIL: "/doctors/create/profile-detail",
+      PROFESSIONAL_DETAIL: "/doctors/create/professional-detail",
+      PAYMENT: "/doctors/create/payment",
+    },
+    EDIT: {
+      PROFILE_DETAIL: "/doctors/edit/profile-detail",
+      PROFESSIONAL_DETAIL: "/doctors/edit/professional-detail",
+      PAYMENT: "/doctors/edit/payment",
+    },
   },
   REPORTS: "/reports",
   SETTINGS: "/settings",

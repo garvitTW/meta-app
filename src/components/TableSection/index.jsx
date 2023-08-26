@@ -1,5 +1,4 @@
 import { useState } from "react";
-import React from "react";
 import Emailimg from "../../assests/images/dashborad/email.svg";
 import Phoneimg from "../../assests/images/dashborad/phone.png";
 import Faximg from "../../assests/images/dashborad/fax.svg";

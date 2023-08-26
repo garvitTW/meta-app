@@ -12,6 +12,7 @@ import URL from "../../constants/routesURL";
 import { authService } from "../../services/auth.service";
 import { Store } from "../../store/Store";
 import { Type } from "../../constants/storeAction.constants";
+import { roles } from "../../constants/common.constants";
 
 function Login() {
   const { dispatch } = useContext(Store);
@@ -42,6 +43,7 @@ function Login() {
         try {
           storageService.encryptCredentials(rememberMe, values);
           const { data } = await authService.login(values);
+          data.user_type = data.user_type || roles.admin;
           dispatch({ type: Type.USER_LOGIN, payload: data });
 
           setRememberMe(false);

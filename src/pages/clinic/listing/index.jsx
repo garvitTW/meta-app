@@ -2,7 +2,7 @@ import "./style.scss";
 import { Row, Col, Table, Form, InputGroup } from "react-bootstrap";
 import Search from "../../../assests/images/dashborad/Search.png";
 import PaginationSection from "../../../components/PaginationSection";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useDebounce } from "../../../hooks/debounce";
 import LoaderSpinner from "../../../components/spinner";
 import { clinicService } from "../../../services/clinic.service";
@@ -11,9 +11,15 @@ import StatusDropDown from "../../../components/statusDropdown";
 import ListingDropDown from "../../../components/listingDropdown";
 import DoctorListing from "../../doctor/listing";
 import PatientListing from "../../patient/listing";
+import AddIcon from "../../../assests/images/dashborad/add.png";
 import ModalComponent from "../../../components/modal";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import { useNavigate } from "react-router-dom";
+import URL from "../../../constants/routesURL";
+import { Store } from "../../../store/Store";
+import { roles } from "../../../constants/common.constants";
+import { Type } from "../../../constants/storeAction.constants";
 
 const popUpComponents = [
   {
@@ -27,7 +33,10 @@ const popUpComponents = [
 ];
 
 function ClinicListing({ organization_id = "" }) {
+  const { state, dispatch } = useContext(Store);
+  const { userInfo } = state;
   const [show, setShow] = useState(false);
+  const navigate = useNavigate();
   const [clinics, setClinics] = useState([]);
   const [organizations, setOrganizations] = useState([]);
   const [status, setStatus] = useState("");
@@ -135,6 +144,21 @@ function ClinicListing({ organization_id = "" }) {
     }
   };
 
+  const handleEditClinic = async (id) => {
+    if (userInfo.user_type === roles.organization) {
+      try {
+        setLoading(true);
+        const { data } = await OrganisationService.getOrganisationClinic(id);
+        setLoading(false);
+        dispatch({ type: Type.EDIT_CLINIC_DETAILS, payload: data });
+        navigate(URL.CLINIC.EDIT.PROFILE_DETAIL);
+      } catch (err) {
+        setLoading(false);
+        console.log(err);
+      }
+    }
+  };
+
   const downloadData = () => {
     if (clinics.length > 0) {
       const pdf = new jsPDF();
@@ -197,6 +221,13 @@ function ClinicListing({ organization_id = "" }) {
                 Export
               </button>
             </div>
+            <button
+              onClick={() => navigate(URL.CLINIC.CREATE.PROFILE_DETAIL)}
+              className="btn Clinic-button"
+            >
+              <img src={AddIcon} className="pe-2" alt="add" />
+              Add Clinic
+            </button>
           </div>
         </div>
 
@@ -245,7 +276,12 @@ function ClinicListing({ organization_id = "" }) {
                         <InputGroup.Checkbox aria-label="Checkbox for following text input" />
                       </InputGroup>
                     </td>
-                    <td className="name-text">{clinic?.user}</td>
+                    <td
+                      className="name-text"
+                      onClick={() => handleEditClinic(clinic?.id)}
+                    >
+                      {clinic?.user}
+                    </td>
                     <td>{clinic?.email}</td>
                     <td>{clinic?.organization_clinic}</td>
                     <td

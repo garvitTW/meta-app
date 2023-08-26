@@ -1,13 +1,17 @@
-import { createContext, useReducer } from "react";
+import { createContext, useMemo, useReducer } from "react";
 import { Type } from "../constants/storeAction.constants";
+import { authService } from "../services/auth.service";
 
 export const Store = createContext();
 
 const initialState = {
-  userInfo: null,
+  userInfo: authService.getUserDetails(),
   addOrganisationStep1: null,
   editOrganisationDetails: null,
   editOrganisationStep1: null,
+  addClinicStep1: null,
+  editClinicDetails: null,
+  editClinicStep1: null,
 };
 
 function reducer(state, action) {
@@ -34,6 +38,25 @@ function reducer(state, action) {
         editOrganisationStep1: null,
       };
 
+    case Type.ADD_CLINIC_STEP_1:
+      return { ...state, addClinicStep1: action.payload };
+
+    case Type.REMOVE_CLINIC_STEP_1:
+      return { ...state, addClinicStep1: null };
+
+    case Type.EDIT_CLINIC_DETAILS:
+      return { ...state, editClinicDetails: action.payload };
+
+    case Type.ADD_EDIT_CLINIC_STEP_1:
+      return { ...state, editClinicStep1: action.payload };
+
+    case Type.REMOVE_EDIT_CLINIC_DETAILS:
+      return {
+        ...state,
+        editClinicDetails: null,
+        editClinicStep1: null,
+      };
+
     default:
       return state;
   }
@@ -41,6 +64,8 @@ function reducer(state, action) {
 
 export function StoreProvider(props) {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const value = { state, dispatch };
+  const value = useMemo(() => {
+    return { state, dispatch };
+  }, [state, dispatch]);
   return <Store.Provider value={value}>{props.children}</Store.Provider>;
 }
