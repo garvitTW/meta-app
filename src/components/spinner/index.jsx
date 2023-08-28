@@ -4,7 +4,7 @@ import Spinner from "react-bootstrap/Spinner";
 function LoaderSpinner({ loading }) {
   return (
     loading && (
-      <Spinner animation="border" variant="warning" role="status">
+      <Spinner animation="border" variant="warning" role="status" className="loder">
         <span className="visually-hidden">Loading...</span>
       </Spinner>
     )
