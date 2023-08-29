@@ -50,10 +50,11 @@ function AddDoctorProfile() {
     validationSchema: validationSchemaDoctorProfileDetails,
     onSubmit: async (values, action) => {
       try {
+        console.log("doctor profile details", values);
         // await OrganisationService.checkOrganisationMail({
         //   email: values.email,
         // });
-        dispatch({ type: Type.ADD_CLINIC_STEP_1, payload: values });
+        dispatch({ type: Type.ADD_DOCTOR_STEP_1, payload: values });
         navigate(URL.DOCTOR.CREATE.PROFESSIONAL_DETAIL);
       } catch (err) {
         console.log(err);
@@ -62,9 +63,11 @@ function AddDoctorProfile() {
   });
 
   const handleClinicSelection = (event) => {
-    const selectedClinicId = Number(event.target.value);
-    if (!values.clinics.includes(selectedClinicId) && selectedClinicId) {
-      setFieldValue("clinics", [...values.clinics, selectedClinicId]);
+    if (values.clinics.length === 0) {
+      const selectedClinicId = Number(event.target.value);
+      if (!values.clinics.includes(selectedClinicId) && selectedClinicId) {
+        setFieldValue("clinics", [...values.clinics, selectedClinicId]);
+      }
     }
   };
 
@@ -87,7 +90,7 @@ function AddDoctorProfile() {
         <TabsWithNavigation tabs={addDoctorTabs} heading="Add Doctor" />
         <Row>
           <Col md={8}>
-            <Form className="DoctoreDetail">
+            <Form className="DoctoreDetail" onSubmit={handleSubmit}>
               <Row>
                 <Col md={6}>
                   <div className="mb-4">

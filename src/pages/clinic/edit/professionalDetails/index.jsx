@@ -11,10 +11,11 @@ import { documentObject } from "../../../../constants/common.constants";
 import TabsWithNavigation from "../../../../components/tabsWithNavigation";
 import { editClinicTabs } from "../../../../constants/clinic.constants";
 import ClinicProfessionalDetailsForm from "../../../../components/clinic/professionalDetailsForm";
+import { clinicService } from "../../../../services/clinic.service";
 
 function EditClinicProfessional() {
   const { state, dispatch } = useContext(Store);
-  const { editClinicDetails, editClinicStep1 } = state;
+  const { editClinicDetails, editClinicStep1, userInfo } = state;
   const [languages, setLanguages] = useState([]);
   const [servicesOffered, setServicesOffered] = useState([]);
   const [newService, setNewService] = useState("");
@@ -60,28 +61,18 @@ function EditClinicProfessional() {
     onSubmit: async (values) => {
       try {
         const { documents, ...rest } = values;
-        // const { results } = await OrganisationService.postOrganisationClinic({
-        //   ...addOrganisationStep1,
-        //   password: "password@123",
-        //   enabled: true,
-        //   user_type: "ORGANIZATION",
-        //   ...rest,
-        // });
+        await clinicService.updateClinic(editClinicDetails.id, {
+          ...editClinicStep1,
+          ...rest,
+          organization_clinic: userInfo.id,
+        });
 
-        // const { organization_id } = results;
-        // const documentsWithOrganisationId = documents.map((document) => {
-        //   document.organization = organization_id;
-        //   return document;
-        // });
-        // const uploadDocument = {
-        //   documents: documentsWithOrganisationId,
-        // };
-        // await OrganisationService.postOrganisationClinicDocument(
-        //   organization_id,
-        //   uploadDocument
-        // );
-        // dispatch({ type: Type.REMOVE_CLINIC_STEP_1 });
-        // navigate(URLS.CLINIC.LISTING);
+        const uploadDocument = {
+          documents: documents,
+        };
+        await clinicService.postClinicDocument(uploadDocument);
+        dispatch({ type: Type.REMOVE_CLINIC_STEP_1 });
+        navigate(URLS.CLINIC.LISTING);
         console.log({ ...editClinicStep1, ...rest });
       } catch (err) {
         console.log(err);
@@ -149,9 +140,16 @@ function EditClinicProfessional() {
     navigate(URLS.CLINIC.LISTING);
   };
 
-  const removeDocument = (index) => {
-    const updatedDocuments = values.documents.filter((_, i) => i !== index);
-    setFieldValue("documents", updatedDocuments);
+  const removeDocument = async (index) => {
+    try {
+      if (values.documents[index]?.id) {
+        await clinicService.deleteClinicDocument(values.documents[index].id);
+      }
+      const updatedDocuments = values.documents.filter((_, i) => i !== index);
+      setFieldValue("documents", updatedDocuments);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   if (!editClinicStep1) {

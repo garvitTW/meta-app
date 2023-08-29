@@ -154,7 +154,7 @@ function ClinicListing({ organization_id = "" }) {
     if (userInfo.user_type === roles.organization) {
       try {
         setLoading(true);
-        const { data } = await OrganisationService.getOrganisationClinic(id);
+        const { data } = await clinicService.getClinicDetails(id);
         setLoading(false);
         dispatch({ type: Type.EDIT_CLINIC_DETAILS, payload: data });
         navigate(URL.CLINIC.EDIT.PROFILE_DETAIL);
