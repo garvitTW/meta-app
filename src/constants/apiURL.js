@@ -14,6 +14,8 @@ const apiURL = {
   DOCTOR_LIST: "/doctor/doctors-only-listing/",
   ORGANISATION_EMAIL_CHECK: "/organization/organization-email-check/",
   ORGANISATION_DOCUMENT: "/organization/organization-document/",
+  CLINIC: "/clinic/clinics/",
+  CLINIC_DOCUMENT: "/clinic/clinic-document/",
 };
 
 export default apiURL;

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import "./style.scss";
 import { Row, Col, Table, Form, InputGroup } from "react-bootstrap";
 import Search from "../../../assests/images/dashborad/Search.png";
@@ -16,12 +16,19 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import URL from "../../../constants/routesURL";
 import { useNavigate } from "react-router-dom";
+import { Store } from "../../../store/Store";
+import { roles } from "../../../constants/common.constants";
 
 function DoctorListing({ organization_id = "", clinic_id = "" }) {
+  const { state } = useContext(Store);
+  const { userInfo } = state;
+  const { user_type, id } = userInfo;
+  const initialClinicId = user_type === roles.clinic ? id : clinic_id;
+
   const [show, setShow] = useState("");
   const navigate = useNavigate();
   const [clinics, setClinics] = useState([]);
-  const [selectedClinic, setSelectedClinic] = useState(clinic_id);
+  const [selectedClinic, setSelectedClinic] = useState(initialClinicId);
   const [doctors, setDoctors] = useState([]);
   const [status, setStatus] = useState("");
   const [search, setSearch] = useState("");
@@ -43,8 +50,10 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
     const fetchData = async () => {
       try {
         setLoading(true);
+        const initialOrganisationId =
+          user_type === roles.organization ? id : organization_id;
         const { count, results } = await doctorService.getDoctorSummary({
-          organization_id: organization_id,
+          organization_id: initialOrganisationId,
           clinic_id: selectedClinic,
           search: debouncedSearchTerm,
           status: status,
@@ -66,22 +75,26 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
     selectedClinic,
     currentPage,
     organization_id,
+    user_type,
+    id,
   ]);
 
   useEffect(() => {
-    const fetchClinics = async () => {
-      try {
-        setLoadingClinic(true);
-        const { data } = await clinicService.getClinicNameId();
-        setClinics(data);
-        setLoadingClinic(false);
-      } catch (err) {
-        setLoadingClinic(false);
-        console.log(err);
-      }
-    };
-    fetchClinics();
-  }, []);
+    if (user_type === roles.admin) {
+      const fetchClinics = async () => {
+        try {
+          setLoadingClinic(true);
+          const { data } = await clinicService.getClinicNameId();
+          setClinics(data);
+          setLoadingClinic(false);
+        } catch (err) {
+          setLoadingClinic(false);
+          console.log(err);
+        }
+      };
+      fetchClinics();
+    }
+  }, [user_type]);
 
   const getClinicFilter = useCallback(() => {
     if (selectedClinic) {
@@ -170,6 +183,32 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
       ? "make_display_none"
       : "Patients_section";
 
+  const clinicFilter = useMemo(() => {
+    return user_type === roles.admin ? (
+      <Col md={3} className="status_dropdown enable-status">
+        <ListingDropdown
+          getFilterLabel={getClinicFilter}
+          filterHandle={filterHandle}
+          values={clinics}
+          id="clinic_id"
+          filterName="Clinic"
+        />
+      </Col>
+    ) : null;
+  }, [clinics, filterHandle, getClinicFilter, user_type]);
+
+  const addDoctorButton = useMemo(() => {
+    return user_type === (roles.organization || roles.clinic) ? (
+      <button
+        onClick={() => navigate(URL.DOCTOR.CREATE.PROFILE_DETAIL)}
+        className="btn Clinic-button"
+      >
+        <img src={AddIcon} className="pe-2" alt="add" />
+        Add Doctor
+      </button>
+    ) : null;
+  }, [navigate, user_type]);
+
   return (
     <>
       <div className={className}>
@@ -196,13 +235,7 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
                 Export
               </button>
             </div>
-            <button
-              onClick={() => navigate(URL.DOCTOR.CREATE.PROFILE_DETAIL)}
-              className="btn Clinic-button"
-            >
-              <img src={AddIcon} className="pe-2" alt="add" />
-              Add Doctor
-            </button>
+            {addDoctorButton}
           </div>
         </div>
 
@@ -210,15 +243,7 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
           <Col md={3} className="status_dropdown enable-status">
             <StatusDropdown status={status} filterHandle={filterHandle} />
           </Col>
-          <Col md={3} className="status_dropdown enable-status">
-            <ListingDropdown
-              getFilterLabel={getClinicFilter}
-              filterHandle={filterHandle}
-              values={clinics}
-              id="clinic_id"
-              filterName="Clinic"
-            />
-          </Col>
+          {clinicFilter}
         </Row>
         <Row>
           <Col md={12} className="mt-4">

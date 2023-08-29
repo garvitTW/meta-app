@@ -32,7 +32,22 @@ const generateClinicProfileDetailsInitialValue = (value) => {
   };
 };
 
+const generateDoctorProfileDetailsInitialValue = (value) => {
+  return {
+    name: value?.name || "",
+    email: value?.email || "",
+    phone_number: value?.phone_number || "",
+    doctor_fax: value?.doctor_fax || "",
+    street: value?.street || "",
+    suite_unit: value?.suite_unit || "",
+    city: value?.city || "",
+    state: value?.state || "",
+    clinics: value?.clinics || [],
+  };
+};
+
 export {
   generateProfileDetailsInitialValue,
   generateClinicProfileDetailsInitialValue,
+  generateDoctorProfileDetailsInitialValue,
 };

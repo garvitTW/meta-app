@@ -11,9 +11,10 @@ import { documentObject } from "../../../../constants/common.constants";
 import TabsWithNavigation from "../../../../components/tabsWithNavigation";
 import { addClinicTabs } from "../../../../constants/clinic.constants";
 import ClinicProfessionalDetailsForm from "../../../../components/clinic/professionalDetailsForm";
+import { clinicService } from "../../../../services/clinic.service";
 function AddClinicProfessional() {
   const { state, dispatch } = useContext(Store);
-  const { addClinicStep1 } = state;
+  const { addClinicStep1, userInfo } = state;
   const [languages, setLanguages] = useState([]);
   const [servicesOffered, setServicesOffered] = useState([]);
   const [newService, setNewService] = useState("");
@@ -22,7 +23,7 @@ function AddClinicProfessional() {
 
   useEffect(() => {
     if (!addClinicStep1) {
-      navigate(URLS.ORGANISATION.CREATE.PROFILE_DETAIL);
+      navigate(URLS.CLINIC.CREATE.PROFILE_DETAIL);
     } else {
       const fetchData = async () => {
         try {
@@ -56,28 +57,25 @@ function AddClinicProfessional() {
     onSubmit: async (values) => {
       try {
         const { documents, ...rest } = values;
-        // const { results } = await OrganisationService.postOrganisationClinic({
-        //   ...addOrganisationStep1,
-        //   password: "password@123",
-        //   enabled: true,
-        //   user_type: "ORGANIZATION",
-        //   ...rest,
-        // });
+        const { results } = await clinicService.createClinic({
+          ...addClinicStep1,
+          is_enabled: true,
+          user_type: "CLINIC",
+          organization_clinic: userInfo?.id,
+          ...rest,
+        });
 
-        // const { organization_id } = results;
-        // const documentsWithOrganisationId = documents.map((document) => {
-        //   document.organization = organization_id;
-        //   return document;
-        // });
-        // const uploadDocument = {
-        //   documents: documentsWithOrganisationId,
-        // };
-        // await OrganisationService.postOrganisationClinicDocument(
-        //   organization_id,
-        //   uploadDocument
-        // );
-        // dispatch({ type: Type.REMOVE_ORGANISATION_STEP_1 });
-        // navigate(URLS.ORGANISATION.LISTING);
+        const { clinic_id } = results;
+        const documentsWithClinicId = documents.map((document) => {
+          document.clinic = clinic_id;
+          return document;
+        });
+        const uploadDocument = {
+          documents: documentsWithClinicId,
+        };
+        await clinicService.postClinicDocument(uploadDocument);
+        dispatch({ type: Type.REMOVE_CLINIC_STEP_1 });
+        navigate(URLS.CLINIC.LISTING);
         console.log({ ...addClinicStep1, ...rest });
       } catch (err) {
         console.log(err);

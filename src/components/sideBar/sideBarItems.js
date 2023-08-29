@@ -11,6 +11,7 @@ import Doctorshover from "../../assests/images/sidebar/clinic-hover.png";
 import Reports from "../../assests/images/sidebar/report.png";
 import ReportHover from "../../assests/images/sidebar/report-hover.png";
 import URL from "../../constants/routesURL";
+import { roles } from "../../constants/common.constants";
 
 const sideBarItems = [
   {
@@ -19,6 +20,7 @@ const sideBarItems = [
     image: Dashboard,
     hoverIamge: DashboardHover,
     navigate: URL.DASHBOARD,
+    roles: [roles.admin, roles.organization, roles.clinic],
   },
   {
     id: 2,
@@ -26,6 +28,7 @@ const sideBarItems = [
     image: Patients,
     hoverIamge: PatientsHover,
     navigate: URL.PATIENT.LISTING,
+    roles: [roles.admin, roles.organization, roles.clinic],
   },
   {
     id: 3,
@@ -33,6 +36,7 @@ const sideBarItems = [
     image: Organization,
     hoverIamge: Organizationhover,
     navigate: URL.ORGANISATION.LISTING,
+    roles: [roles.admin],
   },
   {
     id: 4,
@@ -40,6 +44,7 @@ const sideBarItems = [
     image: Clinics,
     hoverIamge: ClinicsHover,
     navigate: URL.CLINIC.LISTING,
+    roles: [roles.admin, roles.organization],
   },
   {
     id: 5,
@@ -47,6 +52,7 @@ const sideBarItems = [
     image: Doctors,
     hoverIamge: Doctorshover,
     navigate: URL.DOCTOR.LISTING,
+    roles: [roles.admin, roles.organization, roles.clinic],
   },
   {
     id: 6,
@@ -54,8 +60,8 @@ const sideBarItems = [
     image: Reports,
     hoverIamge: ReportHover,
     navigate: URL.REPORTS,
+    roles: [roles.admin, roles.organization, roles.clinic],
   },
-  
 ];
 
 export default sideBarItems;

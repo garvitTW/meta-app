@@ -9,7 +9,7 @@ import validationSchemaProfessionalDetails from "../../../../validation/professi
 import { Type } from "../../../../constants/storeAction.constants";
 import { documentObject } from "../../../../constants/common.constants";
 import TabsWithNavigation from "../../../../components/tabsWithNavigation";
-import { addClinicTabs } from "../../../../constants/clinic.constants";
+import { editClinicTabs } from "../../../../constants/clinic.constants";
 import ClinicProfessionalDetailsForm from "../../../../components/clinic/professionalDetailsForm";
 
 function EditClinicProfessional() {
@@ -23,7 +23,7 @@ function EditClinicProfessional() {
 
   useEffect(() => {
     if (!editClinicStep1) {
-      navigate(URLS.CLINIC.CREATE.PROFILE_DETAIL);
+      navigate(URLS.CLINIC.EDIT.PROFILE_DETAIL);
     } else {
       const fetchData = async () => {
         try {
@@ -161,7 +161,7 @@ function EditClinicProfessional() {
   return (
     <>
       <div className="Patients_section Organization-section AddOrganisationProfile Add_Organisation_Professional">
-        <TabsWithNavigation tabs={addClinicTabs} heading="Add Clinic" />
+        <TabsWithNavigation tabs={editClinicTabs} heading="Edit Clinic" />
 
         <ClinicProfessionalDetailsForm
           handleSubmit={handleSubmit}

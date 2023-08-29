@@ -35,13 +35,17 @@ const popUpComponents = [
 function ClinicListing({ organization_id = "" }) {
   const { state, dispatch } = useContext(Store);
   const { userInfo } = state;
+  const { user_type, id } = userInfo;
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
   const [clinics, setClinics] = useState([]);
   const [organizations, setOrganizations] = useState([]);
   const [status, setStatus] = useState("");
-  const [selectedOrganisation, setSelectedOrganisation] =
-    useState(organization_id);
+  const initialOrganisationId =
+    user_type === roles.organization ? id : organization_id;
+  const [selectedOrganisation, setSelectedOrganisation] = useState(
+    initialOrganisationId
+  );
   const [search, setSearch] = useState("");
   const [totalItems, setTotalItems] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -73,19 +77,21 @@ function ClinicListing({ organization_id = "" }) {
   }, [debouncedSearchTerm, status, selectedOrganisation, currentPage]);
 
   useEffect(() => {
-    const fetchOrganisation = async () => {
-      try {
-        setLoadingOrganisation(true);
-        const { data } = await OrganisationService.getOrganisationNameId();
-        setOrganizations(data);
-        setLoadingOrganisation(false);
-      } catch (err) {
-        setLoadingOrganisation(false);
-        console.log(err);
-      }
-    };
-    fetchOrganisation();
-  }, []);
+    if (user_type === roles.admin) {
+      const fetchOrganisation = async () => {
+        try {
+          setLoadingOrganisation(true);
+          const { data } = await OrganisationService.getOrganisationNameId();
+          setOrganizations(data);
+          setLoadingOrganisation(false);
+        } catch (err) {
+          setLoadingOrganisation(false);
+          console.log(err);
+        }
+      };
+      fetchOrganisation();
+    }
+  }, [user_type]);
 
   const GetPopUpComponent = useMemo(() => {
     const popUpComponent = popUpComponents.find((comp) => comp.name === show);
@@ -193,6 +199,33 @@ function ClinicListing({ organization_id = "" }) {
       pdf.save("Clinics.pdf");
     }
   };
+
+  const organisationFilter = useMemo(() => {
+    return user_type === roles.admin ? (
+      <Col md={3} className="status_dropdown">
+        <ListingDropDown
+          getFilterLabel={getOrganisationFilter}
+          filterHandle={filterHandle}
+          values={organizations}
+          id="organization_id"
+          filterName="Organization"
+          className="Organization_drop"
+        />
+      </Col>
+    ) : null;
+  }, [filterHandle, getOrganisationFilter, organizations, user_type]);
+  const addClinicButton = useMemo(() => {
+    return user_type === roles.organization ? (
+      <button
+        onClick={() => navigate(URL.CLINIC.CREATE.PROFILE_DETAIL)}
+        className="btn Clinic-button"
+      >
+        <img src={AddIcon} className="pe-2" alt="add" />
+        Add Clinic
+      </button>
+    ) : null;
+  }, [navigate, user_type]);
+
   const className =
     organization_id && show ? "make_display_none" : "Patients_section";
   return (
@@ -221,13 +254,7 @@ function ClinicListing({ organization_id = "" }) {
                 Export
               </button>
             </div>
-            <button
-              onClick={() => navigate(URL.CLINIC.CREATE.PROFILE_DETAIL)}
-              className="btn Clinic-button"
-            >
-              <img src={AddIcon} className="pe-2" alt="add" />
-              Add Clinic
-            </button>
+            {addClinicButton}
           </div>
         </div>
 
@@ -236,16 +263,7 @@ function ClinicListing({ organization_id = "" }) {
             <StatusDropDown status={status} filterHandle={filterHandle} />
           </Col>
 
-          <Col md={3} className="status_dropdown">
-            <ListingDropDown
-              getFilterLabel={getOrganisationFilter}
-              filterHandle={filterHandle}
-              values={organizations}
-              id="organization_id"
-              filterName="Organization"
-              className="Organization_drop"
-            />
-          </Col>
+          {organisationFilter}
 
           <Col md={12} className="mt-4">
             <Table

@@ -1,5 +1,5 @@
 import "./style.scss";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useDebounce } from "../../../hooks/debounce";
 import { patientService } from "../../../services/patient.service";
 import { clinicService } from "../../../services/clinic.service";
@@ -13,14 +13,21 @@ import PaginationSection from "../../../components/PaginationSection";
 import TableSection from "../../../components/TableSection";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import { Store } from "../../../store/Store";
+import { roles } from "../../../constants/common.constants";
 
 function PatientListing({
   doctor_id = "",
   organization_id = "",
   clinic_id = "",
 }) {
+  const { state } = useContext(Store);
+  const { userInfo } = state;
+  const { user_type, id } = userInfo;
+  const initialClinicId = user_type === roles.clinic ? id : clinic_id;
+
   const [clinics, setClinics] = useState([]);
-  const [selectedClinic, setSelectedClinic] = useState(clinic_id);
+  const [selectedClinic, setSelectedClinic] = useState(initialClinicId);
   const [doctors, setDoctors] = useState([]);
   const [selectedDoctor, setSelectedDoctor] = useState(doctor_id);
   const [status, setStatus] = useState("");
@@ -37,8 +44,10 @@ function PatientListing({
     const fetchData = async () => {
       try {
         setLoading(true);
+        const initialOrganisationId =
+          user_type === roles.organization ? id : organization_id;
         const { count, results } = await patientService.getPatientSummary({
-          organization_id: organization_id,
+          organization_id: initialOrganisationId,
           clinic_id: selectedClinic,
           doctor_id: selectedDoctor,
           search: debouncedSearchTerm,
@@ -62,24 +71,28 @@ function PatientListing({
     currentPage,
     organization_id,
     selectedDoctor,
+    user_type,
+    id,
   ]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoadingClinic(true);
-        const { data } = await clinicService.getClinicNameId();
-        const { data: doctors } = await doctorService.getDoctorNameId();
-        setClinics(data);
-        setDoctors(doctors);
-        setLoadingClinic(false);
-      } catch (err) {
-        setLoadingClinic(false);
-        console.log(err);
-      }
-    };
-    fetchData();
-  }, []);
+    if (user_type === roles.admin) {
+      const fetchData = async () => {
+        try {
+          setLoadingClinic(true);
+          const { data } = await clinicService.getClinicNameId();
+          const { data: doctors } = await doctorService.getDoctorNameId();
+          setClinics(data);
+          setDoctors(doctors);
+          setLoadingClinic(false);
+        } catch (err) {
+          setLoadingClinic(false);
+          console.log(err);
+        }
+      };
+      fetchData();
+    }
+  }, [user_type]);
 
   const getClinicFilter = useCallback(() => {
     if (selectedClinic) {
@@ -173,6 +186,34 @@ function PatientListing({
     }
   };
 
+  const doctorFilter = useMemo(() => {
+    return user_type === roles.admin ? (
+      <Col md={3} className="status_dropdown">
+        <ListingDropdown
+          getFilterLabel={getDoctorFilter}
+          filterHandle={filterHandle}
+          values={doctors}
+          id="doctor_id"
+          filterName="Doctor"
+        />
+      </Col>
+    ) : null;
+  }, [doctors, filterHandle, getDoctorFilter, user_type]);
+
+  const clinicFilter = useMemo(() => {
+    return user_type === roles.admin ? (
+      <Col md={3} className="status_dropdown enable-status">
+        <ListingDropdown
+          getFilterLabel={getClinicFilter}
+          filterHandle={filterHandle}
+          values={clinics}
+          id="clinic_id"
+          filterName="Clinic"
+        />
+      </Col>
+    ) : null;
+  }, [clinics, filterHandle, getClinicFilter, user_type]);
+
   return (
     <>
       <div className="Patients_section">
@@ -205,33 +246,8 @@ function PatientListing({
           <Col md={3} className="status_dropdown enable-status">
             <StatusDropdown status={status} filterHandle={filterHandle} />
           </Col>
-          <Col md={3} className="status_dropdown">
-            {/* <Dropdown className="posture-status">
-              <Dropdown.Toggle variant="success" id="dropdown-basic">
-                <span>Posture Score:</span> 50% to 70%
-                <img src={Dropdownarrow} />
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown> */}
-            <ListingDropdown
-              getFilterLabel={getClinicFilter}
-              filterHandle={filterHandle}
-              values={clinics}
-              id="clinic_id"
-              filterName="Clinic"
-            />
-          </Col>
-          <Col md={3} className="status_dropdown">
-            <ListingDropdown
-              getFilterLabel={getDoctorFilter}
-              filterHandle={filterHandle}
-              values={doctors}
-              id="doctor_id"
-              filterName="Doctor"
-            />
-          </Col>
+          {clinicFilter}
+          {doctorFilter}
         </Row>
         <Row className="table-margin">
           <Col md={12}>

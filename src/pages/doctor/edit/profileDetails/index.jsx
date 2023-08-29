@@ -14,32 +14,32 @@ import AddOrganisationTabs from "../../../../components/addOrganisationTabs";
 import { generateProfileDetailsInitialValue } from "../../../../utils/helperFunction";
 import ButtonWithLoader from "../../../../components/buttonWithLoading";
 import { OrganisationService } from "../../../../services/Organisation.service";
+import CrossIcon from "../../../../assests/images/dashborad/cross.svg";
 
 function EditDoctorProfile() {
   return (
     <>
       <div className="Patients_section Organization-section AddOrganisationProfile Add_Organisation_Professional">
         <TabsWithNavigation tabs={editDoctorTabs} heading="Edit Doctor" />
-      
-            <Row>
-            <Col md={8}>
-              <Form className="DoctoreDetail">
-                <Row>
-                  <Col md={6}>
-                   <div className="mb-4">
-                   <label>Doctor Name</label>
+
+        <Row>
+          <Col md={8}>
+            <Form className="DoctoreDetail">
+              <Row>
+                <Col md={6}>
+                  <div className="mb-4">
+                    <label>Doctor Name</label>
                     <input
                       name="name"
                       type="text"
                       placeholder="Organization Name"
                       className="form-control"
                     />
-                   </div>
-                 
-                  </Col>
-                  <Col md={6}>
+                  </div>
+                </Col>
+                <Col md={6}>
                   <div className="mb-4">
-                  <label>Doctor Email</label>
+                    <label>Doctor Email</label>
                     <input
                       name="email"
                       type="email"
@@ -47,20 +47,19 @@ function EditDoctorProfile() {
                       className="form-control"
                     />
                   </div>
-                  
-                  </Col>
-                  <Col md={6}>
+                </Col>
+                <Col md={6}>
                   <div className="mb-4">
-                  <label>Doctor Phone Number</label>
+                    <label>Doctor Phone Number</label>
                     <input
                       name="phone_number"
                       type="text"
                       placeholder="Enter Clinic Phone Number"
                       className="form-control"
-                      />
-                      </div>
-                  </Col>
-                  <Col md={6}>
+                    />
+                  </div>
+                </Col>
+                <Col md={6}>
                   <div className="mb-4">
                     <label>Unique ID</label>
                     <input
@@ -70,17 +69,17 @@ function EditDoctorProfile() {
                       label="Organization Fax (optional)"
                       className="form-control"
                     />
-                    </div>
-                  </Col>
-                </Row>
-                
-                <Row>
-                  <Col md={12}>
-                    <h2>Doctor Address</h2>
-                  </Col>
-                  <Col md={6}>
+                  </div>
+                </Col>
+              </Row>
+
+              <Row>
+                <Col md={12}>
+                  <h2>Doctor Address</h2>
+                </Col>
+                <Col md={6}>
                   <div className="mb-4">
-                  <label>Street</label>
+                    <label>Street</label>
                     <input
                       className="form-control"
                       name="street"
@@ -88,11 +87,11 @@ function EditDoctorProfile() {
                       placeholder="Enter Street"
                       label="Street"
                     />
-                    </div>
-                  </Col>
-                  <Col md={6}>
+                  </div>
+                </Col>
+                <Col md={6}>
                   <div className="mb-4">
-                  <label>Suite/Unit #</label>
+                    <label>Suite/Unit #</label>
                     <input
                       className="form-control"
                       name="suite_unit"
@@ -100,11 +99,11 @@ function EditDoctorProfile() {
                       placeholder="Enter Suite/Unit #"
                       label="Suite/Unit #"
                     />
-                    </div>
-                  </Col>
-                  <Col md={6}>
+                  </div>
+                </Col>
+                <Col md={6}>
                   <div className="mb-4">
-                  <label>City</label>
+                    <label>City</label>
                     <input
                       className="form-control"
                       name="city"
@@ -112,29 +111,73 @@ function EditDoctorProfile() {
                       placeholder="Enter City"
                       label="City"
                     />
-                    </div>
-                  </Col>
-                  <Col md={6}>
+                  </div>
+                </Col>
+                <Col md={6}>
                   <div className="mb-4">
-                  <label>State</label>
+                    <label>State</label>
                     <input
-                     className="form-control"
+                      className="form-control"
                       name="state"
                       type="text"
                       placeholder="Enter State"
                       label="State"
                     />
-                    </div>
-                  </Col>
-                </Row>
-                <ButtonWithLoader
-                  label="Next"
-                  className="Next_button"
-                />
-              </Form>
-            </Col>
-          </Row>
-     
+                  </div>
+                </Col>
+              </Row>
+              <Row>
+                <Col md={12}>
+                  <h2>Select Clinic</h2>
+                  <hr />
+                  <Form.Label htmlFor="" className="mt-3">
+                    Clinics<span className="mendatory-feild">*</span>
+                  </Form.Label>
+                  <Form.Select
+                    value=""
+                    className="Languages_select"
+                    // onChange={(event) => handleLanguageSelection(event)}
+                  >
+                    <option value="">Select Clinics</option>
+                    <option value="">Select Clinics</option>
+                    <option value="">Select Clinics</option>
+                    {/* {languages?.map((language) => (
+              <option key={language?.id} value={language?.id}>
+                {language?.name}
+              </option>
+            ))} */}
+                  </Form.Select>
+                  <div className="select_tags">
+                    <ul>
+                      {/* {values.languages_spoken?.map((selectedLanguageId) => (
+                        <li key={selectedLanguageId}>
+                          {
+                            languages.find(
+                              (language) => language.id === selectedLanguageId
+                            )?.name
+                          } */}
+                      <li>
+                        Appolo
+                        <img
+                          className="ms-1"
+                          src={CrossIcon}
+                          alt="Remove"
+                          // onClick={() => removeLanguage(selectedLanguageId)}
+                        />
+                      </li>
+                      {/* ))} */}
+                    </ul>
+                  </div>
+                </Col>
+              </Row>
+              <Row className="mt-5">
+                <Col md={12}>
+                  <ButtonWithLoader label="Next" className="Next_button" />
+                </Col>
+              </Row>
+            </Form>
+          </Col>
+        </Row>
       </div>
     </>
   );

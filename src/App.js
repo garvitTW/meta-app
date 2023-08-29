@@ -3,8 +3,15 @@ import { protectedRoutes, publicRoutes } from "./constants/route";
 import Layout from "./components/layout";
 import ProtectedRoute from "./components/protectedRoutes";
 import NotFound from "./components/pageNotFound";
+import { useContext } from "react";
+import { Store } from "./store/Store";
 
 function App() {
+  const { state } = useContext(Store);
+  const { userInfo } = state;
+  const accessibleRoutes = protectedRoutes.filter(({ roles }) =>
+    roles.includes(userInfo?.user_type)
+  );
   return (
     <div className="App">
       {" "}
@@ -20,7 +27,7 @@ function App() {
 
           {/* Protected routes with sidebar and header */}
 
-          {protectedRoutes.map((route) => (
+          {accessibleRoutes.map((route) => (
             <Route
               key={route.id}
               path={route.path}

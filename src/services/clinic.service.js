@@ -13,8 +13,18 @@ async function getClinicNameId() {
   return apiService.get(apiURL.CLINIC_LIST);
 }
 
+async function createClinic(body) {
+  return apiService.post(apiURL.CLINIC, body);
+}
+
+async function postClinicDocument(body) {
+  return apiService.postForm(apiURL.CLINIC_DOCUMENT, body);
+}
+
 export const clinicService = {
   getClinicSummary,
   changeClinicStatus,
   getClinicNameId,
+  createClinic,
+  postClinicDocument,
 };

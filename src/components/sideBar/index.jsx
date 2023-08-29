@@ -1,5 +1,5 @@
 import "./style.scss";
-import { memo } from "react";
+import { memo, useContext } from "react";
 import Logo from "../../assests/images/sidebar/logo.png";
 import Setting from "../../assests/images/sidebar/setting.png";
 import Logout from "../../assests/images/sidebar/logout.png";
@@ -9,11 +9,18 @@ import LogoutHover from "../../assests/images/sidebar/logout-hover.png";
 import sideBarItems from "./sideBarItems";
 import URL from "../../constants/routesURL";
 import { authService } from "../../services/auth.service";
+import { Store } from "../../store/Store";
 
 function SideBar() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const Currentpage = pathname.split("/")[1] || "";
+  const { state } = useContext(Store);
+  const { userInfo } = state;
+
+  const visibleSideBarItems = sideBarItems.filter(({ roles }) =>
+    roles.includes(userInfo?.user_type)
+  );
 
   const acitveItem = (itemNavigation) => {
     const itemPage = itemNavigation.split("/")[1] || "";
@@ -30,7 +37,7 @@ function SideBar() {
             <img src={Logo} alt="logo" />
           </div>
           <ul>
-            {sideBarItems.map((item) => (
+            {visibleSideBarItems.map((item) => (
               <li
                 className={acitveItem(item.navigate)}
                 key={item.id}
