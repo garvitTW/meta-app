@@ -1,0 +1,69 @@
+.AddPatient{
+    padding-top: 24px;
+
+    h1{
+        font-family: Lato, Sans-serif;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        color: #fff;
+        margin: 0;
+        padding-bottom: 20px;
+    }
+    label{
+        font-family: Lato, Sans-serif;
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        color: #b2b9cd;
+        display: block;
+        margin-bottom: 8px;
+    }
+    input{
+        border: 1px solid #3c4254;
+        background: #1e1f25;
+        height: 47px;
+        color: #fff;
+        font-family: Lato, Sans-serif;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        padding: 6px 12px;
+        line-height: normal;
+        width: 100%;
+        border-radius: 8px;
+    }
+
+    .PatientAddress{
+        h2{
+            color: #fff;
+            font-family: Lato, Sans-serif;
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 28px;
+            margin-top: 20px;
+        }
+    }
+    button{
+    border-radius: 10px;
+    background: #0aceec;
+    color: #1e1f25;
+    font-family: Inter, Sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    border: 1px solid transparent;
+    height: 47px;
+    width: 145px;
+    transition: all 0.3s;
+    }
+    button:hover{
+        border: 1px solid #fff;
+        color: #fff;
+    }
+    
+}
