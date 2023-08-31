@@ -4,6 +4,8 @@ const URL = {
   DASHBOARD: "/dashboard",
   PATIENT: {
     LISTING: "/patients/listing",
+    CREATE: "/patients/create",
+    EDIT: "/patients/edit",
   },
   ORGANISATION: {
     LISTING: "/organisations/listing",

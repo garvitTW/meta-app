@@ -8,10 +8,11 @@ import { useContext, useEffect, useState } from "react";
 import { Store } from "../../../../store/Store";
 import { OrganisationService } from "../../../../services/Organisation.service";
 import { useFormik } from "formik";
-import validationSchemaProfessionalDetails from "../../../../validation/professionalDetails";
 import { Type } from "../../../../constants/storeAction.constants";
 import { documentObject } from "../../../../constants/common.constants";
 import { Col, Row } from "react-bootstrap";
+import doctorProfessionalValidationSchema from "../../../../validation/doctorProfessionalDetail";
+import Input from "../../../../components/formGroupInput";
 
 function AddDoctorProfessional() {
   const { state, dispatch } = useContext(Store);
@@ -23,21 +24,21 @@ function AddDoctorProfessional() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // if (!addDoctorStep1) {
-    //   navigate(URLS.ORGANISATION.CREATE.PROFILE_DETAIL);
-    // } else {
-    const fetchData = async () => {
-      try {
-        const { data } = await OrganisationService.getServicesOffered();
-        const fetchedLanguages = await OrganisationService.getLanguages();
-        setServicesOffered(data);
-        setLanguages(fetchedLanguages);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchData();
-    // }
+    if (!addDoctorStep1) {
+      navigate(URLS.ORGANISATION.CREATE.PROFILE_DETAIL);
+    } else {
+      const fetchData = async () => {
+        try {
+          const { data } = await OrganisationService.getServicesOffered();
+          const fetchedLanguages = await OrganisationService.getLanguages();
+          setServicesOffered(data);
+          setLanguages(fetchedLanguages);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      fetchData();
+    }
   }, [addDoctorStep1, navigate]);
 
   const {
@@ -50,11 +51,13 @@ function AddDoctorProfessional() {
     handleSubmit,
   } = useFormik({
     initialValues: {
+      years: 0,
+      months: 0,
       services_offered: [],
       languages_spoken: [],
       documents: [{ ...documentObject }],
     },
-    validationSchema: validationSchemaProfessionalDetails,
+    validationSchema: doctorProfessionalValidationSchema,
     onSubmit: async (values) => {
       try {
         const { documents, ...rest } = values;
@@ -149,9 +152,15 @@ function AddDoctorProfessional() {
     setFieldValue("documents", updatedDocuments);
   };
 
-  // if (!addDoctorStep1) {
-  //   return null;
-  // }
+  if (!addDoctorStep1) {
+    return null;
+  }
+
+  const formikProps = {
+    touched: touched,
+    errors: errors,
+    getFieldProps: getFieldProps,
+  };
   return (
     <>
       <div className="Patients_section Organization-section AddOrganisationProfile Add_Organisation_Professional">
@@ -165,23 +174,25 @@ function AddDoctorProfessional() {
             <Row>
               <Col md={6}>
                 <div className="mb-3">
-                  <label className="form-label">Years</label>
-                  <input
-                    name="email"
+                  <Input
+                    name="years"
                     type="text"
                     placeholder="Years"
                     className="form-control"
+                    label="Years"
+                    {...formikProps}
                   />
                 </div>
               </Col>
               <Col md={6}>
                 <div className="mb-3">
-                  <label className="form-label">Months</label>
-                  <input
-                    name="email"
+                  <Input
+                    name="months"
                     type="text"
-                    placeholder="Years"
+                    placeholder="Months"
                     className="form-control"
+                    label="Months"
+                    {...formikProps}
                   />
                 </div>
               </Col>
@@ -209,6 +220,7 @@ function AddDoctorProfessional() {
           uploadFile={uploadFile}
           handleCancel={handleCancel}
           addDocument={addDocument}
+          buttonLabel="Add Doctor"
         />
       </div>
     </>

@@ -12,7 +12,7 @@ const initialState = {
   addClinicStep1: null,
   editClinicDetails: null,
   editClinicStep1: null,
-  addDoctorStep1: null,
+  addDoctorStep1: {},
   editDoctorDetails: null,
   editDoctorStep1: null,
 };

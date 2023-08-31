@@ -29,6 +29,8 @@ import AddDoctorPayment from "../pages/doctor/add/payment";
 import AddDoctorProfessional from "../pages/doctor/add/professionalDetails";
 import AddDoctorProfile from "../pages/doctor/add/profileDetails";
 import { roles } from "./common.constants";
+import addPatient from "../pages/patient/add";
+import editPatient from "../pages/patient/edit";
 
 const publicRoutes = [
   {
@@ -54,6 +56,18 @@ const protectedRoutes = [
     id: 4,
     path: URL.PATIENT.LISTING,
     component: PatientListing,
+    roles: [roles.admin, roles.organization, roles.clinic],
+  },
+  {
+    id: 30,
+    path: URL.PATIENT.CREATE,
+    component: addPatient,
+    roles: [roles.admin, roles.organization, roles.clinic],
+  },
+  {
+    id: 31,
+    path: URL.PATIENT.EDIT,
+    component: editPatient,
     roles: [roles.admin, roles.organization, roles.clinic],
   },
   {
@@ -138,19 +152,19 @@ const protectedRoutes = [
     id: 18,
     path: URL.CLINIC.EDIT.PROFILE_DETAIL,
     component: EditClinicProfile,
-    roles: [roles.organization],
+    roles: [roles.admin, roles.organization],
   },
   {
     id: 19,
     path: URL.CLINIC.EDIT.PROFESSIONAL_DETAIL,
     component: EditClinicProfessional,
-    roles: [roles.organization],
+    roles: [roles.admin, roles.organization],
   },
   {
     id: 20,
     path: URL.CLINIC.EDIT.PAYMENT,
     component: EditClinicPayment,
-    roles: [roles.organization],
+    roles: [roles.admin, roles.organization],
   },
   {
     id: 21,

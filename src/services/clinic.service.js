@@ -9,8 +9,8 @@ async function changeClinicStatus(id, body) {
   return apiService.put(apiURL.CLINIC_SUMMARY + id + "/", body);
 }
 
-async function getClinicNameId() {
-  return apiService.get(apiURL.CLINIC_LIST);
+async function getClinicNameId(params) {
+  return apiService.get(apiURL.CLINIC_LIST, params);
 }
 
 async function createClinic(body) {

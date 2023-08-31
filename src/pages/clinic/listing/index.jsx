@@ -151,7 +151,10 @@ function ClinicListing({ organization_id = "" }) {
   };
 
   const handleEditClinic = async (id) => {
-    if (userInfo.user_type === roles.organization) {
+    if (
+      userInfo.user_type === roles.organization ||
+      userInfo.user_type === roles.admin
+    ) {
       try {
         setLoading(true);
         const { data } = await clinicService.getClinicDetails(id);

@@ -90,7 +90,6 @@ function EditOrganisationProfessional() {
         );
         dispatch({ type: Type.REMOVE_EDIT_ORGANISATION_DETAILS });
         navigate(URLS.ORGANISATION.LISTING);
-        console.log(values);
       } catch (err) {
         console.log(err);
       }

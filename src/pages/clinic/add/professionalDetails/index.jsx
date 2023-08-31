@@ -76,7 +76,6 @@ function AddClinicProfessional() {
         await clinicService.postClinicDocument(uploadDocument);
         dispatch({ type: Type.REMOVE_CLINIC_STEP_1 });
         navigate(URLS.CLINIC.LISTING);
-        console.log({ ...addClinicStep1, ...rest });
       } catch (err) {
         console.log(err);
       }

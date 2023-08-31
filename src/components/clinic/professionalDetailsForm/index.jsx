@@ -29,6 +29,7 @@ function ClinicProfessionalDetailsForm({
   uploadFile,
   handleCancel,
   addDocument,
+  buttonLabel = "Add Clinic",
 }) {
   const generateFileUrl = (file) => {
     const type = typeof file;
@@ -279,7 +280,7 @@ function ClinicProfessionalDetailsForm({
           </button>
           <ButtonWithLoader
             isSubmitting={isSubmitting}
-            label="Add Clinic"
+            label={buttonLabel}
             className="blue-button-loader"
           />
         </Col>

@@ -18,9 +18,10 @@ import URL from "../../../constants/routesURL";
 import { useNavigate } from "react-router-dom";
 import { Store } from "../../../store/Store";
 import { roles } from "../../../constants/common.constants";
+import { Type } from "../../../constants/storeAction.constants";
 
 function DoctorListing({ organization_id = "", clinic_id = "" }) {
-  const { state } = useContext(Store);
+  const { state, dispatch } = useContext(Store);
   const { userInfo } = state;
   const { user_type, id } = userInfo;
   const initialClinicId = user_type === roles.clinic ? id : clinic_id;
@@ -118,8 +119,20 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
     }
   }, []);
 
-  const handleEditDoctor = (id) => {
-    navigate(URL.DOCTOR.EDIT.PROFILE_DETAIL);
+  const handleEditDoctor = async (id) => {
+    const allowedUserTypes = [roles.organization, roles.admin, roles.clinic];
+
+    if (allowedUserTypes.includes(userInfo.user_type)) {
+      try {
+        setLoading(true);
+        const { data } = await clinicService.getClinicDetails(id);
+        setLoading(false);
+        dispatch({ type: Type.EDIT_DOCTOR_DETAILS, payload: data });
+        navigate(URL.DOCTOR.EDIT.PROFILE_DETAIL);
+      } catch (err) {
+        console.log(err);
+      }
+    }
   };
 
   const handleSwitchToggle = async (doctor) => {
@@ -198,7 +211,7 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
   }, [clinics, filterHandle, getClinicFilter, user_type]);
 
   const addDoctorButton = useMemo(() => {
-    return user_type === (roles.organization || roles.clinic) ? (
+    return user_type === roles.organization || user_type === roles.clinic ? (
       <button
         onClick={() => navigate(URL.DOCTOR.CREATE.PROFILE_DETAIL)}
         className="btn Clinic-button"

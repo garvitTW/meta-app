@@ -15,7 +15,7 @@ import { clinicService } from "../../../../services/clinic.service";
 
 function EditClinicProfessional() {
   const { state, dispatch } = useContext(Store);
-  const { editClinicDetails, editClinicStep1, userInfo } = state;
+  const { editClinicDetails, editClinicStep1 } = state;
   const [languages, setLanguages] = useState([]);
   const [servicesOffered, setServicesOffered] = useState([]);
   const [newService, setNewService] = useState("");
@@ -64,16 +64,15 @@ function EditClinicProfessional() {
         await clinicService.updateClinic(editClinicDetails.id, {
           ...editClinicStep1,
           ...rest,
-          organization_clinic: userInfo.id,
+          organization_clinic: editClinicDetails.organization_clinic,
         });
 
         const uploadDocument = {
           documents: documents,
         };
         await clinicService.postClinicDocument(uploadDocument);
-        dispatch({ type: Type.REMOVE_CLINIC_STEP_1 });
+        dispatch({ type: Type.REMOVE_EDIT_CLINIC_DETAILS });
         navigate(URLS.CLINIC.LISTING);
-        console.log({ ...editClinicStep1, ...rest });
       } catch (err) {
         console.log(err);
       }
@@ -181,6 +180,7 @@ function EditClinicProfessional() {
           uploadFile={uploadFile}
           handleCancel={handleCancel}
           addDocument={addDocument}
+          buttonLabel="Edit clinic"
         />
       </div>
     </>

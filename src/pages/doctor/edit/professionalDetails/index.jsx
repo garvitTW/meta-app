@@ -12,6 +12,7 @@ import { Type } from "../../../../constants/storeAction.constants";
 import { documentObject } from "../../../../constants/common.constants";
 import ClinicProfessionalDetailsForm from "../../../../components/clinic/professionalDetailsForm";
 import { Col, Row } from "react-bootstrap";
+import Input from "../../../../components/formGroupInput";
 
 function EditDoctorProfessional() {
   const { state, dispatch } = useContext(Store);
@@ -23,21 +24,21 @@ function EditDoctorProfessional() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // if (!editDoctorStep1) {
-    //   navigate(URLS.CLINIC.CREATE.PROFILE_DETAIL);
-    // } else {
-    const fetchData = async () => {
-      try {
-        const { data } = await OrganisationService.getServicesOffered();
-        const fetchedLanguages = await OrganisationService.getLanguages();
-        setServicesOffered(data);
-        setLanguages(fetchedLanguages);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchData();
-    // }
+    if (!editDoctorStep1) {
+      navigate(URLS.DOCTOR.EDIT.PROFILE_DETAIL);
+    } else {
+      const fetchData = async () => {
+        try {
+          const { data } = await OrganisationService.getServicesOffered();
+          const fetchedLanguages = await OrganisationService.getLanguages();
+          setServicesOffered(data);
+          setLanguages(fetchedLanguages);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      fetchData();
+    }
   }, [editDoctorStep1, navigate]);
 
   const {
@@ -50,6 +51,8 @@ function EditDoctorProfessional() {
     handleSubmit,
   } = useFormik({
     initialValues: {
+      years: editDoctorDetails?.years || 0,
+      months: editDoctorDetails?.months || 0,
       services_offered: editDoctorDetails?.services_offered || [],
       languages_spoken: editDoctorDetails?.languages_spoken || [],
       documents:
@@ -61,28 +64,19 @@ function EditDoctorProfessional() {
     onSubmit: async (values) => {
       try {
         const { documents, ...rest } = values;
-        // const { results } = await OrganisationService.postOrganisationClinic({
-        //   ...addOrganisationStep1,
-        //   password: "password@123",
-        //   enabled: true,
-        //   user_type: "ORGANIZATION",
+        // await OrganisationService.postOrganisationClinic({
+        //   ...editDoctorStep1,
         //   ...rest,
         // });
 
-        // const { organization_id } = results;
-        // const documentsWithOrganisationId = documents.map((document) => {
-        //   document.organization = organization_id;
-        //   return document;
-        // });
         // const uploadDocument = {
-        //   documents: documentsWithOrganisationId,
+        //   documents: documents,
         // };
         // await OrganisationService.postOrganisationClinicDocument(
-        //   organization_id,
         //   uploadDocument
         // );
-        // dispatch({ type: Type.REMOVE_CLINIC_STEP_1 });
-        // navigate(URLS.CLINIC.LISTING);
+        // dispatch({ type: Type.REMOVE_EDIT_DOCTOR_DETAILS });
+        // navigate(URLS.DOCTOR.LISTING);
         console.log({ ...editDoctorStep1, ...rest });
       } catch (err) {
         console.log(err);
@@ -155,9 +149,14 @@ function EditDoctorProfessional() {
     setFieldValue("documents", updatedDocuments);
   };
 
-  // if (!editDoctorStep1) {
-  //   return null;
-  // }
+  if (!editDoctorStep1) {
+    return null;
+  }
+  const formikProps = {
+    touched: touched,
+    errors: errors,
+    getFieldProps: getFieldProps,
+  };
   return (
     <>
       <div className="Patients_section Organization-section AddOrganisationProfile Add_Organisation_Professional">
@@ -171,23 +170,25 @@ function EditDoctorProfessional() {
             <Row>
               <Col md={6}>
                 <div className="mb-3">
-                  <label className="form-label">Years</label>
-                  <input
-                    name="email"
+                  <Input
+                    name="years"
                     type="text"
                     placeholder="Years"
                     className="form-control"
+                    label="Years"
+                    {...formikProps}
                   />
                 </div>
               </Col>
               <Col md={6}>
                 <div className="mb-3">
-                  <label className="form-label">Months</label>
-                  <input
-                    name="email"
+                  <Input
+                    name="months"
                     type="text"
-                    placeholder="Years"
+                    placeholder="Months"
                     className="form-control"
+                    label="Months"
+                    {...formikProps}
                   />
                 </div>
               </Col>
@@ -215,6 +216,7 @@ function EditDoctorProfessional() {
           uploadFile={uploadFile}
           handleCancel={handleCancel}
           addDocument={addDocument}
+          buttonLabel="Edit Doctor"
         />
       </div>
     </>
