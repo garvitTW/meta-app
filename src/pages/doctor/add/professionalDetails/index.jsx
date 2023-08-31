@@ -13,6 +13,7 @@ import { documentObject } from "../../../../constants/common.constants";
 import { Col, Row } from "react-bootstrap";
 import doctorProfessionalValidationSchema from "../../../../validation/doctorProfessionalDetail";
 import Input from "../../../../components/formGroupInput";
+import { doctorService } from "../../../../services/doctor.service";
 
 function AddDoctorProfessional() {
   const { state, dispatch } = useContext(Store);
@@ -61,29 +62,24 @@ function AddDoctorProfessional() {
     onSubmit: async (values) => {
       try {
         const { documents, ...rest } = values;
-        // const { results } = await OrganisationService.postOrganisationClinic({
-        //   ...addOrganisationStep1,
-        //   password: "password@123",
-        //   enabled: true,
-        //   user_type: "ORGANIZATION",
-        //   ...rest,
-        // });
+        const { results } = await doctorService.createDoctor({
+          ...addDoctorStep1,
 
-        // const { organization_id } = results;
-        // const documentsWithOrganisationId = documents.map((document) => {
-        //   document.organization = organization_id;
-        //   return document;
-        // });
-        // const uploadDocument = {
-        //   documents: documentsWithOrganisationId,
-        // };
-        // await OrganisationService.postOrganisationClinicDocument(
-        //   organization_id,
-        //   uploadDocument
-        // );
-        // dispatch({ type: Type.REMOVE_ORGANISATION_STEP_1 });
-        // navigate(URLS.ORGANISATION.LISTING);
-        console.log({ ...addDoctorStep1, ...rest });
+          user_type: "DOCTOR",
+          ...rest,
+        });
+
+        const { doctor_id } = results;
+        const documentsWithDoctorId = documents.map((document) => {
+          document.doctor = doctor_id;
+          return document;
+        });
+        const uploadDocument = {
+          documents: documentsWithDoctorId,
+        };
+        await doctorService.postDoctorDocument(uploadDocument);
+        dispatch({ type: Type.REMOVE_DOCTOR_STEP_1 });
+        navigate(URLS.DOCTOR.LISTING);
       } catch (err) {
         console.log(err);
       }

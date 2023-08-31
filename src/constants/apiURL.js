@@ -16,6 +16,8 @@ const apiURL = {
   ORGANISATION_DOCUMENT: "/organization/organization-document/",
   CLINIC: "/clinic/clinics/",
   CLINIC_DOCUMENT: "/clinic/clinic-document/",
+  DOCTOR: "/doctor/doctors/",
+  DOCTOR_DOCUMENT: "/doctor/doctors-document/",
 };
 
 export default apiURL;

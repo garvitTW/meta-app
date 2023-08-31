@@ -57,7 +57,7 @@ function AddClinicProfessional() {
     onSubmit: async (values) => {
       try {
         const { documents, ...rest } = values;
-        const { results } = await clinicService.createClinic({
+        const { data } = await clinicService.createClinic({
           ...addClinicStep1,
           is_enabled: true,
           user_type: "CLINIC",
@@ -65,7 +65,7 @@ function AddClinicProfessional() {
           ...rest,
         });
 
-        const { clinic_id } = results;
+        const { clinic_id } = data;
         const documentsWithClinicId = documents.map((document) => {
           document.clinic = clinic_id;
           return document;
