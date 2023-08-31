@@ -74,8 +74,6 @@ function EditOrganisationProfessional() {
           editOrganisationDetails.id,
           {
             ...editOrganisationStep1,
-            password: "password@123",
-            enabled: true,
             user_type: "ORGANIZATION",
             ...rest,
           }

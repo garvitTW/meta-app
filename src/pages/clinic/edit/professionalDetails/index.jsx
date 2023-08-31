@@ -180,7 +180,7 @@ function EditClinicProfessional() {
           uploadFile={uploadFile}
           handleCancel={handleCancel}
           addDocument={addDocument}
-          buttonLabel="Edit clinic"
+          buttonLabel="Edit Clinic"
         />
       </div>
     </>

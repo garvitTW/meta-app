@@ -13,6 +13,7 @@ import { documentObject } from "../../../../constants/common.constants";
 import ClinicProfessionalDetailsForm from "../../../../components/clinic/professionalDetailsForm";
 import { Col, Row } from "react-bootstrap";
 import Input from "../../../../components/formGroupInput";
+import { doctorService } from "../../../../services/doctor.service";
 
 function EditDoctorProfessional() {
   const { state, dispatch } = useContext(Store);
@@ -58,26 +59,24 @@ function EditDoctorProfessional() {
       documents:
         editDoctorDetails?.document.length > 0
           ? editDoctorDetails?.document
-          : [{ ...documentObject, clinic: editDoctorDetails?.id }],
+          : [{ ...documentObject, doctor: editDoctorDetails?.id }],
     },
     validationSchema: validationSchemaProfessionalDetails,
     onSubmit: async (values) => {
       try {
         const { documents, ...rest } = values;
-        // await OrganisationService.postOrganisationClinic({
-        //   ...editDoctorStep1,
-        //   ...rest,
-        // });
+        await doctorService.updateDoctor(editDoctorDetails.id, {
+          ...editDoctorStep1,
+          clinic: editDoctorStep1.clinics[0],
+          ...rest,
+        });
 
-        // const uploadDocument = {
-        //   documents: documents,
-        // };
-        // await OrganisationService.postOrganisationClinicDocument(
-        //   uploadDocument
-        // );
-        // dispatch({ type: Type.REMOVE_EDIT_DOCTOR_DETAILS });
-        // navigate(URLS.DOCTOR.LISTING);
-        console.log({ ...editDoctorStep1, ...rest });
+        const uploadDocument = {
+          documents: documents,
+        };
+        await doctorService.postDoctorDocument(uploadDocument);
+        dispatch({ type: Type.REMOVE_EDIT_DOCTOR_DETAILS });
+        navigate(URLS.DOCTOR.LISTING);
       } catch (err) {
         console.log(err);
       }
@@ -135,7 +134,7 @@ function EditDoctorProfessional() {
   const addDocument = () => {
     setFieldValue("documents", [
       ...values.documents,
-      { ...documentObject, clinic: editDoctorDetails.id },
+      { ...documentObject, doctor: editDoctorDetails.id },
     ]);
   };
 
@@ -144,9 +143,16 @@ function EditDoctorProfessional() {
     navigate(URLS.DOCTOR.LISTING);
   };
 
-  const removeDocument = (index) => {
-    const updatedDocuments = values.documents.filter((_, i) => i !== index);
-    setFieldValue("documents", updatedDocuments);
+  const removeDocument = async (index) => {
+    try {
+      if (values.documents[index]?.id) {
+        await doctorService.deleteDoctorDocument(values.documents[index].id);
+      }
+      const updatedDocuments = values.documents.filter((_, i) => i !== index);
+      setFieldValue("documents", updatedDocuments);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   if (!editDoctorStep1) {

@@ -11,11 +11,12 @@ const validationSchemaClinicProfileDetails = Yup.object().shape({
     .max(15, "Phone number must be at most 15 characters")
     .required("Phone number is required"),
   clinic_extension: Yup.string()
-    .matches(/^\d+$/, "extension must only contain digits")
-    .length(4, "extension must be 4 digit")
+    .matches(/^\d+$/, "Extension must only contain digits")
+    .min(1, "Extension must be at least 1 digit")
+    .max(6, "Extension must be at most 6 digits")
     .required("extension is required"),
   clinic_rep_name: Yup.string()
-    .required("name is required")
+    .required("Name is required")
     .matches(/^[a-zA-Z_\-.'\s,]+$/, "Only alpha char allowed"),
 
   clinic_rep_phone: Yup.string()

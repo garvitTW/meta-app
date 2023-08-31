@@ -194,19 +194,19 @@ const protectedRoutes = [
     id: 25,
     path: URL.DOCTOR.EDIT.PROFILE_DETAIL,
     component: EditDoctorProfile,
-    roles: [roles.organization, roles.clinic],
+    roles: [roles.admin, roles.organization, roles.clinic],
   },
   {
     id: 26,
     path: URL.DOCTOR.EDIT.PROFESSIONAL_DETAIL,
     component: EditDoctorProfessional,
-    roles: [roles.organization, roles.clinic],
+    roles: [roles.admin, roles.organization, roles.clinic],
   },
   {
     id: 27,
     path: URL.DOCTOR.EDIT.PAYMENT,
     component: EditDoctorPayment,
-    roles: [roles.organization, roles.clinic],
+    roles: [roles.admin, roles.organization, roles.clinic],
   },
   {
     id: 28,

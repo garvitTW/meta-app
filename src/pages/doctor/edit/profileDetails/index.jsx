@@ -25,23 +25,24 @@ function EditDoctorProfile() {
 
   useEffect(() => {
     if (!editDoctorDetails) {
-      navigate(URL.ORGANISATION.LISTING);
+      navigate(URL.DOCTOR.LISTING);
     } else {
-      const fetchData = async () => {
-        try {
-          const isOrganisation = userInfo.user_type === roles.organization;
-          const { data } = await clinicService.getClinicNameId({
-            organization_id: isOrganisation ? userInfo.id : "",
-          });
+      if (!isClinic) {
+        const fetchData = async () => {
+          try {
+            const { data } = await clinicService.getClinicNameId({
+              organization_id: editDoctorDetails.organization_id,
+            });
 
-          setClinicList(data);
-        } catch (err) {
-          console.log(err);
-        }
-      };
-      fetchData();
+            setClinicList(data);
+          } catch (err) {
+            console.log(err);
+          }
+        };
+        fetchData();
+      }
     }
-  }, [userInfo.id, userInfo.user_type, editDoctorDetails, navigate]);
+  }, [userInfo.user_type, editDoctorDetails, navigate, isClinic]);
 
   const {
     errors,

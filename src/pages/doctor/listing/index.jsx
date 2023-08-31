@@ -125,7 +125,7 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
     if (allowedUserTypes.includes(userInfo.user_type)) {
       try {
         setLoading(true);
-        const { data } = await doctorService.getDoctorDetails(id);
+        const data = await doctorService.getDoctorDetails(id);
         setLoading(false);
         dispatch({ type: Type.EDIT_DOCTOR_DETAILS, payload: data });
         navigate(URL.DOCTOR.EDIT.PROFILE_DETAIL);

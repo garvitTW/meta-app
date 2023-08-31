@@ -59,10 +59,10 @@ function AddClinicProfessional() {
         const { documents, ...rest } = values;
         const { data } = await clinicService.createClinic({
           ...addClinicStep1,
-          is_enabled: true,
-          user_type: "CLINIC",
-          organization_clinic: userInfo?.id,
           ...rest,
+          is_enabled: true,
+          organization_clinic: userInfo?.id,
+          user_type: "CLINIC",
         });
 
         const { clinic_id } = data;
