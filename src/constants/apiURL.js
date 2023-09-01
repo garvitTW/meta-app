@@ -18,6 +18,7 @@ const apiURL = {
   CLINIC_DOCUMENT: "/clinic/clinic-document/",
   DOCTOR: "/doctor/doctors/",
   DOCTOR_DOCUMENT: "/doctor/doctors-document/",
+  PATIENT: "patient/patients/",
 };
 
 export default apiURL;

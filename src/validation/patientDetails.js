@@ -1,11 +1,8 @@
 import * as Yup from "yup";
 
 const validationSchemaPatient = Yup.object().shape({
-  first_name: Yup.string()
-    .required("First Name is required")
-    .matches(/^[a-zA-Z_\-.'\s,]+$/, "Only alpha char allowed"),
-  last_name: Yup.string()
-    .required("Last Name is required")
+  name: Yup.string()
+    .required("Name is required")
     .matches(/^[a-zA-Z_\-.'\s,]+$/, "Only alpha char allowed"),
   email: Yup.string().email("Invalid email").required("Email is required"),
   phone_number: Yup.string()

@@ -51,7 +51,7 @@ function Tablemy({ data, handleSwitchToggle, handleEditPatient }) {
                   <InputGroup.Checkbox aria-label="Checkbox for following text input" />
                 </InputGroup>
               </td>
-              <td>{patient?.MRN}</td>
+              <td>{patient?.mrn}</td>
               <td
                 className="name-text"
                 onClick={() => handleEditPatient(patient?.id)}

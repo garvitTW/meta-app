@@ -25,22 +25,14 @@ function PatientDetailsForm({
           <Row>
             <Col md={6}>
               <Input
-                name="first_name"
+                name="name"
                 type="text"
-                placeholder="Enter First Name"
-                label="First Name"
+                placeholder="Enter Full Name"
+                label="Name"
                 {...formikProps}
               />
             </Col>
-            <Col md={6}>
-              <Input
-                name="last_name"
-                type="text"
-                placeholder="Enter Last Name"
-                label="Last Name"
-                {...formikProps}
-              />
-            </Col>
+
             <Col md={6}>
               <Input
                 name="email"

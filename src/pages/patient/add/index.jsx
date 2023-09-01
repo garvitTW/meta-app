@@ -7,6 +7,8 @@ import { useFormik } from "formik";
 import URL from "../../../constants/routesURL";
 import validationSchemaPatient from "../../../validation/patientDetails";
 import PatientDetailsForm from "../../../components/patient/detailsForm";
+import { patientService } from "../../../services/patient.service";
+import { roles } from "../../../constants/common.constants";
 
 function AddPatient() {
   const navigate = useNavigate();
@@ -14,8 +16,7 @@ function AddPatient() {
   const { state } = useContext(Store);
   const { userInfo } = state;
   const initialValues = {
-    first_name: "",
-    last_name: "",
+    name: "",
     email: "",
     phone_number: "",
     street: "",
@@ -54,11 +55,12 @@ function AddPatient() {
     onSubmit: async (values, action) => {
       try {
         console.log("Patient  details", values);
-        // await OrganisationService.checkOrganisationMail({
-        //   email: values.email,
-        // });
+        await patientService.createPatient({
+          ...values,
+          user_type: roles.patient,
+        });
 
-        // navigate(URL.PATIENT.LISTING);
+        navigate(URL.PATIENT.LISTING);
       } catch (err) {
         console.log(err);
       }

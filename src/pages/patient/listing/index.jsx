@@ -139,10 +139,10 @@ function PatientListing({
     if (allowedUserTypes.includes(userInfo.user_type)) {
       try {
         setLoading(true);
-        const data = await doctorService.getDoctorDetails(id);
+        const data = await patientService.getPatientDetails(id);
         setLoading(false);
         dispatch({ type: Type.EDIT_PATIENT_DETAILS, payload: data });
-        navigate(URL.DOCTOR.EDIT);
+        navigate(URL.PATIENT.EDIT);
       } catch (err) {
         console.log(err);
       }

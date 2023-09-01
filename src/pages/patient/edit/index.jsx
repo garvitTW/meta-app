@@ -6,15 +6,15 @@ import { useFormik } from "formik";
 import validationSchemaPatient from "../../../validation/patientDetails";
 import URL from "../../../constants/routesURL";
 import PatientDetailsForm from "../../../components/patient/detailsForm";
+import { patientService } from "../../../services/patient.service";
 
 function EditPatient() {
   const navigate = useNavigate();
   const [doctorList, setDoctorList] = useState([]);
   const { state } = useContext(Store);
-  const { userInfo, editPatient } = state;
+  const { editPatient } = state;
   const initialValues = {
-    first_name: editPatient?.first_name || "",
-    last_name: editPatient?.last_name || "",
+    name: editPatient?.name || "",
     email: editPatient?.email || "",
     phone_number: editPatient?.phone_number || "",
     street: editPatient?.street || "",
@@ -28,7 +28,7 @@ function EditPatient() {
     const fetchData = async () => {
       try {
         const { data } = await doctorService.getDoctorNameId({
-          clinic_id: userInfo.id,
+          clinic_id: editPatient?.clinic_id,
         });
 
         setDoctorList(data);
@@ -37,7 +37,7 @@ function EditPatient() {
       }
     };
     fetchData();
-  }, [userInfo.id]);
+  }, [editPatient?.clinic_id]);
 
   const {
     errors,
@@ -53,11 +53,11 @@ function EditPatient() {
     onSubmit: async (values, action) => {
       try {
         console.log("Patient  details", values);
-        // await OrganisationService.checkOrganisationMail({
-        //   email: values.email,
-        // });
+        await patientService.updatePatient(editPatient?.id, {
+          ...values,
+        });
 
-        // navigate(URL.PATIENT.LISTING);
+        navigate(URL.PATIENT.LISTING);
       } catch (err) {
         console.log(err);
       }
