@@ -191,10 +191,14 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
     }
   };
 
+  const isPopUP=organization_id || clinic_id
+
   const className =
-    (organization_id || clinic_id) && show
+    (isPopUP && show)
       ? "make_display_none"
       : "Patients_section";
+
+  
 
   const clinicFilter = useMemo(() => {
     return user_type === roles.admin ? (
@@ -260,9 +264,10 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
         </Row>
         <Row>
           <Col md={12} className="mt-4">
+          <div className={` ${isPopUP&&"Patienttable"}`}>
             <Table
               responsive
-              className="table-stripednew Patients-table"
+              className={`table-stripednew Patients-table ${isPopUP&&"Patienttable"}`}
               variant="dark"
             >
               <thead>
@@ -322,6 +327,7 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
                 ))}
               </tbody>
             </Table>
+            </div>
             <PaginationSection
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
