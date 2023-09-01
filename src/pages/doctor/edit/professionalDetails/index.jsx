@@ -139,7 +139,7 @@ function EditDoctorProfessional() {
   };
 
   const handleCancel = () => {
-    dispatch({ type: Type.REMOVE_DOCTOR_STEP_1 });
+    dispatch({ type: Type.REMOVE_EDIT_DOCTOR_DETAILS });
     navigate(URLS.DOCTOR.LISTING);
   };
 

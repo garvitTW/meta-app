@@ -5,6 +5,7 @@ import { patientService } from "../../../services/patient.service";
 import { clinicService } from "../../../services/clinic.service";
 import { doctorService } from "../../../services/doctor.service";
 import { Col, Row } from "react-bootstrap";
+import AddIcon from "../../../assests/images/dashborad/add.png";
 import Search from "../../../assests/images/dashborad/Search.png";
 import StatusDropdown from "../../../components/statusDropdown";
 import ListingDropdown from "../../../components/listingDropdown";
@@ -15,14 +16,18 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { Store } from "../../../store/Store";
 import { roles } from "../../../constants/common.constants";
+import URL from "../../../constants/routesURL";
+import { useNavigate } from "react-router-dom";
+import { Type } from "../../../constants/storeAction.constants";
 
 function PatientListing({
   doctor_id = "",
   organization_id = "",
   clinic_id = "",
 }) {
-  const { state } = useContext(Store);
+  const { state, dispatch } = useContext(Store);
   const { userInfo } = state;
+  const navigate = useNavigate();
   const { user_type, id } = userInfo;
   const initialClinicId = user_type === roles.clinic ? id : clinic_id;
 
@@ -128,6 +133,22 @@ function PatientListing({
     }
   }, []);
 
+  const handleEditPatient = async (id) => {
+    const allowedUserTypes = [roles.organization, roles.admin, roles.clinic];
+
+    if (allowedUserTypes.includes(userInfo.user_type)) {
+      try {
+        setLoading(true);
+        const data = await doctorService.getDoctorDetails(id);
+        setLoading(false);
+        dispatch({ type: Type.EDIT_PATIENT_DETAILS, payload: data });
+        navigate(URL.DOCTOR.EDIT);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
   const handleSwitchToggle = async (patient) => {
     try {
       setLoading(true);
@@ -214,6 +235,18 @@ function PatientListing({
     ) : null;
   }, [clinics, filterHandle, getClinicFilter, user_type]);
 
+  const addPatientButton = useMemo(() => {
+    return user_type === roles.clinic ? (
+      <button
+        onClick={() => navigate(URL.PATIENT.CREATE)}
+        className="btn Clinic-button"
+      >
+        <img src={AddIcon} className="pe-2" alt="add" />
+        Add Patient
+      </button>
+    ) : null;
+  }, [navigate, user_type]);
+
   return (
     <>
       <div className="Patients_section">
@@ -240,6 +273,7 @@ function PatientListing({
                 Export
               </button>
             </div>
+            {addPatientButton}
           </div>
         </div>
         <Row className="mt-4">
@@ -254,6 +288,7 @@ function PatientListing({
             <TableSection
               data={patients}
               handleSwitchToggle={handleSwitchToggle}
+              handleEditPatient={handleEditPatient}
             />
           </Col>
           <Col md={12}>

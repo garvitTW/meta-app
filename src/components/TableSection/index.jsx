@@ -15,7 +15,7 @@ import {
   Col,
 } from "react-bootstrap";
 import "./style.scss";
-function Tablemy({ data, handleSwitchToggle }) {
+function Tablemy({ data, handleSwitchToggle, handleEditPatient }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -52,7 +52,12 @@ function Tablemy({ data, handleSwitchToggle }) {
                 </InputGroup>
               </td>
               <td>{patient?.MRN}</td>
-              <td className="name-text">{patient?.patient_name}</td>
+              <td
+                className="name-text"
+                onClick={() => handleEditPatient(patient?.id)}
+              >
+                {patient?.patient_name}
+              </td>
               <td>{patient?.posture_score}%</td>
               <td>{patient?.last_doctors_appointment}</td>
               <td>{patient?.last_self_scan}</td>

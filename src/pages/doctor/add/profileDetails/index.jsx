@@ -52,7 +52,6 @@ function AddDoctorProfile() {
     validationSchema: validationSchemaDoctorProfileDetails,
     onSubmit: async (values, action) => {
       try {
-        console.log("doctor profile details", values);
         // await OrganisationService.checkOrganisationMail({
         //   email: values.email,
         // });

@@ -29,8 +29,8 @@ import AddDoctorPayment from "../pages/doctor/add/payment";
 import AddDoctorProfessional from "../pages/doctor/add/professionalDetails";
 import AddDoctorProfile from "../pages/doctor/add/profileDetails";
 import { roles } from "./common.constants";
-import addPatient from "../pages/patient/add";
-import editPatient from "../pages/patient/edit";
+import AddPatient from "../pages/patient/add";
+import EditPatient from "../pages/patient/edit";
 
 const publicRoutes = [
   {
@@ -61,13 +61,13 @@ const protectedRoutes = [
   {
     id: 30,
     path: URL.PATIENT.CREATE,
-    component: addPatient,
-    roles: [roles.admin, roles.organization, roles.clinic],
+    component: AddPatient,
+    roles: [roles.clinic],
   },
   {
     id: 31,
     path: URL.PATIENT.EDIT,
-    component: editPatient,
+    component: EditPatient,
     roles: [roles.admin, roles.organization, roles.clinic],
   },
   {

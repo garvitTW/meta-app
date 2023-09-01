@@ -15,6 +15,7 @@ const initialState = {
   addDoctorStep1: {},
   editDoctorDetails: null,
   editDoctorStep1: null,
+  editPatient: null,
 };
 
 function reducer(state, action) {
@@ -78,6 +79,12 @@ function reducer(state, action) {
         editDoctorDetails: null,
         editDoctorStep1: null,
       };
+
+    case Type.EDIT_PATIENT_DETAILS:
+      return { ...state, editPatient: action.payload };
+
+    case Type.REMOVE_EDIT_PATIENT_DETAILS:
+      return { ...state, editPatient: null };
 
     default:
       return state;

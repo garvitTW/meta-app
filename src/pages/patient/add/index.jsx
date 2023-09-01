@@ -1,92 +1,111 @@
+import { useNavigate } from "react-router-dom";
 import "./style.scss";
-import { Row, Col, Form, Container } from "react-bootstrap";
+import { useContext, useEffect, useState } from "react";
+import { doctorService } from "../../../services/doctor.service";
+import { Store } from "../../../store/Store";
+import { useFormik } from "formik";
+import URL from "../../../constants/routesURL";
+import validationSchemaPatient from "../../../validation/patientDetails";
+import PatientDetailsForm from "../../../components/patient/detailsForm";
 
+function AddPatient() {
+  const navigate = useNavigate();
+  const [doctorList, setDoctorList] = useState([]);
+  const { state } = useContext(Store);
+  const { userInfo } = state;
+  const initialValues = {
+    first_name: "",
+    last_name: "",
+    email: "",
+    phone_number: "",
+    street: "",
+    suite_unit: "",
+    city: "",
+    state: "",
+    doctors: [],
+  };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data } = await doctorService.getDoctorNameId({
+          clinic_id: userInfo.id,
+        });
 
+        setDoctorList(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchData();
+  }, [userInfo.id]);
 
-function addPatient() {
-  return <>
-     <div className="AddPatient">
-        
-              <Row>
-                <Col md={8}>
-                <Form>
-                   <h1>Add Patient</h1>
-                    <Row>
-                        <Col md={6} className="mb-4">
-                        <label>First Name</label>
-                        <input
-                          name="name"
-                          type="text"
-                          placeholder="Enter First Name"
-                        />
-                      </Col>
-                        <Col md={6} className="mb-4">
-                        <label>Last Name</label>
-                        <input
-                          name="name"
-                          type="text"
-                          placeholder="Enter Last Name"
-                        />
-                      </Col>
-                      <Col md={6} className="mb-4">
-                      <label>Email</label>
-                      <input
-                        name="name"
-                        type="text"
-                        placeholder="Enter Email"
-                      />
-                    </Col>
-                    <Col md={6} className="mb-4">
-                    <label>Patient Phone Number</label>
-                    <input
-                      name=""
-                      type="number"
-                      placeholder="Enter Phone Number"
-                    />
-                  </Col>
-                    </Row>
+  const {
+    errors,
+    touched,
+    handleSubmit,
+    getFieldProps,
+    isSubmitting,
+    values,
+    setFieldValue,
+  } = useFormik({
+    initialValues: initialValues,
+    validationSchema: validationSchemaPatient,
+    onSubmit: async (values, action) => {
+      try {
+        console.log("Patient  details", values);
+        // await OrganisationService.checkOrganisationMail({
+        //   email: values.email,
+        // });
 
-                    <div className="PatientAddress">
-                        <h2>Patient Address</h2>
-                        <Row>
-                           <Col md={6} className="mb-4">
-                           <label>Street</label>
-                           <input
-                           name="street"
-                           type="text"
-                           placeholder="Enter Street"
-                          />
-                           </Col>
-                           <Col md={6} className="mb-4">
-                           <label>Suite/Unit #</label>
-                           <input
-                           name=""
-                           type="text"
-                           placeholder="Enter Suite/Unit #"
-                          /></Col>
-                          <Col md={6} className="mb-4">
-                          <label>City</label>
-                          <input
-                          name=""
-                          type="text"
-                          placeholder="Enter City"
-                         /></Col>
-                         <Col md={6} className="mb-4">
-                         <label>State</label>
-                         <input
-                         name=""
-                         type="text"
-                         placeholder="Enter State"
-                        /></Col>
-                        </Row>
-                    </div>
-                    <button className="btn">Next</button>
-                    </Form>
-                </Col>
-              </Row>
-         
-     </div>
-  </>;
+        // navigate(URL.PATIENT.LISTING);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+  });
+  const handleDoctorSelection = (event) => {
+    const selectedDoctorId = Number(event.target.value);
+    if (!values.doctors.includes(selectedDoctorId) && selectedDoctorId) {
+      setFieldValue("doctors", [...values.doctors, selectedDoctorId]);
+    }
+  };
+
+  const removeDoctor = (selectedDoctorId) => {
+    const updatedDoctor = values.doctors?.filter(
+      (DoctorId) => DoctorId !== selectedDoctorId
+    );
+    setFieldValue("doctors", updatedDoctor);
+  };
+
+  const handleCancel = () => {
+    navigate(URL.PATIENT.LISTING);
+  };
+
+  const formikProps = {
+    touched: touched,
+    errors: errors,
+    getFieldProps: getFieldProps,
+  };
+
+  return (
+    <>
+      <div className="AddPatient   AddOrganisationProfile Add_Organisation_Professional">
+        <PatientDetailsForm
+          handleSubmit={handleSubmit}
+          formikProps={formikProps}
+          handleDoctorSelection={handleDoctorSelection}
+          doctorList={doctorList}
+          values={values}
+          removeDoctor={removeDoctor}
+          errors={errors}
+          touched={touched}
+          handleCancel={handleCancel}
+          isSubmitting={isSubmitting}
+          btnLabel="Add Patient"
+        />
+      </div>
+    </>
+  );
 }
-export default addPatient;
+export default AddPatient;

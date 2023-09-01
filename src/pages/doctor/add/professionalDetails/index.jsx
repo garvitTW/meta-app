@@ -25,8 +25,8 @@ function AddDoctorProfessional() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!addDoctorStep1) {
-      navigate(URLS.ORGANISATION.CREATE.PROFILE_DETAIL);
+    if (!addDoctorStep1?.name) {
+      navigate(URLS.DOCTOR.CREATE.PROFILE_DETAIL);
     } else {
       const fetchData = async () => {
         try {
@@ -139,7 +139,7 @@ function AddDoctorProfessional() {
   };
 
   const handleCancel = () => {
-    dispatch({ type: Type.REMOVE_CLINIC_STEP_1 });
+    dispatch({ type: Type.REMOVE_DOCTOR_STEP_1 });
     navigate(URLS.DOCTOR.LISTING);
   };
 
@@ -148,7 +148,7 @@ function AddDoctorProfessional() {
     setFieldValue("documents", updatedDocuments);
   };
 
-  if (!addDoctorStep1) {
+  if (!addDoctorStep1?.name) {
     return null;
   }
 
