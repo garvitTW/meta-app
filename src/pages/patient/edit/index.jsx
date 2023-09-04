@@ -28,7 +28,7 @@ function EditPatient() {
     const fetchData = async () => {
       try {
         const { data } = await doctorService.getDoctorNameId({
-          clinic_id: editPatient?.clinic_id,
+          clinic_id: editPatient?.clinic_id[0],
         });
 
         setDoctorList(data);
@@ -54,6 +54,7 @@ function EditPatient() {
       try {
         console.log("Patient  details", values);
         await patientService.updatePatient(editPatient?.id, {
+          ...editPatient,
           ...values,
         });
 

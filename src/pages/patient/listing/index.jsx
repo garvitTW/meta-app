@@ -31,6 +31,7 @@ function PatientListing({
   const { user_type, id } = userInfo;
   const initialClinicId = user_type === roles.clinic ? id : clinic_id;
 
+  const isPopUP = organization_id || doctor_id || clinic_id;
   const [clinics, setClinics] = useState([]);
   const [selectedClinic, setSelectedClinic] = useState(initialClinicId);
   const [doctors, setDoctors] = useState([]);
@@ -285,11 +286,13 @@ function PatientListing({
         </Row>
         <Row className="table-margin">
           <Col md={12}>
-            <TableSection
-              data={patients}
-              handleSwitchToggle={handleSwitchToggle}
-              handleEditPatient={handleEditPatient}
-            />
+            <div className={` ${isPopUP && "Patienttable"}`}>
+              <TableSection
+                data={patients}
+                handleSwitchToggle={handleSwitchToggle}
+                handleEditPatient={handleEditPatient}
+              />
+            </div>
           </Col>
           <Col md={12}>
             <PaginationSection

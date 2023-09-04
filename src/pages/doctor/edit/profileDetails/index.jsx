@@ -49,7 +49,6 @@ function EditDoctorProfile() {
     touched,
     handleSubmit,
     getFieldProps,
-    isSubmitting,
     values,
     setFieldValue,
   } = useFormik({

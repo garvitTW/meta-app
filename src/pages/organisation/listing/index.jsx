@@ -36,7 +36,7 @@ const popUpComponents = [
 ];
 
 function OrganisationListing() {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState("");
   const [organizations, setOrganizations] = useState([]);
   const [search, setSearch] = useState("");
   const { dispatch } = useContext(Store);

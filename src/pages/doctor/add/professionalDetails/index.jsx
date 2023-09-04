@@ -1,7 +1,6 @@
 import ClinicProfessionalDetailsForm from "../../../../components/clinic/professionalDetailsForm";
 import TabsWithNavigation from "../../../../components/tabsWithNavigation";
 import { addDoctorTabs } from "../../../../constants/doctor.constants";
-import "./style.scss";
 import URLS from "../../../../constants/routesURL";
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";

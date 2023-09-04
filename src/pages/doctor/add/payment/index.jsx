@@ -1,7 +1,7 @@
 import PaymentComp from "../../../../components/payment";
 import TabsWithNavigation from "../../../../components/tabsWithNavigation";
 import { addDoctorTabs } from "../../../../constants/doctor.constants";
-import "./style.scss";
+
 function AddDoctorPayment() {
   return (
     <>

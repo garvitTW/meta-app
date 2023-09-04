@@ -69,7 +69,6 @@ function AddOrganisationProfessional() {
         const { documents, ...rest } = values;
         const { results } = await OrganisationService.postOrganisationClinic({
           ...addOrganisationStep1,
-          password: "password@123",
           enabled: true,
           user_type: "ORGANIZATION",
           ...rest,

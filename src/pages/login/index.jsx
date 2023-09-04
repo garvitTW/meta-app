@@ -13,8 +13,13 @@ import { authService } from "../../services/auth.service";
 import { Store } from "../../store/Store";
 import { Type } from "../../constants/storeAction.constants";
 import { roles } from "../../constants/common.constants";
+import ModalComponent from "../../components/modal";
+import TermsAndConditionCondition from "../../components/t&C";
 
 function Login() {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const { dispatch } = useContext(Store);
   const navigate = useNavigate();
 
@@ -45,7 +50,7 @@ function Login() {
           const { data } = await authService.login(values);
           data.user_type = data.user_type || roles.admin;
           dispatch({ type: Type.USER_LOGIN, payload: data });
-
+          //handleShow();
           setRememberMe(false);
           action.resetForm();
           navigate(URL.VERIFICATION);
@@ -92,18 +97,7 @@ function Login() {
                       type="password"
                       placeholder="Password"
                       label="Password"
-                    />
-                    {/* <Form.Group className="mb-3" controlId="formBasicCheckbox"> */}
-
-                    {/* <Form.Check
-                        checked={rememberMe}
-                        type="checkbox"
-                        label="Remember me"
-                        onChange={(e) => setRememberMe(e.target.checked)}
-                      /> */}
-
-                    {/* </Form.Group> */}
-
+                    />{" "}
                     <input
                       checked={rememberMe}
                       type="checkbox"
@@ -126,6 +120,12 @@ function Login() {
           </Container>
         </div>
       </div>
+      <ModalComponent modelTitle="Terms of Use" setShow={setShow} show={show}>
+        <TermsAndConditionCondition
+          handleAccept={() => {}}
+          handleClose={handleClose}
+        />
+      </ModalComponent>
     </>
   );
 }

@@ -26,16 +26,15 @@ body {
   background-color: #282c38 !important;
 }
 
-.loder{
+.loder {
   min-width: 33px;
   min-height: 33px;
   display: block !important;
   border-radius: 50%;
-  
 }
 
 .Patienttable {
-  max-height: 250px;
+  max-height: 500px;
   overflow-x: hidden;
   overflow-y: auto !important;
 }
@@ -50,5 +49,12 @@ body {
 }
 .Patienttable::-webkit-scrollbar-thumb {
   border-radius: 5px !important;
-  background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.72, #c6c6c7), color-stop(0.72, #c6c6c7), color-stop(0.72, #c6c6c7)) !important;
+  background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.72, #c6c6c7),
+    color-stop(0.72, #c6c6c7),
+    color-stop(0.72, #c6c6c7)
+  ) !important;
 }
