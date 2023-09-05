@@ -133,7 +133,7 @@ function Login() {
           </Container>
         </div>
       </div>
-      <ModalComponent modelTitle="Terms of Use" setShow={setShow} show={show}>
+      <ModalComponent className="termspopup" centered={true} modelTitle="Terms of Use" setShow={setShow} show={show}>
         <TermsAndConditionCondition
           handleAccept={handleAccept}
           handleClose={handleClose}

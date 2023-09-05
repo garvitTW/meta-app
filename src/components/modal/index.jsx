@@ -6,6 +6,7 @@ function ModalComponent({
   setShow,
   show,
   className = "",
+  centered=false
 }) {
   const handleClose = () => setShow(false);
   return (
@@ -13,6 +14,7 @@ function ModalComponent({
       className={`decline_modal ${className}`}
       show={show}
       onHide={handleClose}
+      centered={centered}
     >
       <Modal.Header closeButton>
         <Modal.Title>{modelTitle}</Modal.Title>
