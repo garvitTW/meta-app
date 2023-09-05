@@ -32,7 +32,7 @@ export const setAuthToken = (token) => {
 };
 
 const acceptTermsAndCondition = (id) => {
-  return apiService.post(apiURL.ACCEPT_TERMS_AND_CONDITION + id + "/");
+  return apiService.get(apiURL.ACCEPT_TERMS_AND_CONDITION + id + "/");
 };
 
 export const authService = {

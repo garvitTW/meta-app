@@ -43,7 +43,7 @@ function Login() {
 
   const handleAccept = async () => {
     try {
-      //await authService.acceptTermsAndCondition(userInfo.id);
+      await authService.acceptTermsAndCondition(userInfo.user_id);
       navigate(URL.VERIFICATION);
     } catch (err) {
       console.log(err);
