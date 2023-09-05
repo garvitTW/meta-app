@@ -15,6 +15,10 @@ const doctorProfessionalValidationSchema =
       .min(0, "Months must be a positive number or zero")
       .max(11, "Months must be between 0 and 11")
       .required("Months is required"),
+    services_offered: Yup.array().min(
+      1,
+      "Please select at least one Specialization"
+    ),
   });
 
 export default doctorProfessionalValidationSchema;

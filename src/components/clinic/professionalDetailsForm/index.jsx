@@ -30,6 +30,7 @@ function ClinicProfessionalDetailsForm({
   handleCancel,
   addDocument,
   buttonLabel = "Add Clinic",
+  serviceHeading = "Services offered (Select Minimum 1)",
 }) {
   const generateFileUrl = (file) => {
     const type = typeof file;
@@ -40,7 +41,7 @@ function ClinicProfessionalDetailsForm({
   return (
     <Form onSubmit={handleSubmit}>
       <div>
-        <h2 className="mt-0">Services offered (Select Minimum 1)</h2>
+        <h2 className="mt-0">{serviceHeading}</h2>
         <hr />
       </div>
       <Row>

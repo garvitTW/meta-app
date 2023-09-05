@@ -216,6 +216,7 @@ function AddDoctorProfessional() {
           handleCancel={handleCancel}
           addDocument={addDocument}
           buttonLabel="Add Doctor"
+          serviceHeading="Specialization"
         />
       </div>
     </>

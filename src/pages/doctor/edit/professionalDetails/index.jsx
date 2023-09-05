@@ -222,6 +222,7 @@ function EditDoctorProfessional() {
           handleCancel={handleCancel}
           addDocument={addDocument}
           buttonLabel="Edit Doctor"
+          serviceHeading="Specialization"
         />
       </div>
     </>
