@@ -6,13 +6,13 @@ import { useContext, useEffect, useState } from "react";
 import { Store } from "../../../../store/Store";
 import { OrganisationService } from "../../../../services/Organisation.service";
 import { useFormik } from "formik";
-import validationSchemaProfessionalDetails from "../../../../validation/professionalDetails";
 import { Type } from "../../../../constants/storeAction.constants";
 import { documentObject } from "../../../../constants/common.constants";
 import ClinicProfessionalDetailsForm from "../../../../components/clinic/professionalDetailsForm";
 import { Col, Row } from "react-bootstrap";
 import Input from "../../../../components/formGroupInput";
 import { doctorService } from "../../../../services/doctor.service";
+import doctorProfessionalValidationSchema from "../../../../validation/doctorProfessionalDetail";
 
 function EditDoctorProfessional() {
   const { state, dispatch } = useContext(Store);
@@ -60,7 +60,7 @@ function EditDoctorProfessional() {
           ? editDoctorDetails?.document
           : [{ ...documentObject, doctor: editDoctorDetails?.id }],
     },
-    validationSchema: validationSchemaProfessionalDetails,
+    validationSchema: doctorProfessionalValidationSchema,
     onSubmit: async (values) => {
       try {
         const { documents, ...rest } = values;

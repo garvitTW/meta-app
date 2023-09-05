@@ -20,7 +20,8 @@ function Login() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const { dispatch } = useContext(Store);
+  const { state, dispatch } = useContext(Store);
+  const { userInfo } = state;
   const navigate = useNavigate();
 
   const details = storageService.decryptCredentials();
@@ -40,6 +41,15 @@ function Login() {
     password: details?.password || "",
   };
 
+  const handleAccept = async () => {
+    try {
+      //await authService.acceptTermsAndCondition(userInfo.id);
+      navigate(URL.VERIFICATION);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const { errors, touched, handleSubmit, getFieldProps, isSubmitting } =
     useFormik({
       initialValues: initialValues,
@@ -50,10 +60,13 @@ function Login() {
           const { data } = await authService.login(values);
           data.user_type = data.user_type || roles.admin;
           dispatch({ type: Type.USER_LOGIN, payload: data });
-          //handleShow();
-          setRememberMe(false);
-          action.resetForm();
-          navigate(URL.VERIFICATION);
+          if (!data.check_tc && data.user_type !== roles.admin) {
+            handleShow();
+          } else {
+            setRememberMe(false);
+            action.resetForm();
+            navigate(URL.VERIFICATION);
+          }
         } catch (err) {
           console.log(err);
         }
@@ -122,7 +135,7 @@ function Login() {
       </div>
       <ModalComponent modelTitle="Terms of Use" setShow={setShow} show={show}>
         <TermsAndConditionCondition
-          handleAccept={() => {}}
+          handleAccept={handleAccept}
           handleClose={handleClose}
         />
       </ModalComponent>

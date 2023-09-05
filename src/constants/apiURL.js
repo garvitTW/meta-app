@@ -19,6 +19,7 @@ const apiURL = {
   DOCTOR: "/doctor/doctors/",
   DOCTOR_DOCUMENT: "/doctor/doctors-document/",
   PATIENT: "patient/patients/",
+  ACCEPT_TERMS_AND_CONDITION: "authentication/check-tc/",
 };
 
 export default apiURL;

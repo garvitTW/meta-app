@@ -65,7 +65,7 @@ function reducer(state, action) {
       return { ...state, addDoctorStep1: action.payload };
 
     case Type.REMOVE_DOCTOR_STEP_1:
-      return { ...state, addDoctorStep1: null };
+      return { ...state, addDoctorStep1: {} };
 
     case Type.EDIT_DOCTOR_DETAILS:
       return { ...state, editDoctorDetails: action.payload };

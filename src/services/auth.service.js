@@ -31,9 +31,14 @@ export const setAuthToken = (token) => {
   storageService.setToLocalStorage(STORAGE_KEYS.AUTH_TOKEN, token);
 };
 
+const acceptTermsAndCondition = (id) => {
+  return apiService.post(apiURL.ACCEPT_TERMS_AND_CONDITION + id + "/");
+};
+
 export const authService = {
   isAuthenticated,
   getUserDetails,
   logout,
   login,
+  acceptTermsAndCondition,
 };

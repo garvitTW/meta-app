@@ -8,8 +8,8 @@ async function getDoctorSummary(params) {
 async function changeDoctorStatus(id, body) {
   return apiService.put(apiURL.DOCTOR_SUMMARY + id + "/", body);
 }
-async function getDoctorNameId() {
-  return apiService.get(apiURL.DOCTOR_LIST);
+async function getDoctorNameId(params) {
+  return apiService.get(apiURL.DOCTOR_LIST, params);
 }
 async function createDoctor(body) {
   return apiService.post(apiURL.DOCTOR, body);
