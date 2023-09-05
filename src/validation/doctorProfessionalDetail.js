@@ -6,6 +6,7 @@ const doctorProfessionalValidationSchema =
       .typeError("Years must be a number")
       .integer("Years must be an integer")
       .min(0, "Years must be a positive number or zero")
+      .max(99, "Years must be a 2 digit")
       .required("Years is required"),
 
     months: Yup.number()

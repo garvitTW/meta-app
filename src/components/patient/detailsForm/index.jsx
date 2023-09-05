@@ -21,7 +21,7 @@ function PatientDetailsForm({
     <Row>
       <Col md={8}>
         <Form onSubmit={handleSubmit}>
-          <h1>Add Patient</h1>
+          <h1>{btnLabel}</h1>
           <Row>
             <Col md={6}>
               <Input

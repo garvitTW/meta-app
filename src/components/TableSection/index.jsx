@@ -58,10 +58,10 @@ function Tablemy({ data, handleSwitchToggle, handleEditPatient }) {
               >
                 {patient?.patient_name}
               </td>
-              <td>{patient?.posture_score}%</td>
-              <td>{patient?.last_doctors_appointment}</td>
-              <td>{patient?.last_self_scan}</td>
-              <td>{patient?.next_scan}</td>
+              <td>{patient?.posture_score || 0}%</td>
+              <td>{patient?.last_doctors_appointment || "No Data"}</td>
+              <td>{patient?.last_self_scan || "No Data"}</td>
+              <td>{patient?.next_scan || "No Data"}</td>
               <td>
                 <div>
                   <Form>

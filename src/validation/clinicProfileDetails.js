@@ -6,7 +6,7 @@ const validationSchemaClinicProfileDetails = generalSchemaProfileDetails.shape({
     .matches(/^\d+$/, "Extension must only contain digits")
     .min(1, "Extension must be at least 1 digit")
     .max(6, "Extension must be at most 6 digits")
-    .required("extension is required"),
+    .required("Extension is required"),
   clinic_rep_name: Yup.string()
     .required("Name is required")
     .matches(/^[a-zA-Z_\-.'\s,]+$/, "Only alpha char allowed"),
