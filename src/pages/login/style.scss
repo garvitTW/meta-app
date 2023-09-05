@@ -123,7 +123,16 @@
     margin: 0 auto;
   }
 }
+.termspopup{
 
+  p{
+    font-size: 15px !important;
+    color: #fff !important;
+  }
+  .modal-dialog{
+    min-width:677px !important;
+  }
+}
 .remeberme {
   margin-left: 12px;
 }

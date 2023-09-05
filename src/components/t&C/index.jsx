@@ -5,13 +5,19 @@ function TermsAndConditionCondition({ handleClose, handleAccept }) {
     <>
       <Modal.Body>
         <p>
-          General Site Usage Last Revised: December 16, 2013 Welcome to
+        
+          General Site Usage<br/>
+          Last Revised: December 16, 2013<br/>
+          Welcome to<br/>
           www.lorem-ipsum.info. This site is provided as a service to our
           visitors and may be used for informational purposes only. Because the
           Terms and Conditions contain legal obligations, please read them
-          carefully. 1. YOUR AGREEMENT By using this Site, you agree to be bound
+          carefully.<br/>
+          1. YOUR AGREEMENT<br/>
+          By using this Site, you agree to be bound
           by, and to comply with, these Terms and Conditions. If you do not
           agree to these Terms and Conditions, please do not use this site.
+
           PLEASE NOTE: We reserve the right, at our sole discretion, to change,
           modify or otherwise alter these Terms and Conditions at any time.
           Unless otherwise indicated, amendments will become effective
@@ -20,16 +26,18 @@ function TermsAndConditionCondition({ handleClose, handleAccept }) {
           modifications will constitute your acceptance of the revised Terms and
           Conditions and the reasonableness of these standards for notice of
           changes. For your information, this page was last updated as of the
-          date at the top of these terms and conditions. 2. PRIVACY Please
+          date at the top of these terms and conditions.<br/>
+          2. PRIVACY Please<br/>
           review our Privacy Policy, which also governs your visit to this Site,
-          to understand our practices.
+          to understand<br/> our practices.
+        
         </p>
       </Modal.Body>
       <Modal.Footer>
-        <Row className="p-0 w-100">
+        <Row className="pb-3 w-100">
           <Col md={6} className="pe-0">
             <Button
-              className="confirm_button"
+              className="confirm_button mr-3"
               variant="primary"
               onClick={handleAccept}
             >
