@@ -16,7 +16,7 @@ function TermsAndConditionCondition({ handleClose, handleAccept }) {
           1. YOUR AGREEMENT<br/>
           By using this Site, you agree to be bound
           by, and to comply with, these Terms and Conditions. If you do not
-          agree to these Terms and Conditions, please do not use this site.
+          agree to these Terms and Conditions, please do not use this site.<br/>
 
           PLEASE NOTE: We reserve the right, at our sole discretion, to change,
           modify or otherwise alter these Terms and Conditions at any time.

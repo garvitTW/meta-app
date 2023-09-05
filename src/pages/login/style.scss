@@ -128,9 +128,13 @@
   p{
     font-size: 15px !important;
     color: #fff !important;
+    line-height: 22px !important;
   }
   .modal-dialog{
     min-width:677px !important;
+  }
+  .modal-footer{
+    padding: 0px 15%;
   }
 }
 .remeberme {
