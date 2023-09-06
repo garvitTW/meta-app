@@ -191,14 +191,9 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
     }
   };
 
-  const isPopUP=organization_id || clinic_id
+  const isPopUP = organization_id || clinic_id;
 
-  const className =
-    (isPopUP && show)
-      ? "make_display_none"
-      : "Patients_section";
-
-  
+  const className = isPopUP && show ? "make_display_none" : "Patients_section";
 
   const clinicFilter = useMemo(() => {
     return user_type === roles.admin ? (
@@ -241,7 +236,7 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
                 value={search}
                 onChange={(e) => filterHandle("search", e.target.value)}
                 className=" search-input"
-                placeholder="Search doctors"
+                placeholder="Search Doctors"
               />
             </div>
             <div>
@@ -264,69 +259,71 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
         </Row>
         <Row>
           <Col md={12} className="mt-4">
-          <div className={` ${isPopUP&&"Patienttable"}`}>
-            <Table
-              responsive
-              className={`table-stripednew Patients-table ${isPopUP&&"Patienttable"}`}
-              variant="dark"
-            >
-              <thead>
-                <tr>
-                  <th>
-                    <InputGroup className="mb-3">
-                      <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-                    </InputGroup>
-                  </th>
-                  <th>Doctor Name</th>
-                  <th>Doctor ID</th>
-                  <th>Email Address</th>
-                  <th>Clinic Name</th>
-                  <th>Patients</th>
-                  <th>Enable/Disable</th>
-                </tr>
-              </thead>
-              <tbody>
-                {doctors?.map((doctor) => (
-                  <tr key={doctor?.id}>
-                    <td>
+            <div className={` ${isPopUP && "Patienttable"}`}>
+              <Table
+                responsive
+                className={`table-stripednew Patients-table ${
+                  isPopUP && "Patienttable"
+                }`}
+                variant="dark"
+              >
+                <thead>
+                  <tr>
+                    <th>
                       <InputGroup className="mb-3">
                         <InputGroup.Checkbox aria-label="Checkbox for following text input" />
                       </InputGroup>
-                    </td>
-                    <td
-                      className="name-text"
-                      onClick={() => handleEditDoctor(doctor?.id)}
-                    >
-                      {doctor?.doctor_name}
-                    </td>
-                    <td>{doctor?.doctor_uniqueid}</td>
-                    <td>{doctor?.doctor_email}</td>
-                    <td className="">{doctor?.clinic_name}</td>
-                    <td
-                      className="name-text"
-                      onClick={() =>
-                        handleShow(doctor?.id, doctor?.patients_count)
-                      }
-                    >
-                      {doctor?.patients_count}
-                    </td>
-                    <td>
-                      <div>
-                        <Form>
-                          <Form.Check
-                            type="switch"
-                            id="custom-switch"
-                            label=""
-                            checked={doctor?.is_enabled}
-                            onChange={() => handleSwitchToggle(doctor)}
-                          />
-                        </Form>
-                      </div>
-                    </td>
+                    </th>
+                    <th>Doctor Name</th>
+                    <th>Doctor ID</th>
+                    <th>Email Address</th>
+                    <th>Clinic Name</th>
+                    <th>Patients</th>
+                    <th>Enable/Disable</th>
                   </tr>
-                ))}
-              </tbody>
-            </Table>
+                </thead>
+                <tbody>
+                  {doctors?.map((doctor) => (
+                    <tr key={doctor?.id}>
+                      <td>
+                        <InputGroup className="mb-3">
+                          <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+                        </InputGroup>
+                      </td>
+                      <td
+                        className="name-text"
+                        onClick={() => handleEditDoctor(doctor?.id)}
+                      >
+                        {doctor?.doctor_name}
+                      </td>
+                      <td>{doctor?.doctor_uniqueid}</td>
+                      <td>{doctor?.doctor_email}</td>
+                      <td className="">{doctor?.clinic_name}</td>
+                      <td
+                        className="name-text"
+                        onClick={() =>
+                          handleShow(doctor?.id, doctor?.patients_count)
+                        }
+                      >
+                        {doctor?.patients_count}
+                      </td>
+                      <td>
+                        <div>
+                          <Form>
+                            <Form.Check
+                              type="switch"
+                              id="custom-switch"
+                              label=""
+                              checked={doctor?.is_enabled}
+                              onChange={() => handleSwitchToggle(doctor)}
+                            />
+                          </Form>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
             </div>
             <PaginationSection
               currentPage={currentPage}

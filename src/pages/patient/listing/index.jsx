@@ -263,7 +263,7 @@ function PatientListing({
                 value={search}
                 onChange={(e) => filterHandle("search", e.target.value)}
                 className=" search-input"
-                placeholder="Search patients"
+                placeholder="Search Patients"
               />
             </div>
             <div>

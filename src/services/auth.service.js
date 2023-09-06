@@ -35,10 +35,15 @@ const acceptTermsAndCondition = (id) => {
   return apiService.get(apiURL.ACCEPT_TERMS_AND_CONDITION + id + "/");
 };
 
+const verifyOtp = (body) => {
+  return apiService.post(apiURL.VERIFY_OTP, body);
+};
+
 export const authService = {
   isAuthenticated,
   getUserDetails,
   logout,
   login,
   acceptTermsAndCondition,
+  verifyOtp,
 };

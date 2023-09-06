@@ -248,7 +248,7 @@ function ClinicListing({ organization_id = "" }) {
                 value={search}
                 onChange={(e) => filterHandle("search", e.target.value)}
                 className=" search-input"
-                placeholder=" Search clinics"
+                placeholder=" Search Clinics"
               />
             </div>
             <div>

@@ -5,13 +5,19 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import URL from "../../constants/routesURL";
 import { Store } from "../../store/Store";
-import { setAuthToken, setUserDetails } from "../../services/auth.service";
+import {
+  authService,
+  setAuthToken,
+  setUserDetails,
+} from "../../services/auth.service";
+import ButtonWithLoader from "../../components/buttonWithLoading";
 function Verification() {
   const navigate = useNavigate();
   const number = [1, 2, 3, 4, 5, 6];
   const [otpValues, setOtpValues] = useState(["", "", "", "", "", ""]);
   const [rememberDevice, setRememberDevice] = useState(false);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const { state } = useContext(Store);
   const { userInfo } = state;
 
@@ -45,26 +51,36 @@ function Verification() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Combine the OTP values into a single string (for validation or API call)
-    const otpCode = otpValues.join("");
-    if (otpCode.length !== 6) {
-      setError("Please enter a 6-digit verification code.");
-    } else {
-      setError(""); // Clear the error if OTP is valid
+    try {
+      const otpCode = otpValues.join("");
+      if (otpCode.length !== 6) {
+        setError("Please enter a 6-digit verification code.");
+      } else {
+        setError(""); // Clear the error if OTP is valid
 
-      // Handle form submission or API call here
-      console.log("OTP Code:", otpCode);
+        // Handle form submission or API call here
+        setLoading(true);
+        const data = await authService.verifyOtp({
+          email: userInfo.email,
+          otp: otpCode,
+        });
 
-      // Reset the OTP input fields after submission (optional)
-      setOtpValues(["", "", "", "", "", ""]);
-      setUserDetails(userInfo);
-      setAuthToken(
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
-      );
-      navigate(URL.DASHBOARD);
+        // Reset the OTP input fields after submission (optional)
+        setOtpValues(["", "", "", "", "", ""]);
+        setUserDetails(userInfo);
+        setAuthToken(
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+        );
+        setLoading(false);
+        navigate(URL.DASHBOARD);
+      }
+    } catch (err) {
+      setLoading(false);
+      console.log(err);
     }
   };
 
@@ -123,9 +139,12 @@ function Verification() {
                     </label>
 
                     <div className="text-center">
-                      <Button variant="primary" type="submit">
-                        Verify
-                      </Button>
+                      <ButtonWithLoader
+                        className="d-flex justify-content-center align-items-center"
+                        variant="primary"
+                        isSubmitting={loading}
+                        label="Verify"
+                      />
                     </div>
                   </Form>
                 </div>

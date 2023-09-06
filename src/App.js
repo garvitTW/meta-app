@@ -1,10 +1,10 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { protectedRoutes, publicRoutes } from "./constants/route";
 import Layout from "./components/layout";
-import ProtectedRoute from "./components/protectedRoutes";
 import NotFound from "./components/pageNotFound";
 import { useContext } from "react";
 import { Store } from "./store/Store";
+import ProtectedRoute from "./components/protectedRoutes";
 
 function App() {
   const { state } = useContext(Store);
