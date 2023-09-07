@@ -54,7 +54,9 @@ function AddPatient() {
     validationSchema: validationSchemaPatient,
     onSubmit: async (values, action) => {
       try {
-        console.log("Patient  details", values);
+        await patientService.checkPatientMail({
+          email: values.email,
+        });
         await patientService.createPatient({
           ...values,
           user_type: roles.patient,

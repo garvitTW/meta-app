@@ -10,6 +10,7 @@ import TabsWithNavigation from "../../../../components/tabsWithNavigation";
 import ClinicProfileDetailsForm from "../../../../components/clinic/profileDetailsForm";
 import { addClinicTabs } from "../../../../constants/clinic.constants";
 import validationSchemaClinicProfileDetails from "../../../../validation/clinicProfileDetails";
+import { clinicService } from "../../../../services/clinic.service";
 
 function AddClinicProfile() {
   const { state, dispatch } = useContext(Store);
@@ -23,9 +24,9 @@ function AddClinicProfile() {
       validationSchema: validationSchemaClinicProfileDetails,
       onSubmit: async (values, action) => {
         try {
-          // await OrganisationService.checkOrganisationMail({
-          //   email: values.email,
-          // });
+          await clinicService.checkClinicMail({
+            email: values.email,
+          });
           dispatch({ type: Type.ADD_CLINIC_STEP_1, payload: values });
           navigate(URL.CLINIC.CREATE.PROFESSIONAL_DETAIL);
         } catch (err) {

@@ -12,6 +12,7 @@ import validationSchemaDoctorProfileDetails from "../../../../validation/doctorP
 import { clinicService } from "../../../../services/clinic.service";
 import { roles } from "../../../../constants/common.constants";
 import DoctorProfileDetailsForm from "../../../../components/doctor/profileDetails";
+import { doctorService } from "../../../../services/doctor.service";
 
 function AddDoctorProfile() {
   const navigate = useNavigate();
@@ -45,15 +46,16 @@ function AddDoctorProfile() {
     handleSubmit,
     getFieldProps,
     values,
+    isSubmitting,
     setFieldValue,
   } = useFormik({
     initialValues: initialValues,
     validationSchema: validationSchemaDoctorProfileDetails,
     onSubmit: async (values, action) => {
       try {
-        // await OrganisationService.checkOrganisationMail({
-        //   email: values.email,
-        // });
+        await doctorService.checkDoctorMail({
+          email: values.email,
+        });
         dispatch({ type: Type.ADD_DOCTOR_STEP_1, payload: values });
         navigate(URL.DOCTOR.CREATE.PROFESSIONAL_DETAIL);
       } catch (err) {
@@ -98,6 +100,7 @@ function AddDoctorProfile() {
           removeClinic={removeClinic}
           errors={errors}
           touched={touched}
+          isSubmitting={isSubmitting}
         />
       </div>
     </>

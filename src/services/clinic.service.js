@@ -33,6 +33,10 @@ async function deleteClinicDocument(id) {
   return apiService.delete(apiURL.CLINIC_DOCUMENT + id + "/");
 }
 
+async function checkClinicMail(params) {
+  return apiService.get(apiURL.CLINIC_EMAIL_CHECK, params);
+}
+
 export const clinicService = {
   getClinicSummary,
   changeClinicStatus,
@@ -42,4 +46,5 @@ export const clinicService = {
   getClinicDetails,
   updateClinic,
   deleteClinicDocument,
+  checkClinicMail,
 };

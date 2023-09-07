@@ -14,6 +14,7 @@ function DoctorProfileDetailsForm({
   removeClinic,
   errors,
   touched,
+  isSubmitting,
 }) {
   return (
     <Row>
@@ -144,7 +145,11 @@ function DoctorProfileDetailsForm({
 
           <Row className="mt-5">
             <Col md={12}>
-              <ButtonWithLoader label="Next" className="Next_button" />
+              <ButtonWithLoader
+                isSubmitting={isSubmitting}
+                label="Next"
+                className="Next_button"
+              />
             </Col>
           </Row>
         </Form>

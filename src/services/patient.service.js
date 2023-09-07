@@ -19,6 +19,9 @@ async function getPatientDetails(id) {
 async function updatePatient(id, body) {
   return apiService.put(apiURL.PATIENT + id + "/", body);
 }
+async function checkPatientMail(params) {
+  return apiService.get(apiURL.PATIENT_EMAIL_CHECK, params);
+}
 
 export const patientService = {
   getPatientSummary,
@@ -26,4 +29,5 @@ export const patientService = {
   createPatient,
   getPatientDetails,
   updatePatient,
+  checkPatientMail,
 };
