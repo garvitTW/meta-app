@@ -56,10 +56,6 @@ function EditDoctorProfile() {
     validationSchema: validationSchemaDoctorProfileDetails,
     onSubmit: async (values, action) => {
       try {
-        console.log("doctor profile details", values);
-        // await OrganisationService.checkOrganisationMail({
-        //   email: values.email,
-        // });
         dispatch({ type: Type.ADD_EDIT_DOCTOR_STEP_1, payload: values });
         navigate(URL.DOCTOR.EDIT.PROFESSIONAL_DETAIL);
       } catch (err) {

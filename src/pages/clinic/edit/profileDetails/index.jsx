@@ -24,9 +24,6 @@ function EditClinicProfile() {
       validationSchema: validationSchemaClinicProfileDetails,
       onSubmit: async (values, action) => {
         try {
-          // await OrganisationService.checkOrganisationMail({
-          //   email: values.email,
-          // });
           dispatch({ type: Type.ADD_EDIT_CLINIC_STEP_1, payload: values });
           navigate(URL.CLINIC.EDIT.PROFESSIONAL_DETAIL);
         } catch (err) {
