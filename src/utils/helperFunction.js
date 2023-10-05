@@ -46,8 +46,39 @@ const generateDoctorProfileDetailsInitialValue = (value) => {
   };
 };
 
+const downloadCSV = (fileName, data) => {
+  const blob = new Blob([data], { type: "text/csv" });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.style.display = "none";
+  a.href = url;
+  a.download = `${fileName}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  window.URL.revokeObjectURL(url);
+};
+
+const handleDataSelectionForExport = (type, dataToExport, data, selectedId) => {
+  if (type === "All") {
+    if (dataToExport.length === data.length) {
+      return [];
+    } else {
+      const allDataId = data.map((d) => d.id);
+      return allDataId;
+    }
+  } else {
+    if (dataToExport.includes(selectedId)) {
+      return dataToExport.filter((id) => id !== selectedId);
+    } else {
+      return [...dataToExport, selectedId];
+    }
+  }
+};
+
 export {
   generateProfileDetailsInitialValue,
   generateClinicProfileDetailsInitialValue,
   generateDoctorProfileDetailsInitialValue,
+  downloadCSV,
+  handleDataSelectionForExport,
 };

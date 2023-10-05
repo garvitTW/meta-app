@@ -12,13 +12,15 @@ import StatusDropdown from "../../../components/statusDropdown";
 import ListingDropdown from "../../../components/listingDropdown";
 import ModalComponent from "../../../components/modal";
 import PatientListing from "../../patient/listing";
-import jsPDF from "jspdf";
-import "jspdf-autotable";
 import URL from "../../../constants/routesURL";
 import { useNavigate } from "react-router-dom";
 import { Store } from "../../../store/Store";
 import { roles } from "../../../constants/common.constants";
 import { Type } from "../../../constants/storeAction.constants";
+import {
+  downloadCSV,
+  handleDataSelectionForExport,
+} from "../../../utils/helperFunction";
 
 function DoctorListing({ organization_id = "", clinic_id = "" }) {
   const { state, dispatch } = useContext(Store);
@@ -33,6 +35,7 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
   const [doctors, setDoctors] = useState([]);
   const [status, setStatus] = useState("");
   const [search, setSearch] = useState("");
+  const [doctorToExport, setDoctorToExport] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingClinic, setLoadingClinic] = useState(false);
 
@@ -156,38 +159,41 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
     }
   };
 
-  const downloadData = () => {
-    if (doctors.length > 0) {
-      const pdf = new jsPDF();
-      const tableData = [];
+  const handleCheckboxChange = (type, doctorId) => {
+    const updatedList = handleDataSelectionForExport(
+      type,
+      doctorToExport,
+      doctors,
+      doctorId
+    );
+    setDoctorToExport(updatedList);
+  };
 
-      doctors.forEach((doctor) => {
-        tableData.push([
-          doctor?.doctor_name,
-          doctor?.doctor_uniqueid,
-          doctor?.doctor_email,
-          doctor?.clinic_name,
-          doctor?.patients_count,
-          doctor?.is_enabled ? "Enabled" : "Disabled",
-        ]);
-      });
+  const downloadData = () => {
+    if (doctorToExport.length > 0) {
+      const selectedDoctorsData = doctors.filter((doctor) =>
+        doctorToExport.includes(doctor.id)
+      );
+
+      const csvData = selectedDoctorsData.map((doctor) =>
+        [
+          doctor.doctor_name,
+          doctor.doctor_uniqueid,
+          doctor.doctor_email,
+          doctor.clinic_name,
+          doctor.patients_count,
+          doctor.is_enabled ? "Enabled" : "Disabled",
+        ].join(",")
+      );
 
       // Add table headers
-      const tableHeaders = [
-        "Doctor Name",
-        "Doctor ID",
-        "Email Address",
-        "Clinic Name",
-        "Patients",
-        "Enable/Disable",
-      ];
+      const csvContent = [
+        "Doctor Name,Doctor ID,Email Address,Clinic Name,Patients,Enable/Disable",
+      ]
+        .concat(csvData)
+        .join("\n");
 
-      pdf.autoTable({
-        head: [tableHeaders],
-        body: tableData,
-      });
-
-      pdf.save("Doctors.pdf");
+      downloadCSV("selected_doctors", csvContent);
     }
   };
 
@@ -271,7 +277,11 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
                   <tr>
                     <th>
                       <InputGroup className="mb-3">
-                        <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+                        <InputGroup.Checkbox
+                          aria-label="Checkbox for following text input"
+                          checked={doctorToExport.length === doctors.length}
+                          onChange={() => handleCheckboxChange("All", null)}
+                        />
                       </InputGroup>
                     </th>
                     <th>Doctor Name</th>
@@ -287,7 +297,11 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
                     <tr key={doctor?.id}>
                       <td>
                         <InputGroup className="mb-3">
-                          <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+                          <InputGroup.Checkbox
+                            aria-label="Checkbox for following text input"
+                            checked={doctorToExport.includes(doctor.id)}
+                            onChange={() => handleCheckboxChange("", doctor.id)}
+                          />
                         </InputGroup>
                       </td>
                       <td

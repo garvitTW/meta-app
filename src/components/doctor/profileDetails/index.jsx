@@ -62,6 +62,7 @@ function DoctorProfileDetailsForm({
                 <Input
                   name="doctor_fax"
                   type="text"
+                  required={false}
                   placeholder="Enter Doctor Fax (optional)"
                   label="Doctor Fax (optional)"
                   className="form-control"

@@ -83,6 +83,7 @@ function AddOrganisationProfile() {
                     {...formikProps}
                     name="organization_fax"
                     type="text"
+                    required={false}
                     placeholder="Enter Clinic Fax (optional)"
                     label="Organization Fax (optional)"
                   />

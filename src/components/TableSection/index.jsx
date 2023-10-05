@@ -15,7 +15,13 @@ import {
   Col,
 } from "react-bootstrap";
 import "./style.scss";
-function Tablemy({ data, handleSwitchToggle, handleEditPatient }) {
+function Tablemy({
+  data,
+  patientToExport,
+  handleSwitchToggle,
+  handleEditPatient,
+  handleCheckboxChange,
+}) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -31,7 +37,11 @@ function Tablemy({ data, handleSwitchToggle, handleEditPatient }) {
           <tr>
             <th>
               <InputGroup className="mb-3">
-                <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+                <InputGroup.Checkbox
+                  aria-label="Checkbox for following text input"
+                  checked={patientToExport.length === data.length}
+                  onChange={() => handleCheckboxChange("All", null)}
+                />
               </InputGroup>
             </th>
             <th> MRN</th>
@@ -48,7 +58,11 @@ function Tablemy({ data, handleSwitchToggle, handleEditPatient }) {
             <tr key={patient?.id}>
               <td>
                 <InputGroup className="mb-3">
-                  <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+                  <InputGroup.Checkbox
+                    aria-label="Checkbox for following text input"
+                    checked={patientToExport.includes(patient?.id)}
+                    onChange={() => handleCheckboxChange("", patient?.id)}
+                  />
                 </InputGroup>
               </td>
               <td>{patient?.mrn}</td>

@@ -1,6 +1,7 @@
 import { Form } from "react-bootstrap";
 import { ErrorMessage } from "../errorMessage";
 import "./style.scss";
+import Asterisk from "../asterisk";
 function Input({
   touched,
   errors,
@@ -9,10 +10,14 @@ function Input({
   type,
   placeholder,
   label,
+  required = true,
 }) {
   return (
     <Form.Group className="mb-4 errorClass">
-      <Form.Label>{label}</Form.Label>
+      <Form.Label>
+        {label}
+        {required && <Asterisk />}
+      </Form.Label>
       <Form.Control
         type={type}
         placeholder={placeholder}

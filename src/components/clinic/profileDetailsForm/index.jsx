@@ -51,6 +51,7 @@ function ClinicProfileDetailsForm({ handleSubmit, formikProps, isSubmitting }) {
                 type="text"
                 placeholder="Enter Clinic Fax (optional)"
                 label="Clinic Fax (optional)"
+                required={false}
               />
             </Col>
           </Row>

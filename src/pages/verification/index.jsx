@@ -64,7 +64,7 @@ function Verification() {
 
         // Handle form submission or API call here
         setLoading(true);
-        const data = await authService.verifyOtp({
+        const { data } = await authService.verifyOtp({
           email: userInfo.email,
           otp: otpCode,
         });
@@ -72,9 +72,7 @@ function Verification() {
         // Reset the OTP input fields after submission (optional)
         setOtpValues(["", "", "", "", "", ""]);
         setUserDetails(userInfo);
-        setAuthToken(
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
-        );
+        setAuthToken(data.token.access_token);
         setLoading(false);
         navigate(URL.DASHBOARD);
       }

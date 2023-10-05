@@ -12,13 +12,15 @@ import ListingDropdown from "../../../components/listingDropdown";
 import LoaderSpinner from "../../../components/spinner";
 import PaginationSection from "../../../components/PaginationSection";
 import TableSection from "../../../components/TableSection";
-import jsPDF from "jspdf";
-import "jspdf-autotable";
 import { Store } from "../../../store/Store";
 import { roles } from "../../../constants/common.constants";
 import URL from "../../../constants/routesURL";
 import { useNavigate } from "react-router-dom";
 import { Type } from "../../../constants/storeAction.constants";
+import {
+  downloadCSV,
+  handleDataSelectionForExport,
+} from "../../../utils/helperFunction";
 
 function PatientListing({
   doctor_id = "",
@@ -39,6 +41,7 @@ function PatientListing({
   const [status, setStatus] = useState("");
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
+  const [patientToExport, setPatientToExport] = useState([]);
   const [loadingClinic, setLoadingClinic] = useState(false);
   const [patients, setPatients] = useState([]);
   const [totalItems, setTotalItems] = useState(0);
@@ -170,41 +173,42 @@ function PatientListing({
       console.log(err);
     }
   };
+  const handleCheckboxChange = (type, patientId) => {
+    const updatedList = handleDataSelectionForExport(
+      type,
+      patientToExport,
+      patients,
+      patientId
+    );
+    setPatientToExport(updatedList);
+  };
 
   const downloadData = () => {
-    if (patients.length > 0) {
-      const pdf = new jsPDF();
-      const tableData = [];
+    if (patientToExport.length > 0) {
+      const selectedPatientsData = patients.filter((patient) =>
+        patientToExport.includes(patient.id)
+      );
 
-      patients.forEach((patient) => {
-        tableData.push([
-          patient?.MRN,
+      const csvData = selectedPatientsData.map((patient) =>
+        [
+          patient?.mrn,
           patient?.patient_name,
-          patient?.posture_score,
-          patient?.last_doctors_appointment,
-          patient?.last_self_scan,
-          patient?.next_scan,
+          patient?.posture_score || 0,
+          patient?.last_doctors_appointment || "No Data",
+          patient?.last_self_scan || "No Data",
+          patient?.next_scan || "No Data",
           patient?.is_enabled ? "Enabled" : "Disabled",
-        ]);
-      });
+        ].join(",")
+      );
 
       // Add table headers
-      const tableHeaders = [
-        "MRN",
-        "Patient Name",
-        "Posture Score",
-        "Last Doctor’s Appointment",
-        "Last Self Scan",
-        "Next Scan",
-        "Status",
-      ];
+      const csvContent = [
+        "MRN, Patient Name,Posture Score,Last Doctor’s Appointment,Last Self Scan,Next Scan,Status",
+      ]
+        .concat(csvData)
+        .join("\n");
 
-      pdf.autoTable({
-        head: [tableHeaders],
-        body: tableData,
-      });
-
-      pdf.save("Patients.pdf");
+      downloadCSV("selected_Patients", csvContent);
     }
   };
 
@@ -289,8 +293,10 @@ function PatientListing({
             <div className={` ${isPopUP && "Patienttable"}`}>
               <TableSection
                 data={patients}
+                patientToExport={patientToExport}
                 handleSwitchToggle={handleSwitchToggle}
                 handleEditPatient={handleEditPatient}
+                handleCheckboxChange={handleCheckboxChange}
               />
             </div>
           </Col>

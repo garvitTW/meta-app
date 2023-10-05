@@ -17,8 +17,11 @@ import { useDebounce } from "../../../hooks/debounce";
 import { Store } from "../../../store/Store";
 import { Type } from "../../../constants/storeAction.constants";
 import LoaderSpinner from "../../../components/spinner";
-import jsPDF from "jspdf";
-import "jspdf-autotable";
+
+import {
+  downloadCSV,
+  handleDataSelectionForExport,
+} from "../../../utils/helperFunction";
 
 const popUpComponents = [
   {
@@ -41,6 +44,7 @@ function OrganisationListing() {
   const [search, setSearch] = useState("");
   const { dispatch } = useContext(Store);
   const [totalItems, setTotalItems] = useState(0);
+  const [organisationToExport, setOrganisationToExport] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [organisationIdForPopUp, setOrganisationIdForPopUp] = useState("");
@@ -114,6 +118,16 @@ function OrganisationListing() {
       console.log(err);
     }
   };
+
+  const handleCheckboxChange = (type, organizationId) => {
+    const updatedList = handleDataSelectionForExport(
+      type,
+      organisationToExport,
+      organizations,
+      organizationId
+    );
+    setOrganisationToExport(updatedList);
+  };
   const handleEditOrganisation = async (id) => {
     try {
       setLoading(true);
@@ -128,13 +142,14 @@ function OrganisationListing() {
   };
 
   const downloadData = () => {
-    if (organizations.length > 0) {
-      const pdf = new jsPDF();
-      const tableData = [];
+    if (organisationToExport.length > 0) {
+      const selectedOrganisationData = organizations.filter((organization) =>
+        organisationToExport.includes(organization.id)
+      );
 
       // Iterate through organizations and prepare data for the PDF table
-      organizations.forEach((organization) => {
-        tableData.push([
+      const csvData = selectedOrganisationData.map((organization) =>
+        [
           organization.user,
           organization.email,
           organization.clinics,
@@ -142,26 +157,16 @@ function OrganisationListing() {
           organization.patients,
           organization.status,
           organization.enabled ? "Enabled" : "Disabled",
-        ]);
-      });
+        ].join(",")
+      );
 
       // Add table headers
-      const tableHeaders = [
-        "Organizational Clinic Name",
-        "Email Address",
-        "Clinics",
-        "Doctors",
-        "Patients",
-        "Status",
-        "Enable/Disable",
-      ];
-
-      pdf.autoTable({
-        head: [tableHeaders],
-        body: tableData,
-      });
-
-      pdf.save("Organizations.pdf");
+      const csvContent = [
+        "Organizational Clinic Name,Email Address,Clinics,Doctors,Patients,Status,Enable/Disable",
+      ]
+        .concat(csvData)
+        .join("\n");
+      downloadCSV("selected_Organizations", csvContent);
     }
   };
 
@@ -211,10 +216,10 @@ function OrganisationListing() {
             eventKey={URL.ORGANISATION.LISTING}
             title={`Registered (${totalItems})`}
           ></Tab>
-          <Tab eventKey={URL.ORGANISATION.PENDING} title="Pending(20)">
+          <Tab eventKey={URL.ORGANISATION.PENDING} title="Pending(6)">
             <Pending />
           </Tab>
-          <Tab eventKey={URL.ORGANISATION.DECLINED} title="Declined(45)">
+          <Tab eventKey={URL.ORGANISATION.DECLINED} title="Declined(9)">
             <Declined />
           </Tab>
         </Tabs>
@@ -229,7 +234,13 @@ function OrganisationListing() {
                 <tr>
                   <th>
                     <InputGroup className="mb-3">
-                      <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+                      <InputGroup.Checkbox
+                        aria-label="Checkbox for following text input"
+                        checked={
+                          organisationToExport.length === organizations.length
+                        }
+                        onChange={() => handleCheckboxChange("All", null)}
+                      />
                     </InputGroup>
                   </th>
                   <th> Organizational Clinic Name</th>
@@ -246,7 +257,14 @@ function OrganisationListing() {
                   <tr key={organization?.id}>
                     <td>
                       <InputGroup className="mb-3">
-                        <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+                        <InputGroup.Checkbox
+                          checked={organisationToExport.includes(
+                            organization?.id
+                          )}
+                          onChange={() =>
+                            handleCheckboxChange("", organization?.id)
+                          }
+                        />
                       </InputGroup>
                     </td>
                     <td

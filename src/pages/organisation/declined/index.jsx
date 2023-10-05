@@ -54,12 +54,9 @@ function OrganisationDeclined() {
           className="organise_tabs"
           onSelect={handleTabChange}
         >
-          <Tab
-            eventKey={URL.ORGANISATION.LISTING}
-            title="Registered (50)"
-          ></Tab>
-          <Tab eventKey={URL.ORGANISATION.PENDING} title="Pending(20)"></Tab>
-          <Tab eventKey={URL.ORGANISATION.DECLINED} title="Declined(45)"></Tab>
+          <Tab eventKey={URL.ORGANISATION.LISTING} title="Registered (5)"></Tab>
+          <Tab eventKey={URL.ORGANISATION.PENDING} title="Pending(6)"></Tab>
+          <Tab eventKey={URL.ORGANISATION.DECLINED} title="Declined(9)"></Tab>
         </Tabs>
         <Row className="table-margin">
           <Col md={12}>

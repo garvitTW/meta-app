@@ -21,6 +21,7 @@ import ButtonWithLoader from "../../../../components/buttonWithLoading";
 import { Type } from "../../../../constants/storeAction.constants";
 import DocumentErrorMessage from "../../../../components/documentErrorMessage";
 import { ErrorMessage } from "../../../../components/errorMessage";
+import Asterisk from "../../../../components/asterisk";
 
 function EditOrganisationProfessional() {
   const { state, dispatch } = useContext(Store);
@@ -177,7 +178,10 @@ function EditOrganisationProfessional() {
         <Form onSubmit={handleSubmit}>
           <Row className="AddOrganisationProfile ">
             <Col md={12}>
-              <h2 className="mt-0">Services offered (Select Minimum 1)</h2>
+              <h2 className="mt-0">
+                Services offered (Select Minimum 1)
+                <Asterisk />
+              </h2>
               <hr />
             </Col>
 
@@ -275,7 +279,12 @@ function EditOrganisationProfessional() {
           {values.documents.map((document, index) => (
             <div className="d-flex Category_div" key={numArray[index]}>
               <div className="mb-2">
-                {index === 0 && <p>Category</p>}
+                {index === 0 && (
+                  <p>
+                    Category
+                    <Asterisk />
+                  </p>
+                )}
                 <Form.Select
                   className=""
                   defaultValue=""
@@ -296,7 +305,12 @@ function EditOrganisationProfessional() {
                 />
               </div>
               <div className="mb-2">
-                {index === 0 && <p>Document Type</p>}
+                {index === 0 && (
+                  <p>
+                    Document Type
+                    <Asterisk />
+                  </p>
+                )}
                 <Form.Control
                   {...getFieldProps(`documents[${index}].document_type`)}
                   type="text"
@@ -310,7 +324,12 @@ function EditOrganisationProfessional() {
                 />
               </div>
               <div className="mb-2">
-                {index === 0 && <p>Issuer Name</p>}
+                {index === 0 && (
+                  <p>
+                    Issuer Name
+                    <Asterisk />
+                  </p>
+                )}
                 <Form.Control
                   {...getFieldProps(`documents[${index}].issuer_name`)}
                   type="text"
@@ -324,7 +343,13 @@ function EditOrganisationProfessional() {
                 />
               </div>
               <div className="mb-2">
-                {index === 0 && <p> License Number</p>}
+                {index === 0 && (
+                  <p>
+                    {" "}
+                    License Number
+                    <Asterisk />
+                  </p>
+                )}
                 <Form.Control
                   {...getFieldProps(`documents[${index}].license_number`)}
                   type="text"
@@ -338,7 +363,12 @@ function EditOrganisationProfessional() {
                 />
               </div>
               <div className="mb-2">
-                {index === 0 && <p>Validity</p>}
+                {index === 0 && (
+                  <p>
+                    Validity
+                    <Asterisk />
+                  </p>
+                )}
                 <Form.Control
                   {...getFieldProps(`documents[${index}].validity`)}
                   type="date"

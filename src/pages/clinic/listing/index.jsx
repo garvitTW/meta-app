@@ -13,13 +13,15 @@ import DoctorListing from "../../doctor/listing";
 import PatientListing from "../../patient/listing";
 import AddIcon from "../../../assests/images/dashborad/add.png";
 import ModalComponent from "../../../components/modal";
-import jsPDF from "jspdf";
-import "jspdf-autotable";
 import { useNavigate } from "react-router-dom";
 import URL from "../../../constants/routesURL";
 import { Store } from "../../../store/Store";
 import { roles } from "../../../constants/common.constants";
 import { Type } from "../../../constants/storeAction.constants";
+import {
+  downloadCSV,
+  handleDataSelectionForExport,
+} from "../../../utils/helperFunction";
 
 const popUpComponents = [
   {
@@ -51,6 +53,7 @@ function ClinicListing({ organization_id = "" }) {
   const [loading, setLoading] = useState(false);
   const [loadingOrganisation, setLoadingOrganisation] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [clinicToExport, setClinicToExport] = useState([]);
   const [clinicIdForPopUp, setClinicIdForPopUp] = useState("");
   const debouncedSearchTerm = useDebounce(search, 600);
 
@@ -168,38 +171,41 @@ function ClinicListing({ organization_id = "" }) {
     }
   };
 
-  const downloadData = () => {
-    if (clinics.length > 0) {
-      const pdf = new jsPDF();
-      const tableData = [];
+  const handleCheckboxChange = (type, clinicId) => {
+    const updatedList = handleDataSelectionForExport(
+      type,
+      clinicToExport,
+      clinics,
+      clinicId
+    );
+    setClinicToExport(updatedList);
+  };
 
-      clinics.forEach((clinic) => {
-        tableData.push([
+  const downloadData = () => {
+    if (clinicToExport.length > 0) {
+      const selectedClinicsData = clinics.filter((clinic) =>
+        clinicToExport.includes(clinic.id)
+      );
+
+      const csvData = selectedClinicsData.map((clinic) =>
+        [
           clinic.user,
           clinic.email,
           clinic?.organization_clinic,
           clinic?.doctors_count,
           clinic?.patients_count,
           clinic?.is_enabled ? "Enabled" : "Disabled",
-        ]);
-      });
+        ].join(",")
+      );
 
       // Add table headers
-      const tableHeaders = [
-        "Clinic Name",
-        "Email Address",
-        "Organization Clinic",
-        "Doctors",
-        "Patients",
-        "Enable/Disable",
-      ];
+      const csvContent = [
+        "Clinic Name,Email Address,Organization Clinic,Doctors,Patients,Enable/Disable",
+      ]
+        .concat(csvData)
+        .join("\n");
 
-      pdf.autoTable({
-        head: [tableHeaders],
-        body: tableData,
-      });
-
-      pdf.save("Clinics.pdf");
+      downloadCSV("selected_Clinics", csvContent);
     }
   };
 
@@ -281,7 +287,11 @@ function ClinicListing({ organization_id = "" }) {
                   <tr>
                     <th>
                       <InputGroup className="mb-3">
-                        <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+                        <InputGroup.Checkbox
+                          aria-label="Checkbox for following text input"
+                          checked={clinicToExport.length === clinics.length}
+                          onChange={() => handleCheckboxChange("All", null)}
+                        />
                       </InputGroup>
                     </th>
                     <th>Clinic Name</th>
@@ -297,7 +307,13 @@ function ClinicListing({ organization_id = "" }) {
                     <tr key={clinic?.id}>
                       <td>
                         <InputGroup className="mb-3">
-                          <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+                          <InputGroup.Checkbox
+                            aria-label="Checkbox for following text input"
+                            checked={clinicToExport.includes(clinic?.id)}
+                            onChange={() =>
+                              handleCheckboxChange("", clinic?.id)
+                            }
+                          />
                         </InputGroup>
                       </td>
                       <td

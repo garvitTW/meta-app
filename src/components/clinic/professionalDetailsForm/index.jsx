@@ -8,6 +8,7 @@ import UploadIcon from "../../../assests/images/dashborad/upload.png";
 import DocumentErrorMessage from "../../documentErrorMessage";
 import ButtonWithLoader from "../../buttonWithLoading";
 import { numArray } from "../../../constants/common.constants";
+import Asterisk from "../../asterisk";
 
 function ClinicProfessionalDetailsForm({
   handleSubmit,
@@ -41,7 +42,10 @@ function ClinicProfessionalDetailsForm({
   return (
     <Form onSubmit={handleSubmit}>
       <div>
-        <h2 className="mt-0">{serviceHeading}</h2>
+        <h2 className="mt-0">
+          {serviceHeading}
+          <Asterisk />
+        </h2>
         <hr />
       </div>
       <Row>
@@ -138,7 +142,11 @@ function ClinicProfessionalDetailsForm({
       {values.documents.map((document, index) => (
         <div className="d-flex Category_div" key={numArray[index]}>
           <div className="mb-2">
-            {index === 0 && <p>Category</p>}
+            {index === 0 && (
+              <p>
+                Category <Asterisk />
+              </p>
+            )}
             <Form.Select
               className=""
               defaultValue=""
@@ -159,7 +167,11 @@ function ClinicProfessionalDetailsForm({
             />
           </div>
           <div className="mb-2">
-            {index === 0 && <p>Document Type</p>}
+            {index === 0 && (
+              <p>
+                Document Type <Asterisk />
+              </p>
+            )}
             <Form.Control
               {...getFieldProps(`documents[${index}].document_type`)}
               type="text"
@@ -173,7 +185,11 @@ function ClinicProfessionalDetailsForm({
             />
           </div>
           <div className="mb-2">
-            {index === 0 && <p>Issuer Name</p>}
+            {index === 0 && (
+              <p>
+                Issuer Name <Asterisk />
+              </p>
+            )}
             <Form.Control
               {...getFieldProps(`documents[${index}].issuer_name`)}
               type="text"
@@ -187,7 +203,11 @@ function ClinicProfessionalDetailsForm({
             />
           </div>
           <div className="mb-2">
-            {index === 0 && <p>License Number</p>}
+            {index === 0 && (
+              <p>
+                License Number <Asterisk />
+              </p>
+            )}
             <Form.Control
               {...getFieldProps(`documents[${index}].license_number`)}
               type="text"
@@ -201,7 +221,11 @@ function ClinicProfessionalDetailsForm({
             />
           </div>
           <div className="mb-2">
-            {index === 0 && <p>Validity</p>}
+            {index === 0 && (
+              <p>
+                Validity <Asterisk />
+              </p>
+            )}
             <Form.Control
               {...getFieldProps(`documents[${index}].validity`)}
               type="date"

@@ -81,6 +81,7 @@ function EditOrganisationProfile() {
                     type="text"
                     placeholder="Enter Clinic Fax (optional)"
                     label="Organization Fax (optional)"
+                    required={false}
                   />
                 </Col>
               </Row>
