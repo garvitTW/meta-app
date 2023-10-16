@@ -10,7 +10,11 @@ const validationSchemaClinicProfileDetails = generalSchemaProfileDetails.shape({
   clinic_rep_name: Yup.string()
     .required("Name is required")
     .matches(/^[a-zA-Z_\-.'\s,]+$/, "Only alpha char allowed"),
-
+  zip: Yup.string()
+    .required()
+    .matches(/^\d+$/, "Must be only digits")
+    .min(5, "Must be exactly 5 digits")
+    .max(5, "Must be exactly 5 digits"),
   clinic_rep_phone: Yup.string()
     .matches(/^\d+$/, "Phone number must only contain digits")
     .min(10, "Phone number must be at least 10 characters")

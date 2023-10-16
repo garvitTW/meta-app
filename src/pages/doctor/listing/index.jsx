@@ -84,11 +84,15 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
   ]);
 
   useEffect(() => {
-    if (user_type === roles.admin) {
+    const accessibleRoles = [roles.admin, roles.organization];
+    if (accessibleRoles.includes(user_type)) {
       const fetchClinics = async () => {
         try {
           setLoadingClinic(true);
-          const { data } = await clinicService.getClinicNameId();
+          const organization_id = user_type === roles.organization ? id : "";
+          const { data } = await clinicService.getClinicNameId({
+            organization_id: organization_id,
+          });
           setClinics(data);
           setLoadingClinic(false);
         } catch (err) {
@@ -202,7 +206,8 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
   const className = isPopUP && show ? "make_display_none" : "Patients_section";
 
   const clinicFilter = useMemo(() => {
-    return user_type === roles.admin ? (
+    const accessibleRoles = [roles.admin, roles.organization];
+    return accessibleRoles.includes(user_type) ? (
       <Col md={3} className="status_dropdown enable-status">
         <ListingDropdown
           getFilterLabel={getClinicFilter}

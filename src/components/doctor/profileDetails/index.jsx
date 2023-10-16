@@ -15,6 +15,7 @@ function DoctorProfileDetailsForm({
   errors,
   touched,
   isSubmitting,
+  doctorUniqueId = "",
 }) {
   return (
     <Row>
@@ -70,6 +71,16 @@ function DoctorProfileDetailsForm({
                 />
               </div>
             </Col>
+            {doctorUniqueId && (
+              <Col md={6}>
+                <div className="mb-4">
+                  <Form.Group className="mb-4 errorClass">
+                    <Form.Label>Unique Id</Form.Label>
+                    <Form.Control value={doctorUniqueId} readOnly={true} />
+                  </Form.Group>
+                </div>
+              </Col>
+            )}
           </Row>
 
           <Row>

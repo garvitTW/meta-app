@@ -72,7 +72,11 @@ function Tablemy({
               >
                 {patient?.patient_name}
               </td>
-              <td>{patient?.posture_score || 0}%</td>
+              <td>
+                {patient?.posture_score
+                  ? `${patient?.posture_score}%`
+                  : "No Data"}
+              </td>
               <td>{patient?.last_doctors_appointment || "No Data"}</td>
               <td>{patient?.last_self_scan || "No Data"}</td>
               <td>{patient?.next_scan || "No Data"}</td>

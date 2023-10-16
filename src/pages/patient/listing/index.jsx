@@ -22,6 +22,14 @@ import {
   handleDataSelectionForExport,
 } from "../../../utils/helperFunction";
 
+const posture_scores = [
+  { name: "90-100%", value: "90-100" },
+  { name: "80-89%", value: "80-89" },
+  { name: "70-79%", value: "70-79" },
+  { name: "50-69%", value: "50-69" },
+  { name: "0-49%", value: "0-49" },
+];
+
 function PatientListing({
   doctor_id = "",
   organization_id = "",
@@ -46,6 +54,7 @@ function PatientListing({
   const [patients, setPatients] = useState([]);
   const [totalItems, setTotalItems] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedPostureScore, setSelectedPostureScore] = useState("");
 
   const debouncedSearchTerm = useDebounce(search, 600);
 
@@ -62,6 +71,7 @@ function PatientListing({
           search: debouncedSearchTerm,
           status: status,
           page: currentPage,
+          posture_score: selectedPostureScore,
         });
 
         setTotalItems(count);
@@ -82,25 +92,37 @@ function PatientListing({
     selectedDoctor,
     user_type,
     id,
+    selectedPostureScore,
   ]);
 
   useEffect(() => {
-    if (user_type === roles.admin) {
-      const fetchData = async () => {
-        try {
-          setLoadingClinic(true);
-          const { data } = await clinicService.getClinicNameId();
-          const { data: doctors } = await doctorService.getDoctorNameId();
+    // if (user_type === roles.admin) {
+    const fetchData = async () => {
+      try {
+        const organization_id = user_type === roles.organization ? id : "";
+        const clinic_id = user_type === roles.clinic ? id : "";
+        setLoadingClinic(true);
+
+        const { data: doctors } = await doctorService.getDoctorNameId({
+          organization_id: organization_id,
+          clinic_id: clinic_id,
+        });
+        setDoctors(doctors);
+        if (user_type === roles.admin || user_type === roles.organization) {
+          const { data } = await clinicService.getClinicNameId({
+            organization_id: organization_id,
+          });
           setClinics(data);
-          setDoctors(doctors);
-          setLoadingClinic(false);
-        } catch (err) {
-          setLoadingClinic(false);
-          console.log(err);
         }
-      };
-      fetchData();
-    }
+
+        setLoadingClinic(false);
+      } catch (err) {
+        setLoadingClinic(false);
+        console.log(err);
+      }
+    };
+    fetchData();
+    // }
   }, [user_type]);
 
   const getClinicFilter = useCallback(() => {
@@ -111,6 +133,16 @@ function PatientListing({
       return "All";
     }
   }, [clinics, selectedClinic]);
+
+  const getPostureFilter = useCallback(() => {
+    if (selectedPostureScore) {
+      return posture_scores?.find(
+        (score) => score?.value === selectedPostureScore
+      )?.name;
+    } else {
+      return "All";
+    }
+  }, [selectedPostureScore]);
 
   const getDoctorFilter = useCallback(() => {
     if (selectedDoctor) {
@@ -128,6 +160,9 @@ function PatientListing({
     }
     if (slug === "Doctor") {
       setSelectedDoctor(value);
+    }
+    if (slug === "Posture Score") {
+      setSelectedPostureScore(value);
     }
     if (slug === "Status") {
       setStatus(value);
@@ -213,8 +248,8 @@ function PatientListing({
   };
 
   const doctorFilter = useMemo(() => {
-    return user_type === roles.admin ? (
-      <Col md={3} className="status_dropdown">
+    return (
+      <Col md={3} className="status_dropdown enable-status">
         <ListingDropdown
           getFilterLabel={getDoctorFilter}
           filterHandle={filterHandle}
@@ -223,11 +258,26 @@ function PatientListing({
           filterName="Doctor"
         />
       </Col>
-    ) : null;
-  }, [doctors, filterHandle, getDoctorFilter, user_type]);
+    );
+  }, [doctors, filterHandle, getDoctorFilter]);
+
+  const postureFilter = useMemo(() => {
+    return (
+      <Col md={3} className="status_dropdown enable-status">
+        <ListingDropdown
+          getFilterLabel={getPostureFilter}
+          filterHandle={filterHandle}
+          values={posture_scores}
+          id="value"
+          filterName="Posture Score"
+        />
+      </Col>
+    );
+  }, [filterHandle, getPostureFilter]);
 
   const clinicFilter = useMemo(() => {
-    return user_type === roles.admin ? (
+    const accessibleRoles = [roles.admin, roles.organization];
+    return accessibleRoles.includes(user_type) ? (
       <Col md={3} className="status_dropdown enable-status">
         <ListingDropdown
           getFilterLabel={getClinicFilter}
@@ -287,6 +337,7 @@ function PatientListing({
           </Col>
           {clinicFilter}
           {doctorFilter}
+          {postureFilter}
         </Row>
         <Row className="table-margin">
           <Col md={12}>

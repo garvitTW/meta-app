@@ -113,6 +113,15 @@ function ClinicProfileDetailsForm({ handleSubmit, formikProps, isSubmitting }) {
             <Col md={6}>
               <Input
                 {...formikProps}
+                name="zip"
+                type="text"
+                placeholder="Enter Zip Code"
+                label="Zip code"
+              />
+            </Col>
+            <Col md={6}>
+              <Input
+                {...formikProps}
                 name="city"
                 type="text"
                 placeholder="Enter City"

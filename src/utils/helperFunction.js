@@ -27,6 +27,7 @@ const generateClinicProfileDetailsInitialValue = (value) => {
     clinic_rep_email: value?.clinic_rep_email || "",
     street: value?.street || "",
     suite_unit: value?.suite_unit || "",
+    zip: value?.zip || "",
     city: value?.city || "",
     state: value?.state || "",
   };

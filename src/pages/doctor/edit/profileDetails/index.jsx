@@ -90,6 +90,7 @@ function EditDoctorProfile() {
       <div className="Patients_section Organization-section AddOrganisationProfile Add_Organisation_Professional">
         <TabsWithNavigation tabs={editDoctorTabs} heading="Edit Doctor" />
         <DoctorProfileDetailsForm
+          doctorUniqueId={editDoctorDetails.unique_id}
           handleSubmit={handleSubmit}
           formikProps={formikProps}
           isClinic={isClinic}

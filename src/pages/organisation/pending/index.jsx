@@ -64,7 +64,7 @@ function OrganisationPending() {
           className="organise_tabs"
           onSelect={handleTabChange}
         >
-          <Tab eventKey={URL.ORGANISATION.LISTING} title="Registered (5)"></Tab>
+          <Tab eventKey={URL.ORGANISATION.LISTING} title="Registered (6)"></Tab>
           <Tab eventKey={URL.ORGANISATION.PENDING} title="Pending(6)"></Tab>
           <Tab eventKey={URL.ORGANISATION.DECLINED} title="Declined(9)"></Tab>
         </Tabs>

@@ -25,19 +25,23 @@ function EditPatient() {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const { data } = await doctorService.getDoctorNameId({
-          clinic_id: editPatient?.clinic_id[0],
-        });
+    if (!editPatient?.email) {
+      navigate(URL.PATIENT.LISTING);
+    } else {
+      const fetchData = async () => {
+        try {
+          const { data } = await doctorService.getDoctorNameId({
+            clinic_id: editPatient?.clinic_id[0],
+          });
 
-        setDoctorList(data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchData();
-  }, [editPatient?.clinic_id]);
+          setDoctorList(data);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      fetchData();
+    }
+  }, [editPatient?.clinic_id, editPatient?.email, navigate]);
 
   const {
     errors,
