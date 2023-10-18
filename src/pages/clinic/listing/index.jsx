@@ -289,7 +289,10 @@ function ClinicListing({ organization_id = "" }) {
                       <InputGroup className="mb-3">
                         <InputGroup.Checkbox
                           aria-label="Checkbox for following text input"
-                          checked={clinicToExport.length === clinics.length}
+                          checked={
+                            clinicToExport.length === clinics.length &&
+                            clinics.length > 0
+                          }
                           onChange={() => handleCheckboxChange("All", null)}
                         />
                       </InputGroup>

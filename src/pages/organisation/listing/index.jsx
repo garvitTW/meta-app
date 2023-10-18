@@ -237,7 +237,8 @@ function OrganisationListing() {
                       <InputGroup.Checkbox
                         aria-label="Checkbox for following text input"
                         checked={
-                          organisationToExport.length === organizations.length
+                          organisationToExport.length ===
+                            organizations.length && organizations.length > 0
                         }
                         onChange={() => handleCheckboxChange("All", null)}
                       />

@@ -39,7 +39,9 @@ function Tablemy({
               <InputGroup className="mb-3">
                 <InputGroup.Checkbox
                   aria-label="Checkbox for following text input"
-                  checked={patientToExport.length === data.length}
+                  checked={
+                    patientToExport.length === data.length && data.length > 0
+                  }
                   onChange={() => handleCheckboxChange("All", null)}
                 />
               </InputGroup>
@@ -73,7 +75,7 @@ function Tablemy({
                 {patient?.patient_name}
               </td>
               <td>
-                {patient?.posture_score
+                {patient?.posture_score !== ""
                   ? `${patient?.posture_score}%`
                   : "No Data"}
               </td>

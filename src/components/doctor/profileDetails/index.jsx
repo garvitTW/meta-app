@@ -110,6 +110,15 @@ function DoctorProfileDetailsForm({
               </div>
             </Col>
             <Col md={6}>
+              <Input
+                {...formikProps}
+                name="zip"
+                type="text"
+                placeholder="Enter Zip Code"
+                label="Zip code"
+              />
+            </Col>
+            <Col md={6}>
               <div className="mb-4">
                 <Input
                   {...formikProps}

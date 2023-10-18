@@ -102,7 +102,7 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
       };
       fetchClinics();
     }
-  }, [user_type]);
+  }, [id, user_type]);
 
   const getClinicFilter = useCallback(() => {
     if (selectedClinic) {
@@ -284,7 +284,10 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
                       <InputGroup className="mb-3">
                         <InputGroup.Checkbox
                           aria-label="Checkbox for following text input"
-                          checked={doctorToExport.length === doctors.length}
+                          checked={
+                            doctorToExport.length === doctors.length &&
+                            doctors.length > 0
+                          }
                           onChange={() => handleCheckboxChange("All", null)}
                         />
                       </InputGroup>

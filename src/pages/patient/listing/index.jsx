@@ -96,7 +96,6 @@ function PatientListing({
   ]);
 
   useEffect(() => {
-    // if (user_type === roles.admin) {
     const fetchData = async () => {
       try {
         const organization_id = user_type === roles.organization ? id : "";
@@ -122,8 +121,7 @@ function PatientListing({
       }
     };
     fetchData();
-    // }
-  }, [user_type]);
+  }, [id, user_type]);
 
   const getClinicFilter = useCallback(() => {
     if (selectedClinic) {
@@ -228,7 +226,7 @@ function PatientListing({
         [
           patient?.mrn,
           patient?.patient_name,
-          patient?.posture_score || 0,
+          patient?.posture_score !== "" ? patient?.posture_score : "No Data",
           patient?.last_doctors_appointment || "No Data",
           patient?.last_self_scan || "No Data",
           patient?.next_scan || "No Data",

@@ -41,6 +41,7 @@ const generateDoctorProfileDetailsInitialValue = (value) => {
     doctor_fax: value?.doctor_fax || "",
     street: value?.street || "",
     suite_unit: value?.suite_unit || "",
+    zip: value?.zip || "",
     city: value?.city || "",
     state: value?.state || "",
     clinics: value?.clinics || [],
