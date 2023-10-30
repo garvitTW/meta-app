@@ -4,14 +4,14 @@ import "./style.scss";
 function Layout({ children }) {
   return (
     <>
-      <div className="p-4">
-        <div className="main_wrapper">
+      <div>
+        <div className="main_wrapper p-4">
           <div className="side-wrapper">
             <SideBar />
           </div>
           <div className="content-wrapper">
             <Header />
-            {children}
+            <div className="Scroll">{children}</div>
           </div>
         </div>
 

@@ -36,7 +36,7 @@ function SideBar() {
           <div className="logo-border">
             <img src={Logo} alt="logo" />
           </div>
-          <ul>
+          <ul className="top-list">
             {visibleSideBarItems.map((item) => (
               <li
                 className={acitveItem(item.navigate)}
@@ -59,41 +59,43 @@ function SideBar() {
               </li>
             ))}
           </ul>
-          <p>ACCOUNT</p>
-          <ul>
-            <li
-              onClick={() => navigate(URL.SETTINGS)}
-              className={acitveItem(URL.SETTINGS)}
-            >
-              <span>
-                <img src={Setting} alt="setting" className="image-first" />
-                <img
-                  src={SettingHover}
-                  alt="setting"
-                  className="image-hover d-none"
-                />
-              </span>
-              <span>Settings</span>
-            </li>
-            <li>
-              <span>
-                <img src={Logout} alt="logout" className="image-first" />
-                <img
-                  src={LogoutHover}
-                  alt="logout"
-                  className="image-hover d-none"
-                />
-              </span>
-              <span
-                onClick={() => {
-                  authService.logout();
-                  navigate(URL.LOGIN);
-                }}
+          <div className="BottomMenu">
+            <p>ACCOUNT</p>
+            <ul>
+              <li
+                onClick={() => navigate(URL.SETTINGS)}
+                className={acitveItem(URL.SETTINGS)}
               >
-                Logout
-              </span>
-            </li>
-          </ul>
+                <span>
+                  <img src={Setting} alt="setting" className="image-first" />
+                  <img
+                    src={SettingHover}
+                    alt="setting"
+                    className="image-hover d-none"
+                  />
+                </span>
+                <span>Settings</span>
+              </li>
+              <li>
+                <span>
+                  <img src={Logout} alt="logout" className="image-first" />
+                  <img
+                    src={LogoutHover}
+                    alt="logout"
+                    className="image-hover d-none"
+                  />
+                </span>
+                <span
+                  onClick={() => {
+                    authService.logout();
+                    navigate(URL.LOGIN);
+                  }}
+                >
+                  Logout
+                </span>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </>

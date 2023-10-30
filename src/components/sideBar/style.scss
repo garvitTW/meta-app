@@ -3,15 +3,24 @@
   background: #1e1f25;
   // width: 249px;
   width: 100%;
-  height: 100%;
-
+  height: 93vh;
+  position: relative;
   text-align: left;
-  padding-bottom: 50px;
+  // padding-bottom: 50px;
   .logo-border {
     //border-bottom: 1px solid #282C38;
     padding: 25px;
     border-bottom: 1px solid #282c38;
     margin-bottom: 28px;
+  }
+
+  .BottomMenu {
+    position: absolute;
+    width: 100%;
+    bottom: 20px;
+    ul {
+      width: 100%;
+    }
   }
 
   p {
@@ -24,7 +33,7 @@
     text-transform: uppercase;
     margin: 0;
     color: #b2b9cd;
-    padding: 244px 0px 18px 30px;
+    padding: 0px 0px 18px 30px;
   }
 
   ul {
