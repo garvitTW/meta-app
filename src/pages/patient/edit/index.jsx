@@ -7,12 +7,13 @@ import validationSchemaPatient from "../../../validation/patientDetails";
 import URL from "../../../constants/routesURL";
 import PatientDetailsForm from "../../../components/patient/detailsForm";
 import { patientService } from "../../../services/patient.service";
+import { roles } from "../../../constants/common.constants";
 
 function EditPatient() {
   const navigate = useNavigate();
   const [doctorList, setDoctorList] = useState([]);
   const { state } = useContext(Store);
-  const { editPatient } = state;
+  const { editPatient, userInfo } = state;
   const initialValues = {
     name: editPatient?.name || "",
     email: editPatient?.email || "",
@@ -30,8 +31,10 @@ function EditPatient() {
     } else {
       const fetchData = async () => {
         try {
+          const isClinic = userInfo.user_type === roles.clinic;
           const { data } = await doctorService.getDoctorNameId({
-            clinic_id: editPatient?.clinic_id[0],
+            clinic_id: isClinic ? userInfo.id : "",
+            organization_id: isClinic ? "" : editPatient?.organization_id[0],
           });
 
           setDoctorList(data);
@@ -41,7 +44,14 @@ function EditPatient() {
       };
       fetchData();
     }
-  }, [editPatient?.clinic_id, editPatient?.email, navigate]);
+  }, [
+    editPatient.clinic_id,
+    editPatient?.email,
+    editPatient?.organization_id,
+    navigate,
+    userInfo.id,
+    userInfo.user_type,
+  ]);
 
   const {
     errors,
@@ -93,23 +103,21 @@ function EditPatient() {
   };
 
   return (
-    <>
-      <div className="AddPatient   AddOrganisationProfile Add_Organisation_Professional">
-        <PatientDetailsForm
-          handleSubmit={handleSubmit}
-          formikProps={formikProps}
-          handleDoctorSelection={handleDoctorSelection}
-          doctorList={doctorList}
-          values={values}
-          removeDoctor={removeDoctor}
-          errors={errors}
-          touched={touched}
-          handleCancel={handleCancel}
-          isSubmitting={isSubmitting}
-          btnLabel="Edit Patient"
-        />
-      </div>
-    </>
+    <div className="AddPatient   AddOrganisationProfile Add_Organisation_Professional">
+      <PatientDetailsForm
+        handleSubmit={handleSubmit}
+        formikProps={formikProps}
+        handleDoctorSelection={handleDoctorSelection}
+        doctorList={doctorList}
+        values={values}
+        removeDoctor={removeDoctor}
+        errors={errors}
+        touched={touched}
+        handleCancel={handleCancel}
+        isSubmitting={isSubmitting}
+        btnLabel="Edit Patient"
+      />
+    </div>
   );
 }
 export default EditPatient;

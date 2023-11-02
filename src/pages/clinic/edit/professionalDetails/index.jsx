@@ -5,13 +5,14 @@ import { useContext, useEffect, useState } from "react";
 import { Store } from "../../../../store/Store";
 import { OrganisationService } from "../../../../services/Organisation.service";
 import { useFormik } from "formik";
-import validationSchemaProfessionalDetails from "../../../../validation/professionalDetails";
 import { Type } from "../../../../constants/storeAction.constants";
 import { documentObject } from "../../../../constants/common.constants";
 import TabsWithNavigation from "../../../../components/tabsWithNavigation";
 import { editClinicTabs } from "../../../../constants/clinic.constants";
 import ClinicProfessionalDetailsForm from "../../../../components/clinic/professionalDetailsForm";
 import { clinicService } from "../../../../services/clinic.service";
+import YearOfExperience from "../../../../components/yearOfExperience";
+import clinicProfessionalValidationSchema from "../../../../validation/clinicProfessionalDetail";
 
 function EditClinicProfessional() {
   const { state, dispatch } = useContext(Store);
@@ -50,6 +51,8 @@ function EditClinicProfessional() {
     handleSubmit,
   } = useFormik({
     initialValues: {
+      years: editClinicDetails?.years || 0,
+      months: editClinicDetails?.months || 0,
       services_offered: editClinicDetails?.services_offered || [],
       languages_spoken: editClinicDetails?.languages_spoken || [],
       documents:
@@ -57,7 +60,7 @@ function EditClinicProfessional() {
           ? editClinicDetails?.document
           : [{ ...documentObject, clinic: editClinicDetails?.id }],
     },
-    validationSchema: validationSchemaProfessionalDetails,
+    validationSchema: clinicProfessionalValidationSchema,
     onSubmit: async (values) => {
       try {
         const { documents, ...rest } = values;
@@ -155,35 +158,39 @@ function EditClinicProfessional() {
     return null;
   }
 
-  return (
-    <>
-      <div className="Patients_section Organization-section AddOrganisationProfile Add_Organisation_Professional">
-        <TabsWithNavigation tabs={editClinicTabs} heading="Edit Clinic" />
+  const formikProps = {
+    touched: touched,
+    errors: errors,
+    getFieldProps: getFieldProps,
+  };
 
-        <ClinicProfessionalDetailsForm
-          handleSubmit={handleSubmit}
-          servicesOffered={servicesOffered}
-          values={values}
-          handleServiceOffered={handleServiceOffered}
-          errors={errors}
-          touched={touched}
-          newService={newService}
-          setNewService={setNewService}
-          loadingServiceAdd={loadingServiceAdd}
-          addService={addService}
-          languages={languages}
-          handleLanguageSelection={handleLanguageSelection}
-          removeLanguage={removeLanguage}
-          getFieldProps={getFieldProps}
-          removeDocument={removeDocument}
-          isSubmitting={isSubmitting}
-          uploadFile={uploadFile}
-          handleCancel={handleCancel}
-          addDocument={addDocument}
-          buttonLabel="Edit Clinic"
-        />
-      </div>
-    </>
+  return (
+    <div className="Patients_section Organization-section AddOrganisationProfile Add_Organisation_Professional">
+      <TabsWithNavigation tabs={editClinicTabs} heading="Edit Clinic" />
+      <YearOfExperience formikProps={formikProps} />
+      <ClinicProfessionalDetailsForm
+        handleSubmit={handleSubmit}
+        servicesOffered={servicesOffered}
+        values={values}
+        handleServiceOffered={handleServiceOffered}
+        errors={errors}
+        touched={touched}
+        newService={newService}
+        setNewService={setNewService}
+        loadingServiceAdd={loadingServiceAdd}
+        addService={addService}
+        languages={languages}
+        handleLanguageSelection={handleLanguageSelection}
+        removeLanguage={removeLanguage}
+        getFieldProps={getFieldProps}
+        removeDocument={removeDocument}
+        isSubmitting={isSubmitting}
+        uploadFile={uploadFile}
+        handleCancel={handleCancel}
+        addDocument={addDocument}
+        buttonLabel="Edit Clinic"
+      />
+    </div>
   );
 }
 export default EditClinicProfessional;
