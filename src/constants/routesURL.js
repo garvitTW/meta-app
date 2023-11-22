@@ -1,6 +1,8 @@
 const URL = {
   LOGIN: "/",
   VERIFICATION: "/verification",
+  EMAIL_VERIFICATION: "/email-verification",
+  EMAIL_VERIFICATION_FAILED: "/email-verification-failed",
   DASHBOARD: "/dashboard",
   PATIENT: {
     LISTING: "/patients/listing",

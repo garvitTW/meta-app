@@ -30,75 +30,69 @@ function SideBar() {
       : "";
   };
   return (
-    <>
-      <div>
-        <div className="Sidebar_menu">
-          <div className="logo-border">
-            <img src={Logo} alt="logo" />
-          </div>
-          <ul className="top-list">
-            {visibleSideBarItems.map((item) => (
-              <li
-                className={acitveItem(item.navigate)}
-                key={item.id}
-                onClick={() => navigate(item.navigate)}
+    <div>
+      <div className="Sidebar_menu">
+        <div className="logo-border">
+          <img src={Logo} alt="logo" />
+        </div>
+        <ul className="top-list">
+          {visibleSideBarItems.map((item) => (
+            <li
+              className={acitveItem(item.navigate)}
+              key={item.id}
+              onClick={() => navigate(item.navigate)}
+            >
+              <span>
+                <img src={item.image} className="image-first" alt={item.name} />
+                <img
+                  src={item.hoverIamge}
+                  className="image-hover d-none"
+                  alt={item.name}
+                />
+              </span>
+              <span>{item.name}</span>
+            </li>
+          ))}
+        </ul>
+        <div className="BottomMenu">
+          <p>ACCOUNT</p>
+          <ul>
+            <li
+              onClick={() => navigate(URL.SETTINGS)}
+              className={acitveItem(URL.SETTINGS)}
+            >
+              <span>
+                <img src={Setting} alt="setting" className="image-first" />
+                <img
+                  src={SettingHover}
+                  alt="setting"
+                  className="image-hover d-none"
+                />
+              </span>
+              <span>Settings</span>
+            </li>
+            <li>
+              <span>
+                <img src={Logout} alt="logout" className="image-first" />
+                <img
+                  src={LogoutHover}
+                  alt="logout"
+                  className="image-hover d-none"
+                />
+              </span>
+              <span
+                onClick={() => {
+                  authService.logout();
+                  navigate(URL.LOGIN);
+                }}
               >
-                <span>
-                  <img
-                    src={item.image}
-                    className="image-first"
-                    alt={item.name}
-                  />
-                  <img
-                    src={item.hoverIamge}
-                    className="image-hover d-none"
-                    alt={item.name}
-                  />
-                </span>
-                <span>{item.name}</span>
-              </li>
-            ))}
+                Logout
+              </span>
+            </li>
           </ul>
-          <div className="BottomMenu">
-            <p>ACCOUNT</p>
-            <ul>
-              <li
-                onClick={() => navigate(URL.SETTINGS)}
-                className={acitveItem(URL.SETTINGS)}
-              >
-                <span>
-                  <img src={Setting} alt="setting" className="image-first" />
-                  <img
-                    src={SettingHover}
-                    alt="setting"
-                    className="image-hover d-none"
-                  />
-                </span>
-                <span>Settings</span>
-              </li>
-              <li>
-                <span>
-                  <img src={Logout} alt="logout" className="image-first" />
-                  <img
-                    src={LogoutHover}
-                    alt="logout"
-                    className="image-hover d-none"
-                  />
-                </span>
-                <span
-                  onClick={() => {
-                    authService.logout();
-                    navigate(URL.LOGIN);
-                  }}
-                >
-                  Logout
-                </span>
-              </li>
-            </ul>
-          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

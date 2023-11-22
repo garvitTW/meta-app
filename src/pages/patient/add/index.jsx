@@ -93,23 +93,21 @@ function AddPatient() {
   };
 
   return (
-    <>
-      <div className="AddPatient   AddOrganisationProfile Add_Organisation_Professional">
-        <PatientDetailsForm
-          handleSubmit={handleSubmit}
-          formikProps={formikProps}
-          handleDoctorSelection={handleDoctorSelection}
-          doctorList={doctorList}
-          values={values}
-          removeDoctor={removeDoctor}
-          errors={errors}
-          touched={touched}
-          handleCancel={handleCancel}
-          isSubmitting={isSubmitting}
-          btnLabel="Add Patient"
-        />
-      </div>
-    </>
+    <div className="AddPatient   AddOrganisationProfile Add_Organisation_Professional">
+      <PatientDetailsForm
+        handleSubmit={handleSubmit}
+        formikProps={formikProps}
+        handleDoctorSelection={handleDoctorSelection}
+        doctorList={doctorList}
+        values={values}
+        removeDoctor={removeDoctor}
+        errors={errors}
+        touched={touched}
+        handleCancel={handleCancel}
+        isSubmitting={isSubmitting}
+        btnLabel="Add Patient"
+      />
+    </div>
   );
 }
 export default AddPatient;

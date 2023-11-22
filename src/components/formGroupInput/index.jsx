@@ -11,6 +11,7 @@ function Input({
   placeholder,
   label,
   required = true,
+  readOnly = false,
 }) {
   return (
     <Form.Group className="mb-4 errorClass">
@@ -23,6 +24,7 @@ function Input({
         placeholder={placeholder}
         {...getFieldProps(name)}
         className={`${touched[name] && errors[name] ? "is-invalid-label" : ""}`}
+        readOnly={readOnly}
       />
       <ErrorMessage errors={errors} touched={touched} name={name} />
     </Form.Group>

@@ -31,6 +31,8 @@ import AddDoctorProfile from "../pages/doctor/add/profileDetails";
 import { roles } from "./common.constants";
 import AddPatient from "../pages/patient/add";
 import EditPatient from "../pages/patient/edit";
+import EmailVerification from "../pages/emailVerify";
+import EmailVerificationFailed from "../pages/emailVerifyFailed";
 
 const publicRoutes = [
   {
@@ -42,6 +44,16 @@ const publicRoutes = [
     id: 2,
     path: URL.VERIFICATION,
     component: Verification,
+  },
+  {
+    id: 32,
+    path: URL.EMAIL_VERIFICATION,
+    component: EmailVerification,
+  },
+  {
+    id: 33,
+    path: URL.EMAIL_VERIFICATION_FAILED,
+    component: EmailVerificationFailed,
   },
 ];
 

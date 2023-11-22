@@ -163,69 +163,67 @@ function EditDoctorProfessional() {
     getFieldProps: getFieldProps,
   };
   return (
-    <>
-      <div className="Patients_section Organization-section AddOrganisationProfile Add_Organisation_Professional">
-        <TabsWithNavigation tabs={editDoctorTabs} heading="Edit Doctor" />
-        <div className="AddOrganisationProfile ">
-          <h2 className="mt-0">Years of experience</h2>
-          <hr />
-        </div>
-        <Row className="mb-4">
-          <Col md={6}>
-            <Row>
-              <Col md={6}>
-                <div className="mb-3">
-                  <Input
-                    name="years"
-                    type="text"
-                    placeholder="Years"
-                    className="form-control"
-                    label="Years"
-                    {...formikProps}
-                  />
-                </div>
-              </Col>
-              <Col md={6}>
-                <div className="mb-3">
-                  <Input
-                    name="months"
-                    type="text"
-                    placeholder="Months"
-                    className="form-control"
-                    label="Months"
-                    {...formikProps}
-                  />
-                </div>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-
-        <ClinicProfessionalDetailsForm
-          handleSubmit={handleSubmit}
-          servicesOffered={servicesOffered}
-          values={values}
-          handleServiceOffered={handleServiceOffered}
-          errors={errors}
-          touched={touched}
-          newService={newService}
-          setNewService={setNewService}
-          loadingServiceAdd={loadingServiceAdd}
-          addService={addService}
-          languages={languages}
-          handleLanguageSelection={handleLanguageSelection}
-          removeLanguage={removeLanguage}
-          getFieldProps={getFieldProps}
-          removeDocument={removeDocument}
-          isSubmitting={isSubmitting}
-          uploadFile={uploadFile}
-          handleCancel={handleCancel}
-          addDocument={addDocument}
-          buttonLabel="Edit Doctor"
-          serviceHeading="Specialization"
-        />
+    <div className="Patients_section Organization-section AddOrganisationProfile Add_Organisation_Professional">
+      <TabsWithNavigation tabs={editDoctorTabs} heading="Edit Doctor" />
+      <div className="AddOrganisationProfile ">
+        <h2 className="mt-0">Years of experience</h2>
+        <hr />
       </div>
-    </>
+      <Row className="mb-4">
+        <Col md={6}>
+          <Row>
+            <Col md={6}>
+              <div className="mb-3">
+                <Input
+                  name="years"
+                  type="text"
+                  placeholder="Years"
+                  className="form-control"
+                  label="Years"
+                  {...formikProps}
+                />
+              </div>
+            </Col>
+            <Col md={6}>
+              <div className="mb-3">
+                <Input
+                  name="months"
+                  type="text"
+                  placeholder="Months"
+                  className="form-control"
+                  label="Months"
+                  {...formikProps}
+                />
+              </div>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+
+      <ClinicProfessionalDetailsForm
+        handleSubmit={handleSubmit}
+        servicesOffered={servicesOffered}
+        values={values}
+        handleServiceOffered={handleServiceOffered}
+        errors={errors}
+        touched={touched}
+        newService={newService}
+        setNewService={setNewService}
+        loadingServiceAdd={loadingServiceAdd}
+        addService={addService}
+        languages={languages}
+        handleLanguageSelection={handleLanguageSelection}
+        removeLanguage={removeLanguage}
+        getFieldProps={getFieldProps}
+        removeDocument={removeDocument}
+        isSubmitting={isSubmitting}
+        uploadFile={uploadFile}
+        handleCancel={handleCancel}
+        addDocument={addDocument}
+        buttonLabel="Edit Doctor"
+        serviceHeading="Specialization"
+      />
+    </div>
   );
 }
 export default EditDoctorProfessional;

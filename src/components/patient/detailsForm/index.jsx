@@ -16,6 +16,7 @@ function PatientDetailsForm({
   handleCancel,
   isSubmitting,
   btnLabel,
+  mrnNumber = "",
 }) {
   return (
     <Row>
@@ -40,6 +41,7 @@ function PatientDetailsForm({
                 placeholder="Enter Email"
                 label="Email"
                 {...formikProps}
+                readOnly={Boolean(mrnNumber)}
               />
             </Col>
             <Col md={6}>
@@ -51,6 +53,16 @@ function PatientDetailsForm({
                 {...formikProps}
               />
             </Col>
+            {mrnNumber && (
+              <Col md={6}>
+                <div className="mb-4">
+                  <Form.Group className="mb-4 errorClass">
+                    <Form.Label>MRN</Form.Label>
+                    <Form.Control value={mrnNumber} readOnly={true} />
+                  </Form.Group>
+                </div>
+              </Col>
+            )}
           </Row>
 
           <div className="PatientAddress">

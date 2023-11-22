@@ -44,16 +44,14 @@ function AddClinicProfile() {
   const navigate = useNavigate();
 
   return (
-    <>
-      <div className="Patients_section Organization-section AddOrganisationProfile">
-        <TabsWithNavigation tabs={addClinicTabs} heading="Add Clinic" />
-        <ClinicProfileDetailsForm
-          handleSubmit={handleSubmit}
-          formikProps={formikProps}
-          isSubmitting={isSubmitting}
-        />
-      </div>
-    </>
+    <div className="Patients_section Organization-section AddOrganisationProfile">
+      <TabsWithNavigation tabs={addClinicTabs} heading="Add Clinic" />
+      <ClinicProfileDetailsForm
+        handleSubmit={handleSubmit}
+        formikProps={formikProps}
+        isSubmitting={isSubmitting}
+      />
+    </div>
   );
 }
 export default AddClinicProfile;

@@ -45,7 +45,7 @@ function EditPatient() {
       fetchData();
     }
   }, [
-    editPatient.clinic_id,
+    editPatient?.clinic_id,
     editPatient?.email,
     editPatient?.organization_id,
     navigate,
@@ -106,6 +106,7 @@ function EditPatient() {
     <div className="AddPatient   AddOrganisationProfile Add_Organisation_Professional">
       <PatientDetailsForm
         handleSubmit={handleSubmit}
+        mrnNumber={editPatient?.mrn}
         formikProps={formikProps}
         handleDoctorSelection={handleDoctorSelection}
         doctorList={doctorList}

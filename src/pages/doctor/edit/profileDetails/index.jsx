@@ -86,23 +86,21 @@ function EditDoctorProfile() {
     getFieldProps: getFieldProps,
   };
   return (
-    <>
-      <div className="Patients_section Organization-section AddOrganisationProfile Add_Organisation_Professional">
-        <TabsWithNavigation tabs={editDoctorTabs} heading="Edit Doctor" />
-        <DoctorProfileDetailsForm
-          doctorUniqueId={editDoctorDetails.unique_id}
-          handleSubmit={handleSubmit}
-          formikProps={formikProps}
-          isClinic={isClinic}
-          handleClinicSelection={handleClinicSelection}
-          clinicList={clinicList}
-          values={values}
-          removeClinic={removeClinic}
-          errors={errors}
-          touched={touched}
-        />
-      </div>
-    </>
+    <div className="Patients_section Organization-section AddOrganisationProfile Add_Organisation_Professional">
+      <TabsWithNavigation tabs={editDoctorTabs} heading="Edit Doctor" />
+      <DoctorProfileDetailsForm
+        doctorUniqueId={editDoctorDetails.unique_id}
+        handleSubmit={handleSubmit}
+        formikProps={formikProps}
+        isClinic={isClinic}
+        handleClinicSelection={handleClinicSelection}
+        clinicList={clinicList}
+        values={values}
+        removeClinic={removeClinic}
+        errors={errors}
+        touched={touched}
+      />
+    </div>
   );
 }
 export default EditDoctorProfile;

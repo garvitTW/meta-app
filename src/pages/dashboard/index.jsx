@@ -5,56 +5,54 @@ import Dashboardsecond from "../../assests/images/dashborad/patient.svg";
 import Dashboardthird from "../../assests/images/dashborad/doc.svg";
 function Dashboard() {
   return (
-    <>
-      <div className="dashboard_page">
-        <Row>
-          <Col md={4}>
-            <div className="inner_div">
-              <div>
-                <img src={Dashboardfirst} alt="img" />
-              </div>
-              <div className="ps-3">
-                <p>Clinics</p>
-                <p>1240</p>
-              </div>
+    <div className="dashboard_page">
+      <Row>
+        <Col md={4}>
+          <div className="inner_div">
+            <div>
+              <img src={Dashboardfirst} alt="img" />
             </div>
-          </Col>
-          <Col md={4}>
-            <div className="inner_div">
-              <div>
-                <img src={Dashboardsecond} alt="img" />
-              </div>
-              <div className="ps-3">
-                <p>Total Patients</p>
-                <p>1240</p>
-              </div>
+            <div className="ps-3">
+              <p>Clinics</p>
+              <p>1240</p>
             </div>
-          </Col>
-          <Col md={4}>
-            <div className="inner_div">
-              <div>
-                <img src={Dashboardthird} alt="img" />
-              </div>
-              <div className="ps-3">
-                <p>Total Doctors</p>
-                <p>1240</p>
-              </div>
+          </div>
+        </Col>
+        <Col md={4}>
+          <div className="inner_div">
+            <div>
+              <img src={Dashboardsecond} alt="img" />
             </div>
-          </Col>
-          <Col md={4}>
-            <div className="inner_div">
-              <div>
-                <img src={Dashboardfirst} alt="img" />
-              </div>
-              <div className="ps-3">
-                <p>Organisations</p>
-                <p>1240</p>
-              </div>
+            <div className="ps-3">
+              <p>Total Patients</p>
+              <p>1240</p>
             </div>
-          </Col>
-        </Row>
-      </div>
-    </>
+          </div>
+        </Col>
+        <Col md={4}>
+          <div className="inner_div">
+            <div>
+              <img src={Dashboardthird} alt="img" />
+            </div>
+            <div className="ps-3">
+              <p>Total Doctors</p>
+              <p>1240</p>
+            </div>
+          </div>
+        </Col>
+        <Col md={4}>
+          <div className="inner_div">
+            <div>
+              <img src={Dashboardfirst} alt="img" />
+            </div>
+            <div className="ps-3">
+              <p>Organisations</p>
+              <p>1240</p>
+            </div>
+          </div>
+        </Col>
+      </Row>
+    </div>
   );
 }
 
