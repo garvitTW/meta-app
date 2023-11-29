@@ -11,12 +11,18 @@ export const generalSchemaProfileDetails = Yup.object().shape({
     )
     .required("Email is required"),
   phone_number: Yup.string()
-    .matches(/^\d+$/, "Phone number must only contain digits")
-    .min(10, "Phone number must be at least 10 characters")
-    .max(15, "Phone number must be at most 15 characters")
+    .matches(
+      /^\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/,
+      "Invalid US mobile number Ex:-(123)456-7890"
+    )
     .required("Phone number is required"),
   street: Yup.string().required("Street is required"),
   suite_unit: Yup.string().required("Suite/Unit is required"),
+  zip: Yup.string()
+    .required("Zip is required")
+    .matches(/^\d+$/, "Must be only digits")
+    .min(5, "Must be exactly 5 digits")
+    .max(5, "Must be exactly 5 digits"),
   city: Yup.string()
     .required("City is required")
     .matches(/^[a-zA-Z_\-.'\s,]+$/, "Only alpha char allowed"),
@@ -33,9 +39,10 @@ const validationSchemaProfileDetails = generalSchemaProfileDetails.shape({
     .required("Organization representative's last name is required")
     .matches(/^[a-zA-Z_\-.'\s,]+$/, "Only alpha char allowed"),
   organization_rep_phone: Yup.string()
-    .matches(/^\d+$/, "Phone number must only contain digits")
-    .min(10, "Phone number must be at least 10 characters")
-    .max(15, "Phone number must be at most 15 characters")
+    .matches(
+      /^\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/,
+      "Invalid US mobile number Ex:-(123)456-7890"
+    )
     .required("Phone number is required"),
   organization_rep_email: Yup.string()
     .matches(

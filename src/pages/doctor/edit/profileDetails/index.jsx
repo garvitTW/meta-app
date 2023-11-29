@@ -17,10 +17,11 @@ function EditDoctorProfile() {
   const navigate = useNavigate();
   const [clinicList, setClinicList] = useState([]);
   const { state, dispatch } = useContext(Store);
-  const { editDoctorDetails, userInfo } = state;
+  const { editDoctorDetails, userInfo, editDoctorStep1 } = state;
   const isClinic = userInfo.user_type === roles.clinic;
 
   const initialValues =
+    editDoctorStep1 ||
     generateDoctorProfileDetailsInitialValue(editDoctorDetails);
 
   useEffect(() => {

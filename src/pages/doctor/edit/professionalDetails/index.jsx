@@ -9,10 +9,10 @@ import { useFormik } from "formik";
 import { Type } from "../../../../constants/storeAction.constants";
 import { documentObject } from "../../../../constants/common.constants";
 import ClinicProfessionalDetailsForm from "../../../../components/clinic/professionalDetailsForm";
-import { Col, Row } from "react-bootstrap";
-import Input from "../../../../components/formGroupInput";
+
 import { doctorService } from "../../../../services/doctor.service";
 import doctorProfessionalValidationSchema from "../../../../validation/doctorProfessionalDetail";
+import YearOfExperience from "../../../../components/yearOfExperience";
 
 function EditDoctorProfessional() {
   const { state, dispatch } = useContext(Store);
@@ -165,40 +165,8 @@ function EditDoctorProfessional() {
   return (
     <div className="Patients_section Organization-section AddOrganisationProfile Add_Organisation_Professional">
       <TabsWithNavigation tabs={editDoctorTabs} heading="Edit Doctor" />
-      <div className="AddOrganisationProfile ">
-        <h2 className="mt-0">Years of experience</h2>
-        <hr />
-      </div>
-      <Row className="mb-4">
-        <Col md={6}>
-          <Row>
-            <Col md={6}>
-              <div className="mb-3">
-                <Input
-                  name="years"
-                  type="text"
-                  placeholder="Years"
-                  className="form-control"
-                  label="Years"
-                  {...formikProps}
-                />
-              </div>
-            </Col>
-            <Col md={6}>
-              <div className="mb-3">
-                <Input
-                  name="months"
-                  type="text"
-                  placeholder="Months"
-                  className="form-control"
-                  label="Months"
-                  {...formikProps}
-                />
-              </div>
-            </Col>
-          </Row>
-        </Col>
-      </Row>
+
+      <YearOfExperience formikProps={formikProps} />
 
       <ClinicProfessionalDetailsForm
         handleSubmit={handleSubmit}

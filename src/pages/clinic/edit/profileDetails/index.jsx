@@ -13,9 +13,10 @@ import validationSchemaClinicProfileDetails from "../../../../validation/clinicP
 
 function EditClinicProfile() {
   const { state, dispatch } = useContext(Store);
-  const { editClinicDetails } = state;
+  const { editClinicDetails, editClinicStep1 } = state;
   const navigate = useNavigate();
   const initialValues =
+    editClinicStep1 ||
     generateClinicProfileDetailsInitialValue(editClinicDetails);
 
   const { errors, touched, handleSubmit, getFieldProps, isSubmitting } =
@@ -46,16 +47,15 @@ function EditClinicProfile() {
   };
 
   return (
-    <>
-      <div className="Patients_section Organization-section AddOrganisationProfile">
-        <TabsWithNavigation tabs={editClinicTabs} heading="Edit Clinic" />
-        <ClinicProfileDetailsForm
-          handleSubmit={handleSubmit}
-          formikProps={formikProps}
-          isSubmitting={isSubmitting}
-        />
-      </div>
-    </>
+    <div className="Patients_section Organization-section AddOrganisationProfile">
+      <TabsWithNavigation tabs={editClinicTabs} heading="Edit Clinic" />
+      <ClinicProfileDetailsForm
+        handleSubmit={handleSubmit}
+        formikProps={formikProps}
+        isSubmitting={isSubmitting}
+        editClinicDetails={editClinicDetails}
+      />
+    </div>
   );
 }
 export default EditClinicProfile;

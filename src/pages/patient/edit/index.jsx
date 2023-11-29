@@ -20,6 +20,7 @@ function EditPatient() {
     phone_number: editPatient?.phone_number || "",
     street: editPatient?.street || "",
     suite_unit: editPatient?.suite_unit || "",
+    zip: editPatient?.zip || "",
     city: editPatient?.city || "",
     state: editPatient?.state || "",
     doctors: editPatient?.doctors || [],

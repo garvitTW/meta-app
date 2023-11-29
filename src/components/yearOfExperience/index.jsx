@@ -18,7 +18,8 @@ function YearOfExperience({ formikProps }) {
                   type="text"
                   placeholder="Years"
                   className="form-control"
-                  label="Years"
+                  label="Years (optional)"
+                  required={false}
                   {...formikProps}
                 />
               </div>
@@ -30,7 +31,8 @@ function YearOfExperience({ formikProps }) {
                   type="text"
                   placeholder="Months"
                   className="form-control"
-                  label="Months"
+                  label="Months (optional)"
+                  required={false}
                   {...formikProps}
                 />
               </div>

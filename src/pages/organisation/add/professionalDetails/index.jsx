@@ -22,6 +22,7 @@ import {
   numArray,
 } from "../../../../constants/common.constants";
 import Asterisk from "../../../../components/asterisk";
+import YearOfExperience from "../../../../components/yearOfExperience";
 
 function AddOrganisationProfessional() {
   const { state, dispatch } = useContext(Store);
@@ -60,6 +61,8 @@ function AddOrganisationProfessional() {
     handleSubmit,
   } = useFormik({
     initialValues: {
+      years: 0,
+      months: 0,
       services_offered: [],
       languages_spoken: [],
       documents: [{ ...documentObject }],
@@ -150,300 +153,298 @@ function AddOrganisationProfessional() {
   if (!addOrganisationStep1) {
     return null;
   }
+  const formikProps = {
+    touched: touched,
+    errors: errors,
+    getFieldProps: getFieldProps,
+  };
 
   return (
-    <>
-      <div className="Patients_section Organization-section AddOrganisationProfile Add_Organisation_Professional">
-        <AddOrganisationTabs />
-        <Form onSubmit={handleSubmit}>
-          <Row className="AddOrganisationProfile ">
-            <Col md={12}>
-              <h2 className="mt-0">
-                Services offered (Select Minimum 1)
-                <Asterisk />
-              </h2>
-              <hr />
-            </Col>
+    <div className="Patients_section Organization-section AddOrganisationProfile Add_Organisation_Professional">
+      <AddOrganisationTabs />
+      <YearOfExperience formikProps={formikProps} />
+      <Form onSubmit={handleSubmit}>
+        <Row className="AddOrganisationProfile ">
+          <Col md={12}>
+            <h2 className="mt-0">
+              Services offered (Select Minimum 1)
+              <Asterisk />
+            </h2>
+            <hr />
+          </Col>
 
-            <Col md={12}>
-              <Row className="align-items-center">
-                {servicesOffered?.map((service, index) => {
-                  return (
-                    <Col md={4} key={service?.id}>
-                      <InputGroup className="mb-3 checkbox-group">
-                        <InputGroup.Checkbox
-                          id={`checkbox-${service?.id}`}
-                          checked={values.services_offered.includes(
-                            service?.id
-                          )}
-                          onChange={() => handleServiceOffered(service)}
-                          className="checkbox-item"
-                        />
-                        <span className="checkbox-label">{service?.name}</span>
-                      </InputGroup>
-                    </Col>
-                  );
-                })}
-                <ErrorMessage
-                  errors={errors}
-                  touched={touched}
-                  name="services_offered"
-                />
-
-                <Col md={12}>
-                  <Form.Label htmlFor="" className="mt-3">
-                    Others
-                  </Form.Label>
-                  <div className="others_section">
-                    <Form.Control
-                      value={newService}
-                      onChange={(e) => setNewService(e.target.value)}
-                      type="text"
-                      placeholder="Other reason..."
-                    />
-                    <Button disabled={loadingServiceAdd} onClick={addService}>
-                      Add
-                    </Button>
-                  </div>
-                </Col>
-              </Row>
-            </Col>
-            <Col md={12}>
-              <h2 className="mt-5">Languages</h2>
-              <hr />
-              <Form.Label htmlFor="" className="mt-3">
-                Languages<span className="mendatory-feild">*</span>
-              </Form.Label>
-              <Form.Select
-                value=""
-                className="Languages_select"
-                onChange={(event) => handleLanguageSelection(event)}
-              >
-                <option value="">Select Languages</option>
-                {languages?.map((language) => (
-                  <option key={language?.id} value={language?.id}>
-                    {language?.name}
-                  </option>
-                ))}
-              </Form.Select>
+          <Col md={12}>
+            <Row className="align-items-center">
+              {servicesOffered?.map((service, index) => {
+                return (
+                  <Col md={4} key={service?.id}>
+                    <InputGroup className="mb-3 checkbox-group">
+                      <InputGroup.Checkbox
+                        id={`checkbox-${service?.id}`}
+                        checked={values.services_offered.includes(service?.id)}
+                        onChange={() => handleServiceOffered(service)}
+                        className="checkbox-item"
+                      />
+                      <span className="checkbox-label">{service?.name}</span>
+                    </InputGroup>
+                  </Col>
+                );
+              })}
               <ErrorMessage
                 errors={errors}
                 touched={touched}
-                name="languages_spoken"
+                name="services_offered"
               />
 
-              <div className="select_tags">
-                <ul>
-                  {values.languages_spoken?.map((selectedLanguageId) => (
-                    <li key={selectedLanguageId}>
-                      {
-                        languages.find(
-                          (language) => language.id === selectedLanguageId
-                        )?.name
-                      }
-                      <img
-                        className="ms-1"
-                        src={CrossIcon}
-                        alt="Remove"
-                        onClick={() => removeLanguage(selectedLanguageId)}
-                      />
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </Col>
-            <Col md={12}>
-              <h2 className="mt-4">Documents </h2>
-              <hr />
-            </Col>
-          </Row>
-          {values.documents.map((document, index) => (
-            <div className="d-flex Category_div" key={numArray[index]}>
-              <div className="mb-2">
-                {index === 0 && (
-                  <p>
-                    Category <Asterisk />
-                  </p>
-                )}
-                <Form.Select
-                  className=""
-                  defaultValue=""
-                  {...getFieldProps(`documents[${index}].category`)}
-                >
-                  <option disabled value="">
-                    Select{" "}
-                  </option>
-                  <option value="LICENSE">License </option>
-                  <option value="BUSINESS">Business</option>
-                  <option value="COMPLIANCE">Compliance</option>
-                </Form.Select>
-                <DocumentErrorMessage
-                  touched={touched}
-                  errors={errors}
-                  index={index}
-                  name="category"
-                />
-              </div>
-              <div className="mb-2">
-                {index === 0 && (
-                  <p>
-                    Document Type
-                    <Asterisk />
-                  </p>
-                )}
-                <Form.Control
-                  {...getFieldProps(`documents[${index}].document_type`)}
-                  type="text"
-                  placeholder="Document Name"
-                />
-                <DocumentErrorMessage
-                  touched={touched}
-                  errors={errors}
-                  index={index}
-                  name="document_type"
-                />
-              </div>
-              <div className="mb-2">
-                {index === 0 && (
-                  <p>
-                    Issuer Name
-                    <Asterisk />
-                  </p>
-                )}
-                <Form.Control
-                  {...getFieldProps(`documents[${index}].issuer_name`)}
-                  type="text"
-                  placeholder="License Issuer"
-                />
-                <DocumentErrorMessage
-                  touched={touched}
-                  errors={errors}
-                  index={index}
-                  name="issuer_name"
-                />
-              </div>
-              <div className="mb-2">
-                {index === 0 && (
-                  <p>
-                    License Number
-                    <Asterisk />
-                  </p>
-                )}
-                <Form.Control
-                  {...getFieldProps(`documents[${index}].license_number`)}
-                  type="text"
-                  placeholder="License Number (#)"
-                />
-                <DocumentErrorMessage
-                  touched={touched}
-                  errors={errors}
-                  index={index}
-                  name="license_number"
-                />
-              </div>
-              <div className="mb-2">
-                {index === 0 && (
-                  <p>
-                    Validity
-                    <Asterisk />
-                  </p>
-                )}
-                <Form.Control
-                  {...getFieldProps(`documents[${index}].validity`)}
-                  type="date"
-                  placeholder="Validity"
-                  min={new Date().toISOString().split("T")[0]}
-                />
-                <DocumentErrorMessage
-                  touched={touched}
-                  errors={errors}
-                  index={index}
-                  name="validity"
-                />
-              </div>
-              <div className="Category_div">
-                {values.documents[index].file ? (
-                  <>
-                    <a
-                      href={URL.createObjectURL(values.documents[index].file)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={index === 0 ? "fileico" : "fileico2"}
-                    >
-                      <img src={SaveIcon} alt="View" />
-                    </a>
+              <Col md={12}>
+                <Form.Label htmlFor="" className="mt-3">
+                  Others
+                </Form.Label>
+                <div className="others_section">
+                  <Form.Control
+                    value={newService}
+                    onChange={(e) => setNewService(e.target.value)}
+                    type="text"
+                    placeholder="Other Service..."
+                  />
+                  <Button disabled={loadingServiceAdd} onClick={addService}>
+                    Add
+                  </Button>
+                </div>
+              </Col>
+            </Row>
+          </Col>
+          <Col md={12}>
+            <h2 className="mt-5">Languages</h2>
+            <hr />
+            <Form.Label htmlFor="" className="mt-3">
+              Languages<span className="mendatory-feild">*</span>
+            </Form.Label>
+            <Form.Select
+              value=""
+              className="Languages_select"
+              onChange={(event) => handleLanguageSelection(event)}
+            >
+              <option value="">Select Languages</option>
+              {languages?.map((language) => (
+                <option key={language?.id} value={language?.id}>
+                  {language?.name}
+                </option>
+              ))}
+            </Form.Select>
+            <ErrorMessage
+              errors={errors}
+              touched={touched}
+              name="languages_spoken"
+            />
+
+            <div className="select_tags">
+              <ul>
+                {values.languages_spoken?.map((selectedLanguageId) => (
+                  <li key={selectedLanguageId}>
+                    {
+                      languages.find(
+                        (language) => language.id === selectedLanguageId
+                      )?.name
+                    }
+                    <img
+                      className="ms-1"
+                      src={CrossIcon}
+                      alt="Remove"
+                      onClick={() => removeLanguage(selectedLanguageId)}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Col>
+          <Col md={12}>
+            <h2 className="mt-4">Documents </h2>
+            <hr />
+          </Col>
+        </Row>
+        {values.documents.map((document, index) => (
+          <div className="d-flex Category_div" key={numArray[index]}>
+            <div className="mb-2">
+              {index === 0 && (
+                <p>
+                  Category <Asterisk />
+                </p>
+              )}
+              <Form.Select
+                className=""
+                defaultValue=""
+                {...getFieldProps(`documents[${index}].category`)}
+              >
+                <option disabled value="">
+                  Select{" "}
+                </option>
+                <option value="LICENSE">License </option>
+                <option value="BUSINESS">Business</option>
+                <option value="COMPLIANCE">Compliance</option>
+              </Form.Select>
+              <DocumentErrorMessage
+                touched={touched}
+                errors={errors}
+                index={index}
+                name="category"
+              />
+            </div>
+            <div className="mb-2">
+              {index === 0 && (
+                <p>
+                  Document Type
+                  <Asterisk />
+                </p>
+              )}
+              <Form.Control
+                {...getFieldProps(`documents[${index}].document_type`)}
+                type="text"
+                placeholder="Document Name"
+              />
+              <DocumentErrorMessage
+                touched={touched}
+                errors={errors}
+                index={index}
+                name="document_type"
+              />
+            </div>
+            <div className="mb-2">
+              {index === 0 && (
+                <p>
+                  Issuer Name
+                  <Asterisk />
+                </p>
+              )}
+              <Form.Control
+                {...getFieldProps(`documents[${index}].issuer_name`)}
+                type="text"
+                placeholder="License Issuer"
+              />
+              <DocumentErrorMessage
+                touched={touched}
+                errors={errors}
+                index={index}
+                name="issuer_name"
+              />
+            </div>
+            <div className="mb-2">
+              {index === 0 && (
+                <p>
+                  License Number
+                  <Asterisk />
+                </p>
+              )}
+              <Form.Control
+                {...getFieldProps(`documents[${index}].license_number`)}
+                type="text"
+                placeholder="License Number (#)"
+              />
+              <DocumentErrorMessage
+                touched={touched}
+                errors={errors}
+                index={index}
+                name="license_number"
+              />
+            </div>
+            <div className="mb-2">
+              {index === 0 && (
+                <p>
+                  Validity
+                  <Asterisk />
+                </p>
+              )}
+              <Form.Control
+                {...getFieldProps(`documents[${index}].validity`)}
+                type="date"
+                placeholder="Validity"
+                min={new Date().toISOString().split("T")[0]}
+              />
+              <DocumentErrorMessage
+                touched={touched}
+                errors={errors}
+                index={index}
+                name="validity"
+              />
+            </div>
+            <div className="Category_div">
+              {values.documents[index].file ? (
+                <>
+                  <a
+                    href={URL.createObjectURL(values.documents[index].file)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={index === 0 ? "fileico" : "fileico2"}
+                  >
+                    <img src={SaveIcon} alt="View" />
+                  </a>
+                  {values.documents.length > 1 && (
+                    <Button onClick={() => removeDocument(index)}>
+                      <img src={DeleteIcon} alt="delete" />
+                    </Button>
+                  )}
+                </>
+              ) : (
+                <>
+                  <input
+                    {...getFieldProps(`documents[${index}].file`)}
+                    style={{ display: "none" }}
+                    type="file"
+                    id={`file-${index}`}
+                    accept="application/pdf"
+                    onChange={(event) => {
+                      const file = event.target.files[0];
+                      setFieldValue(`documents[${index}].file`, file);
+                    }}
+                  />
+
+                  <label
+                    htmlFor={`file-${index}`}
+                    className={index === 0 ? "toppad" : "botmbox"}
+                  >
+                    <img className="uploadIcon" src={UploadIcon} alt="Upload" />
                     {values.documents.length > 1 && (
                       <Button onClick={() => removeDocument(index)}>
                         <img src={DeleteIcon} alt="delete" />
                       </Button>
                     )}
-                  </>
-                ) : (
-                  <>
-                    <input
-                      {...getFieldProps(`documents[${index}].file`)}
-                      style={{ display: "none" }}
-                      type="file"
-                      id={`file-${index}`}
-                      accept="application/pdf"
-                      onChange={(event) => {
-                        const file = event.target.files[0];
-                        setFieldValue(`documents[${index}].file`, file);
-                      }}
-                    />
-
-                    <label
-                      htmlFor={`file-${index}`}
-                      className={index === 0 ? "toppad" : "botmbox"}
-                    >
-                      <img
-                        className="uploadIcon"
-                        src={UploadIcon}
-                        alt="Upload"
-                      />
-                      {values.documents.length > 1 && (
-                        <Button onClick={() => removeDocument(index)}>
-                          <img src={DeleteIcon} alt="delete" />
-                        </Button>
-                      )}
-                    </label>
-                    <DocumentErrorMessage
-                      touched={touched}
-                      errors={errors}
-                      index={index}
-                      name="file"
-                    />
-                  </>
-                )}
-              </div>
+                  </label>
+                  <DocumentErrorMessage
+                    touched={touched}
+                    errors={errors}
+                    index={index}
+                    name="file"
+                  />
+                </>
+              )}
             </div>
-          ))}
+          </div>
+        ))}
 
-          <button className="add_morebtn mt-3" onClick={addDocument}>
-            <img src={AddIcon} className="me-2" alt="add" />
-            Add More
-          </button>
-          <Row className="mt-5">
-            <Col md={12}>
-              <button
-                className="cancel-buttongry"
-                onClick={() => {
-                  dispatch({ type: Type.REMOVE_ORGANISATION_STEP_1 });
-                  navigate(URLS.ORGANISATION.LISTING);
-                }}
-              >
-                Cancel
-              </button>
-              <ButtonWithLoader
-                isSubmitting={isSubmitting}
-                label="Add Organization"
-                className="blue-button-loader"
-              />
-            </Col>
-          </Row>
-        </Form>
-      </div>
-    </>
+        <button className="add_morebtn mt-3" onClick={addDocument}>
+          <img src={AddIcon} className="me-2" alt="add" />
+          Add More
+        </button>
+        <Row className="mt-5">
+          <Col md={12}>
+            <button
+              className="cancel-buttongry"
+              onClick={() => {
+                dispatch({ type: Type.REMOVE_ORGANISATION_STEP_1 });
+                navigate(URLS.ORGANISATION.LISTING);
+              }}
+            >
+              Cancel
+            </button>
+            <ButtonWithLoader
+              isSubmitting={isSubmitting}
+              label="Add Organization"
+              className="blue-button-loader"
+            />
+          </Col>
+        </Row>
+      </Form>
+    </div>
   );
 }
 

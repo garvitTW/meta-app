@@ -4,7 +4,6 @@ import AddIcon from "../../../../assests/images/dashborad/plus-circle.svg";
 import SaveIcon from "../../../../assests/images/dashborad/save.svg";
 import CrossIcon from "../../../../assests/images/dashborad/cross.svg";
 import UploadIcon from "../../../../assests/images/dashborad/upload.png";
-
 import { useNavigate } from "react-router-dom";
 import EditOrganisationTabs from "../../../../components/editOrganisationTabs";
 import { useContext, useEffect, useState } from "react";
@@ -22,6 +21,7 @@ import { Type } from "../../../../constants/storeAction.constants";
 import DocumentErrorMessage from "../../../../components/documentErrorMessage";
 import { ErrorMessage } from "../../../../components/errorMessage";
 import Asterisk from "../../../../components/asterisk";
+import YearOfExperience from "../../../../components/yearOfExperience";
 
 function EditOrganisationProfessional() {
   const { state, dispatch } = useContext(Store);
@@ -60,6 +60,8 @@ function EditOrganisationProfessional() {
     handleSubmit,
   } = useFormik({
     initialValues: {
+      years: editOrganisationDetails?.years || 0,
+      months: editOrganisationDetails?.months || 0,
       services_offered: editOrganisationDetails?.services_offered || [],
       languages_spoken: editOrganisationDetails?.languages_spoken || [],
       documents:
@@ -171,9 +173,15 @@ function EditOrganisationProfessional() {
   if (!editOrganisationStep1) {
     return null;
   }
+  const formikProps = {
+    touched: touched,
+    errors: errors,
+    getFieldProps: getFieldProps,
+  };
   return (
     <div className="Add_Organisation_Professional Patients_section Organization-section AddOrganisationProfile">
       <EditOrganisationTabs />
+      <YearOfExperience formikProps={formikProps} />
       <Form onSubmit={handleSubmit}>
         <Row className="AddOrganisationProfile ">
           <Col md={12}>
@@ -218,7 +226,7 @@ function EditOrganisationProfessional() {
                     value={newService}
                     onChange={(e) => setNewService(e.target.value)}
                     type="text"
-                    placeholder="Other reason..."
+                    placeholder="Other Service..."
                   />
                   <Button disabled={loadingServiceAdd} onClick={addService}>
                     Add

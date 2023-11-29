@@ -52,6 +52,7 @@ const URL = {
   },
   REPORTS: "/reports",
   SETTINGS: "/settings",
+  DME: "/DME-Lookup",
 };
 
 export default URL;

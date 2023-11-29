@@ -10,25 +10,29 @@ function TermsAndConditionCondition({ handleClose, handleAccept }) {
           Last Revised: December 16, 2013
           <br />
           Welcome to www.lorem-ipsum.info. This site is provided as a service to
-          our visitors and may be used for informational purposes only. Because
-          the Terms and Conditions contain legal obligations, please read them
-          carefully.
+          our visitors and <br /> may be used for informational purposes only.
+          Because the Terms and Conditions contain <br /> legal obligations,
+          please read them carefully.
           <br />
           1. YOUR AGREEMENT
           <br />
           By using this Site, you agree to be bound by, and to comply with,
-          these Terms and Conditions. If you do not agree to these Terms and
-          Conditions, please do not use this site.
+          these Terms and <br />
+          Conditions. If you do not agree to these Terms and Conditions, please
+          do not use this site.
           <br />
           PLEASE NOTE: We reserve the right, at our sole discretion, to change,
-          modify or otherwise alter these Terms and Conditions at any time.
-          Unless otherwise indicated, amendments will become effective
-          immediately. Please review these Terms and Conditions periodically.
-          Your continued use of the Site following the posting of changes and/or
-          modifications will constitute your acceptance of the revised Terms and
-          Conditions and the reasonableness of these standards for notice of
-          changes. For your information, this page was last updated as of the
-          date at the top of these terms and conditions.
+          modify or otherwise <br /> alter these Terms and Conditions at any
+          time. Unless otherwise indicated, amendments will <br />
+          become effective immediately. Please review these Terms and Conditions
+          periodically. Your <br />
+          continued use of the Site following the posting of changes and/or
+          modifications will <br />
+          constitute your acceptance of the revised Terms and Conditions and the
+          reasonableness of <br />
+          these standards for notice of changes. For your information, this page
+          was last updated as <br />
+          of the date at the top of these terms and conditions.
           <br />
           2. PRIVACY
           <br />

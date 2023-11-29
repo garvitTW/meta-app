@@ -32,7 +32,7 @@ function Header() {
               </li>
               <li>
                 <div className="d-inline-block ps-3">
-                  <img src={User} alt="User" />
+                  <img src={userInfo?.img || User} alt="User" />
                 </div>
                 <div className="profile-name d-inline-block ps-3">
                   <h3>{userInfo?.name}</h3>

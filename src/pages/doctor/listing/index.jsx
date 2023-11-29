@@ -221,7 +221,7 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
   }, [clinics, filterHandle, getClinicFilter, user_type]);
 
   const addDoctorButton = useMemo(() => {
-    return user_type === roles.organization || user_type === roles.clinic ? (
+    return user_type === roles.clinic ? (
       <button
         onClick={() => navigate(URL.DOCTOR.CREATE.PROFILE_DETAIL)}
         className="btn Clinic-button"
@@ -247,7 +247,7 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
                 value={search}
                 onChange={(e) => filterHandle("search", e.target.value)}
                 className=" search-input"
-                placeholder="Search Doctors"
+                placeholder="Search by Doctors name, email address"
               />
             </div>
             <div>

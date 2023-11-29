@@ -27,7 +27,7 @@ function DoctorProfileDetailsForm({
                 <Input
                   name="name"
                   type="text"
-                  placeholder="Doctor Name"
+                  placeholder="Enter Doctor Name"
                   className="form-control"
                   label="Doctor Name"
                   {...formikProps}
@@ -42,6 +42,7 @@ function DoctorProfileDetailsForm({
                   placeholder="Enter Email"
                   className="form-control"
                   label="Doctor Email"
+                  readOnly={Boolean(doctorUniqueId)}
                   {...formikProps}
                 />
               </div>

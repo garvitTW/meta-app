@@ -39,6 +39,10 @@ function ClinicProfessionalDetailsForm({
       ? process.env.REACT_APP_API_URL + file
       : URL.createObjectURL(file);
   };
+  const otherServicePlaceHolder =
+    serviceHeading === "Services offered (Select Minimum 1)"
+      ? "Other Service..."
+      : "Other Specialization...";
   return (
     <Form onSubmit={handleSubmit}>
       <div>
@@ -81,7 +85,7 @@ function ClinicProfessionalDetailsForm({
                   value={newService}
                   onChange={(e) => setNewService(e.target.value)}
                   type="text"
-                  placeholder="Other reason..."
+                  placeholder={otherServicePlaceHolder}
                 />
                 <Button disabled={loadingServiceAdd} onClick={addService}>
                   Add

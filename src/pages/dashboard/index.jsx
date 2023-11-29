@@ -46,7 +46,7 @@ function Dashboard() {
               <img src={Dashboardfirst} alt="img" />
             </div>
             <div className="ps-3">
-              <p>Organisations</p>
+              <p>Organizations</p>
               <p>1240</p>
             </div>
           </div>

@@ -216,12 +216,12 @@ function OrganisationListing() {
             eventKey={URL.ORGANISATION.LISTING}
             title={`Registered (${totalItems})`}
           ></Tab>
-          <Tab eventKey={URL.ORGANISATION.PENDING} title="Pending(6)">
+          {/* <Tab eventKey={URL.ORGANISATION.PENDING} title="Pending(6)">
             <Pending />
           </Tab>
           <Tab eventKey={URL.ORGANISATION.DECLINED} title="Declined(9)">
             <Declined />
-          </Tab>
+          </Tab> */}
         </Tabs>
         <Row className="table-margin">
           <Col md={12}>

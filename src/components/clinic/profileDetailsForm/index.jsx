@@ -2,7 +2,12 @@ import { Col, Form, Row } from "react-bootstrap";
 import Input from "../../formGroupInput";
 import ButtonWithLoader from "../../buttonWithLoading";
 
-function ClinicProfileDetailsForm({ handleSubmit, formikProps, isSubmitting }) {
+function ClinicProfileDetailsForm({
+  handleSubmit,
+  formikProps,
+  isSubmitting,
+  editClinicDetails = {},
+}) {
   return (
     <Row>
       <Col md={8}>
@@ -13,7 +18,7 @@ function ClinicProfileDetailsForm({ handleSubmit, formikProps, isSubmitting }) {
                 {...formikProps}
                 name="name"
                 type="text"
-                placeholder="Clinic Name"
+                placeholder="Enter Clinic Name"
                 label="Clinic Name"
               />
             </Col>
@@ -24,6 +29,7 @@ function ClinicProfileDetailsForm({ handleSubmit, formikProps, isSubmitting }) {
                 type="email"
                 placeholder="Enter Email"
                 label="Clinic Email"
+                readOnly={Boolean(editClinicDetails?.id)}
               />
             </Col>
             <Col md={6}>

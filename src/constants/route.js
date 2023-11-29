@@ -33,6 +33,7 @@ import AddPatient from "../pages/patient/add";
 import EditPatient from "../pages/patient/edit";
 import EmailVerification from "../pages/emailVerify";
 import EmailVerificationFailed from "../pages/emailVerifyFailed";
+import DMElookUp from "../pages/DME";
 
 const publicRoutes = [
   {
@@ -188,19 +189,19 @@ const protectedRoutes = [
     id: 22,
     path: URL.DOCTOR.CREATE.PROFILE_DETAIL,
     component: AddDoctorProfile,
-    roles: [roles.organization, roles.clinic],
+    roles: [roles.clinic],
   },
   {
     id: 23,
     path: URL.DOCTOR.CREATE.PROFESSIONAL_DETAIL,
     component: AddDoctorProfessional,
-    roles: [roles.organization, roles.clinic],
+    roles: [roles.clinic],
   },
   {
     id: 24,
     path: URL.DOCTOR.CREATE.PAYMENT,
     component: AddDoctorPayment,
-    roles: [roles.organization, roles.clinic],
+    roles: [roles.clinic],
   },
   {
     id: 25,
@@ -231,6 +232,12 @@ const protectedRoutes = [
     path: URL.SETTINGS,
     component: Settings,
     roles: [roles.admin, roles.organization, roles.clinic],
+  },
+  {
+    id: 34,
+    path: URL.DME,
+    component: DMElookUp,
+    roles: [roles.admin],
   },
 ];
 

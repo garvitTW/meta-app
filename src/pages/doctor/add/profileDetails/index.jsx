@@ -87,23 +87,21 @@ function AddDoctorProfile() {
   };
 
   return (
-    <>
-      <div className="Patients_section Organization-section AddOrganisationProfile Add_Organisation_Professional">
-        <TabsWithNavigation tabs={addDoctorTabs} heading="Add Doctor" />
-        <DoctorProfileDetailsForm
-          handleSubmit={handleSubmit}
-          formikProps={formikProps}
-          isClinic={isClinic}
-          handleClinicSelection={handleClinicSelection}
-          clinicList={clinicList}
-          values={values}
-          removeClinic={removeClinic}
-          errors={errors}
-          touched={touched}
-          isSubmitting={isSubmitting}
-        />
-      </div>
-    </>
+    <div className="Patients_section Organization-section AddOrganisationProfile Add_Organisation_Professional">
+      <TabsWithNavigation tabs={addDoctorTabs} heading="Add Doctor" />
+      <DoctorProfileDetailsForm
+        handleSubmit={handleSubmit}
+        formikProps={formikProps}
+        isClinic={isClinic}
+        handleClinicSelection={handleClinicSelection}
+        clinicList={clinicList}
+        values={values}
+        removeClinic={removeClinic}
+        errors={errors}
+        touched={touched}
+        isSubmitting={isSubmitting}
+      />
+    </div>
   );
 }
 export default AddDoctorProfile;

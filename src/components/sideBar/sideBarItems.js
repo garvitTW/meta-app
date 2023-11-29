@@ -62,6 +62,14 @@ const sideBarItems = [
     navigate: URL.REPORTS,
     roles: [roles.admin, roles.organization, roles.clinic],
   },
+  {
+    id: 7,
+    name: "DME Lookup",
+    image: Reports,
+    hoverIamge: ReportHover,
+    navigate: URL.DME,
+    roles: [roles.admin],
+  },
 ];
 
 export default sideBarItems;

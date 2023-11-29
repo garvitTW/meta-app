@@ -9,10 +9,9 @@ import { OrganisationService } from "../../../../services/Organisation.service";
 import { useFormik } from "formik";
 import { Type } from "../../../../constants/storeAction.constants";
 import { documentObject } from "../../../../constants/common.constants";
-import { Col, Row } from "react-bootstrap";
 import doctorProfessionalValidationSchema from "../../../../validation/doctorProfessionalDetail";
-import Input from "../../../../components/formGroupInput";
 import { doctorService } from "../../../../services/doctor.service";
+import YearOfExperience from "../../../../components/yearOfExperience";
 
 function AddDoctorProfessional() {
   const { state, dispatch } = useContext(Store);
@@ -157,69 +156,35 @@ function AddDoctorProfessional() {
     getFieldProps: getFieldProps,
   };
   return (
-    <>
-      <div className="Patients_section Organization-section AddOrganisationProfile Add_Organisation_Professional">
-        <TabsWithNavigation tabs={addDoctorTabs} heading="Add Doctor" />
-        <div className="AddOrganisationProfile ">
-          <h2 className="mt-0">Years of experience</h2>
-          <hr />
-        </div>
-        <Row className="mb-4">
-          <Col md={6}>
-            <Row>
-              <Col md={6}>
-                <div className="mb-3">
-                  <Input
-                    name="years"
-                    type="text"
-                    placeholder="Years"
-                    className="form-control"
-                    label="Years"
-                    {...formikProps}
-                  />
-                </div>
-              </Col>
-              <Col md={6}>
-                <div className="mb-3">
-                  <Input
-                    name="months"
-                    type="text"
-                    placeholder="Months"
-                    className="form-control"
-                    label="Months"
-                    {...formikProps}
-                  />
-                </div>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
+    <div className="Patients_section Organization-section AddOrganisationProfile Add_Organisation_Professional">
+      <TabsWithNavigation tabs={addDoctorTabs} heading="Add Doctor" />
 
-        <ClinicProfessionalDetailsForm
-          handleSubmit={handleSubmit}
-          servicesOffered={servicesOffered}
-          values={values}
-          handleServiceOffered={handleServiceOffered}
-          errors={errors}
-          touched={touched}
-          newService={newService}
-          setNewService={setNewService}
-          loadingServiceAdd={loadingServiceAdd}
-          addService={addService}
-          languages={languages}
-          handleLanguageSelection={handleLanguageSelection}
-          removeLanguage={removeLanguage}
-          getFieldProps={getFieldProps}
-          removeDocument={removeDocument}
-          isSubmitting={isSubmitting}
-          uploadFile={uploadFile}
-          handleCancel={handleCancel}
-          addDocument={addDocument}
-          buttonLabel="Add Doctor"
-          serviceHeading="Specialization"
-        />
-      </div>
-    </>
+      <YearOfExperience formikProps={formikProps} />
+
+      <ClinicProfessionalDetailsForm
+        handleSubmit={handleSubmit}
+        servicesOffered={servicesOffered}
+        values={values}
+        handleServiceOffered={handleServiceOffered}
+        errors={errors}
+        touched={touched}
+        newService={newService}
+        setNewService={setNewService}
+        loadingServiceAdd={loadingServiceAdd}
+        addService={addService}
+        languages={languages}
+        handleLanguageSelection={handleLanguageSelection}
+        removeLanguage={removeLanguage}
+        getFieldProps={getFieldProps}
+        removeDocument={removeDocument}
+        isSubmitting={isSubmitting}
+        uploadFile={uploadFile}
+        handleCancel={handleCancel}
+        addDocument={addDocument}
+        buttonLabel="Add Doctor"
+        serviceHeading="Specialization"
+      />
+    </div>
   );
 }
 export default AddDoctorProfessional;

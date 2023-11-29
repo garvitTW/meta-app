@@ -10,6 +10,7 @@ const generateProfileDetailsInitialValue = (value) => {
     organization_rep_email: value?.organization_rep_email || "",
     street: value?.street || "",
     suite_unit: value?.suite_unit || "",
+    zip: value?.zip || "",
     city: value?.city || "",
     state: value?.state || "",
   };

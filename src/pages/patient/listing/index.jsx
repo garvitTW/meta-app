@@ -301,64 +301,62 @@ function PatientListing({
   }, [navigate, user_type]);
 
   return (
-    <>
-      <div className="Patients_section">
-        <div>
-          <div className="d-inline-block">
-            <h1>Patients ({totalItems})</h1>
-          </div>
-          <div className="right-header">
-            <LoaderSpinner loading={loading || loadingClinic} />
-            <div className="position-relative">
-              <img className="search-img" src={Search} alt="search" />
-              <input
-                value={search}
-                onChange={(e) => filterHandle("search", e.target.value)}
-                className=" search-input"
-                placeholder="Search Patients"
-              />
-            </div>
-            <div>
-              <button
-                onClick={downloadData}
-                className="btn export-button w-export"
-              >
-                Export
-              </button>
-            </div>
-            {addPatientButton}
-          </div>
+    <div className="Patients_section">
+      <div>
+        <div className="d-inline-block">
+          <h1>Patients ({totalItems})</h1>
         </div>
-        <Row className="mt-4">
-          <Col md={3} className="status_dropdown enable-status">
-            <StatusDropdown status={status} filterHandle={filterHandle} />
-          </Col>
-          {clinicFilter}
-          {doctorFilter}
-          {postureFilter}
-        </Row>
-        <Row className="table-margin">
-          <Col md={12}>
-            <div className={` ${isPopUP && "Patienttable"}`}>
-              <TableSection
-                data={patients}
-                patientToExport={patientToExport}
-                handleSwitchToggle={handleSwitchToggle}
-                handleEditPatient={handleEditPatient}
-                handleCheckboxChange={handleCheckboxChange}
-              />
-            </div>
-          </Col>
-          <Col md={12}>
-            <PaginationSection
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-              count={totalItems}
+        <div className="right-header">
+          <LoaderSpinner loading={loading || loadingClinic} />
+          <div className="position-relative">
+            <img className="search-img" src={Search} alt="search" />
+            <input
+              value={search}
+              onChange={(e) => filterHandle("search", e.target.value)}
+              className=" search-input"
+              placeholder="Search by patient name, patient MRN"
             />
-          </Col>
-        </Row>
+          </div>
+          <div>
+            <button
+              onClick={downloadData}
+              className="btn export-button w-export"
+            >
+              Export
+            </button>
+          </div>
+          {addPatientButton}
+        </div>
       </div>
-    </>
+      <Row className="mt-4">
+        <Col md={3} className="status_dropdown enable-status">
+          <StatusDropdown status={status} filterHandle={filterHandle} />
+        </Col>
+        {clinicFilter}
+        {doctorFilter}
+        {postureFilter}
+      </Row>
+      <Row className="table-margin">
+        <Col md={12}>
+          <div className={` ${isPopUP && "Patienttable"}`}>
+            <TableSection
+              data={patients}
+              patientToExport={patientToExport}
+              handleSwitchToggle={handleSwitchToggle}
+              handleEditPatient={handleEditPatient}
+              handleCheckboxChange={handleCheckboxChange}
+            />
+          </div>
+        </Col>
+        <Col md={12}>
+          <PaginationSection
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            count={totalItems}
+          />
+        </Col>
+      </Row>
+    </div>
   );
 }
 

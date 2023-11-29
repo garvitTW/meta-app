@@ -22,6 +22,7 @@ function AddPatient() {
     street: "",
     suite_unit: "",
     city: "",
+    zip: "",
     state: "",
     doctors: [],
   };

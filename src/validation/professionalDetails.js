@@ -1,5 +1,18 @@
 import * as Yup from "yup";
 const validationSchemaProfessionalDetails = Yup.object().shape({
+  years: Yup.number()
+    .typeError("Years must be a number")
+    .integer("Years must be a whole number")
+    .min(0, "Years cannot be negative")
+    .nullable(true),
+
+  months: Yup.number()
+    .typeError("Years must be a number")
+    .integer("Months must be a whole number")
+    .min(0, "Months cannot be negative")
+    .max(11, "Months cannot be more than 11")
+    .nullable(true),
+
   services_offered: Yup.array().min(1, "Please select at least one service"),
 
   languages_spoken: Yup.array().min(1, "Please select at least one languages"),

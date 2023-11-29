@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { v4 as uuid } from "uuid";
 import Emailimg from "../../assests/images/dashborad/email.svg";
 import Phoneimg from "../../assests/images/dashborad/phone.png";
 import Faximg from "../../assests/images/dashborad/fax.svg";
@@ -57,7 +58,7 @@ function Tablemy({
         </thead>
         <tbody>
           {data?.map((patient) => (
-            <tr key={patient?.id}>
+            <tr key={uuid()}>
               <td>
                 <InputGroup className="mb-3">
                   <InputGroup.Checkbox
