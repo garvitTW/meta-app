@@ -1,15 +1,17 @@
-import Dashboard from "../../assests/images/sidebar/dashboard.png";
-import DashboardHover from "../../assests/images/sidebar/dashboard-hover.png";
-import Patients from "../../assests/images/sidebar/patient.png";
-import PatientsHover from "../../assests/images/sidebar/patient-hover.png";
-import Organization from "../../assests/images/sidebar/organise.png";
-import Organizationhover from "../../assests/images/sidebar/organise-hover.png";
-import Clinics from "../../assests/images/sidebar/doct.png";
-import ClinicsHover from "../../assests/images/sidebar/doct-hover.png";
-import Doctors from "../../assests/images/sidebar/clinic.png";
-import Doctorshover from "../../assests/images/sidebar/clinic-hover.png";
-import Reports from "../../assests/images/sidebar/report.png";
-import ReportHover from "../../assests/images/sidebar/report-hover.png";
+import Dashboard from "../../assests/images/sidebar/dashboard.svg";
+import DashboardHover from "../../assests/images/sidebar/dashboard-hover.svg";
+import Patients from "../../assests/images/sidebar/patient.svg";
+import PatientsHover from "../../assests/images/sidebar/patient-hover.svg";
+import Organization from "../../assests/images/sidebar/organise.svg";
+import Organizationhover from "../../assests/images/sidebar/organise-hover.svg";
+import Clinics from "../../assests/images/sidebar/doct.svg";
+import ClinicsHover from "../../assests/images/sidebar/doct-hover.svg";
+import DMEHover from "../../assests/images/sidebar/dmeLookup-hover.svg";
+import DME from "../../assests/images/sidebar/dmeLookup.svg";
+import Doctors from "../../assests/images/sidebar/clinic.svg";
+import Doctorshover from "../../assests/images/sidebar/clinic-hover.svg";
+import Reports from "../../assests/images/sidebar/report.svg";
+import ReportHover from "../../assests/images/sidebar/report-hover.svg";
 import URL from "../../constants/routesURL";
 import { roles } from "../../constants/common.constants";
 
@@ -65,8 +67,8 @@ const sideBarItems = [
   {
     id: 7,
     name: "DME Lookup",
-    image: Reports,
-    hoverIamge: ReportHover,
+    image: DME,
+    hoverIamge: DMEHover,
     navigate: URL.DME,
     roles: [roles.admin],
   },

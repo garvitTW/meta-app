@@ -1,8 +1,8 @@
 import "./style.scss";
 import { Dropdown } from "react-bootstrap";
-import Notification from "../../assests/images/header/Notification.png";
+import Notification from "../../assests/images/header/Notification.svg";
 import User from "../../assests/images/header/user.png";
-import More from "../../assests/images/header/More.png";
+import More from "../../assests/images/header/More.svg";
 import { useLocation } from "react-router-dom";
 import headerNames from "./headerNames";
 import { useContext } from "react";
@@ -15,6 +15,8 @@ function Header() {
   const page = isPathinHeaderNames
     ? headerNames[pathname]
     : pathname.split("/")[1] || "";
+
+  const userEmail = userInfo?.email.toLowerCase();
 
   return (
     <div>
@@ -36,7 +38,8 @@ function Header() {
                 </div>
                 <div className="profile-name d-inline-block ps-3">
                   <h3>{userInfo?.name}</h3>
-                  <p>{userInfo?.email}</p>
+
+                  <p className="emailHeader">{userEmail}</p>
                 </div>
               </li>
               <li>

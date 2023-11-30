@@ -1,72 +1,85 @@
+h1 {
+  font-family: Lato, Sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  color: #fff;
+  margin: 0;
+}
 
-h1{
+.formBox {
+  padding: 40px 80px;
+  background: #1e1f25;
+  border-radius: 20px;
+  margin-top: 25px;
+
+  p button {
+    margin: 0px;
+    width: 140px;
+  }
+
+  input {
+    width: 100%;
+  }
+
+  .addIcon {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+  }
+  .closeicon {
+    position: absolute;
+    top: 15px;
+    right: 12px;
+  }
+  .searchItem {
+    border-top: 1px solid #4d4a5b;
+    margin: 20px 30px 0px;
+    height: 350px !important;
+    overflow-y: auto !important;
+
+    p {
+      font-size: 16px;
+      color: #b2b9cd;
+      padding: 10px 0px;
+      margin: 0px;
+      line-height: 30px;
+
+      span {
+        display: block;
+      }
+    }
+  }
+
+  button {
+    border-radius: 10px;
+    background: #0aceec;
     font-family: Lato, Sans-serif;
-    font-size: 24px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
-    color: #fff;
-    margin: 0;
-
+    color: #000000;
+    width: 195px;
+    padding: 11px 10px;
+    border: none;
+    display: block;
+    margin: 50px auto 0px;
+    height: 45px;
+  }
+  td.price {
+    color: #30e0a1;
+  }
 }
 
-.formBox{
-    padding: 40px 80px;
-    background: #1E1F25;
-    border-radius: 20px;
-    margin-top: 25px;
+.errorMessage {
+  color: red;
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 1rem;
+}
 
-    input{
-        width: 100%;
-    }
-
-    .addIcon{
-        position: absolute;
-        top: 12px;
-        right: 12px;
-    }
-    .closeicon{
-        position: absolute;
-        top: 15px;
-        right: 12px;
-    }
-    .searchItem{
-        border-top: 1px solid #4D4A5B;
-        margin: 20px 30px 0px;
-        height: 350px !important;
-        overflow-y: auto !important;
-
-         p{
-            font-size: 16px;
-            color: #B2B9CD;
-            padding: 10px 0px;
-            margin: 0px;
-            line-height: 30px;
-
-
-            span{
-                display: block;
-            }
-         }
-    }
-
-    button{
-        border-radius: 10px;
-        background: #0aceec;
-        font-family: Lato, Sans-serif;
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
-        color: #000000;
-        width: 195px;
-        padding: 11px 10px;
-        border: none;
-        display: block;
-        margin: 50px auto 0px;
-        height: 45px;
-    }
-    td.price{
-        color: #30E0A1;
-    }
+.curserPointer {
+  cursor: pointer;
 }

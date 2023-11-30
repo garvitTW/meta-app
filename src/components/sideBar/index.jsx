@@ -1,11 +1,11 @@
 import "./style.scss";
 import { memo, useContext } from "react";
 import Logo from "../../assests/images/sidebar/logo.png";
-import Setting from "../../assests/images/sidebar/setting.png";
-import Logout from "../../assests/images/sidebar/logout.png";
+import Setting from "../../assests/images/sidebar/setting.svg";
+import Logout from "../../assests/images/sidebar/logout.svg";
 import { useLocation, useNavigate } from "react-router-dom";
-import SettingHover from "../../assests/images/sidebar/settin-hover.png";
-import LogoutHover from "../../assests/images/sidebar/logout-hover.png";
+import SettingHover from "../../assests/images/sidebar/settin-hover.svg";
+import LogoutHover from "../../assests/images/sidebar/logout-hover.svg";
 import sideBarItems from "./sideBarItems";
 import URL from "../../constants/routesURL";
 import { authService } from "../../services/auth.service";
