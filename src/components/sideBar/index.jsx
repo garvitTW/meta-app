@@ -31,7 +31,7 @@ function SideBar() {
   };
   return (
     <div>
-      <div className="Sidebar_menu">
+      <div className="Sidebar_menu Scroll">
         <div className="logo-border">
           <img src={Logo} alt="logo" />
         </div>
