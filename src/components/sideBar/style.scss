@@ -1,3 +1,7 @@
+
+.Sidebar_menu.Scroll {
+  height: calc(100vh - 50px) !important;
+}
 .Sidebar_menu {
   border-radius: 20px;
   background: #1e1f25;
@@ -15,9 +19,9 @@
   }
 
   .BottomMenu {
-    position: absolute;
+    position: relative;
     width: 100%;
-    bottom: 20px;
+    bottom: -86px;
     ul {
       width: 100%;
     }
