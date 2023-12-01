@@ -8,6 +8,16 @@ h1 {
   margin: 0;
 }
 
+.support {
+  color: #0aceec !important;
+}
+.bottomSpace {
+  margin-bottom: 30px;
+}
+.customloader {
+  margin: 20px auto 0px !important;
+  display: block !important;
+}
 .formBox {
   padding: 40px 80px;
   background: #1e1f25;
@@ -18,7 +28,16 @@ h1 {
     margin: 0px;
     width: 140px;
   }
+  p {
+    margin-bottom: 25px;
+  }
 
+  h5 {
+    font-family: Lato, Sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    padding-bottom: 15px;
+  }
   input {
     width: 100%;
   }
@@ -36,7 +55,8 @@ h1 {
   .searchItem {
     border-top: 1px solid #4d4a5b;
     margin: 20px 30px 0px;
-    height: 350px !important;
+
+    max-height: 200px !important;
     overflow-y: auto !important;
 
     p {

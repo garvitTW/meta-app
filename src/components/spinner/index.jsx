@@ -1,10 +1,15 @@
 import { memo } from "react";
 import Spinner from "react-bootstrap/Spinner";
 
-function LoaderSpinner({ loading }) {
+function LoaderSpinner({ loading, className = "" }) {
   return (
     loading && (
-      <Spinner animation="border" variant="warning" role="status" className="loder">
+      <Spinner
+        animation="border"
+        variant="warning"
+        role="status"
+        className={className}
+      >
         <span className="visually-hidden">Loading...</span>
       </Spinner>
     )

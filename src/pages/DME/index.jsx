@@ -1,39 +1,71 @@
 import "./style.scss";
+import LoaderSpinner from "../../components/spinner";
 import Search from "../../assests/images/dashborad/Search.png";
 import { Table, Row, Col } from "react-bootstrap";
 import Dropdownarrow from "../../assests/images/dashborad/dropdown.png";
 import Closeicon from "../../assests/images/dashborad/closeIcon.svg";
-import { useState } from "react";
-
-const ICD = [
-  " ICD-10 CM M01 - Direct infections of joint in infectious...",
-  " ICD-10 CM M01 - Direct infections of joint in infectious...",
-  " ICD-10 CM M01 - Direct infections of joint in infectious...",
-  " ICD-10 CM M03 - Direct infections of joint in infectious...",
-  " ICD-10 CM M03 - Direct infections of joint in infectious...",
-  " ICD-10 CM M04 - Direct infections of joint in infectious...",
-  " ICD-10 CM M05 - Direct infections of joint in infectious...",
-  " ICD-10 CM M01 - Direct infections of joint in infectious...",
-];
+import { useEffect, useState } from "react";
+import { dmeService } from "../../services/dme.service";
 
 function DMElookUp() {
   const [result, setResult] = useState(false);
-  const [ICDList, setICDList] = useState(ICD);
+  const [ICDList, setICDList] = useState([]);
   const [ICDSearchValue, setICDSearchValue] = useState("");
   const [selectedICDValue, setSelectedICDValue] = useState("");
   const [insuranceSearchValue, setInsuranceSearchValue] = useState("");
   const [insuranceSelectedValue, setInsuranceSelectedValue] = useState("");
   const [isInsuranceActive, setInsuranceActive] = useState(false);
-  const [insuranceList, setInsuranceList] = useState(ICD);
+  const [insuranceList, setInsuranceList] = useState([]);
   const [error, setError] = useState("");
+  const [loadingICD, setLoadingICD] = useState(false);
+  const [loadingInsurance, setLoadingInsurance] = useState(false);
+  const [loadingResult, setLoadingResult] = useState(false);
+  const [icdTimmer, setIcdTimmer] = useState(false);
+  const [insuranceTimer, setInsuranceTimer] = useState(false);
+
+  const fetchDiagnosisList = async (searchTerm) => {
+    try {
+      setLoadingICD(true);
+      const result = await dmeService.getDiagnosisName({
+        diagnosis_name: searchTerm,
+      });
+      setICDList(result);
+      setLoadingICD(false);
+    } catch (err) {
+      setLoadingICD(false);
+      console.log(err);
+    }
+  };
+
+  const fetchInsuranceList = async (searchTerm) => {
+    try {
+      setLoadingInsurance(true);
+      const result = await dmeService.getCompanyName({
+        company_name: searchTerm,
+      });
+      setInsuranceList(result);
+      setLoadingInsurance(false);
+    } catch (err) {
+      setLoadingInsurance(false);
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchInsuranceList(insuranceSearchValue);
+  }, []);
 
   const handleICDSearch = (e) => {
-    setICDSearchValue(e.target.value);
+    const { value } = e.target;
+    setICDSearchValue(value);
     setSelectedICDValue("");
-    const searchResults = ICD.filter((code) =>
-      code.toLowerCase().includes(e.target.value.toLowerCase())
-    );
-    setICDList(searchResults);
+    const timer = setTimeout(() => {
+      fetchDiagnosisList(value);
+    }, 600);
+    setIcdTimmer(timer);
+    if (icdTimmer) {
+      clearTimeout(icdTimmer);
+    }
   };
 
   const handleSelectICDValue = (data) => {
@@ -50,18 +82,33 @@ function DMElookUp() {
   };
 
   const handleInsuranceSearch = (e) => {
-    setInsuranceSearchValue(e.target.value);
-    setInsuranceSelectedValue("");
-    const searchResults = ICD.filter((code) =>
-      code.toLowerCase().includes(e.target.value.toLowerCase())
-    );
+    const { value } = e.target;
     setInsuranceActive(true);
-    setInsuranceList(searchResults);
+    setInsuranceSearchValue(value);
+    setInsuranceSelectedValue("");
+    const timer = setTimeout(() => {
+      fetchInsuranceList(value);
+    }, 600);
+    setInsuranceTimer(timer);
+    if (insuranceTimer) {
+      clearTimeout(insuranceTimer);
+    }
   };
 
-  const searchHandler = () => {
+  const searchHandler = async () => {
     if (selectedICDValue && insuranceSelectedValue) {
-      setResult(true);
+      try {
+        setLoadingResult(true);
+        const result = await dmeService.getDMELookUp({
+          company_name: insuranceSelectedValue,
+          diagnosis_name: selectedICDValue,
+        });
+        setResult(result);
+        setLoadingResult(false);
+      } catch (err) {
+        setLoadingResult(false);
+        console.log(err);
+      }
     } else {
       setError("Select Both ICD10 & Insurance Provider");
     }
@@ -72,8 +119,8 @@ function DMElookUp() {
     setSelectedICDValue("");
   };
   return (
-    <div className="Patients_section Organization-section AddOrganisationProfile">
-      <h1>Search using : ICD10 & Insurance Provider</h1>
+    <div className="Patients_section Organization-section AddOrganisationProfile dme_outer">
+      <h1>Search using : ICD10 & Insurance Provider </h1>
 
       <div className="formBox">
         {result && (
@@ -81,8 +128,10 @@ function DMElookUp() {
             <button onClick={() => setResult(false)}>Search again</button>
           </p>
         )}
-        <Row>
+
+        <Row className="bottomSpace">
           <Col sm={6}>
+            <h5>ICD10 :</h5>
             <div className="position-relative">
               {!result && (
                 <>
@@ -107,10 +156,13 @@ function DMElookUp() {
                   {ICDList.length > 0 ? (
                     ICDList.map((data) => (
                       <p
+                        key={data?.diagnosis_name}
                         className="curserPointer"
-                        onClick={() => handleSelectICDValue(data)}
+                        onClick={() =>
+                          handleSelectICDValue(data?.diagnosis_name)
+                        }
                       >
-                        {data}
+                        {data?.diagnosis_name}
                       </p>
                     ))
                   ) : (
@@ -121,6 +173,8 @@ function DMElookUp() {
             </div>
           </Col>
           <Col sm={6}>
+            <h5>Insurance Provider:</h5>
+
             <div className="position-relative">
               {!result && (
                 <>
@@ -146,9 +200,11 @@ function DMElookUp() {
                     insuranceList.map((data) => (
                       <p
                         className="curserPointer"
-                        onClick={() => handleSelectInsuranceValue(data)}
+                        onClick={() =>
+                          handleSelectInsuranceValue(data?.primary_payer)
+                        }
                       >
-                        {data}
+                        {data?.primary_payer}
                       </p>
                     ))
                   ) : (
@@ -158,6 +214,13 @@ function DMElookUp() {
               )}
             </div>
           </Col>
+          <Col sm={12}>
+            <LoaderSpinner
+              className="customloader"
+              loading={loadingICD || loadingInsurance || loadingResult}
+            />
+          </Col>
+
           {!result && (
             <>
               <button onClick={searchHandler}>Search</button>
@@ -165,98 +228,40 @@ function DMElookUp() {
             </>
           )}
         </Row>
-        {result && (
-          <Table
-            responsive
-            className="table-stripednew Patients-table Decliend_table"
-            variant="dark"
-          >
-            <thead>
-              <tr>
-                <th>Supported HCPCS</th>
-                <th>HCPCS Description</th>
-                <th>SKU</th>
-                <th>Year Of Service</th>
-                <th>Total Payments</th>
-                <th>Total Charges</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>E0128</td>
-                <td>Apollo Clinic</td>
-                <td></td>
-                <td></td>
-                <td>1</td>
-                <td className="price">$29.0</td>
-              </tr>
-              <tr>
-                <td>E0128</td>
-                <td>Apollo Clinic</td>
-                <td></td>
-                <td></td>
-                <td>1</td>
-                <td className="price">$29.0</td>
-              </tr>
-              <tr>
-                <td>E0128</td>
-                <td>Apollo Clinic</td>
-                <td></td>
-                <td></td>
-                <td>1</td>
-                <td className="price">$29.0</td>
-              </tr>
-              <tr>
-                <td>E0128</td>
-                <td>E0128: CRYO CUFF</td>
-                <td></td>
-                <td></td>
-                <td>1</td>
-                <td className="price">$29.0</td>
-              </tr>
-              <tr>
-                <td>E0128</td>
-                <td>E0128: CRYO CUFF</td>
-                <td></td>
-                <td></td>
-                <td>1</td>
-                <td className="price">$29.0 </td>
-              </tr>
-              <tr>
-                <td>E0128</td>
-                <td>E0128: CRYO CUFF</td>
-                <td></td>
-                <td></td>
-                <td>1</td>
-                <td className="price">$29.0</td>
-              </tr>
-              <tr>
-                <td>E0128</td>
-                <td>E0128: CRYO CUFF</td>
-                <td></td>
-                <td></td>
-                <td>1</td>
-                <td className="price">$29.0</td>
-              </tr>
-              <tr>
-                <td>E0128</td>
-                <td>E0128: CRYO CUFF</td>
-                <td></td>
-                <td></td>
-                <td>1</td>
-                <td className="price">$29.0</td>
-              </tr>
-              <tr>
-                <td>E0128</td>
-                <td>E0128: CRYO CUFF</td>
-                <td></td>
-                <td></td>
-                <td>1</td>
-                <td className="price">$29.0</td>
-              </tr>
-            </tbody>
-          </Table>
-        )}
+
+        {result &&
+          (result.length > 0 ? (
+            <Table
+              responsive
+              className="table-stripednew Patients-table Decliend_table"
+              variant="dark"
+            >
+              <thead>
+                <tr>
+                  <th>Supported HCPCS</th>
+                  <th>HCPCS Description</th>
+                  <th>SKU</th>
+                  <th>Year Of Service</th>
+                  <th>Total Payments</th>
+                  <th>Total Charges</th>
+                </tr>
+              </thead>
+              <tbody>
+                {result?.map((res, index) => (
+                  <tr key={index}>
+                    <td className="support">{res?.hcpcs_code}</td>
+                    <td>{res?.hcpcs_description}</td>
+                    <td>{res?.sku}</td>
+                    <td>{res?.year_of_service}</td>
+                    <td>{res?.total_payments}</td>
+                    <td className="price">{res?.total_charge}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          ) : (
+            <p>No data</p>
+          ))}
       </div>
     </div>
   );

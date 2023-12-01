@@ -24,6 +24,9 @@ const apiURL = {
   CLINIC_EMAIL_CHECK: "/clinic/clinic-email-check/",
   DOCTOR_EMAIL_CHECK: "/doctor/doctor-email-check/",
   PATIENT_EMAIL_CHECK: "/patient/patient-email-check/",
+  DME_LOOKUP: "/authentication/dme-lookup/",
+  DIAGNOSIS_SEARCH: "/authentication/diagnosis-search/",
+  COMPANY_SEARCH: "/authentication/company-search/",
 };
 
 export default apiURL;
