@@ -80,7 +80,6 @@
       margin: 0;
       display: flex;
       gap: 12px;
-      // margin-bottom: 44px;
 
       li {
         color: #fff;
@@ -130,22 +129,7 @@
   align-items: start;
   gap: 10px;
 
-  div {
-    width: 160px;
-  }
 
-  a.fileico {
-    line-height: 47px;
-    display: inline-block;
-    margin-top: 37px;
-    margin-right: 5px;
-  }
-  a.fileico2 {
-    line-height: 47px;
-    display: inline-block;
-    margin-top: 0px;
-    margin-right: 5px;
-  }
   p {
     color: #fff;
     font-family: Lato, Sans-serif;
@@ -192,8 +176,11 @@
   }
 
   .toppad {
-    margin-top: 41px;
     margin-bottom: 7px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: start;
+
   }
 }
 
