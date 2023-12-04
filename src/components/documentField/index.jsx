@@ -117,16 +117,7 @@ function DocumentField({
             />
           </div>
           <div className="Category_div">
-            {values.documents[index].file && (
-              <a
-                href={generateFileUrl(values.documents[index].file)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={index === 0 ? "fileico" : "fileico2"}
-              >
-                <img src={SaveIcon} alt="View" />
-              </a>
-            )}
+            
 
             <input
               style={{ display: "none" }}
@@ -142,6 +133,16 @@ function DocumentField({
               htmlFor={`file-${index}`}
               className={index === 0 ? "toppad" : "botmbox2"}
             >
+            {values.documents[index].file && (
+              <a
+                href={generateFileUrl(values.documents[index].file)}
+                target="_blank"
+                rel="noopener noreferrer"
+               
+              >
+                <img src={SaveIcon} alt="View" />
+              </a>
+            )}
               <span>
                 <img className="uploadIcon" src={UploadIcon} alt="Upload" />
               </span>
