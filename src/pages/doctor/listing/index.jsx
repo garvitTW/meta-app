@@ -24,7 +24,7 @@ import {
 
 function DoctorListing({ organization_id = "", clinic_id = "" }) {
   const { state, dispatch } = useContext(Store);
-  const { userInfo } = state;
+  const { userInfo, editDoctorDetails } = state;
   const { user_type, id } = userInfo;
   const initialClinicId = user_type === roles.clinic ? id : clinic_id;
 
@@ -84,6 +84,9 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
   ]);
 
   useEffect(() => {
+    if (editDoctorDetails) {
+      dispatch({ type: Type.REMOVE_EDIT_DOCTOR_DETAILS });
+    }
     const accessibleRoles = [roles.admin, roles.organization];
     if (accessibleRoles.includes(user_type)) {
       const fetchClinics = async () => {

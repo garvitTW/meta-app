@@ -21,6 +21,8 @@ function DocumentField({
       : URL.createObjectURL(file);
   };
 
+  console.log(errors);
+
   return (
     <>
       {" "}
@@ -41,53 +43,13 @@ function DocumentField({
               <option disabled value="">
                 Select{" "}
               </option>
-              <option value="LICENSE">License </option>
-              <option value="BUSINESS">Business</option>
-              <option value="COMPLIANCE">Compliance</option>
+              {index === 0 && <option value="LICENSE">License </option>}
             </Form.Select>
             <DocumentErrorMessage
               touched={touched}
               errors={errors}
               index={index}
               name="category"
-            />
-          </div>
-          <div className="mb-2">
-            {index === 0 && (
-              <p>
-                Document Type
-                <Asterisk />
-              </p>
-            )}
-            <Form.Control
-              {...getFieldProps(`documents[${index}].document_type`)}
-              type="text"
-              placeholder="Document Name"
-            />
-            <DocumentErrorMessage
-              touched={touched}
-              errors={errors}
-              index={index}
-              name="document_type"
-            />
-          </div>
-          <div className="mb-2">
-            {index === 0 && (
-              <p>
-                Issuer Name
-                <Asterisk />
-              </p>
-            )}
-            <Form.Control
-              {...getFieldProps(`documents[${index}].issuer_name`)}
-              type="text"
-              placeholder="License Issuer"
-            />
-            <DocumentErrorMessage
-              touched={touched}
-              errors={errors}
-              index={index}
-              name="issuer_name"
             />
           </div>
           <div className="mb-2">
@@ -113,14 +75,34 @@ function DocumentField({
           <div className="mb-2">
             {index === 0 && (
               <p>
-                Validity
+                State
+                <Asterisk />
+              </p>
+            )}
+            <Form.Control
+              {...getFieldProps(`documents[${index}].state`)}
+              type="text"
+              placeholder="State"
+            />
+            <DocumentErrorMessage
+              touched={touched}
+              errors={errors}
+              index={index}
+              name="state"
+            />
+          </div>
+
+          <div className="mb-2">
+            {index === 0 && (
+              <p>
+                Expiration
                 <Asterisk />
               </p>
             )}
             <Form.Control
               {...getFieldProps(`documents[${index}].validity`)}
               type="date"
-              placeholder="Validity"
+              placeholder="Expiration"
               min={
                 !document?.id
                   ? new Date().toISOString().split("T")[0]
@@ -135,56 +117,46 @@ function DocumentField({
             />
           </div>
           <div className="Category_div">
-            {values.documents[index].file ? (
-              <>
-                <a
-                  href={generateFileUrl(values.documents[index].file)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={index === 0 ? "fileico" : "fileico2"}
-                >
-                  <img src={SaveIcon} alt="View" />
-                </a>
-                {values.documents.length > 1 && (
-                  <Button onClick={() => removeDocument(index)}>
-                    <img src={DeleteIcon} alt="delete" />
-                  </Button>
-                )}
-              </>
-            ) : (
-              <>
-                <input
-                  {...getFieldProps(`documents[${index}].file`)}
-                  style={{ display: "none" }}
-                  type="file"
-                  id={`file-${index}`}
-                  accept="application/pdf"
-                  onChange={(event) => {
-                    const file = event.target.files[0];
-                    setFieldValue(`documents[${index}].file`, file);
-                  }}
-                />
-                <label
-                  htmlFor={`file-${index}`}
-                  className={index === 0 ? "toppad" : "botmbox2"}
-                >
-                  <span>
-                    <img className="uploadIcon" src={UploadIcon} alt="Upload" />
-                  </span>
-                  {values.documents.length > 1 && (
-                    <Button onClick={() => removeDocument(index)}>
-                      <img src={DeleteIcon} alt="delete" />
-                    </Button>
-                  )}
-                </label>
-                <DocumentErrorMessage
-                  touched={touched}
-                  errors={errors}
-                  index={index}
-                  name="file"
-                />
-              </>
+            {values.documents[index].file && (
+              <a
+                href={generateFileUrl(values.documents[index].file)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={index === 0 ? "fileico" : "fileico2"}
+              >
+                <img src={SaveIcon} alt="View" />
+              </a>
             )}
+
+            <input
+              style={{ display: "none" }}
+              type="file"
+              id={`file-${index}`}
+              accept="application/pdf"
+              onChange={(event) => {
+                const file = event.target.files[0];
+                setFieldValue(`documents[${index}].file`, file);
+              }}
+            />
+            <label
+              htmlFor={`file-${index}`}
+              className={index === 0 ? "toppad" : "botmbox2"}
+            >
+              <span>
+                <img className="uploadIcon" src={UploadIcon} alt="Upload" />
+              </span>
+              {values.documents.length > 1 && (
+                <Button onClick={() => removeDocument(index)}>
+                  <img src={DeleteIcon} alt="delete" />
+                </Button>
+              )}
+            </label>
+            <DocumentErrorMessage
+              touched={touched}
+              errors={errors}
+              index={index}
+              name="file"
+            />
           </div>
         </div>
       ))}

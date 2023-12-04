@@ -25,11 +25,10 @@ const numArray = [
 ];
 
 const documentObject = {
-  document_type: "",
+  category: "",
   file: "",
   validity: "",
-  issuer_name: "",
-  category: "",
+  state: "",
   license_number: "",
 };
 

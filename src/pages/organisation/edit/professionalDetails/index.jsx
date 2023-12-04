@@ -1,9 +1,6 @@
 import { Row, Col, InputGroup, Form, Button } from "react-bootstrap";
-import DeleteIcon from "../../../../assests/images/dashborad/delete.png";
 import AddIcon from "../../../../assests/images/dashborad/plus-circle.svg";
-import SaveIcon from "../../../../assests/images/dashborad/save.svg";
 import CrossIcon from "../../../../assests/images/dashborad/cross.svg";
-import UploadIcon from "../../../../assests/images/dashborad/upload.png";
 import { useNavigate } from "react-router-dom";
 import EditOrganisationTabs from "../../../../components/editOrganisationTabs";
 import { useContext, useEffect, useState } from "react";
@@ -11,14 +8,10 @@ import { Store } from "../../../../store/Store";
 import URLS from "../../../../constants/routesURL";
 import { OrganisationService } from "../../../../services/Organisation.service";
 import validationSchemaProfessionalDetails from "../../../../validation/professionalDetails";
-import {
-  documentObject,
-  numArray,
-} from "../../../../constants/common.constants";
+import { documentObject } from "../../../../constants/common.constants";
 import { useFormik } from "formik";
 import ButtonWithLoader from "../../../../components/buttonWithLoading";
 import { Type } from "../../../../constants/storeAction.constants";
-import DocumentErrorMessage from "../../../../components/documentErrorMessage";
 import { ErrorMessage } from "../../../../components/errorMessage";
 import Asterisk from "../../../../components/asterisk";
 import YearOfExperience from "../../../../components/yearOfExperience";

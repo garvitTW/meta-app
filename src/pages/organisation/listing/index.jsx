@@ -42,7 +42,8 @@ function OrganisationListing() {
   const [show, setShow] = useState("");
   const [organizations, setOrganizations] = useState([]);
   const [search, setSearch] = useState("");
-  const { dispatch } = useContext(Store);
+  const { state, dispatch } = useContext(Store);
+  const { editOrganisationDetails } = state;
   const [totalItems, setTotalItems] = useState(0);
   const [organisationToExport, setOrganisationToExport] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -74,6 +75,9 @@ function OrganisationListing() {
   };
 
   useEffect(() => {
+    if (editOrganisationDetails) {
+      dispatch({ type: Type.REMOVE_EDIT_ORGANISATION_DETAILS });
+    }
     const fetchData = async () => {
       try {
         setLoading(true);

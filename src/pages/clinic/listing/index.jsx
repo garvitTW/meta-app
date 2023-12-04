@@ -36,7 +36,7 @@ const popUpComponents = [
 
 function ClinicListing({ organization_id = "" }) {
   const { state, dispatch } = useContext(Store);
-  const { userInfo } = state;
+  const { userInfo, editClinicDetails } = state;
   const { user_type, id } = userInfo;
   const [show, setShow] = useState("");
   const navigate = useNavigate();
@@ -80,6 +80,9 @@ function ClinicListing({ organization_id = "" }) {
   }, [debouncedSearchTerm, status, selectedOrganisation, currentPage]);
 
   useEffect(() => {
+    if (editClinicDetails) {
+      dispatch({ type: Type.REMOVE_EDIT_CLINIC_DETAILS });
+    }
     if (user_type === roles.admin) {
       const fetchOrganisation = async () => {
         try {
