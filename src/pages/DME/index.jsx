@@ -8,7 +8,7 @@ import { useEffect, useMemo, useState } from "react";
 import { dmeService } from "../../services/dme.service";
 
 function DMElookUp() {
-  const [result, setResult] = useState(false);
+  const [result, setResult] = useState([]);
   const [diagnosisList, setDiagnosisList] = useState([]);
   const [diagnosisSearchValue, setDiagnosisSearchValue] = useState("");
   const [selectedDiagnosisValue, setSelectedDiagnosisValue] = useState("");
@@ -117,7 +117,7 @@ function DMElookUp() {
         )}
 
         <Row className="bottomSpace">
-          <Col sm={6}>
+          <Col sm={5}>
             <h5>ICD10 :</h5>
             <div className="position-relative">
               {!result && (
@@ -160,7 +160,8 @@ function DMElookUp() {
               )}
             </div>
           </Col>
-          <Col sm={6}>
+          <Col sm={5}>
+         
             <h5>Insurance Provider:</h5>
 
             <div className="position-relative">
@@ -202,6 +203,13 @@ function DMElookUp() {
               )}
             </div>
           </Col>
+          <Col sm={2}>
+          {!result && (
+            <>
+              <button onClick={searchHandler}>Search</button>
+              {error && <p className="errorMessage">{error}</p>}
+            </>
+          )}</Col>
           <Col sm={12}>
             <LoaderSpinner
               className="customloader"
@@ -209,16 +217,12 @@ function DMElookUp() {
             />
           </Col>
 
-          {!result && (
-            <>
-              <button onClick={searchHandler}>Search</button>
-              {error && <p className="errorMessage">{error}</p>}
-            </>
-          )}
+         
         </Row>
 
         {result &&
-          (result.length > 0 ? (
+          (result.length===0? (
+            <div className="tableArea">
             <Table
               responsive
               className="table-stripednew Patients-table Decliend_table"
@@ -247,6 +251,7 @@ function DMElookUp() {
                 ))}
               </tbody>
             </Table>
+            </div>
           ) : (
             <p>No data</p>
           ))}
