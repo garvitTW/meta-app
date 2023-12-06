@@ -121,7 +121,10 @@ function Verification() {
                 </div>
                 <h1>2-Step Verification</h1>
                 <p className="text-center">
-                  Enter the verification code sent on your email
+                  Your Account is Protected with Two-Factor Authentication.
+                  <br />
+                  We have sent you a Code on your registered Email Address.
+                  Please enter below.
                 </p>
                 <Form onSubmit={handleSubmit}>
                   <div className="d-flex verification_code">

@@ -1,10 +1,7 @@
 import "./style.scss";
 import { Row, Col, InputGroup, Form, Button } from "react-bootstrap";
-import DeleteIcon from "../../../../assests/images/dashborad/delete.png";
 import AddIcon from "../../../../assests/images/dashborad/plus-circle.svg";
 import CrossIcon from "../../../../assests/images/dashborad/cross.svg";
-import SaveIcon from "../../../../assests/images/dashborad/save.svg";
-import UploadIcon from "../../../../assests/images/dashborad/upload.png";
 import URLS from "../../../../constants/routesURL";
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
@@ -16,11 +13,7 @@ import validationSchemaProfessionalDetails from "../../../../validation/professi
 import { ErrorMessage } from "../../../../components/errorMessage";
 import { Type } from "../../../../constants/storeAction.constants";
 import ButtonWithLoader from "../../../../components/buttonWithLoading";
-import DocumentErrorMessage from "../../../../components/documentErrorMessage";
-import {
-  documentObject,
-  numArray,
-} from "../../../../constants/common.constants";
+import { documentObject } from "../../../../constants/common.constants";
 import Asterisk from "../../../../components/asterisk";
 import YearOfExperience from "../../../../components/yearOfExperience";
 import DocumentField from "../../../../components/documentField";
@@ -151,6 +144,11 @@ function AddOrganisationProfessional() {
     setFieldValue("documents", updatedDocuments);
   };
 
+  const uploadFile = (event, index) => {
+    const file = event.target.files[0];
+    setFieldValue(`documents[${index}].file`, file);
+  };
+
   if (!addOrganisationStep1) {
     return null;
   }
@@ -159,7 +157,6 @@ function AddOrganisationProfessional() {
     errors: errors,
     getFieldProps: getFieldProps,
   };
-  console.log("<<<<<<<<<<<<", errors);
 
   return (
     <div className="Patients_section Organization-section AddOrganisationProfile Add_Organisation_Professional">
@@ -271,7 +268,7 @@ function AddOrganisationProfessional() {
           touched={touched}
           errors={errors}
           removeDocument={removeDocument}
-          setFieldValue={setFieldValue}
+          uploadFile={uploadFile}
         />
 
         <button className="add_morebtn mt-3" onClick={addDocument}>

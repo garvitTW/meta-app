@@ -4,78 +4,72 @@ import Search from "../../assests/images/dashborad/Search.png";
 import { Table, Row, Col } from "react-bootstrap";
 import Dropdownarrow from "../../assests/images/dashborad/dropdown.png";
 import Closeicon from "../../assests/images/dashborad/closeIcon.svg";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { dmeService } from "../../services/dme.service";
 
 function DMElookUp() {
   const [result, setResult] = useState(false);
-  const [ICDList, setICDList] = useState([]);
-  const [ICDSearchValue, setICDSearchValue] = useState("");
-  const [selectedICDValue, setSelectedICDValue] = useState("");
+  const [diagnosisList, setDiagnosisList] = useState([]);
+  const [diagnosisSearchValue, setDiagnosisSearchValue] = useState("");
+  const [selectedDiagnosisValue, setSelectedDiagnosisValue] = useState("");
+  const [isDiagnosisActive, setIsDiagnosisActive] = useState(false);
   const [insuranceSearchValue, setInsuranceSearchValue] = useState("");
   const [insuranceSelectedValue, setInsuranceSelectedValue] = useState("");
-  const [isInsuranceActive, setInsuranceActive] = useState(false);
+  const [isInsuranceActive, setIsInsuranceActive] = useState(false);
   const [insuranceList, setInsuranceList] = useState([]);
   const [error, setError] = useState("");
-  const [loadingICD, setLoadingICD] = useState(false);
   const [loadingInsurance, setLoadingInsurance] = useState(false);
   const [loadingResult, setLoadingResult] = useState(false);
-  const [icdTimmer, setIcdTimmer] = useState(false);
-  const [insuranceTimer, setInsuranceTimer] = useState(false);
 
-  const fetchDiagnosisList = async (searchTerm) => {
-    try {
-      setLoadingICD(true);
-      const result = await dmeService.getDiagnosisName({
-        diagnosis_name: searchTerm,
-      });
-      setICDList(result);
-      setLoadingICD(false);
-    } catch (err) {
-      setLoadingICD(false);
-      console.log(err);
-    }
-  };
+  const insuranceCompanyListToShow = useMemo(() => {
+    return insuranceList.filter((insurance) =>
+      insurance.primary_payer
+        .toLowerCase()
+        .includes(insuranceSearchValue.toLowerCase())
+    );
+  }, [insuranceList, insuranceSearchValue]);
 
-  const fetchInsuranceList = async (searchTerm) => {
-    try {
-      setLoadingInsurance(true);
-      const result = await dmeService.getCompanyName({
-        company_name: searchTerm,
-      });
-      setInsuranceList(result);
-      setLoadingInsurance(false);
-    } catch (err) {
-      setLoadingInsurance(false);
-      console.log(err);
-    }
-  };
+  const diagnosisListToShow = useMemo(() => {
+    return diagnosisList.filter((diagnosis) =>
+      diagnosis.diagnosis_name
+        .toLowerCase()
+        .includes(diagnosisSearchValue.toLowerCase())
+    );
+  }, [diagnosisList, diagnosisSearchValue]);
 
   useEffect(() => {
-    fetchInsuranceList(insuranceSearchValue);
+    const fetchData = async () => {
+      try {
+        setLoadingInsurance(true);
+        const resultCompany = await dmeService.getCompanyName();
+        const resultDiagnosis = await dmeService.getDiagnosisName();
+        setInsuranceList(resultCompany);
+        setDiagnosisList(resultDiagnosis);
+        setLoadingInsurance(false);
+      } catch (err) {
+        setLoadingInsurance(false);
+        console.log(err);
+      }
+    };
+    fetchData();
   }, []);
 
-  const handleICDSearch = (e) => {
+  const handleDiagnosisSearch = (e) => {
     const { value } = e.target;
-    setICDSearchValue(value);
-    setSelectedICDValue("");
-    const timer = setTimeout(() => {
-      fetchDiagnosisList(value);
-    }, 600);
-    setIcdTimmer(timer);
-    if (icdTimmer) {
-      clearTimeout(icdTimmer);
-    }
+    setIsDiagnosisActive(true);
+    setDiagnosisSearchValue(value);
+    setSelectedDiagnosisValue("");
   };
 
-  const handleSelectICDValue = (data) => {
-    setICDSearchValue(data);
-    setSelectedICDValue(data);
+  const handleSelectDiagnosisValue = (data) => {
+    setIsDiagnosisActive(false);
+    setDiagnosisSearchValue(data);
+    setSelectedDiagnosisValue(data);
     setError("");
   };
 
   const handleSelectInsuranceValue = (data) => {
-    setInsuranceActive(false);
+    setIsInsuranceActive(false);
     setInsuranceSearchValue(data);
     setInsuranceSelectedValue(data);
     setError("");
@@ -83,25 +77,18 @@ function DMElookUp() {
 
   const handleInsuranceSearch = (e) => {
     const { value } = e.target;
-    setInsuranceActive(true);
+    setIsInsuranceActive(true);
     setInsuranceSearchValue(value);
     setInsuranceSelectedValue("");
-    const timer = setTimeout(() => {
-      fetchInsuranceList(value);
-    }, 600);
-    setInsuranceTimer(timer);
-    if (insuranceTimer) {
-      clearTimeout(insuranceTimer);
-    }
   };
 
   const searchHandler = async () => {
-    if (selectedICDValue && insuranceSelectedValue) {
+    if (selectedDiagnosisValue || insuranceSelectedValue) {
       try {
         setLoadingResult(true);
         const result = await dmeService.getDMELookUp({
           company_name: insuranceSelectedValue,
-          diagnosis_name: selectedICDValue,
+          diagnosis_name: selectedDiagnosisValue,
         });
         setResult(result);
         setLoadingResult(false);
@@ -110,13 +97,13 @@ function DMElookUp() {
         console.log(err);
       }
     } else {
-      setError("Select Both ICD10 & Insurance Provider");
+      setError("Select At least ICD10 or Insurance Provider");
     }
   };
 
-  const handleICDClear = () => {
-    setICDSearchValue("");
-    setSelectedICDValue("");
+  const handleDiagnosisClear = () => {
+    setDiagnosisSearchValue("");
+    setSelectedDiagnosisValue("");
   };
   return (
     <div className="Patients_section Organization-section AddOrganisationProfile dme_outer">
@@ -140,26 +127,27 @@ function DMElookUp() {
                     className="closeicon"
                     src={Closeicon}
                     alt="Close"
-                    onClick={handleICDClear}
+                    onClick={handleDiagnosisClear}
                   />
                 </>
               )}
               <input
-                value={ICDSearchValue}
-                onChange={handleICDSearch}
+                onClick={() => setIsDiagnosisActive(true)}
+                value={diagnosisSearchValue}
+                onChange={handleDiagnosisSearch}
                 className="search-input"
                 placeholder="Search for ICD-10 Code or diagnosis"
                 readOnly={result}
               />
-              {!result && ICDSearchValue && !selectedICDValue && (
+              {!result && isDiagnosisActive && (
                 <div className="searchItem Scroll">
-                  {ICDList.length > 0 ? (
-                    ICDList.map((data) => (
+                  {diagnosisListToShow.length > 0 ? (
+                    diagnosisListToShow.map((data) => (
                       <p
                         key={data?.diagnosis_name}
                         className="curserPointer"
                         onClick={() =>
-                          handleSelectICDValue(data?.diagnosis_name)
+                          handleSelectDiagnosisValue(data?.diagnosis_name)
                         }
                       >
                         {data?.diagnosis_name}
@@ -183,7 +171,7 @@ function DMElookUp() {
                     className="closeicon"
                     src={Dropdownarrow}
                     alt="Close"
-                    onClick={() => setInsuranceActive(!isInsuranceActive)}
+                    onClick={() => setIsInsuranceActive(!isInsuranceActive)}
                   />
                 </>
               )}
@@ -196,8 +184,8 @@ function DMElookUp() {
               />
               {!result && isInsuranceActive && (
                 <div className="searchItem Scroll">
-                  {insuranceList.length > 0 ? (
-                    insuranceList.map((data) => (
+                  {insuranceCompanyListToShow.length > 0 ? (
+                    insuranceCompanyListToShow.map((data) => (
                       <p
                         className="curserPointer"
                         onClick={() =>
@@ -217,7 +205,7 @@ function DMElookUp() {
           <Col sm={12}>
             <LoaderSpinner
               className="customloader"
-              loading={loadingICD || loadingInsurance || loadingResult}
+              loading={loadingInsurance || loadingResult}
             />
           </Col>
 
@@ -254,7 +242,7 @@ function DMElookUp() {
                     <td>{res?.sku}</td>
                     <td>{res?.year_of_service}</td>
                     <td>{res?.total_payments}</td>
-                    <td className="price">{res?.total_charge}</td>
+                    <td className="price">$ {res?.total_charge}</td>
                   </tr>
                 ))}
               </tbody>

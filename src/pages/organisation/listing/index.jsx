@@ -166,7 +166,7 @@ function OrganisationListing() {
 
       // Add table headers
       const csvContent = [
-        "Organizational Clinic Name,Email Address,Clinics,Doctors,Patients,Status,Enable/Disable",
+        "Organization Clinic Name,Email Address,Clinics,Doctors,Patients,Status,Enable/Disable",
       ]
         .concat(csvData)
         .join("\n");
@@ -248,7 +248,7 @@ function OrganisationListing() {
                       />
                     </InputGroup>
                   </th>
-                  <th> Organizational Clinic Name</th>
+                  <th> Organization Clinic Name</th>
                   <th> Email Address</th>
                   <th> Clinics</th>
                   <th> Doctors</th>

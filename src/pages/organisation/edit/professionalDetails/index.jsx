@@ -157,6 +157,11 @@ function EditOrganisationProfessional() {
     }
   };
 
+  const uploadFile = (event, index) => {
+    const file = event.target.files[0];
+    setFieldValue(`documents[${index}].file`, file);
+  };
+
   if (!editOrganisationStep1) {
     return null;
   }
@@ -276,7 +281,7 @@ function EditOrganisationProfessional() {
           touched={touched}
           errors={errors}
           removeDocument={removeDocument}
-          setFieldValue={setFieldValue}
+          uploadFile={uploadFile}
         />
 
         <button className="add_morebtn mt-3" onClick={addDocument}>

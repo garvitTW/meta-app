@@ -19,13 +19,24 @@ const validationSchemaProfessionalDetails = Yup.object().shape({
 
   documents: Yup.array().of(
     Yup.object().shape({
+      document_type: Yup.string().required("Document type is required"),
       file: Yup.mixed().required("Please upload a document"),
       validity: Yup.string().required("Validity is required"),
-      state: Yup.string().required("State is required"),
+      issuer_name: Yup.string().required("Issuer name is required"),
       category: Yup.string().required("Category is required"),
       license_number: Yup.string().required("License number is required"),
     })
   ),
+
+  // documents: Yup.array().of(
+  //   Yup.object().shape({
+  //     file: Yup.mixed().required("Please upload a document"),
+  //     validity: Yup.string().required("Validity is required"),
+  //     state: Yup.string().required("State is required"),
+  //     category: Yup.string().required("Category is required"),
+  //     license_number: Yup.string().required("License number is required"),
+  //   })
+  // ),
 });
 
 export default validationSchemaProfessionalDetails;
