@@ -1,13 +1,8 @@
 import { Button, Col, Form, InputGroup, Row } from "react-bootstrap";
 import { ErrorMessage } from "../../errorMessage";
-import DeleteIcon from "../../../assests/images/dashborad/delete.png";
 import AddIcon from "../../../assests/images/dashborad/plus-circle.svg";
 import CrossIcon from "../../../assests/images/dashborad/cross.svg";
-import SaveIcon from "../../../assests/images/dashborad/save.svg";
-import UploadIcon from "../../../assests/images/dashborad/upload.png";
-import DocumentErrorMessage from "../../documentErrorMessage";
 import ButtonWithLoader from "../../buttonWithLoading";
-import { numArray } from "../../../constants/common.constants";
 import Asterisk from "../../asterisk";
 import DocumentField from "../../documentField";
 

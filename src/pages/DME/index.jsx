@@ -2,13 +2,15 @@ import "./style.scss";
 import LoaderSpinner from "../../components/spinner";
 import Search from "../../assests/images/dashborad/Search.png";
 import { Table, Row, Col } from "react-bootstrap";
-import Dropdownarrow from "../../assests/images/dashborad/dropdown.png";
 import Closeicon from "../../assests/images/dashborad/closeIcon.svg";
 import { useEffect, useMemo, useState } from "react";
 import { dmeService } from "../../services/dme.service";
+import ModalComponent from "../../components/modal";
+import DmePopUp from "../../components/dmePopup";
 
 function DMElookUp() {
-  const [result, setResult] = useState([]);
+  const [result, setResult] = useState(false);
+  const [show, setShow] = useState("");
   const [diagnosisList, setDiagnosisList] = useState([]);
   const [diagnosisSearchValue, setDiagnosisSearchValue] = useState("");
   const [selectedDiagnosisValue, setSelectedDiagnosisValue] = useState("");
@@ -23,7 +25,7 @@ function DMElookUp() {
 
   const insuranceCompanyListToShow = useMemo(() => {
     return insuranceList.filter((insurance) =>
-      insurance.primary_payer
+      insurance?.primary_payer
         .toLowerCase()
         .includes(insuranceSearchValue.toLowerCase())
     );
@@ -31,7 +33,7 @@ function DMElookUp() {
 
   const diagnosisListToShow = useMemo(() => {
     return diagnosisList.filter((diagnosis) =>
-      diagnosis.diagnosis_name
+      diagnosis?.diagnosis_name
         .toLowerCase()
         .includes(diagnosisSearchValue.toLowerCase())
     );
@@ -56,6 +58,7 @@ function DMElookUp() {
 
   const handleDiagnosisSearch = (e) => {
     const { value } = e.target;
+
     setIsDiagnosisActive(true);
     setDiagnosisSearchValue(value);
     setSelectedDiagnosisValue("");
@@ -86,6 +89,8 @@ function DMElookUp() {
     if (selectedDiagnosisValue || insuranceSelectedValue) {
       try {
         setLoadingResult(true);
+        setIsInsuranceActive(false);
+        setIsDiagnosisActive(false);
         const result = await dmeService.getDMELookUp({
           company_name: insuranceSelectedValue,
           diagnosis_name: selectedDiagnosisValue,
@@ -102,161 +107,183 @@ function DMElookUp() {
   };
 
   const handleDiagnosisClear = () => {
+    setIsDiagnosisActive(false);
     setDiagnosisSearchValue("");
     setSelectedDiagnosisValue("");
   };
-  return (
-    <div className="Patients_section Organization-section AddOrganisationProfile dme_outer">
-      <h1>Search using : ICD10 & Insurance Provider </h1>
 
-      <div className="formBox">
-        {result && (
+  const handleInsuranceClear = () => {
+    setIsInsuranceActive(false);
+    setInsuranceSelectedValue("");
+    setInsuranceSearchValue("");
+  };
+
+  const handleSupportedDMEPopup = (diagnosisName) => {
+    if (diagnosisName.toLowerCase().includes("m170")) {
+      setShow(true);
+    }
+  };
+  return (
+    <>
+      <div className="Patients_section Organization-section AddOrganisationProfile dme_outer">
+        {/* <h1>Search using : ICD10 & Insurance Provider </h1> */}
+
+        <div className="formBox">
+          {/* {result && (
           <p className="text-left">
             <button onClick={() => setResult(false)}>Search again</button>
           </p>
-        )}
+        )} */}
 
-        <Row className="bottomSpace">
-          <Col sm={5}>
-            <h5>ICD10 :</h5>
-            <div className="position-relative">
-              {!result && (
-                <>
-                  <img className="search-img" src={Search} alt="search" />
-                  <img
-                    className="closeicon"
-                    src={Closeicon}
-                    alt="Close"
-                    onClick={handleDiagnosisClear}
-                  />
-                </>
-              )}
-              <input
-                onClick={() => setIsDiagnosisActive(true)}
-                value={diagnosisSearchValue}
-                onChange={handleDiagnosisSearch}
-                className="search-input"
-                placeholder="Search for ICD-10 Code or diagnosis"
-                readOnly={result}
-              />
-              {!result && isDiagnosisActive && (
-                <div className="searchItem Scroll">
-                  {diagnosisListToShow.length > 0 ? (
-                    diagnosisListToShow.map((data) => (
-                      <p
-                        key={data?.diagnosis_name}
-                        className="curserPointer"
-                        onClick={() =>
-                          handleSelectDiagnosisValue(data?.diagnosis_name)
-                        }
-                      >
-                        {data?.diagnosis_name}
-                      </p>
-                    ))
-                  ) : (
-                    <p>No data</p>
-                  )}
-                </div>
-              )}
-            </div>
-          </Col>
-          <Col sm={5}>
-         
-            <h5>Insurance Provider:</h5>
+          <Row className="bottomSpace">
+            <Col sm={5}>
+              {/* <h5>ICD10 :</h5> */}
+              <div className="position-relative">
+                <img className="search-img" src={Search} alt="search" />
+                <img
+                  className="closeicon"
+                  src={Closeicon}
+                  alt="Close"
+                  onClick={handleDiagnosisClear}
+                />
 
-            <div className="position-relative">
-              {!result && (
-                <>
-                  <img className="search-img" src={Search} alt="search" />
-                  <img
-                    className="closeicon"
-                    src={Dropdownarrow}
-                    alt="Close"
-                    onClick={() => setIsInsuranceActive(!isInsuranceActive)}
-                  />
-                </>
-              )}
-              <input
-                className="search-input"
-                placeholder="Insurance Provider"
-                readOnly={result}
-                value={insuranceSearchValue}
-                onChange={handleInsuranceSearch}
-              />
-              {!result && isInsuranceActive && (
-                <div className="searchItem Scroll">
-                  {insuranceCompanyListToShow.length > 0 ? (
-                    insuranceCompanyListToShow.map((data) => (
-                      <p
-                        className="curserPointer"
-                        onClick={() =>
-                          handleSelectInsuranceValue(data?.primary_payer)
-                        }
-                      >
-                        {data?.primary_payer}
-                      </p>
-                    ))
-                  ) : (
-                    <p>No data</p>
-                  )}
-                </div>
-              )}
-            </div>
-          </Col>
-          <Col sm={2}>
-          {!result && (
-            <>
+                <input
+                  onClick={() => setIsDiagnosisActive(true)}
+                  value={diagnosisSearchValue}
+                  onChange={handleDiagnosisSearch}
+                  className="search-input"
+                  placeholder="Search for ICD-10 Code or diagnosis"
+                />
+                {isDiagnosisActive && (
+                  <div className="searchItem Scroll">
+                    {diagnosisListToShow.length > 0 ? (
+                      diagnosisListToShow.map((data, index) => (
+                        <p
+                          key={index}
+                          className="curserPointer"
+                          onClick={() =>
+                            handleSelectDiagnosisValue(data?.diagnosis_name)
+                          }
+                        >
+                          {data?.diagnosis_name}
+                        </p>
+                      ))
+                    ) : (
+                      <p>No data</p>
+                    )}
+                  </div>
+                )}
+              </div>
+            </Col>
+            <Col sm={5}>
+              {/* <h5>Insurance Provider:</h5> */}
+
+              <div className="position-relative">
+                <img className="search-img" src={Search} alt="search" />
+                <img
+                  className="closeicon"
+                  src={Closeicon}
+                  alt="Close"
+                  onClick={handleInsuranceClear}
+                />
+
+                <input
+                  className="search-input"
+                  placeholder="Insurance Provider"
+                  value={insuranceSearchValue}
+                  onChange={handleInsuranceSearch}
+                  onClick={() => setIsInsuranceActive(true)}
+                />
+                {isInsuranceActive && (
+                  <div className="searchItem Scroll">
+                    {insuranceCompanyListToShow.length > 0 ? (
+                      insuranceCompanyListToShow.map((data, index) => (
+                        <p
+                          key={index}
+                          className="curserPointer"
+                          onClick={() =>
+                            handleSelectInsuranceValue(data?.primary_payer)
+                          }
+                        >
+                          {data?.primary_payer}
+                        </p>
+                      ))
+                    ) : (
+                      <p>No data</p>
+                    )}
+                  </div>
+                )}
+              </div>
+            </Col>
+            <Col sm={2}>
               <button onClick={searchHandler}>Search</button>
               {error && <p className="errorMessage">{error}</p>}
-            </>
-          )}</Col>
-          <Col sm={12}>
-            <LoaderSpinner
-              className="customloader"
-              loading={loadingInsurance || loadingResult}
-            />
-          </Col>
+            </Col>
+            <Col sm={12}>
+              <LoaderSpinner
+                className="customloader"
+                loading={loadingInsurance || loadingResult}
+              />
+            </Col>
+          </Row>
 
-         
-        </Row>
-
-        {result &&
-          (result.length===0? (
-            <div className="tableArea">
-            <Table
-              responsive
-              className="table-stripednew Patients-table Decliend_table"
-              variant="dark"
-            >
-              <thead>
-                <tr>
-                  <th>Supported HCPCS</th>
-                  <th>HCPCS Description</th>
-                  <th>SKU</th>
-                  <th>Year Of Service</th>
-                  <th>Total Payments</th>
-                  <th>Total Charges</th>
-                </tr>
-              </thead>
-              <tbody>
-                {result?.map((res, index) => (
-                  <tr key={index}>
-                    <td className="support">{res?.hcpcs_code}</td>
-                    <td>{res?.hcpcs_description}</td>
-                    <td>{res?.sku}</td>
-                    <td>{res?.year_of_service}</td>
-                    <td>{res?.total_payments}</td>
-                    <td className="price">$ {res?.total_charge}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
-            </div>
-          ) : (
-            <p>No data</p>
-          ))}
+          {result &&
+            (result.length > 0 ? (
+              <div className="tableArea Scroll">
+                <Table
+                  responsive
+                  className="table-stripednew Patients-table Decliend_table"
+                  variant="dark"
+                >
+                  <thead>
+                    <tr>
+                      <th>HCPCS & Modifiers</th>
+                      <th>Athena Description</th>
+                      <th>SKU</th>
+                      <th>Primary Diagnosis</th>
+                      <th>Year of Service</th>
+                      <th>Primary Payor</th>
+                      <th>Total Charges</th>
+                      <th>Primary Payments</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {result?.map((res, index) => (
+                      <tr key={index}>
+                        <td className="support">{res?.hcpcs_code}</td>
+                        <td>{res?.dme_description}</td>
+                        <td>{res?.sku}</td>
+                        <td
+                          className="support curserPointer"
+                          onClick={() =>
+                            handleSupportedDMEPopup(res?.diagnosis_name)
+                          }
+                        >
+                          {res?.diagnosis_name}
+                        </td>
+                        <td>{res?.year_of_service}</td>
+                        <td>{res?.primary_payer}</td>
+                        <td className="price">${res?.total_charge}</td>
+                        <td className="price">${res?.primary_payments}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+              </div>
+            ) : (
+              <p>No data</p>
+            ))}
+        </div>
       </div>
-    </div>
+      <ModalComponent
+        modelTitle="Supported DMEs for ICDM17.0 by Humana insurance"
+        setShow={setShow}
+        show={show}
+        className="maxWidth"
+      >
+        <DmePopUp />
+      </ModalComponent>
+    </>
   );
 }
 

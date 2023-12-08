@@ -23,6 +23,7 @@ h1 {
   background: #1e1f25;
   border-radius: 20px;
   margin-top: 25px;
+  min-height: calc(100vh - 207px);
 
   p button {
     margin: 0px;
@@ -30,6 +31,7 @@ h1 {
   }
   p {
     margin-bottom: 25px;
+    color: white;
   }
 
   h5 {
@@ -53,15 +55,20 @@ h1 {
     right: 12px;
   }
   .searchItem {
-    border-top: 1px solid #4d4a5b;
-    margin: 20px 30px 0px;
-
-    max-height: 200px !important;
+    width: 95%;
+    padding-left: 8px;
+    margin: 20px 20px 0px;
+    position: absolute;
+    transform: translate3d(0px, 38px, 0px);
+    top: 0px;
+    left: 0px;
+    background-color: #1e1f25;
+    max-height: 250px;
     overflow-y: auto !important;
 
     p {
       font-size: 16px;
-      color: #b2b9cd;
+      color: #e4e6ec;
       padding: 10px 0px;
       margin: 0px;
       line-height: 30px;
@@ -85,7 +92,7 @@ h1 {
     padding: 11px 10px;
     border: none;
     display: block;
-    margin: 50px auto 0px;
+    margin: 0px auto 0px;
     height: 45px;
   }
   td.price {
@@ -104,9 +111,12 @@ h1 {
   cursor: pointer;
 }
 
-
-.tableArea{
+.tableArea {
   width: 100%;
   overflow: auto;
-  height: 450px;
+  max-height: 450px;
+
+  td {
+    text-wrap: nowrap;
+  }
 }
