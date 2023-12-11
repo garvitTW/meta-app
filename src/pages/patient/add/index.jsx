@@ -17,6 +17,7 @@ function AddPatient() {
   const { userInfo } = state;
   const initialValues = {
     name: "",
+    surname: "",
     email: "",
     phone_number: "",
     street: "",

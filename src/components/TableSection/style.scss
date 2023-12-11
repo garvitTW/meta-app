@@ -1,10 +1,11 @@
 .table-responsive {
   border-radius: 20px;
 
-.Patienttable{
- max-height: 300px;
- overflow-y: scroll;
-}
+  .Patienttable {
+    max-height: calc(100vh - 381px);
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
   .Patients-table {
     margin: 0px !important;
 

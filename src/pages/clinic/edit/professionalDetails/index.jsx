@@ -11,7 +11,6 @@ import TabsWithNavigation from "../../../../components/tabsWithNavigation";
 import { editClinicTabs } from "../../../../constants/clinic.constants";
 import ClinicProfessionalDetailsForm from "../../../../components/clinic/professionalDetailsForm";
 import { clinicService } from "../../../../services/clinic.service";
-import YearOfExperience from "../../../../components/yearOfExperience";
 import clinicProfessionalValidationSchema from "../../../../validation/clinicProfessionalDetail";
 
 function EditClinicProfessional() {
@@ -158,16 +157,10 @@ function EditClinicProfessional() {
     return null;
   }
 
-  const formikProps = {
-    touched: touched,
-    errors: errors,
-    getFieldProps: getFieldProps,
-  };
-
   return (
     <div className="Patients_section Organization-section AddOrganisationProfile Add_Organisation_Professional">
       <TabsWithNavigation tabs={editClinicTabs} heading="Edit Clinic" />
-      <YearOfExperience formikProps={formikProps} />
+
       <ClinicProfessionalDetailsForm
         handleSubmit={handleSubmit}
         servicesOffered={servicesOffered}
@@ -188,7 +181,7 @@ function EditClinicProfessional() {
         uploadFile={uploadFile}
         handleCancel={handleCancel}
         addDocument={addDocument}
-        buttonLabel="Edit Clinic"
+        buttonLabel="Update Clinic"
       />
     </div>
   );

@@ -9,7 +9,7 @@ function ClinicProfileDetailsForm({
   editClinicDetails = {},
 }) {
   return (
-    <Row>
+    <Row className="Scroll">
       <Col md={8}>
         <Form onSubmit={handleSubmit}>
           <Row>
@@ -146,7 +146,7 @@ function ClinicProfileDetailsForm({
           </Row>
           <ButtonWithLoader
             isSubmitting={isSubmitting}
-            label="Next"
+            label="SAVE AND CONTINUE"
             className="Next_button"
           />
         </Form>

@@ -46,7 +46,7 @@ function AddOrganisationProfile() {
   return (
     <div className="Patients_section Organization-section AddOrganisationProfile">
       <AddOrganisationTabs />
-      <Row>
+      <Row className="Scroll">
         <Col md={8}>
           <Form onSubmit={handleSubmit}>
             <Row>
@@ -181,7 +181,7 @@ function AddOrganisationProfile() {
             </Row>
             <ButtonWithLoader
               isSubmitting={isSubmitting}
-              label="Next"
+              label="SAVE AND CONTINUE"
               className="Next_button"
             />
           </Form>

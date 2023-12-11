@@ -173,9 +173,10 @@ function EditOrganisationProfessional() {
   return (
     <div className="Add_Organisation_Professional Patients_section Organization-section AddOrganisationProfile">
       <EditOrganisationTabs />
-      <YearOfExperience formikProps={formikProps} />
-      <Form onSubmit={handleSubmit}>
-        <Row className="AddOrganisationProfile ">
+
+      <Form onSubmit={handleSubmit} className="Scroll">
+        <Row className="AddOrganisationProfile">
+          <YearOfExperience formikProps={formikProps} />
           <Col md={12}>
             <h2 className="mt-0">
               Services offered (Select Minimum 1)
@@ -301,7 +302,7 @@ function EditOrganisationProfessional() {
             </button>
             <ButtonWithLoader
               isSubmitting={isSubmitting}
-              label="Edit Organization"
+              label="Update Organization"
               className="blue-button-loader"
             />
           </Col>

@@ -11,7 +11,6 @@ import { Type } from "../../../../constants/storeAction.constants";
 import { documentObject } from "../../../../constants/common.constants";
 import doctorProfessionalValidationSchema from "../../../../validation/doctorProfessionalDetail";
 import { doctorService } from "../../../../services/doctor.service";
-import YearOfExperience from "../../../../components/yearOfExperience";
 
 function AddDoctorProfessional() {
   const { state, dispatch } = useContext(Store);
@@ -150,16 +149,9 @@ function AddDoctorProfessional() {
     return null;
   }
 
-  const formikProps = {
-    touched: touched,
-    errors: errors,
-    getFieldProps: getFieldProps,
-  };
   return (
     <div className="Patients_section Organization-section AddOrganisationProfile Add_Organisation_Professional">
       <TabsWithNavigation tabs={addDoctorTabs} heading="Add Doctor" />
-
-      <YearOfExperience formikProps={formikProps} />
 
       <ClinicProfessionalDetailsForm
         handleSubmit={handleSubmit}

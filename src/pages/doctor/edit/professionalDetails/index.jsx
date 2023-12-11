@@ -12,7 +12,6 @@ import ClinicProfessionalDetailsForm from "../../../../components/clinic/profess
 
 import { doctorService } from "../../../../services/doctor.service";
 import doctorProfessionalValidationSchema from "../../../../validation/doctorProfessionalDetail";
-import YearOfExperience from "../../../../components/yearOfExperience";
 
 function EditDoctorProfessional() {
   const { state, dispatch } = useContext(Store);
@@ -157,16 +156,10 @@ function EditDoctorProfessional() {
   if (!editDoctorStep1) {
     return null;
   }
-  const formikProps = {
-    touched: touched,
-    errors: errors,
-    getFieldProps: getFieldProps,
-  };
+
   return (
     <div className="Patients_section Organization-section AddOrganisationProfile Add_Organisation_Professional">
       <TabsWithNavigation tabs={editDoctorTabs} heading="Edit Doctor" />
-
-      <YearOfExperience formikProps={formikProps} />
 
       <ClinicProfessionalDetailsForm
         handleSubmit={handleSubmit}
@@ -188,7 +181,7 @@ function EditDoctorProfessional() {
         uploadFile={uploadFile}
         handleCancel={handleCancel}
         addDocument={addDocument}
-        buttonLabel="Edit Doctor"
+        buttonLabel="Update Doctor"
         serviceHeading="Specialization"
       />
     </div>

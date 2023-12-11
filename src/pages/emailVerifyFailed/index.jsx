@@ -15,9 +15,9 @@ function EmailVerificationFailed() {
                 <div className="text-center">
                   <img src={Logo} alt="logo" />
                 </div>
-                <h1>Verify Email Failed</h1>
+                <h1>User Already Verified</h1>
                 <p className="text-center">
-                  Verification of email failed Please login again.
+                  Already Verified email Please login again.
                 </p>
                 <div className="text-center">
                   <Button onClick={() => navigate(URL.LOGIN)}>

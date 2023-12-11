@@ -189,7 +189,7 @@ function OrganisationListing() {
                 value={search}
                 onChange={(e) => handleSearch(e)}
                 className=" search-input"
-                placeholder="Search by Organization Name"
+                placeholder="Search by organization name, email address"
               />
             </div>
             <div>
@@ -229,114 +229,116 @@ function OrganisationListing() {
         </Tabs>
         <Row className="table-margin">
           <Col md={12}>
-            <Table
-              responsive
-              className="stripednew table-stripednew Patients-table"
-              variant="dark"
-            >
-              <thead>
-                <tr>
-                  <th>
-                    <InputGroup className="mb-3">
-                      <InputGroup.Checkbox
-                        aria-label="Checkbox for following text input"
-                        checked={
-                          organisationToExport.length ===
-                            organizations.length && organizations.length > 0
-                        }
-                        onChange={() => handleCheckboxChange("All", null)}
-                      />
-                    </InputGroup>
-                  </th>
-                  <th> Organization Clinic Name</th>
-                  <th> Email Address</th>
-                  <th> Clinics</th>
-                  <th> Doctors</th>
-                  <th>Patients</th>
-                  <th> Status</th>
-                  <th> Enable/Disable</th>
-                </tr>
-              </thead>
-              <tbody>
-                {organizations?.map((organization) => (
-                  <tr key={organization?.id}>
-                    <td>
+            <div className="Patienttable">
+              <Table
+                responsive
+                className="stripednew table-stripednew Patients-table"
+                variant="dark"
+              >
+                <thead>
+                  <tr>
+                    <th>
                       <InputGroup className="mb-3">
                         <InputGroup.Checkbox
-                          checked={organisationToExport.includes(
-                            organization?.id
-                          )}
-                          onChange={() =>
-                            handleCheckboxChange("", organization?.id)
+                          aria-label="Checkbox for following text input"
+                          checked={
+                            organisationToExport.length ===
+                              organizations.length && organizations.length > 0
                           }
+                          onChange={() => handleCheckboxChange("All", null)}
                         />
                       </InputGroup>
-                    </td>
-                    <td
-                      className="name-textunder"
-                      onClick={() => handleEditOrganisation(organization?.id)}
-                    >
-                      {organization?.user}
-                    </td>
-                    <td>{organization?.email}</td>
-                    <td
-                      className="name-text"
-                      onClick={() =>
-                        handlePopUp(
-                          popUpComponents[0].name,
-                          organization?.id,
-                          organization?.clinics
-                        )
-                      }
-                    >
-                      {organization?.clinics}
-                    </td>
-                    <td
-                      className="name-text"
-                      onClick={() =>
-                        handlePopUp(
-                          popUpComponents[1].name,
-                          organization?.id,
-                          organization?.doctors
-                        )
-                      }
-                    >
-                      {organization?.doctors}
-                    </td>
-                    <td
-                      className="name-text"
-                      onClick={() =>
-                        handlePopUp(
-                          popUpComponents[2].name,
-                          organization?.id,
-                          organization?.patients
-                        )
-                      }
-                    >
-                      {organization?.patients}
-                    </td>
-                    <td>
-                      <button className="RegisteredButton">
-                        {organization?.status}
-                      </button>
-                    </td>
-                    <td>
-                      <div>
-                        <Form>
-                          <Form.Check
-                            type="switch"
-                            id="custom-switch"
-                            label=""
-                            checked={organization?.enabled}
-                            onChange={() => handleSwitchToggle(organization)}
-                          />
-                        </Form>
-                      </div>
-                    </td>
+                    </th>
+                    <th> Organization Clinic Name</th>
+                    <th> Email Address</th>
+                    <th> Clinics</th>
+                    <th> Doctors</th>
+                    <th>Patients</th>
+                    <th> Status</th>
+                    <th> Enable/Disable</th>
                   </tr>
-                ))}
-              </tbody>
-            </Table>
+                </thead>
+                <tbody>
+                  {organizations?.map((organization) => (
+                    <tr key={organization?.id}>
+                      <td>
+                        <InputGroup className="mb-3">
+                          <InputGroup.Checkbox
+                            checked={organisationToExport.includes(
+                              organization?.id
+                            )}
+                            onChange={() =>
+                              handleCheckboxChange("", organization?.id)
+                            }
+                          />
+                        </InputGroup>
+                      </td>
+                      <td
+                        className="name-textunder"
+                        onClick={() => handleEditOrganisation(organization?.id)}
+                      >
+                        {organization?.user}
+                      </td>
+                      <td>{organization?.email}</td>
+                      <td
+                        className="name-text"
+                        onClick={() =>
+                          handlePopUp(
+                            popUpComponents[0].name,
+                            organization?.id,
+                            organization?.clinics
+                          )
+                        }
+                      >
+                        {organization?.clinics}
+                      </td>
+                      <td
+                        className="name-text"
+                        onClick={() =>
+                          handlePopUp(
+                            popUpComponents[1].name,
+                            organization?.id,
+                            organization?.doctors
+                          )
+                        }
+                      >
+                        {organization?.doctors}
+                      </td>
+                      <td
+                        className="name-text"
+                        onClick={() =>
+                          handlePopUp(
+                            popUpComponents[2].name,
+                            organization?.id,
+                            organization?.patients
+                          )
+                        }
+                      >
+                        {organization?.patients}
+                      </td>
+                      <td>
+                        <button className="RegisteredButton">
+                          {organization?.status}
+                        </button>
+                      </td>
+                      <td>
+                        <div>
+                          <Form>
+                            <Form.Check
+                              type="switch"
+                              id="custom-switch"
+                              label=""
+                              checked={organization?.enabled}
+                              onChange={() => handleSwitchToggle(organization)}
+                            />
+                          </Form>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </div>
           </Col>
           <Col md={12}>
             <PaginationSection

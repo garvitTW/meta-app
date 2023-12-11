@@ -273,12 +273,10 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
         </Row>
         <Row>
           <Col md={12} className="mt-4">
-            <div className={` ${isPopUP && "Patienttable"}`}>
+            <div className="Patienttable">
               <Table
                 responsive
-                className={`table-stripednew Patients-table ${
-                  isPopUP && "Patienttable"
-                }`}
+                className={`table-stripednew Patients-table `}
                 variant="dark"
               >
                 <thead>

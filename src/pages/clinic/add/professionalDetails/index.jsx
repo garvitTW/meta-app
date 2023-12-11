@@ -11,7 +11,6 @@ import TabsWithNavigation from "../../../../components/tabsWithNavigation";
 import { addClinicTabs } from "../../../../constants/clinic.constants";
 import ClinicProfessionalDetailsForm from "../../../../components/clinic/professionalDetailsForm";
 import { clinicService } from "../../../../services/clinic.service";
-import YearOfExperience from "../../../../components/yearOfExperience";
 import clinicProfessionalValidationSchema from "../../../../validation/clinicProfessionalDetail";
 function AddClinicProfessional() {
   const { state, dispatch } = useContext(Store);
@@ -150,16 +149,11 @@ function AddClinicProfessional() {
   if (!addClinicStep1) {
     return null;
   }
-  const formikProps = {
-    touched: touched,
-    errors: errors,
-    getFieldProps: getFieldProps,
-  };
 
   return (
     <div className="Patients_section Organization-section AddOrganisationProfile Add_Organisation_Professional">
       <TabsWithNavigation tabs={addClinicTabs} heading="Add Clinic" />
-      <YearOfExperience formikProps={formikProps} />
+
       <ClinicProfessionalDetailsForm
         handleSubmit={handleSubmit}
         servicesOffered={servicesOffered}

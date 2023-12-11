@@ -280,7 +280,7 @@ function ClinicListing({ organization_id = "" }) {
           {organisationFilter}
 
           <Col md={12} className="mt-4">
-            <div className={` ${isPopUP && "Patienttable"}`}>
+            <div className="Patienttable">
               <Table
                 responsive
                 className="table-stripednew Patients-table"

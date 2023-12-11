@@ -18,7 +18,7 @@ function DoctorProfileDetailsForm({
   doctorUniqueId = "",
 }) {
   return (
-    <Row>
+    <Row className="Scroll">
       <Col md={8}>
         <Form className="DoctoreDetail" onSubmit={handleSubmit}>
           <Row>
@@ -169,7 +169,7 @@ function DoctorProfileDetailsForm({
             <Col md={12}>
               <ButtonWithLoader
                 isSubmitting={isSubmitting}
-                label="Next"
+                label="SAVE AND CONTINUE"
                 className="Next_button"
               />
             </Col>

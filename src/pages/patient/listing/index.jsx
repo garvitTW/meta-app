@@ -338,7 +338,7 @@ function PatientListing({
       </Row>
       <Row className="table-margin">
         <Col md={12}>
-          <div className={` ${isPopUP && "Patienttable"}`}>
+          <div className="Patienttable">
             <TableSection
               data={patients}
               patientToExport={patientToExport}

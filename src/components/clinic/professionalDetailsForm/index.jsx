@@ -5,6 +5,7 @@ import CrossIcon from "../../../assests/images/dashborad/cross.svg";
 import ButtonWithLoader from "../../buttonWithLoading";
 import Asterisk from "../../asterisk";
 import DocumentField from "../../documentField";
+import YearOfExperience from "../../yearOfExperience";
 
 function ClinicProfessionalDetailsForm({
   handleSubmit,
@@ -33,8 +34,15 @@ function ClinicProfessionalDetailsForm({
     serviceHeading === "Services offered (Select Minimum 1)"
       ? "Other Service..."
       : "Other Specialization...";
+
+  const formikProps = {
+    touched: touched,
+    errors: errors,
+    getFieldProps: getFieldProps,
+  };
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} className="Scroll">
+      <YearOfExperience formikProps={formikProps} />
       <div>
         <h2 className="mt-0">
           {serviceHeading}

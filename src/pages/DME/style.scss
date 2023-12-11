@@ -114,7 +114,7 @@ h1 {
 .tableArea {
   width: 100%;
   overflow: auto;
-  max-height: 450px;
+  max-height: calc(100vh - 331px);
 
   td {
     text-wrap: nowrap;

@@ -19,7 +19,7 @@ function PatientDetailsForm({
   mrnNumber = "",
 }) {
   return (
-    <Row>
+    <Row className="patientDetailScroll">
       <Col md={8}>
         <Form onSubmit={handleSubmit}>
           <h1>{btnLabel}</h1>
@@ -30,6 +30,15 @@ function PatientDetailsForm({
                 type="text"
                 placeholder="Enter Full Name"
                 label="Name"
+                {...formikProps}
+              />
+            </Col>
+            <Col md={6}>
+              <Input
+                name="surname"
+                type="text"
+                placeholder="Enter Surname"
+                label="Surname"
                 {...formikProps}
               />
             </Col>

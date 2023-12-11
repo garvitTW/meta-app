@@ -42,7 +42,7 @@ function EditOrganisationProfile() {
   return (
     <div className="Patients_section Organization-section AddOrganisationProfile">
       <EditOrganisationTabs />
-      <Row>
+      <Row className="Scroll">
         <Col md={8}>
           <Form onSubmit={handleSubmit}>
             <Row>
@@ -177,7 +177,7 @@ function EditOrganisationProfile() {
               </Col>
             </Row>
             <Button type="submit" className="Next_button">
-              Next
+              SAVE AND CONTINUE
             </Button>
           </Form>
         </Col>

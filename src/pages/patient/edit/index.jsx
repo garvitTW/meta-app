@@ -16,6 +16,7 @@ function EditPatient() {
   const { editPatient, userInfo } = state;
   const initialValues = {
     name: editPatient?.name || "",
+    surname: editPatient?.surname || "",
     email: editPatient?.email || "",
     phone_number: editPatient?.phone_number || "",
     street: editPatient?.street || "",

@@ -11,7 +11,7 @@ function Layout({ children }) {
           </div>
           <div className="content-wrapper">
             <Header />
-            <div className="Scroll">{children}</div>
+            <div>{children}</div>
           </div>
         </div>
 

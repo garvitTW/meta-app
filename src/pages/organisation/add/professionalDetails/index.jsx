@@ -161,9 +161,10 @@ function AddOrganisationProfessional() {
   return (
     <div className="Patients_section Organization-section AddOrganisationProfile Add_Organisation_Professional">
       <AddOrganisationTabs />
-      <YearOfExperience formikProps={formikProps} />
-      <Form onSubmit={handleSubmit}>
-        <Row className="AddOrganisationProfile ">
+
+      <Form onSubmit={handleSubmit} className="Scroll">
+        <Row className="AddOrganisationProfile">
+          <YearOfExperience formikProps={formikProps} />
           <Col md={12}>
             <h2 className="mt-0">
               Services offered (Select Minimum 1)
