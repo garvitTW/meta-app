@@ -20,6 +20,7 @@ import { roles } from "../../../constants/common.constants";
 import { Type } from "../../../constants/storeAction.constants";
 import {
   downloadCSV,
+  generateClinicProfileDetailsInitialValue,
   handleDataSelectionForExport,
 } from "../../../utils/helperFunction";
 
@@ -36,7 +37,7 @@ const popUpComponents = [
 
 function ClinicListing({ organization_id = "" }) {
   const { state, dispatch } = useContext(Store);
-  const { userInfo, editClinicDetails } = state;
+  const { userInfo, addClinicStep1 } = state;
   const { user_type, id } = userInfo;
   const [show, setShow] = useState("");
   const navigate = useNavigate();
@@ -80,9 +81,6 @@ function ClinicListing({ organization_id = "" }) {
   }, [debouncedSearchTerm, status, selectedOrganisation, currentPage]);
 
   useEffect(() => {
-    if (editClinicDetails) {
-      dispatch({ type: Type.REMOVE_EDIT_CLINIC_DETAILS });
-    }
     if (user_type === roles.admin) {
       const fetchOrganisation = async () => {
         try {
@@ -165,6 +163,10 @@ function ClinicListing({ organization_id = "" }) {
         setLoading(true);
         const { data } = await clinicService.getClinicDetails(id);
         setLoading(false);
+        dispatch({
+          type: Type.ADD_EDIT_CLINIC_STEP_1,
+          payload: generateClinicProfileDetailsInitialValue(data),
+        });
         dispatch({ type: Type.EDIT_CLINIC_DETAILS, payload: data });
         navigate(URL.CLINIC.EDIT.PROFILE_DETAIL);
       } catch (err) {
@@ -212,6 +214,13 @@ function ClinicListing({ organization_id = "" }) {
     }
   };
 
+  const handleAddClinic = () => {
+    if (addClinicStep1) {
+      dispatch({ type: Type.REMOVE_CLINIC_STEP_1 });
+    }
+    navigate(URL.CLINIC.CREATE.PROFILE_DETAIL);
+  };
+
   const organisationFilter = useMemo(() => {
     return user_type === roles.admin ? (
       <Col md={3} className="status_dropdown">
@@ -228,17 +237,12 @@ function ClinicListing({ organization_id = "" }) {
   }, [filterHandle, getOrganisationFilter, organizations, user_type]);
   const addClinicButton = useMemo(() => {
     return user_type === roles.organization ? (
-      <button
-        onClick={() => navigate(URL.CLINIC.CREATE.PROFILE_DETAIL)}
-        className="btn Clinic-button"
-      >
+      <button onClick={handleAddClinic} className="btn Clinic-button">
         <img src={AddIcon} className="pe-2" alt="add" />
         Add Clinic
       </button>
     ) : null;
-  }, [navigate, user_type]);
-
-  const isPopUP = organization_id;
+  }, [user_type]);
 
   const className =
     organization_id && show ? "make_display_none" : "Patients_section";

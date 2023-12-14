@@ -43,7 +43,6 @@ function Verification() {
         const result = JSON.parse(decodeURIComponent(data));
         result.user_type = result.user_type || roles.admin;
         dispatch({ type: Type.USER_LOGIN, payload: result });
-        console.log("data", result);
         return;
       } catch (error) {
         // Handle decoding error

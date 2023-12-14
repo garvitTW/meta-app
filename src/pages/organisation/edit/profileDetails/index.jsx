@@ -60,7 +60,7 @@ function EditOrganisationProfile() {
                   {...formikProps}
                   name="email"
                   type="email"
-                  placeholder="Enter Email"
+                  placeholder="Enter Organization Email"
                   label="Organization Email"
                   readOnly={Boolean(editOrganisationDetails?.id)}
                 />
@@ -70,7 +70,7 @@ function EditOrganisationProfile() {
                   {...formikProps}
                   name="phone_number"
                   type="text"
-                  placeholder="Enter Clinic Phone Number"
+                  placeholder="Enter Organization Phone Number"
                   label="Organization Phone Number"
                 />
               </Col>
@@ -79,7 +79,7 @@ function EditOrganisationProfile() {
                   {...formikProps}
                   name="organization_fax"
                   type="text"
-                  placeholder="Enter Clinic Fax (optional)"
+                  placeholder="Enter Organization Fax (optional)"
                   label="Organization Fax (optional)"
                   required={false}
                 />
@@ -112,7 +112,7 @@ function EditOrganisationProfile() {
                   {...formikProps}
                   name="organization_rep_phone"
                   type="text"
-                  placeholder="Enter Phone"
+                  placeholder="Enter Organization Representative Phone"
                   label="Organization Representative Phone"
                 />
               </Col>
@@ -121,7 +121,7 @@ function EditOrganisationProfile() {
                   {...formikProps}
                   name="organization_rep_email"
                   type="text"
-                  placeholder="Enter Email"
+                  placeholder="Enter Organization Representative Email"
                   label="Organization Representative Email"
                 />
               </Col>
@@ -177,7 +177,7 @@ function EditOrganisationProfile() {
               </Col>
             </Row>
             <Button type="submit" className="Next_button">
-              SAVE AND CONTINUE
+              Save and Continue
             </Button>
           </Form>
         </Col>

@@ -2,7 +2,7 @@ import "./style.scss";
 import { Row, Col } from "react-bootstrap";
 function DmePopUp() {
   return (
-    <div className="Patients_section Organization-section AddOrganisationProfile dme_outer">
+    <div className="Patients_section ">
       <Row className="row-flex">
         <Col sm={12}>
           <div className="dmeArea">
@@ -150,16 +150,6 @@ function DmePopUp() {
             <p>
               The expected benefit from the use of the orthosis, such as
               improved mobility or pain relief, should be documented.
-            </p>
-          </div>
-        </Col>
-        <Col sm={6}>
-          <div className="dmeArea">
-            {" "}
-            <h4>Previous Treatments:</h4>
-            <p>
-              Any previous treatments or orthoses used and their outcomes should
-              be included to justify the new or continued need for the orthosis.
             </p>
           </div>
         </Col>

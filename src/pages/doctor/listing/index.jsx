@@ -19,12 +19,13 @@ import { roles } from "../../../constants/common.constants";
 import { Type } from "../../../constants/storeAction.constants";
 import {
   downloadCSV,
+  generateDoctorProfileDetailsInitialValue,
   handleDataSelectionForExport,
 } from "../../../utils/helperFunction";
 
 function DoctorListing({ organization_id = "", clinic_id = "" }) {
   const { state, dispatch } = useContext(Store);
-  const { userInfo, editDoctorDetails } = state;
+  const { userInfo, addDoctorStep1 } = state;
   const { user_type, id } = userInfo;
   const initialClinicId = user_type === roles.clinic ? id : clinic_id;
 
@@ -38,7 +39,6 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
   const [doctorToExport, setDoctorToExport] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingClinic, setLoadingClinic] = useState(false);
-
   const [totalItems, setTotalItems] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -84,9 +84,6 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
   ]);
 
   useEffect(() => {
-    if (editDoctorDetails) {
-      dispatch({ type: Type.REMOVE_EDIT_DOCTOR_DETAILS });
-    }
     const accessibleRoles = [roles.admin, roles.organization];
     if (accessibleRoles.includes(user_type)) {
       const fetchClinics = async () => {
@@ -137,12 +134,24 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
         setLoading(true);
         const data = await doctorService.getDoctorDetails(id);
         setLoading(false);
+        dispatch({
+          type: Type.ADD_EDIT_DOCTOR_STEP_1,
+          payload: generateDoctorProfileDetailsInitialValue(data),
+        });
         dispatch({ type: Type.EDIT_DOCTOR_DETAILS, payload: data });
         navigate(URL.DOCTOR.EDIT.PROFILE_DETAIL);
       } catch (err) {
+        setLoading(false);
         console.log(err);
       }
     }
+  };
+
+  const handleAddDoctor = () => {
+    if (addDoctorStep1?.name) {
+      dispatch({ type: Type.REMOVE_DOCTOR_STEP_1 });
+    }
+    navigate(URL.DOCTOR.CREATE.PROFILE_DETAIL);
   };
 
   const handleSwitchToggle = async (doctor) => {
@@ -225,15 +234,12 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
 
   const addDoctorButton = useMemo(() => {
     return user_type === roles.clinic ? (
-      <button
-        onClick={() => navigate(URL.DOCTOR.CREATE.PROFILE_DETAIL)}
-        className="btn Clinic-button"
-      >
+      <button onClick={handleAddDoctor} className="btn Clinic-button">
         <img src={AddIcon} className="pe-2" alt="add" />
         Add Doctor
       </button>
     ) : null;
-  }, [navigate, user_type]);
+  }, [user_type]);
 
   return (
     <>

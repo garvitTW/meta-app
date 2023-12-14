@@ -39,7 +39,7 @@ function DoctorProfileDetailsForm({
                 <Input
                   name="email"
                   type="email"
-                  placeholder="Enter Email"
+                  placeholder="Enter Doctor Email"
                   className="form-control"
                   label="Doctor Email"
                   readOnly={Boolean(doctorUniqueId)}
@@ -153,7 +153,7 @@ function DoctorProfileDetailsForm({
                   name="Clinics"
                   ItemList={clinicList}
                   idKey="clinic_id"
-                  selectedItems={values.clinics}
+                  selectedItems={values?.clinics}
                   removeItem={removeClinic}
                 />
                 <ErrorMessage
@@ -169,7 +169,7 @@ function DoctorProfileDetailsForm({
             <Col md={12}>
               <ButtonWithLoader
                 isSubmitting={isSubmitting}
-                label="SAVE AND CONTINUE"
+                label="Save and Continue"
                 className="Next_button"
               />
             </Col>

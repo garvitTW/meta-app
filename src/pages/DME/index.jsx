@@ -125,7 +125,7 @@ function DMElookUp() {
   };
   return (
     <>
-      <div className="Patients_section Organization-section AddOrganisationProfile dme_outer">
+      <div className="Patients_section  dme_outer">
         {/* <h1>Search using : ICD10 & Insurance Provider </h1> */}
 
         <div className="formBox">
@@ -243,6 +243,7 @@ function DMElookUp() {
                       <th>Primary Diagnosis</th>
                       <th>Year of Service</th>
                       <th>Primary Payor</th>
+                      <th>Primary Outstanding</th>
                       <th>Total Charges</th>
                       <th>Primary Payments</th>
                     </tr>
@@ -263,6 +264,7 @@ function DMElookUp() {
                         </td>
                         <td>{res?.year_of_service}</td>
                         <td>{res?.primary_payer}</td>
+                        <td className="price">${res?.primary_outstanding}</td>
                         <td className="price">${res?.total_charge}</td>
                         <td className="price">${res?.primary_payments}</td>
                       </tr>

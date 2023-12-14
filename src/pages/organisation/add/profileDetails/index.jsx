@@ -64,7 +64,7 @@ function AddOrganisationProfile() {
                   {...formikProps}
                   name="email"
                   type="email"
-                  placeholder="Enter Email"
+                  placeholder="Enter Organization Email"
                   label="Organization Email"
                 />
               </Col>
@@ -73,7 +73,7 @@ function AddOrganisationProfile() {
                   {...formikProps}
                   name="phone_number"
                   type="text"
-                  placeholder="Enter Clinic Phone Number"
+                  placeholder="Enter Organization Phone Number"
                   label="Organization Phone Number"
                 />
               </Col>
@@ -83,7 +83,7 @@ function AddOrganisationProfile() {
                   name="organization_fax"
                   type="text"
                   required={false}
-                  placeholder="Enter Clinic Fax (optional)"
+                  placeholder="Enter Organization Fax (optional)"
                   label="Organization Fax (optional)"
                 />
               </Col>
@@ -115,7 +115,7 @@ function AddOrganisationProfile() {
                   {...formikProps}
                   name="organization_rep_phone"
                   type="text"
-                  placeholder="Enter Phone"
+                  placeholder="Enter Organization Representative Phone"
                   label="Organization Representative Phone"
                 />
               </Col>
@@ -124,7 +124,7 @@ function AddOrganisationProfile() {
                   {...formikProps}
                   name="organization_rep_email"
                   type="text"
-                  placeholder="Enter Email"
+                  placeholder="Enter Organization Representative Email"
                   label="Organization Representative Email"
                 />
               </Col>
@@ -181,7 +181,7 @@ function AddOrganisationProfile() {
             </Row>
             <ButtonWithLoader
               isSubmitting={isSubmitting}
-              label="SAVE AND CONTINUE"
+              label="Save and Continue"
               className="Next_button"
             />
           </Form>

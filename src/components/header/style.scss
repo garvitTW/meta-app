@@ -6,7 +6,7 @@
   // width: calc(100vw - 352px);
   // margin-left: 267px;
   border-radius: 20px;
-  height: 80px;
+  // height: 80px;
   padding: 20px 28px;
 
   .header_submenu {
@@ -33,6 +33,11 @@
         .profile-name {
           position: relative;
           top: 10px;
+          color: "white";
+          font-size: 14;
+          font-family: Lato, Sans-serif;
+          font-weight: 400;
+          word-wrap: break-word;
         }
       }
 
@@ -81,4 +86,10 @@
 
 .emailHeader {
   text-transform: none;
+  margin-top: 3px;
+  color: #606880;
+  font-size: 12;
+  font-family: Lato, Sans-serif;
+  font-weight: 400;
+  word-wrap: break-word;
 }

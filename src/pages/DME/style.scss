@@ -1,3 +1,6 @@
+.dme_outer {
+  padding-top: 0px;
+}
 h1 {
   font-family: Lato, Sans-serif;
   font-size: 24px;
@@ -19,11 +22,11 @@ h1 {
   display: block !important;
 }
 .formBox {
-  padding: 40px 80px;
+  padding: 40px 50px 40px 30px;
   background: #1e1f25;
   border-radius: 20px;
   margin-top: 25px;
-  min-height: calc(100vh - 207px);
+  min-height: calc(100vh - 152px);
 
   p button {
     margin: 0px;
@@ -101,7 +104,7 @@ h1 {
 }
 
 .errorMessage {
-  color: red;
+  color: red !important;
   text-align: center;
   font-size: 14px;
   margin-bottom: 1rem;
@@ -116,7 +119,8 @@ h1 {
   overflow: auto;
   max-height: calc(100vh - 331px);
 
-  td {
+  td,
+  th {
     text-wrap: nowrap;
   }
 }

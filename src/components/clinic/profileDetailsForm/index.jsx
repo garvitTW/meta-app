@@ -27,7 +27,7 @@ function ClinicProfileDetailsForm({
                 {...formikProps}
                 name="email"
                 type="email"
-                placeholder="Enter Email"
+                placeholder="Enter Clinic Email"
                 label="Clinic Email"
                 readOnly={Boolean(editClinicDetails?.id)}
               />
@@ -70,7 +70,7 @@ function ClinicProfileDetailsForm({
                 {...formikProps}
                 name="clinic_rep_name"
                 type="text"
-                placeholder="Enter Name"
+                placeholder="Enter Representative Name"
                 label="Representative Name"
               />
             </Col>
@@ -80,7 +80,7 @@ function ClinicProfileDetailsForm({
                 {...formikProps}
                 name="clinic_rep_phone"
                 type="text"
-                placeholder="Enter Phone"
+                placeholder="Enter Representative Phone"
                 label="Representative Phone"
               />
             </Col>
@@ -89,7 +89,7 @@ function ClinicProfileDetailsForm({
                 {...formikProps}
                 name="clinic_rep_email"
                 type="text"
-                placeholder="Enter Email"
+                placeholder="Enter Representative Email"
                 label="Representative Email"
               />
             </Col>
@@ -146,7 +146,7 @@ function ClinicProfileDetailsForm({
           </Row>
           <ButtonWithLoader
             isSubmitting={isSubmitting}
-            label="SAVE AND CONTINUE"
+            label="Save and Continue"
             className="Next_button"
           />
         </Form>

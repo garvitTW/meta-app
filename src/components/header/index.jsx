@@ -16,8 +16,6 @@ function Header() {
     ? headerNames[pathname]
     : pathname.split("/")[1] || "";
 
-  const userEmail = userInfo?.email.toLowerCase();
-
   return (
     <div>
       <div className="header_menu">
@@ -37,9 +35,9 @@ function Header() {
                   <img src={userInfo?.img || User} alt="User" />
                 </div>
                 <div className="profile-name d-inline-block ps-3">
-                  <h3>{userInfo?.name}</h3>
+                  <h3>{userInfo?.name || "No Name "}</h3>
 
-                  <p className="emailHeader">{userEmail}</p>
+                  <p className="emailHeader">{userInfo?.user_type}</p>
                 </div>
               </li>
               <li>

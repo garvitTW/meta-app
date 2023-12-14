@@ -3,8 +3,6 @@ import { Table, InputGroup, Row, Form, Col, Tabs, Tab } from "react-bootstrap";
 import Search from "../../../assests/images/dashborad/Search.png";
 import AddIcon from "../../../assests/images/dashborad/add.png";
 import "./style.scss";
-import Pending from "../../organisation/pending";
-import Declined from "../../organisation/declined";
 import { useNavigate } from "react-router-dom";
 import URL from "../../../constants/routesURL";
 import { useContext, useEffect, useMemo, useState } from "react";
@@ -20,6 +18,7 @@ import LoaderSpinner from "../../../components/spinner";
 
 import {
   downloadCSV,
+  generateProfileDetailsInitialValue,
   handleDataSelectionForExport,
 } from "../../../utils/helperFunction";
 
@@ -43,7 +42,7 @@ function OrganisationListing() {
   const [organizations, setOrganizations] = useState([]);
   const [search, setSearch] = useState("");
   const { state, dispatch } = useContext(Store);
-  const { editOrganisationDetails } = state;
+  const { addOrganisationStep1 } = state;
   const [totalItems, setTotalItems] = useState(0);
   const [organisationToExport, setOrganisationToExport] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -75,9 +74,6 @@ function OrganisationListing() {
   };
 
   useEffect(() => {
-    if (editOrganisationDetails) {
-      dispatch({ type: Type.REMOVE_EDIT_ORGANISATION_DETAILS });
-    }
     const fetchData = async () => {
       try {
         setLoading(true);
@@ -137,6 +133,10 @@ function OrganisationListing() {
       setLoading(true);
       const { data } = await OrganisationService.getOrganisationClinic(id);
       setLoading(false);
+      dispatch({
+        type: Type.ADD_EDIT_ORGANISATION_STEP_1,
+        payload: generateProfileDetailsInitialValue(data),
+      });
       dispatch({ type: Type.EDIT_ORGANISATION_DETAILS, payload: data });
       navigate(URL.ORGANISATION.EDIT.PROFILE_DETAIL);
     } catch (err) {
@@ -173,6 +173,12 @@ function OrganisationListing() {
       downloadCSV("selected_Organizations", csvContent);
     }
   };
+  const handleAddOrganization = () => {
+    if (addOrganisationStep1) {
+      dispatch({ type: Type.REMOVE_ORGANISATION_STEP_1 });
+    }
+    navigate(URL.ORGANISATION.CREATE.PROFILE_DETAIL);
+  };
 
   return (
     <>
@@ -201,7 +207,7 @@ function OrganisationListing() {
               </button>
             </div>
             <button
-              onClick={() => navigate(URL.ORGANISATION.CREATE.PROFILE_DETAIL)}
+              onClick={handleAddOrganization}
               className="btn Organization-button"
             >
               <img src={AddIcon} className="pe-2" alt="add" />

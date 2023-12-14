@@ -41,7 +41,6 @@ function PatientListing({
   const { user_type, id } = userInfo;
   const initialClinicId = user_type === roles.clinic ? id : clinic_id;
 
-  const isPopUP = organization_id || doctor_id || clinic_id;
   const [clinics, setClinics] = useState([]);
   const [selectedClinic, setSelectedClinic] = useState(initialClinicId);
   const [doctors, setDoctors] = useState([]);
@@ -181,6 +180,7 @@ function PatientListing({
         dispatch({ type: Type.EDIT_PATIENT_DETAILS, payload: data });
         navigate(URL.PATIENT.EDIT);
       } catch (err) {
+        setLoading(false);
         console.log(err);
       }
     }

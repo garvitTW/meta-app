@@ -37,7 +37,7 @@ body {
   /* max-height: 400px;
   overflow-x: hidden;
   overflow-y: auto !important; */
-  height: calc(100vh - 359px);
+  height: calc(100vh - 337px);
   overflow-y: auto;
   overflow-x: hidden;
 }
