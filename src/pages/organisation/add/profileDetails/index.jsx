@@ -9,31 +9,41 @@ import { useContext } from "react";
 import { Store } from "../../../../store/Store";
 import { Type } from "../../../../constants/storeAction.constants";
 import AddOrganisationTabs from "../../../../components/addOrganisationTabs";
-import { generateProfileDetailsInitialValue } from "../../../../utils/helperFunction";
+import {
+  formatPhoneNumber,
+  generateProfileDetailsInitialValue,
+} from "../../../../utils/helperFunction";
 import ButtonWithLoader from "../../../../components/buttonWithLoading";
 import { OrganisationService } from "../../../../services/Organisation.service";
+import PhoneNumberInput from "../../../../components/phoneNumberField";
 function AddOrganisationProfile() {
   const { state, dispatch } = useContext(Store);
   const { addOrganisationStep1 } = state;
   const initialValues =
     generateProfileDetailsInitialValue(addOrganisationStep1);
 
-  const { errors, touched, handleSubmit, getFieldProps, isSubmitting } =
-    useFormik({
-      initialValues: initialValues,
-      validationSchema: validationSchemaProfileDetails,
-      onSubmit: async (values, action) => {
-        try {
-          await OrganisationService.checkOrganisationMail({
-            email: values.email,
-          });
-          dispatch({ type: Type.ADD_ORGANISATION_STEP_1, payload: values });
-          navigate(URL.ORGANISATION.CREATE.PROFESSIONAL_DETAIL);
-        } catch (err) {
-          console.log(err);
-        }
-      },
-    });
+  const {
+    setFieldValue,
+    errors,
+    touched,
+    handleSubmit,
+    getFieldProps,
+    isSubmitting,
+  } = useFormik({
+    initialValues: initialValues,
+    validationSchema: validationSchemaProfileDetails,
+    onSubmit: async (values, action) => {
+      try {
+        await OrganisationService.checkOrganisationMail({
+          email: values.email,
+        });
+        dispatch({ type: Type.ADD_ORGANISATION_STEP_1, payload: values });
+        navigate(URL.ORGANISATION.CREATE.PROFESSIONAL_DETAIL);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+  });
 
   const formikProps = {
     touched: touched,
@@ -42,6 +52,13 @@ function AddOrganisationProfile() {
   };
 
   const navigate = useNavigate();
+
+  const handlePhoneNumberChange = (e) => {
+    const input = e.target.value;
+    // Limit to a maximum of 10 digits, excluding hyphens
+    const limitedInput = input.replace(/[^\d]/g, "").slice(0, 10);
+    setFieldValue(e.target.name, formatPhoneNumber(limitedInput));
+  };
 
   return (
     <div className="Patients_section Organization-section AddOrganisationProfile">
@@ -69,11 +86,12 @@ function AddOrganisationProfile() {
                 />
               </Col>
               <Col md={6}>
-                <Input
+                <PhoneNumberInput
                   {...formikProps}
+                  handleChange={handlePhoneNumberChange}
                   name="phone_number"
                   type="text"
-                  placeholder="Enter Organization Phone Number"
+                  placeholder="(000)000-0000"
                   label="Organization Phone Number"
                 />
               </Col>
@@ -111,12 +129,13 @@ function AddOrganisationProfile() {
                 />
               </Col>
               <Col md={6}>
-                <Input
+                <PhoneNumberInput
                   {...formikProps}
                   name="organization_rep_phone"
                   type="text"
-                  placeholder="Enter Organization Representative Phone"
+                  placeholder="(000)000-0000"
                   label="Organization Representative Phone"
+                  handleChange={handlePhoneNumberChange}
                 />
               </Col>
               <Col md={6}>

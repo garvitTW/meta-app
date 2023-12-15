@@ -7,8 +7,12 @@ import { useFormik } from "formik";
 import validationSchemaProfileDetails from "../../../../validation/profileDetails";
 import { Type } from "../../../../constants/storeAction.constants";
 import Input from "../../../../components/formGroupInput";
-import { generateProfileDetailsInitialValue } from "../../../../utils/helperFunction";
+import {
+  formatPhoneNumber,
+  generateProfileDetailsInitialValue,
+} from "../../../../utils/helperFunction";
 import EditOrganisationTabs from "../../../../components/editOrganisationTabs";
+import PhoneNumberInput from "../../../../components/phoneNumberField";
 function EditOrganisationProfile() {
   const { state, dispatch } = useContext(Store);
   const { editOrganisationDetails, editOrganisationStep1 } = state;
@@ -16,14 +20,15 @@ function EditOrganisationProfile() {
     editOrganisationStep1 ||
     generateProfileDetailsInitialValue(editOrganisationDetails);
 
-  const { errors, touched, handleSubmit, getFieldProps } = useFormik({
-    initialValues: initialValues,
-    validationSchema: validationSchemaProfileDetails,
-    onSubmit: (values, action) => {
-      dispatch({ type: Type.ADD_EDIT_ORGANISATION_STEP_1, payload: values });
-      navigate(URL.ORGANISATION.EDIT.PROFESSIONAL_DETAIL);
-    },
-  });
+  const { errors, touched, handleSubmit, getFieldProps, setFieldValue } =
+    useFormik({
+      initialValues: initialValues,
+      validationSchema: validationSchemaProfileDetails,
+      onSubmit: (values, action) => {
+        dispatch({ type: Type.ADD_EDIT_ORGANISATION_STEP_1, payload: values });
+        navigate(URL.ORGANISATION.EDIT.PROFESSIONAL_DETAIL);
+      },
+    });
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -38,6 +43,13 @@ function EditOrganisationProfile() {
     touched: touched,
     errors: errors,
     getFieldProps: getFieldProps,
+  };
+
+  const handlePhoneNumberChange = (e) => {
+    const input = e.target.value;
+    // Limit to a maximum of 10 digits, excluding hyphens
+    const limitedInput = input.replace(/[^\d]/g, "").slice(0, 10);
+    setFieldValue(e.target.name, formatPhoneNumber(limitedInput));
   };
   return (
     <div className="Patients_section Organization-section AddOrganisationProfile">
@@ -66,11 +78,12 @@ function EditOrganisationProfile() {
                 />
               </Col>
               <Col md={6}>
-                <Input
+                <PhoneNumberInput
                   {...formikProps}
+                  handleChange={handlePhoneNumberChange}
                   name="phone_number"
                   type="text"
-                  placeholder="Enter Organization Phone Number"
+                  placeholder="(000)000-0000"
                   label="Organization Phone Number"
                 />
               </Col>
@@ -108,11 +121,12 @@ function EditOrganisationProfile() {
                 />
               </Col>
               <Col md={6}>
-                <Input
+                <PhoneNumberInput
                   {...formikProps}
+                  handleChange={handlePhoneNumberChange}
                   name="organization_rep_phone"
                   type="text"
-                  placeholder="Enter Organization Representative Phone"
+                  placeholder="(000)000-0000"
                   label="Organization Representative Phone"
                 />
               </Col>

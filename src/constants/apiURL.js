@@ -21,6 +21,7 @@ const apiURL = {
   PATIENT: "/patient/patients/",
   ACCEPT_TERMS_AND_CONDITION: "/authentication/check-tc/",
   VERIFY_OTP: "/authentication/verify-otp/",
+  RESEND_OTP: "/authentication/resend-otp/",
   CLINIC_EMAIL_CHECK: "/clinic/clinic-email-check/",
   DOCTOR_EMAIL_CHECK: "/doctor/doctor-email-check/",
   PATIENT_EMAIL_CHECK: "/patient/patient-email-check/",

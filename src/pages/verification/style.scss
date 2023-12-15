@@ -5,7 +5,7 @@
   color: red;
 }
 
-.form_alignverify{
+.form_alignverify {
   max-width: 100%;
   width: 550px;
   position: absolute;
@@ -13,26 +13,32 @@
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  input{
-    &:focus{
+  input {
+    &:focus {
       outline: 3px solid #fff !important;
       border: 2px solid #0aceec !important;
     }
   }
 }
 
-.remeberme{
+.remeberme {
   margin-left: 12px;
- }
+}
 
- .checkb{
+.checkb {
   width: 18px;
   height: 18px;
   vertical-align: text-top;
   border-radius: 6px;
   box-shadow: none !important;
- }
- 
- input.checkb:focus{
+}
+
+input.checkb:focus {
   outline: none !important;
- }
+}
+
+.resendOtp {
+  padding-top: 10px;
+  color: #0aceec;
+  cursor: pointer;
+}

@@ -7,7 +7,10 @@ import { useFormik } from "formik";
 import { useContext, useEffect, useState } from "react";
 import { Store } from "../../../../store/Store";
 import { Type } from "../../../../constants/storeAction.constants";
-import { generateDoctorProfileDetailsInitialValue } from "../../../../utils/helperFunction";
+import {
+  formatPhoneNumber,
+  generateDoctorProfileDetailsInitialValue,
+} from "../../../../utils/helperFunction";
 import DoctorProfileDetailsForm from "../../../../components/doctor/profileDetails";
 import { roles } from "../../../../constants/common.constants";
 import { clinicService } from "../../../../services/clinic.service";
@@ -86,6 +89,13 @@ function EditDoctorProfile() {
     errors: errors,
     getFieldProps: getFieldProps,
   };
+
+  const handlePhoneNumberChange = (e) => {
+    const input = e.target.value;
+    // Limit to a maximum of 10 digits, excluding hyphens
+    const limitedInput = input.replace(/[^\d]/g, "").slice(0, 10);
+    setFieldValue(e.target.name, formatPhoneNumber(limitedInput));
+  };
   return (
     <div className="Patients_section Organization-section AddOrganisationProfile Add_Organisation_Professional">
       <TabsWithNavigation tabs={editDoctorTabs} heading="Edit Doctor" />
@@ -100,6 +110,7 @@ function EditDoctorProfile() {
         removeClinic={removeClinic}
         errors={errors}
         touched={touched}
+        handlePhoneNumberChange={handlePhoneNumberChange}
       />
     </div>
   );

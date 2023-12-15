@@ -28,8 +28,8 @@ function PatientDetailsForm({
               <Input
                 name="name"
                 type="text"
-                placeholder="Enter Full Name"
-                label="Full Name"
+                placeholder="Enter First Name"
+                label="First Name"
                 {...formikProps}
               />
             </Col>
@@ -37,8 +37,8 @@ function PatientDetailsForm({
               <Input
                 name="surname"
                 type="text"
-                placeholder="Enter Surname"
-                label="Surname"
+                placeholder="Enter Last Name"
+                label="Last Name"
                 {...formikProps}
               />
             </Col>

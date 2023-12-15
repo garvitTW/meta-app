@@ -23,6 +23,7 @@ function Verification() {
   const number = [1, 2, 3, 4, 5, 6];
   const [otpValues, setOtpValues] = useState(["", "", "", "", "", ""]);
   const [rememberDevice, setRememberDevice] = useState(false);
+  const [seconds, setSeconds] = useState(120);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const { state, dispatch } = useContext(Store);
@@ -36,6 +37,19 @@ function Verification() {
     useRef(),
     useRef(),
   ];
+
+  useEffect(() => {
+    let timer;
+    if (seconds > 0) {
+      timer = setInterval(() => {
+        setSeconds((prevSeconds) => prevSeconds - 1);
+      }, 1000);
+    } else if (seconds === 0) {
+      clearInterval(timer);
+    }
+
+    return () => clearInterval(timer);
+  }, [seconds]);
 
   useEffect(() => {
     if (data && !userInfo) {
@@ -103,6 +117,16 @@ function Verification() {
       console.log(err);
     }
   };
+  const handleResendOtp = async () => {
+    if (seconds === 0) {
+      try {
+        await authService.resendOtp({ email: userInfo.email });
+        setSeconds(120);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
 
   if (!userInfo || !userInfo?.verify_email) {
     return null;
@@ -162,6 +186,12 @@ function Verification() {
                       isSubmitting={loading}
                       label="Verify"
                     />
+
+                    <div className="resendOtp" onClick={handleResendOtp}>
+                      {seconds !== 0
+                        ? `Resend Code in ${seconds} seconds`
+                        : "Resend Code"}
+                    </div>
                   </div>
                 </Form>
               </div>

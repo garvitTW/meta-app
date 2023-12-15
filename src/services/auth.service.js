@@ -39,6 +39,10 @@ const verifyOtp = (body) => {
   return apiService.post(apiURL.VERIFY_OTP, body);
 };
 
+const resendOtp = (email) => {
+  return apiService.get(apiURL.RESEND_OTP, email);
+};
+
 export const authService = {
   isAuthenticated,
   getUserDetails,
@@ -46,4 +50,5 @@ export const authService = {
   login,
   acceptTermsAndCondition,
   verifyOtp,
+  resendOtp,
 };
