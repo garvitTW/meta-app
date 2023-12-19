@@ -1,11 +1,6 @@
 .table-responsive {
   border-radius: 20px;
 
-  .Patienttable {
-    max-height: calc(100vh - 381px);
-    overflow-x: hidden;
-    overflow-y: auto;
-  }
   .Patients-table {
     margin: 0px !important;
 
@@ -36,6 +31,8 @@
     }
 
     th {
+      position: sticky; /* make the table heads sticky */
+      top: 0px;
       font-family: Inter, Sans-serif;
       font-size: 14px;
       font-style: normal;

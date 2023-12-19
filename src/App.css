@@ -33,24 +33,25 @@ body {
   border-radius: 50%;
 }
 
-.Patienttable {
+.table-responsive {
   /* max-height: 400px;
   overflow-x: hidden;
   overflow-y: auto !important; */
   height: calc(100vh - 337px);
   overflow-y: auto;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 }
-.Patienttable::-webkit-scrollbar-track {
+.table-responsive::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgb(255, 255, 255) !important;
   background-color: #f5f5f5 !important;
   border-radius: 10px !important;
 }
-.Patienttable::-webkit-scrollbar {
+.table-responsive::-webkit-scrollbar {
   width: 5px !important;
+  height: 8px;
   background-color: #f5f5f5 !important;
 }
-.Patienttable::-webkit-scrollbar-thumb {
+.table-responsive::-webkit-scrollbar-thumb {
   border-radius: 5px !important;
   background-image: -webkit-gradient(
     linear,
@@ -70,4 +71,9 @@ input:-webkit-autofill:active {
   -webkit-text-fill-color: #ffffff;
   transition: background-color 5000s ease-in-out 0s;
   box-shadow: inset 0 0 20px 20px #23232329;
+}
+
+/* Select the date input with the specified name */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1); /* Invert the color to white */
 }

@@ -35,11 +35,11 @@ function DetailsPopUp({ show, handleClose, details, handleEdit, faxKey }) {
             </div>
             <div className="bottom-info">
               <Row>
-                <Col md={6}>
+                <Col md={4}>
                   <img src={Emailimg} alt="email" />
                   Email
                 </Col>
-                <Col md={6}>
+                <Col md={8}>
                   <p>{details?.email}</p>
                 </Col>
                 <Col md={6}>

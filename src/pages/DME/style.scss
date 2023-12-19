@@ -68,6 +68,7 @@ h1 {
     background-color: #1e1f25;
     max-height: 250px;
     overflow-y: auto !important;
+    z-index: 1000;
 
     p {
       font-size: 16px;

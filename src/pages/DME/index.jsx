@@ -25,7 +25,7 @@ function DMElookUp() {
 
   const insuranceCompanyListToShow = useMemo(() => {
     return insuranceList.filter((insurance) =>
-      insurance?.primary_payer
+      insurance?.company_name
         .toLowerCase()
         .includes(insuranceSearchValue.toLowerCase())
     );
@@ -202,10 +202,10 @@ function DMElookUp() {
                           key={index}
                           className="curserPointer"
                           onClick={() =>
-                            handleSelectInsuranceValue(data?.primary_payer)
+                            handleSelectInsuranceValue(data?.company_name)
                           }
                         >
-                          {data?.primary_payer}
+                          {data?.company_name}
                         </p>
                       ))
                     ) : (
