@@ -8,6 +8,7 @@ import URL from "../../../constants/routesURL";
 import PatientDetailsForm from "../../../components/patient/detailsForm";
 import { patientService } from "../../../services/patient.service";
 import { roles } from "../../../constants/common.constants";
+import { formatPhoneNumber } from "../../../utils/helperFunction";
 
 function EditPatient() {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ function EditPatient() {
     name: editPatient?.name || "",
     surname: editPatient?.surname || "",
     email: editPatient?.email || "",
-    phone_number: editPatient?.phone_number || "",
+    phone_number: formatPhoneNumber(editPatient?.phone_number || ""),
     street: editPatient?.street || "",
     suite_unit: editPatient?.suite_unit || "",
     zip: editPatient?.zip || "",
@@ -104,6 +105,13 @@ function EditPatient() {
     getFieldProps: getFieldProps,
   };
 
+  const handlePhoneOrFaxChange = (e) => {
+    const input = e.target.value;
+    // Limit to a maximum of 10 digits, excluding hyphens
+    const limitedInput = input.replace(/[^\d]/g, "").slice(0, 10);
+    setFieldValue(e.target.name, formatPhoneNumber(limitedInput));
+  };
+
   return (
     <div className="AddPatient   AddOrganisationProfile Add_Organisation_Professional">
       <PatientDetailsForm
@@ -119,6 +127,7 @@ function EditPatient() {
         handleCancel={handleCancel}
         isSubmitting={isSubmitting}
         btnLabel="Edit Patient"
+        handlePhoneOrFaxChange={handlePhoneOrFaxChange}
       />
     </div>
   );

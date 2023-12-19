@@ -69,12 +69,12 @@ function EditDoctorProfile() {
   });
 
   const handleClinicSelection = (event) => {
-    if (values.clinics.length === 0) {
-      const selectedClinicId = Number(event.target.value);
-      if (!values.clinics.includes(selectedClinicId) && selectedClinicId) {
-        setFieldValue("clinics", [...values.clinics, selectedClinicId]);
-      }
+    // if (values.clinics.length === 0) {
+    const selectedClinicId = Number(event.target.value);
+    if (!values.clinics.includes(selectedClinicId) && selectedClinicId) {
+      setFieldValue("clinics", [...values.clinics, selectedClinicId]);
     }
+    // }
   };
 
   const removeClinic = (selectedClinicId) => {
@@ -90,7 +90,7 @@ function EditDoctorProfile() {
     getFieldProps: getFieldProps,
   };
 
-  const handlePhoneNumberChange = (e) => {
+  const handlePhoneOrFaxChange = (e) => {
     const input = e.target.value;
     // Limit to a maximum of 10 digits, excluding hyphens
     const limitedInput = input.replace(/[^\d]/g, "").slice(0, 10);
@@ -110,7 +110,7 @@ function EditDoctorProfile() {
         removeClinic={removeClinic}
         errors={errors}
         touched={touched}
-        handlePhoneNumberChange={handlePhoneNumberChange}
+        handlePhoneOrFaxChange={handlePhoneOrFaxChange}
       />
     </div>
   );

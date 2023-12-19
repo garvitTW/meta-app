@@ -15,7 +15,7 @@ import {
 } from "../../../../utils/helperFunction";
 import ButtonWithLoader from "../../../../components/buttonWithLoading";
 import { OrganisationService } from "../../../../services/Organisation.service";
-import PhoneNumberInput from "../../../../components/phoneNumberField";
+import PhoneOrFaxInput from "../../../../components/phoneNumberField";
 function AddOrganisationProfile() {
   const { state, dispatch } = useContext(Store);
   const { addOrganisationStep1 } = state;
@@ -53,7 +53,7 @@ function AddOrganisationProfile() {
 
   const navigate = useNavigate();
 
-  const handlePhoneNumberChange = (e) => {
+  const handlePhoneOrFaxChange = (e) => {
     const input = e.target.value;
     // Limit to a maximum of 10 digits, excluding hyphens
     const limitedInput = input.replace(/[^\d]/g, "").slice(0, 10);
@@ -86,9 +86,9 @@ function AddOrganisationProfile() {
                 />
               </Col>
               <Col md={6}>
-                <PhoneNumberInput
+                <PhoneOrFaxInput
                   {...formikProps}
-                  handleChange={handlePhoneNumberChange}
+                  handleChange={handlePhoneOrFaxChange}
                   name="phone_number"
                   type="text"
                   placeholder="(000)000-0000"
@@ -96,8 +96,9 @@ function AddOrganisationProfile() {
                 />
               </Col>
               <Col md={6}>
-                <Input
+                <PhoneOrFaxInput
                   {...formikProps}
+                  handleChange={handlePhoneOrFaxChange}
                   name="organization_fax"
                   type="text"
                   required={false}
@@ -129,13 +130,13 @@ function AddOrganisationProfile() {
                 />
               </Col>
               <Col md={6}>
-                <PhoneNumberInput
+                <PhoneOrFaxInput
                   {...formikProps}
                   name="organization_rep_phone"
                   type="text"
                   placeholder="(000)000-0000"
-                  label="Organization Representative Phone"
-                  handleChange={handlePhoneNumberChange}
+                  label="Representative Phone"
+                  handleChange={handlePhoneOrFaxChange}
                 />
               </Col>
               <Col md={6}>
@@ -143,8 +144,8 @@ function AddOrganisationProfile() {
                   {...formikProps}
                   name="organization_rep_email"
                   type="text"
-                  placeholder="Enter Organization Representative Email"
-                  label="Organization Representative Email"
+                  placeholder="Enter Representative Email"
+                  label="Representative Email"
                 />
               </Col>
             </Row>

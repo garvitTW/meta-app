@@ -21,6 +21,7 @@ import {
   downloadCSV,
   handleDataSelectionForExport,
 } from "../../../utils/helperFunction";
+import DetailsPopUp from "../../../components/detailsPopUp";
 
 const posture_scores = [
   { name: "90-100%", value: "90-100" },
@@ -36,7 +37,7 @@ function PatientListing({
   clinic_id = "",
 }) {
   const { state, dispatch } = useContext(Store);
-  const { userInfo } = state;
+  const { userInfo, editPatient } = state;
   const navigate = useNavigate();
   const { user_type, id } = userInfo;
   const initialClinicId = user_type === roles.clinic ? id : clinic_id;
@@ -56,6 +57,9 @@ function PatientListing({
   const [selectedPostureScore, setSelectedPostureScore] = useState("");
 
   const debouncedSearchTerm = useDebounce(search, 600);
+  const [showDetails, setShowDetails] = useState(false);
+
+  const handleShowDetailsClose = () => setShowDetails(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -177,8 +181,8 @@ function PatientListing({
         setLoading(true);
         const data = await patientService.getPatientDetails(id);
         setLoading(false);
+        setShowDetails(true);
         dispatch({ type: Type.EDIT_PATIENT_DETAILS, payload: data });
-        navigate(URL.PATIENT.EDIT);
       } catch (err) {
         setLoading(false);
         console.log(err);
@@ -356,6 +360,13 @@ function PatientListing({
           />
         </Col>
       </Row>
+      <DetailsPopUp
+        show={showDetails}
+        handleClose={handleShowDetailsClose}
+        details={editPatient}
+        faxKey={"patient_fax"}
+        handleEdit={() => navigate(URL.PATIENT.EDIT)}
+      />
     </div>
   );
 }

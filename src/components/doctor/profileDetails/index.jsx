@@ -3,7 +3,7 @@ import Input from "../../formGroupInput";
 import FormSelectWithChip from "../../formSelectWithChip";
 import { ErrorMessage } from "../../errorMessage";
 import ButtonWithLoader from "../../buttonWithLoading";
-import PhoneNumberInput from "../../phoneNumberField";
+import PhoneOrFaxInput from "../../phoneNumberField";
 
 function DoctorProfileDetailsForm({
   handleSubmit,
@@ -17,7 +17,7 @@ function DoctorProfileDetailsForm({
   touched,
   isSubmitting,
   doctorUniqueId = "",
-  handlePhoneNumberChange,
+  handlePhoneOrFaxChange,
 }) {
   return (
     <Row className="Scroll">
@@ -51,20 +51,20 @@ function DoctorProfileDetailsForm({
             </Col>
             <Col md={6}>
               <div className="mb-4">
-                <PhoneNumberInput
+                <PhoneOrFaxInput
                   name="phone_number"
                   type="text"
                   placeholder="(000)000-0000"
                   className="form-control"
                   label="Doctor Phone Number"
                   {...formikProps}
-                  handleChange={handlePhoneNumberChange}
+                  handleChange={handlePhoneOrFaxChange}
                 />
               </div>
             </Col>
             <Col md={6}>
               <div className="mb-4">
-                <Input
+                <PhoneOrFaxInput
                   name="doctor_fax"
                   type="text"
                   required={false}
@@ -72,6 +72,7 @@ function DoctorProfileDetailsForm({
                   label="Doctor Fax (optional)"
                   className="form-control"
                   {...formikProps}
+                  handleChange={handlePhoneOrFaxChange}
                 />
               </div>
             </Col>

@@ -1,5 +1,6 @@
 import * as Yup from "yup";
 import { generalSchemaProfileDetails } from "./profileDetails";
+import { faxRegExp } from "../constants/common.constants";
 
 const validationSchemaClinicProfileDetails = generalSchemaProfileDetails.shape({
   name: Yup.string()
@@ -17,6 +18,9 @@ const validationSchemaClinicProfileDetails = generalSchemaProfileDetails.shape({
       "Invalid US mobile number Ex:-(123)456-7890"
     )
     .required("Clinic Phone number is required"),
+  clinic_fax: Yup.string()
+    .nullable()
+    .matches(faxRegExp, "Invalid FAX format Ex:-(000)000-0000"),
   clinic_extension: Yup.string()
     .matches(/^\d+$/, "Extension must only contain digits")
     .min(1, "Extension must be at least 1 digit")

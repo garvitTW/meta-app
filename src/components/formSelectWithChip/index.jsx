@@ -30,18 +30,24 @@ function FormSelectWithChip({
       </Form.Select>
       <div className="select_tags">
         <ul>
-          {selectedItems?.map((selectedItemId) => (
-            <li key={selectedItemId}>
-              {ItemList.find((item) => item?.[idKey] === selectedItemId)?.name}
+          {selectedItems?.map((selectedItemId) => {
+            const name = ItemList.find(
+              (item) => item?.[idKey] === selectedItemId
+            )?.name;
 
-              <img
-                className="ms-1"
-                src={CrossIcon}
-                alt="Remove"
-                onClick={() => removeItem(selectedItemId)}
-              />
-            </li>
-          ))}
+            return name ? (
+              <li key={selectedItemId}>
+                {name}
+
+                <img
+                  className="ms-1"
+                  src={CrossIcon}
+                  alt="Remove"
+                  onClick={() => removeItem(selectedItemId)}
+                />
+              </li>
+            ) : null;
+          })}
         </ul>
       </div>
     </>

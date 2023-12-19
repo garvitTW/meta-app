@@ -9,6 +9,7 @@ import validationSchemaPatient from "../../../validation/patientDetails";
 import PatientDetailsForm from "../../../components/patient/detailsForm";
 import { patientService } from "../../../services/patient.service";
 import { roles } from "../../../constants/common.constants";
+import { formatPhoneNumber } from "../../../utils/helperFunction";
 
 function AddPatient() {
   const navigate = useNavigate();
@@ -88,6 +89,13 @@ function AddPatient() {
     navigate(URL.PATIENT.LISTING);
   };
 
+  const handlePhoneOrFaxChange = (e) => {
+    const input = e.target.value;
+    // Limit to a maximum of 10 digits, excluding hyphens
+    const limitedInput = input.replace(/[^\d]/g, "").slice(0, 10);
+    setFieldValue(e.target.name, formatPhoneNumber(limitedInput));
+  };
+
   const formikProps = {
     touched: touched,
     errors: errors,
@@ -108,6 +116,7 @@ function AddPatient() {
         handleCancel={handleCancel}
         isSubmitting={isSubmitting}
         btnLabel="Add Patient"
+        handlePhoneOrFaxChange={handlePhoneOrFaxChange}
       />
     </div>
   );

@@ -2,7 +2,7 @@ import { Form } from "react-bootstrap";
 import { ErrorMessage } from "../errorMessage";
 
 import Asterisk from "../asterisk";
-function PhoneNumberInput({
+function PhoneOrFaxInput({
   touched,
   errors,
   name,
@@ -32,4 +32,4 @@ function PhoneNumberInput({
     </Form.Group>
   );
 }
-export default PhoneNumberInput;
+export default PhoneOrFaxInput;

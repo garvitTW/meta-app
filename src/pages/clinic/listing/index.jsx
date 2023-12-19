@@ -23,6 +23,7 @@ import {
   generateClinicProfileDetailsInitialValue,
   handleDataSelectionForExport,
 } from "../../../utils/helperFunction";
+import DetailsPopUp from "../../../components/detailsPopUp";
 
 const popUpComponents = [
   {
@@ -37,7 +38,7 @@ const popUpComponents = [
 
 function ClinicListing({ organization_id = "" }) {
   const { state, dispatch } = useContext(Store);
-  const { userInfo, addClinicStep1 } = state;
+  const { userInfo, addClinicStep1, editClinicDetails } = state;
   const { user_type, id } = userInfo;
   const [show, setShow] = useState("");
   const navigate = useNavigate();
@@ -57,6 +58,9 @@ function ClinicListing({ organization_id = "" }) {
   const [clinicToExport, setClinicToExport] = useState([]);
   const [clinicIdForPopUp, setClinicIdForPopUp] = useState("");
   const debouncedSearchTerm = useDebounce(search, 600);
+  const [showDetails, setShowDetails] = useState(false);
+
+  const handleShowDetailsClose = () => setShowDetails(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -163,12 +167,12 @@ function ClinicListing({ organization_id = "" }) {
         setLoading(true);
         const { data } = await clinicService.getClinicDetails(id);
         setLoading(false);
+        setShowDetails(true);
         dispatch({
           type: Type.ADD_EDIT_CLINIC_STEP_1,
           payload: generateClinicProfileDetailsInitialValue(data),
         });
         dispatch({ type: Type.EDIT_CLINIC_DETAILS, payload: data });
-        navigate(URL.CLINIC.EDIT.PROFILE_DETAIL);
       } catch (err) {
         setLoading(false);
         console.log(err);
@@ -389,6 +393,13 @@ function ClinicListing({ organization_id = "" }) {
           <GetPopUpComponent clinic_id={clinicIdForPopUp} />
         )}
       </ModalComponent>
+      <DetailsPopUp
+        show={showDetails}
+        handleClose={handleShowDetailsClose}
+        details={editClinicDetails}
+        faxKey={"clinic_fax"}
+        handleEdit={() => navigate(URL.CLINIC.EDIT.PROFILE_DETAIL)}
+      />
     </>
   );
 }

@@ -4,7 +4,7 @@ import Notification from "../../assests/images/header/Notification.svg";
 import User from "../../assests/images/header/user.png";
 import More from "../../assests/images/header/More.svg";
 import { useLocation } from "react-router-dom";
-import headerNames from "./headerNames";
+import headerNames, { headerRoles } from "./headerNames";
 import { useContext } from "react";
 import { Store } from "../../store/Store";
 function Header() {
@@ -15,6 +15,8 @@ function Header() {
   const page = isPathinHeaderNames
     ? headerNames[pathname]
     : pathname.split("/")[1] || "";
+
+  const currentUser = headerRoles[userInfo?.user_type];
 
   return (
     <div>
@@ -37,7 +39,7 @@ function Header() {
                 <div className="profile-name d-inline-block ps-3">
                   <h3>{userInfo?.name || "No Name "}</h3>
 
-                  <p className="emailHeader">{userInfo?.user_type}</p>
+                  <p className="emailHeader">{currentUser}</p>
                 </div>
               </li>
               <li>

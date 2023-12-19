@@ -22,10 +22,11 @@ import {
   generateDoctorProfileDetailsInitialValue,
   handleDataSelectionForExport,
 } from "../../../utils/helperFunction";
+import DetailsPopUp from "../../../components/detailsPopUp";
 
 function DoctorListing({ organization_id = "", clinic_id = "" }) {
   const { state, dispatch } = useContext(Store);
-  const { userInfo, addDoctorStep1 } = state;
+  const { userInfo, addDoctorStep1, editDoctorDetails } = state;
   const { user_type, id } = userInfo;
   const initialClinicId = user_type === roles.clinic ? id : clinic_id;
 
@@ -43,6 +44,9 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
   const [currentPage, setCurrentPage] = useState(1);
 
   const debouncedSearchTerm = useDebounce(search, 600);
+  const [showDetails, setShowDetails] = useState(false);
+
+  const handleShowDetailsClose = () => setShowDetails(false);
 
   const handleShow = (id, count) => {
     if (count > 0) {
@@ -134,12 +138,12 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
         setLoading(true);
         const data = await doctorService.getDoctorDetails(id);
         setLoading(false);
+        setShowDetails(true);
         dispatch({
           type: Type.ADD_EDIT_DOCTOR_STEP_1,
           payload: generateDoctorProfileDetailsInitialValue(data),
         });
         dispatch({ type: Type.EDIT_DOCTOR_DETAILS, payload: data });
-        navigate(URL.DOCTOR.EDIT.PROFILE_DETAIL);
       } catch (err) {
         setLoading(false);
         console.log(err);
@@ -365,6 +369,13 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
       <ModalComponent setShow={setShow} show={show} className="maxWidth">
         <PatientListing doctor_id={show} />
       </ModalComponent>
+      <DetailsPopUp
+        show={showDetails}
+        handleClose={handleShowDetailsClose}
+        details={editDoctorDetails}
+        faxKey={"doctor_fax"}
+        handleEdit={() => navigate(URL.DOCTOR.EDIT.PROFILE_DETAIL)}
+      />
     </>
   );
 }

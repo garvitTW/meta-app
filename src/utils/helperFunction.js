@@ -3,7 +3,7 @@ const generateProfileDetailsInitialValue = (value) => {
     name: value?.name || "",
     email: value?.email || "",
     phone_number: formatPhoneNumber(value?.phone_number || ""),
-    organization_fax: value?.organization_fax || "",
+    organization_fax: formatPhoneNumber(value?.organization_fax || ""),
     organization_rep_first_name: value?.organization_rep_first_name || "",
     organization_rep_last_name: value?.organization_rep_last_name || "",
     organization_rep_phone: formatPhoneNumber(
@@ -24,7 +24,7 @@ const generateClinicProfileDetailsInitialValue = (value) => {
     email: value?.email || "",
     phone_number: formatPhoneNumber(value?.phone_number || ""),
     clinic_extension: value?.clinic_extension || "",
-    clinic_fax: value?.clinic_fax || "",
+    clinic_fax: formatPhoneNumber(value?.clinic_fax || ""),
     clinic_rep_name: value?.clinic_rep_name || "",
     clinic_rep_phone: formatPhoneNumber(value?.clinic_rep_phone || ""),
     clinic_rep_email: value?.clinic_rep_email || "",
@@ -41,7 +41,7 @@ const generateDoctorProfileDetailsInitialValue = (value) => {
     name: value?.name || "",
     email: value?.email || "",
     phone_number: formatPhoneNumber(value?.phone_number || ""),
-    doctor_fax: value?.doctor_fax || "",
+    doctor_fax: formatPhoneNumber(value?.doctor_fax || ""),
     street: value?.street || "",
     suite_unit: value?.suite_unit || "",
     zip: value?.zip || "",
@@ -84,15 +84,21 @@ function formatPhoneNumber(phoneNumber) {
   // Remove non-digit characters
   const cleaned = phoneNumber.replace(/\D/g, "");
 
-  // Apply the phone number format
-  const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
-
-  if (match) {
-    return `(${match[1]})${match[2]}-${match[3]}`;
+  // Apply the phone number format dynamically
+  let formatted = "";
+  for (let i = 0; i < cleaned.length; i++) {
+    if (i === 0) {
+      formatted += "(" + cleaned[i];
+    } else if (i === 2) {
+      formatted += cleaned[i] + ")";
+    } else if (i === 5) {
+      formatted += cleaned[i] + "-";
+    } else {
+      formatted += cleaned[i];
+    }
   }
 
-  // Return the input as is if it doesn't match the expected format
-  return phoneNumber;
+  return formatted;
 }
 
 export {

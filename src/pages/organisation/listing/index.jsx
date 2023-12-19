@@ -21,6 +21,7 @@ import {
   generateProfileDetailsInitialValue,
   handleDataSelectionForExport,
 } from "../../../utils/helperFunction";
+import DetailsPopUp from "../../../components/detailsPopUp";
 
 const popUpComponents = [
   {
@@ -42,7 +43,7 @@ function OrganisationListing() {
   const [organizations, setOrganizations] = useState([]);
   const [search, setSearch] = useState("");
   const { state, dispatch } = useContext(Store);
-  const { addOrganisationStep1 } = state;
+  const { addOrganisationStep1, editOrganisationDetails } = state;
   const [totalItems, setTotalItems] = useState(0);
   const [organisationToExport, setOrganisationToExport] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -50,6 +51,9 @@ function OrganisationListing() {
   const [organisationIdForPopUp, setOrganisationIdForPopUp] = useState("");
 
   const debouncedSearchTerm = useDebounce(search, 600);
+  const [showDetails, setShowDetails] = useState(false);
+
+  const handleShowDetailsClose = () => setShowDetails(false);
 
   const navigate = useNavigate();
   const handleShow = (name) => setShow(name);
@@ -133,12 +137,12 @@ function OrganisationListing() {
       setLoading(true);
       const { data } = await OrganisationService.getOrganisationClinic(id);
       setLoading(false);
+      setShowDetails(true);
       dispatch({
         type: Type.ADD_EDIT_ORGANISATION_STEP_1,
         payload: generateProfileDetailsInitialValue(data),
       });
       dispatch({ type: Type.EDIT_ORGANISATION_DETAILS, payload: data });
-      navigate(URL.ORGANISATION.EDIT.PROFILE_DETAIL);
     } catch (err) {
       setLoading(false);
       console.log(err);
@@ -360,6 +364,13 @@ function OrganisationListing() {
           <GetPopUpComponent organization_id={organisationIdForPopUp} />
         )}
       </ModalComponent>
+      <DetailsPopUp
+        show={showDetails}
+        handleClose={handleShowDetailsClose}
+        details={editOrganisationDetails}
+        faxKey={"clinic_fax"}
+        handleEdit={() => navigate(URL.ORGANISATION.EDIT.PROFILE_DETAIL)}
+      />
     </>
   );
 }

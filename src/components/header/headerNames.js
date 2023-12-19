@@ -1,3 +1,4 @@
+import { roles } from "../../constants/common.constants";
 import URL from "../../constants/routesURL";
 
 const headerNames = {
@@ -10,6 +11,14 @@ const headerNames = {
   [URL.ORGANISATION.EDIT.PROFILE_DETAIL]: "Edit Organization Clinics",
   [URL.ORGANISATION.EDIT.PROFESSIONAL_DETAIL]: "Edit Organization Clinics",
   [URL.ORGANISATION.EDIT.PAYMENT]: "Edit Organization Clinics",
+  [URL.DME]: "DME Lookup",
 };
+
+const headerRoles = {
+  [roles.admin]: "Administrator",
+  [roles.organization]: " Organization",
+  [roles.clinic]: "Clinic",
+};
+export { headerRoles };
 
 export default headerNames;

@@ -4,7 +4,7 @@ const STORAGE_KEYS = {
   REMEMBER_ME_DETAILS: "rememberDetailsMetaDoc",
 };
 const itemsPerPage = 10;
-
+const faxRegExp = /^\(\d{3}\)\d{3}-\d{4}$/;
 const roles = {
   doctor: "DOCTOR",
   patient: "PATIENT",
@@ -48,4 +48,5 @@ export {
   documentObject,
   roles,
   allowedRolesForWeb,
+  faxRegExp,
 };

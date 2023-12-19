@@ -54,7 +54,7 @@ function EditClinicProfile() {
     errors: errors,
     getFieldProps: getFieldProps,
   };
-  const handlePhoneNumberChange = (e) => {
+  const handlePhoneOrFaxChange = (e) => {
     const input = e.target.value;
     // Limit to a maximum of 10 digits, excluding hyphens
     const limitedInput = input.replace(/[^\d]/g, "").slice(0, 10);
@@ -68,7 +68,7 @@ function EditClinicProfile() {
         formikProps={formikProps}
         isSubmitting={isSubmitting}
         editClinicDetails={editClinicDetails}
-        handlePhoneNumberChange={handlePhoneNumberChange}
+        handlePhoneOrFaxChange={handlePhoneOrFaxChange}
       />
     </div>
   );

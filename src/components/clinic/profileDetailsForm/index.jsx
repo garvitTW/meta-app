@@ -1,13 +1,13 @@
 import { Col, Form, Row } from "react-bootstrap";
 import Input from "../../formGroupInput";
 import ButtonWithLoader from "../../buttonWithLoading";
-import PhoneNumberInput from "../../phoneNumberField";
+import PhoneOrFaxInput from "../../phoneNumberField";
 
 function ClinicProfileDetailsForm({
   handleSubmit,
   formikProps,
   isSubmitting,
-  handlePhoneNumberChange,
+  handlePhoneOrFaxChange,
   editClinicDetails = {},
 }) {
   return (
@@ -35,9 +35,9 @@ function ClinicProfileDetailsForm({
               />
             </Col>
             <Col md={6}>
-              <PhoneNumberInput
+              <PhoneOrFaxInput
                 {...formikProps}
-                handleChange={handlePhoneNumberChange}
+                handleChange={handlePhoneOrFaxChange}
                 name="phone_number"
                 type="text"
                 placeholder="(000)000-0000"
@@ -54,8 +54,9 @@ function ClinicProfileDetailsForm({
               />
             </Col>
             <Col md={6}>
-              <Input
+              <PhoneOrFaxInput
                 {...formikProps}
+                handleChange={handlePhoneOrFaxChange}
                 name="clinic_fax"
                 type="text"
                 placeholder="Enter Clinic Fax (optional)"
@@ -79,9 +80,9 @@ function ClinicProfileDetailsForm({
             </Col>
 
             <Col md={6}>
-              <PhoneNumberInput
+              <PhoneOrFaxInput
                 {...formikProps}
-                handleChange={handlePhoneNumberChange}
+                handleChange={handlePhoneOrFaxChange}
                 name="clinic_rep_phone"
                 type="text"
                 placeholder="(000)000-0000"
