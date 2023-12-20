@@ -3,7 +3,7 @@ import Input from "../../formGroupInput";
 import FormSelectWithChip from "../../formSelectWithChip";
 import { ErrorMessage } from "../../errorMessage";
 import ButtonWithLoader from "../../buttonWithLoading";
-import PhoneOrFaxInput from "../../phoneNumberField";
+import CustomInput from "../../customInput";
 
 function DoctorProfileDetailsForm({
   handleSubmit,
@@ -17,7 +17,7 @@ function DoctorProfileDetailsForm({
   touched,
   isSubmitting,
   doctorUniqueId = "",
-  handlePhoneOrFaxChange,
+  handleCustomChange,
 }) {
   return (
     <Row className="Scroll">
@@ -51,20 +51,20 @@ function DoctorProfileDetailsForm({
             </Col>
             <Col md={6}>
               <div className="mb-4">
-                <PhoneOrFaxInput
+                <CustomInput
                   name="phone_number"
                   type="text"
                   placeholder="(000)000-0000"
                   className="form-control"
                   label="Doctor Phone Number"
                   {...formikProps}
-                  handleChange={handlePhoneOrFaxChange}
+                  handleChange={handleCustomChange}
                 />
               </div>
             </Col>
             <Col md={6}>
               <div className="mb-4">
-                <PhoneOrFaxInput
+                <CustomInput
                   name="doctor_fax"
                   type="text"
                   required={false}
@@ -72,7 +72,7 @@ function DoctorProfileDetailsForm({
                   label="Doctor Fax (optional)"
                   className="form-control"
                   {...formikProps}
-                  handleChange={handlePhoneOrFaxChange}
+                  handleChange={handleCustomChange}
                 />
               </div>
             </Col>
@@ -115,8 +115,9 @@ function DoctorProfileDetailsForm({
               </div>
             </Col>
             <Col md={6}>
-              <Input
+              <CustomInput
                 {...formikProps}
+                handleChange={handleCustomChange}
                 name="zip"
                 type="text"
                 placeholder="Enter Zip Code"

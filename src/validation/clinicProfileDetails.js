@@ -15,7 +15,7 @@ const validationSchemaClinicProfileDetails = generalSchemaProfileDetails.shape({
   phone_number: Yup.string()
     .matches(
       /^\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/,
-      "Invalid US mobile number Ex:-(123)456-7890"
+      "Invalid Mobile Number. Please enter 10 digits phone number"
     )
     .required("Clinic Phone number is required"),
   clinic_fax: Yup.string()
@@ -33,7 +33,7 @@ const validationSchemaClinicProfileDetails = generalSchemaProfileDetails.shape({
   clinic_rep_phone: Yup.string()
     .matches(
       /^\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/,
-      "Invalid US mobile number Ex:-(123)456-7890"
+      "Invalid Mobile Number. Please enter 10 digits phone number"
     )
     .required("Representative Phone number is required"),
   clinic_rep_email: Yup.string()

@@ -8,8 +8,8 @@ import { useContext, useEffect, useState } from "react";
 import { Store } from "../../../../store/Store";
 import { Type } from "../../../../constants/storeAction.constants";
 import {
-  formatPhoneNumber,
   generateDoctorProfileDetailsInitialValue,
+  profileDetailsHandleChange,
 } from "../../../../utils/helperFunction";
 import validationSchemaDoctorProfileDetails from "../../../../validation/doctorProfileDetail";
 import { clinicService } from "../../../../services/clinic.service";
@@ -89,11 +89,9 @@ function AddDoctorProfile() {
     getFieldProps: getFieldProps,
   };
 
-  const handlePhoneOrFaxChange = (e) => {
-    const input = e.target.value;
-    // Limit to a maximum of 10 digits, excluding hyphens
-    const limitedInput = input.replace(/[^\d]/g, "").slice(0, 10);
-    setFieldValue(e.target.name, formatPhoneNumber(limitedInput));
+  const handleCustomChange = (e) => {
+    const value = profileDetailsHandleChange(e);
+    setFieldValue(e.target.name, value);
   };
 
   return (
@@ -110,7 +108,7 @@ function AddDoctorProfile() {
         errors={errors}
         touched={touched}
         isSubmitting={isSubmitting}
-        handlePhoneOrFaxChange={handlePhoneOrFaxChange}
+        handleCustomChange={handleCustomChange}
       />
     </div>
   );

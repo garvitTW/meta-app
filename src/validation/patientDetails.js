@@ -14,7 +14,7 @@ const validationSchemaPatient = generalSchemaProfileDetails.shape({
   phone_number: Yup.string()
     .matches(
       /^\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/,
-      "Invalid US mobile number Ex:-(123)456-7890"
+      "Invalid Mobile Number. Please enter 10 digits phone number"
     )
     .required("Patient Phone Number is required"),
   surname: Yup.string()

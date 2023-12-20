@@ -12,10 +12,9 @@ import URL from "../../constants/routesURL";
 import { authService } from "../../services/auth.service";
 import { Store } from "../../store/Store";
 import { Type } from "../../constants/storeAction.constants";
-import { allowedRolesForWeb, roles } from "../../constants/common.constants";
+import { roles } from "../../constants/common.constants";
 import ModalComponent from "../../components/modal";
 import TermsAndConditionCondition from "../../components/t&C";
-import { toast } from "react-toastify";
 
 function Login() {
   const [show, setShow] = useState(false);
@@ -61,9 +60,7 @@ function Login() {
           const { data } = await authService.login(values);
           data.user_type = data.user_type || roles.admin;
           dispatch({ type: Type.USER_LOGIN, payload: data });
-          if (!allowedRolesForWeb.includes(data.user_type)) {
-            toast.error("You are not allowed to login");
-          } else if (!data.check_tc && data.user_type !== roles.admin) {
+          if (!data.check_tc && data.user_type !== roles.admin) {
             handleShow();
           } else {
             setRememberMe(false);

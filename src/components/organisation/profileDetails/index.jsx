@@ -1,14 +1,14 @@
 import { Col, Form, Row } from "react-bootstrap";
 import Input from "../../formGroupInput";
-import ButtonWithLoader from "../../buttonWithLoading";
 import CustomInput from "../../customInput";
+import ButtonWithLoader from "../../buttonWithLoading";
 
-function ClinicProfileDetailsForm({
+function OrganisationProfileDetails({
   handleSubmit,
   formikProps,
-  isSubmitting,
+  editOrganisationDetails = {},
   handleCustomChange,
-  editClinicDetails = {},
+  isSubmitting,
 }) {
   return (
     <Row className="Scroll">
@@ -20,8 +20,8 @@ function ClinicProfileDetailsForm({
                 {...formikProps}
                 name="name"
                 type="text"
-                placeholder="Enter Clinic Name"
-                label="Clinic Name"
+                placeholder="Enter Organization Name"
+                label="Organization Name"
               />
             </Col>
             <Col md={6}>
@@ -29,9 +29,9 @@ function ClinicProfileDetailsForm({
                 {...formikProps}
                 name="email"
                 type="email"
-                placeholder="Enter Clinic Email"
-                label="Clinic Email"
-                readOnly={Boolean(editClinicDetails?.id)}
+                placeholder="Enter Organization Email"
+                label="Organization Email"
+                readOnly={Boolean(editOrganisationDetails?.id)}
               />
             </Col>
             <Col md={6}>
@@ -41,49 +41,48 @@ function ClinicProfileDetailsForm({
                 name="phone_number"
                 type="text"
                 placeholder="(000)000-0000"
-                label="Clinic Phone Number"
-              />
-            </Col>
-            <Col md={6}>
-              <Input
-                {...formikProps}
-                name="clinic_extension"
-                type="text"
-                placeholder="Eg. 4211"
-                label="Extension"
+                label="Organization Phone Number"
               />
             </Col>
             <Col md={6}>
               <CustomInput
                 {...formikProps}
                 handleChange={handleCustomChange}
-                name="clinic_fax"
+                name="organization_fax"
                 type="text"
-                placeholder="Enter Clinic Fax (optional)"
-                label="Clinic Fax (optional)"
+                placeholder="Enter Organization Fax (optional)"
+                label="Organization Fax (optional)"
                 required={false}
               />
             </Col>
           </Row>
           <Row>
             <Col md={12}>
-              <h2>Clinic Representative Details</h2>
+              <h2>Organization Representative Details</h2>
             </Col>
             <Col md={6}>
               <Input
                 {...formikProps}
-                name="clinic_rep_name"
+                name="organization_rep_first_name"
                 type="text"
-                placeholder="Enter Representative Name"
-                label="Representative Name"
+                placeholder="Enter First Name"
+                label="First Name"
               />
             </Col>
-
+            <Col md={6}>
+              <Input
+                {...formikProps}
+                name="organization_rep_last_name"
+                type="text"
+                placeholder="Enter Last Name"
+                label="Last Name"
+              />
+            </Col>
             <Col md={6}>
               <CustomInput
                 {...formikProps}
                 handleChange={handleCustomChange}
-                name="clinic_rep_phone"
+                name="organization_rep_phone"
                 type="text"
                 placeholder="(000)000-0000"
                 label="Representative Phone"
@@ -92,7 +91,7 @@ function ClinicProfileDetailsForm({
             <Col md={6}>
               <Input
                 {...formikProps}
-                name="clinic_rep_email"
+                name="organization_rep_email"
                 type="text"
                 placeholder="Enter Representative Email"
                 label="Representative Email"
@@ -101,7 +100,7 @@ function ClinicProfileDetailsForm({
           </Row>
           <Row>
             <Col md={12}>
-              <h2>Clinic Address</h2>
+              <h2>Organization Address</h2>
             </Col>
             <Col md={6}>
               <Input
@@ -161,4 +160,4 @@ function ClinicProfileDetailsForm({
   );
 }
 
-export default ClinicProfileDetailsForm;
+export default OrganisationProfileDetails;

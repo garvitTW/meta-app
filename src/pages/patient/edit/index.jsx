@@ -8,16 +8,22 @@ import URL from "../../../constants/routesURL";
 import PatientDetailsForm from "../../../components/patient/detailsForm";
 import { patientService } from "../../../services/patient.service";
 import { roles } from "../../../constants/common.constants";
-import { formatPhoneNumber } from "../../../utils/helperFunction";
+import {
+  formatPhoneNumber,
+  profileDetailsHandleChange,
+} from "../../../utils/helperFunction";
 
 function EditPatient() {
   const navigate = useNavigate();
   const [doctorList, setDoctorList] = useState([]);
   const { state } = useContext(Store);
   const { editPatient, userInfo } = state;
+  const nameArray = editPatient?.name?.split(/\s+/).filter(Boolean);
+  const firstName = nameArray[0];
+  const restName = nameArray.slice(1).join(" ");
   const initialValues = {
-    name: editPatient?.name || "",
-    surname: editPatient?.surname || "",
+    name: firstName || "",
+    surname: restName || "",
     email: editPatient?.email || "",
     phone_number: formatPhoneNumber(editPatient?.phone_number || ""),
     street: editPatient?.street || "",
@@ -73,6 +79,7 @@ function EditPatient() {
         await patientService.updatePatient(editPatient?.id, {
           ...editPatient,
           ...values,
+          name: values.name + " " + values.surname,
         });
 
         navigate(URL.PATIENT.LISTING);
@@ -105,11 +112,9 @@ function EditPatient() {
     getFieldProps: getFieldProps,
   };
 
-  const handlePhoneOrFaxChange = (e) => {
-    const input = e.target.value;
-    // Limit to a maximum of 10 digits, excluding hyphens
-    const limitedInput = input.replace(/[^\d]/g, "").slice(0, 10);
-    setFieldValue(e.target.name, formatPhoneNumber(limitedInput));
+  const handleCustomChange = (e) => {
+    const value = profileDetailsHandleChange(e);
+    setFieldValue(e.target.name, value);
   };
 
   return (
@@ -127,7 +132,7 @@ function EditPatient() {
         handleCancel={handleCancel}
         isSubmitting={isSubmitting}
         btnLabel="Edit Patient"
-        handlePhoneOrFaxChange={handlePhoneOrFaxChange}
+        handleCustomChange={handleCustomChange}
       />
     </div>
   );

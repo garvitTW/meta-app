@@ -3,7 +3,7 @@ import Input from "../../formGroupInput";
 import FormSelectWithChip from "../../formSelectWithChip";
 import { ErrorMessage } from "../../errorMessage";
 import ButtonWithLoader from "../../buttonWithLoading";
-import PhoneOrFaxInput from "../../phoneNumberField";
+import CustomInput from "../../customInput";
 
 function PatientDetailsForm({
   handleSubmit,
@@ -18,7 +18,7 @@ function PatientDetailsForm({
   isSubmitting,
   btnLabel,
   mrnNumber = "",
-  handlePhoneOrFaxChange,
+  handleCustomChange,
 }) {
   return (
     <>
@@ -57,13 +57,13 @@ function PatientDetailsForm({
                 />
               </Col>
               <Col md={6}>
-                <PhoneOrFaxInput
+                <CustomInput
                   name="phone_number"
                   type="text"
                   placeholder="Enter Patient Phone Number"
                   label="Patient Phone Number"
                   {...formikProps}
-                  handleChange={handlePhoneOrFaxChange}
+                  handleChange={handleCustomChange}
                 />
               </Col>
               {mrnNumber && (
@@ -100,8 +100,9 @@ function PatientDetailsForm({
                   />
                 </Col>
                 <Col md={6}>
-                  <Input
+                  <CustomInput
                     {...formikProps}
+                    handleChange={handleCustomChange}
                     name="zip"
                     type="text"
                     placeholder="Enter Zip Code"

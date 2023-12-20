@@ -9,7 +9,7 @@ import validationSchemaPatient from "../../../validation/patientDetails";
 import PatientDetailsForm from "../../../components/patient/detailsForm";
 import { patientService } from "../../../services/patient.service";
 import { roles } from "../../../constants/common.constants";
-import { formatPhoneNumber } from "../../../utils/helperFunction";
+import { profileDetailsHandleChange } from "../../../utils/helperFunction";
 
 function AddPatient() {
   const navigate = useNavigate();
@@ -62,6 +62,7 @@ function AddPatient() {
         });
         await patientService.createPatient({
           ...values,
+          name: values.name + " " + values.surname,
           user_type: roles.patient,
         });
 
@@ -89,11 +90,9 @@ function AddPatient() {
     navigate(URL.PATIENT.LISTING);
   };
 
-  const handlePhoneOrFaxChange = (e) => {
-    const input = e.target.value;
-    // Limit to a maximum of 10 digits, excluding hyphens
-    const limitedInput = input.replace(/[^\d]/g, "").slice(0, 10);
-    setFieldValue(e.target.name, formatPhoneNumber(limitedInput));
+  const handleCustomChange = (e) => {
+    const value = profileDetailsHandleChange(e);
+    setFieldValue(e.target.name, value);
   };
 
   const formikProps = {
@@ -116,7 +115,7 @@ function AddPatient() {
         handleCancel={handleCancel}
         isSubmitting={isSubmitting}
         btnLabel="Add Patient"
-        handlePhoneOrFaxChange={handlePhoneOrFaxChange}
+        handleCustomChange={handleCustomChange}
       />
     </div>
   );

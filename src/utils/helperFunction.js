@@ -101,6 +101,24 @@ function formatPhoneNumber(phoneNumber) {
   return formatted;
 }
 
+function profileDetailsHandleChange(e) {
+  const input = e.target.value;
+  if (e.target.name === "zip") {
+    //Limit to a maximum of 9 digits
+    let limitedInput = input.replace(/\D/g, "").slice(0, 9);
+
+    // Add hyphen after the sixth digit
+    if (limitedInput.length > 5) {
+      limitedInput = `${limitedInput.slice(0, 5)}-${limitedInput.slice(5, 9)}`;
+    }
+    return limitedInput;
+  } else {
+    // Limit to a maximum of 10 digits, excluding hyphens
+    const limitedInput = input.replace(/[^\d]/g, "").slice(0, 10);
+    return formatPhoneNumber(limitedInput);
+  }
+}
+
 export {
   generateProfileDetailsInitialValue,
   generateClinicProfileDetailsInitialValue,
@@ -108,4 +126,5 @@ export {
   downloadCSV,
   handleDataSelectionForExport,
   formatPhoneNumber,
+  profileDetailsHandleChange,
 };

@@ -25,7 +25,7 @@ function DMElookUp() {
 
   const insuranceCompanyListToShow = useMemo(() => {
     return insuranceList.filter((insurance) =>
-      insurance?.company_name
+      (insurance?.company_name || "")
         .toLowerCase()
         .includes(insuranceSearchValue.toLowerCase())
     );

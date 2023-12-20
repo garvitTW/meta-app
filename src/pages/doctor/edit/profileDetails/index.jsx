@@ -8,8 +8,8 @@ import { useContext, useEffect, useState } from "react";
 import { Store } from "../../../../store/Store";
 import { Type } from "../../../../constants/storeAction.constants";
 import {
-  formatPhoneNumber,
   generateDoctorProfileDetailsInitialValue,
+  profileDetailsHandleChange,
 } from "../../../../utils/helperFunction";
 import DoctorProfileDetailsForm from "../../../../components/doctor/profileDetails";
 import { roles } from "../../../../constants/common.constants";
@@ -90,11 +90,9 @@ function EditDoctorProfile() {
     getFieldProps: getFieldProps,
   };
 
-  const handlePhoneOrFaxChange = (e) => {
-    const input = e.target.value;
-    // Limit to a maximum of 10 digits, excluding hyphens
-    const limitedInput = input.replace(/[^\d]/g, "").slice(0, 10);
-    setFieldValue(e.target.name, formatPhoneNumber(limitedInput));
+  const handleCustomChange = (e) => {
+    const value = profileDetailsHandleChange(e);
+    setFieldValue(e.target.name, value);
   };
   return (
     <div className="Patients_section Organization-section AddOrganisationProfile Add_Organisation_Professional">
@@ -110,7 +108,7 @@ function EditDoctorProfile() {
         removeClinic={removeClinic}
         errors={errors}
         touched={touched}
-        handlePhoneOrFaxChange={handlePhoneOrFaxChange}
+        handleCustomChange={handleCustomChange}
       />
     </div>
   );

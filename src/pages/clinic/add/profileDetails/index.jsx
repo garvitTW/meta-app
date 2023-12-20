@@ -6,8 +6,8 @@ import { useContext } from "react";
 import { Store } from "../../../../store/Store";
 import { Type } from "../../../../constants/storeAction.constants";
 import {
-  formatPhoneNumber,
   generateClinicProfileDetailsInitialValue,
+  profileDetailsHandleChange,
 } from "../../../../utils/helperFunction";
 import TabsWithNavigation from "../../../../components/tabsWithNavigation";
 import ClinicProfileDetailsForm from "../../../../components/clinic/profileDetailsForm";
@@ -52,11 +52,9 @@ function AddClinicProfile() {
 
   const navigate = useNavigate();
 
-  const handlePhoneOrFaxChange = (e) => {
-    const input = e.target.value;
-    // Limit to a maximum of 10 digits, excluding hyphens
-    const limitedInput = input.replace(/[^\d]/g, "").slice(0, 10);
-    setFieldValue(e.target.name, formatPhoneNumber(limitedInput));
+  const handleCustomChange = (e) => {
+    const value = profileDetailsHandleChange(e);
+    setFieldValue(e.target.name, value);
   };
 
   return (
@@ -66,7 +64,7 @@ function AddClinicProfile() {
         handleSubmit={handleSubmit}
         formikProps={formikProps}
         isSubmitting={isSubmitting}
-        handlePhoneOrFaxChange={handlePhoneOrFaxChange}
+        handleCustomChange={handleCustomChange}
       />
     </div>
   );

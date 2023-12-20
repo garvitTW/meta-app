@@ -1,10 +1,8 @@
 import "./style.scss";
-import { Row, Col, Form } from "react-bootstrap";
 import URL from "../../../../constants/routesURL";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import validationSchemaProfileDetails from "../../../../validation/profileDetails";
-import Input from "../../../../components/formGroupInput";
 import { useContext } from "react";
 import { Store } from "../../../../store/Store";
 import { Type } from "../../../../constants/storeAction.constants";
@@ -12,10 +10,10 @@ import AddOrganisationTabs from "../../../../components/addOrganisationTabs";
 import {
   formatPhoneNumber,
   generateProfileDetailsInitialValue,
+  profileDetailsHandleChange,
 } from "../../../../utils/helperFunction";
-import ButtonWithLoader from "../../../../components/buttonWithLoading";
 import { OrganisationService } from "../../../../services/Organisation.service";
-import PhoneOrFaxInput from "../../../../components/phoneNumberField";
+import OrganisationProfileDetails from "../../../../components/organisation/profileDetails";
 function AddOrganisationProfile() {
   const { state, dispatch } = useContext(Store);
   const { addOrganisationStep1 } = state;
@@ -53,160 +51,20 @@ function AddOrganisationProfile() {
 
   const navigate = useNavigate();
 
-  const handlePhoneOrFaxChange = (e) => {
-    const input = e.target.value;
-    // Limit to a maximum of 10 digits, excluding hyphens
-    const limitedInput = input.replace(/[^\d]/g, "").slice(0, 10);
-    setFieldValue(e.target.name, formatPhoneNumber(limitedInput));
+  const handleCustomChange = (e) => {
+    const value = profileDetailsHandleChange(e);
+    setFieldValue(e.target.name, value);
   };
 
   return (
     <div className="Patients_section Organization-section AddOrganisationProfile">
       <AddOrganisationTabs />
-      <Row className="Scroll">
-        <Col md={8}>
-          <Form onSubmit={handleSubmit}>
-            <Row>
-              <Col md={6}>
-                <Input
-                  {...formikProps}
-                  name="name"
-                  type="text"
-                  placeholder="Enter Organization Name"
-                  label="Organization Name"
-                />
-              </Col>
-              <Col md={6}>
-                <Input
-                  {...formikProps}
-                  name="email"
-                  type="email"
-                  placeholder="Enter Organization Email"
-                  label="Organization Email"
-                />
-              </Col>
-              <Col md={6}>
-                <PhoneOrFaxInput
-                  {...formikProps}
-                  handleChange={handlePhoneOrFaxChange}
-                  name="phone_number"
-                  type="text"
-                  placeholder="(000)000-0000"
-                  label="Organization Phone Number"
-                />
-              </Col>
-              <Col md={6}>
-                <PhoneOrFaxInput
-                  {...formikProps}
-                  handleChange={handlePhoneOrFaxChange}
-                  name="organization_fax"
-                  type="text"
-                  required={false}
-                  placeholder="Enter Organization Fax (optional)"
-                  label="Organization Fax (optional)"
-                />
-              </Col>
-            </Row>
-            <Row>
-              <Col md={12}>
-                <h2>Organization Representative Details</h2>
-              </Col>
-              <Col md={6}>
-                <Input
-                  {...formikProps}
-                  name="organization_rep_first_name"
-                  type="text"
-                  placeholder="Enter First Name"
-                  label="First Name"
-                />
-              </Col>
-              <Col md={6}>
-                <Input
-                  {...formikProps}
-                  name="organization_rep_last_name"
-                  type="text"
-                  placeholder="Enter Last Name"
-                  label="Last Name"
-                />
-              </Col>
-              <Col md={6}>
-                <PhoneOrFaxInput
-                  {...formikProps}
-                  name="organization_rep_phone"
-                  type="text"
-                  placeholder="(000)000-0000"
-                  label="Representative Phone"
-                  handleChange={handlePhoneOrFaxChange}
-                />
-              </Col>
-              <Col md={6}>
-                <Input
-                  {...formikProps}
-                  name="organization_rep_email"
-                  type="text"
-                  placeholder="Enter Representative Email"
-                  label="Representative Email"
-                />
-              </Col>
-            </Row>
-            <Row>
-              <Col md={12}>
-                <h2>Organization Address</h2>
-              </Col>
-              <Col md={6}>
-                <Input
-                  {...formikProps}
-                  name="street"
-                  type="text"
-                  placeholder="Enter Street"
-                  label="Street"
-                />
-              </Col>
-              <Col md={6}>
-                <Input
-                  {...formikProps}
-                  name="suite_unit"
-                  type="text"
-                  placeholder="Enter Suite/Unit #"
-                  label="Suite/Unit #"
-                />
-              </Col>
-              <Col md={6}>
-                <Input
-                  {...formikProps}
-                  name="zip"
-                  type="text"
-                  placeholder="Enter Zip Code"
-                  label="Zip code"
-                />
-              </Col>
-              <Col md={6}>
-                <Input
-                  {...formikProps}
-                  name="city"
-                  type="text"
-                  placeholder="Enter City"
-                  label="City"
-                />
-              </Col>
-              <Col md={6}>
-                <Input
-                  {...formikProps}
-                  name="state"
-                  type="text"
-                  placeholder="Enter State"
-                  label="State"
-                />
-              </Col>
-            </Row>
-            <ButtonWithLoader
-              isSubmitting={isSubmitting}
-              label="Save and Continue"
-              className="Next_button"
-            />
-          </Form>
-        </Col>
-      </Row>
+      <OrganisationProfileDetails
+        handleSubmit={handleSubmit}
+        formikProps={formikProps}
+        handleCustomChange={handleCustomChange}
+        isSubmitting={isSubmitting}
+      />
     </div>
   );
 }
