@@ -6,8 +6,23 @@ import Delete from "../../assests/images/dashborad/trash.svg";
 import Edit from "../../assests/images/dashborad/pen.svg";
 import { Button, Modal, Row, Col } from "react-bootstrap";
 import { formatPhoneNumber } from "../../utils/helperFunction";
+import { useState } from "react";
 
 function DetailsPopUp({ show, handleClose, details, handleEdit, faxKey }) {
+  const [isDeleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
+  const openDeleteConfirmation = () => {
+    setDeleteConfirmationOpen(true);
+  };
+
+  const closeDeleteConfirmation = () => {
+    setDeleteConfirmationOpen(false);
+  };
+
+  const handleConfirmDelete = () => {
+    //handleDelete(); // Call the delete function
+    closeDeleteConfirmation(); // Close the confirmation modal
+    handleClose(); // Close the main modal
+  };
   const findNameInitials = (name) => {
     const trimmedName = name?.trim(); // Remove leading and trailing spaces
     const splitName = trimmedName?.split(/\s+/).filter(Boolean); // Remove empty strings
@@ -78,7 +93,7 @@ function DetailsPopUp({ show, handleClose, details, handleEdit, faxKey }) {
         <Button
           variant="secondary"
           className="delete-button"
-          onClick={handleClose}
+          onClick={openDeleteConfirmation}
         >
           <img src={Delete} alt="delete" />
           delete
@@ -95,6 +110,24 @@ function DetailsPopUp({ show, handleClose, details, handleEdit, faxKey }) {
           edit
         </Button>
       </Modal.Footer>
+      <Modal
+        className="confirmDelete"
+        show={isDeleteConfirmationOpen}
+        onHide={closeDeleteConfirmation}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Deletion</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to delete?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={closeDeleteConfirmation}>
+            No
+          </Button>
+          <Button variant="primary" onClick={handleConfirmDelete}>
+            Yes
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Modal>
   );
 }

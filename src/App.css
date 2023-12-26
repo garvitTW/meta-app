@@ -73,7 +73,7 @@ input:-webkit-autofill:active {
   box-shadow: inset 0 0 20px 20px #23232329;
 }
 
-/* Select the date input with the specified name */
+/* Select the date input with the specified type */
 input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(1); /* Invert the color to white */
 }

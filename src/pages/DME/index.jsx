@@ -126,18 +126,9 @@ function DMElookUp() {
   return (
     <>
       <div className="Patients_section  dme_outer">
-        {/* <h1>Search using : ICD10 & Insurance Provider </h1> */}
-
         <div className="formBox">
-          {/* {result && (
-          <p className="text-left">
-            <button onClick={() => setResult(false)}>Search again</button>
-          </p>
-        )} */}
-
           <Row className="bottomSpace">
             <Col sm={5}>
-              {/* <h5>ICD10 :</h5> */}
               <div className="position-relative">
                 <img className="search-img" src={Search} alt="search" />
                 <img
@@ -176,8 +167,6 @@ function DMElookUp() {
               </div>
             </Col>
             <Col sm={5}>
-              {/* <h5>Insurance Provider:</h5> */}
-
               <div className="position-relative">
                 <img className="search-img" src={Search} alt="search" />
                 <img
@@ -238,7 +227,7 @@ function DMElookUp() {
                   <thead>
                     <tr>
                       <th>HCPCS & Modifiers</th>
-                      <th>Athena Description</th>
+                      <th className="athena">Athena Description</th>
                       <th>SKU</th>
                       <th>Primary Diagnosis</th>
                       <th>Year of Service</th>
@@ -252,7 +241,7 @@ function DMElookUp() {
                     {result?.map((res, index) => (
                       <tr key={index}>
                         <td className="support">{res?.hcpcs_code}</td>
-                        <td>{res?.dme_description}</td>
+                        <td className="athena">{res?.dme_description}</td>
                         <td>{res?.sku}</td>
                         <td
                           className="support curserPointer"

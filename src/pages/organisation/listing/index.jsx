@@ -5,7 +5,7 @@ import AddIcon from "../../../assests/images/dashborad/add.png";
 import "./style.scss";
 import { useNavigate } from "react-router-dom";
 import URL from "../../../constants/routesURL";
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import ModalComponent from "../../../components/modal";
 import ClinicListing from "../../clinic/listing";
 import DoctorListing from "../../doctor/listing";
@@ -22,6 +22,7 @@ import {
   handleDataSelectionForExport,
 } from "../../../utils/helperFunction";
 import DetailsPopUp from "../../../components/detailsPopUp";
+import StatusDropdown from "../../../components/statusDropdown";
 
 const popUpComponents = [
   {
@@ -40,6 +41,7 @@ const popUpComponents = [
 
 function OrganisationListing() {
   const [show, setShow] = useState("");
+  const [status, setStatus] = useState("");
   const [organizations, setOrganizations] = useState([]);
   const [search, setSearch] = useState("");
   const { state, dispatch } = useContext(Store);
@@ -148,6 +150,13 @@ function OrganisationListing() {
       console.log(err);
     }
   };
+  const filterHandle = useCallback((slug, value) => {
+    setCurrentPage(1);
+
+    if (slug === "search") {
+      setSearch(value);
+    }
+  }, []);
 
   const downloadData = () => {
     if (organisationToExport.length > 0) {
@@ -368,7 +377,7 @@ function OrganisationListing() {
         show={showDetails}
         handleClose={handleShowDetailsClose}
         details={editOrganisationDetails}
-        faxKey={"clinic_fax"}
+        faxKey={"organization_fax"}
         handleEdit={() => navigate(URL.ORGANISATION.EDIT.PROFILE_DETAIL)}
       />
     </>

@@ -36,6 +36,10 @@ function EditOrganisationProfile() {
   });
   const navigate = useNavigate();
 
+  const handleTabChange = (key) => {
+    handleSubmit();
+  };
+
   useEffect(() => {
     if (!editOrganisationDetails) {
       navigate(URL.ORGANISATION.LISTING);
@@ -54,9 +58,13 @@ function EditOrganisationProfile() {
     const value = profileDetailsHandleChange(e);
     setFieldValue(e.target.name, value);
   };
+
   return (
     <div className="Patients_section Organization-section AddOrganisationProfile">
-      <EditOrganisationTabs />
+      <EditOrganisationTabs
+        handleTabChanges={handleTabChange}
+        errors={errors}
+      />
       <OrganisationProfileDetails
         handleSubmit={handleSubmit}
         formikProps={formikProps}

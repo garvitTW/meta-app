@@ -19,11 +19,11 @@ function EditPatient() {
   const { state } = useContext(Store);
   const { editPatient, userInfo } = state;
   const nameArray = editPatient?.name?.split(/\s+/).filter(Boolean);
-  const firstName = nameArray[0];
-  const restName = nameArray.slice(1).join(" ");
+  const firstName = nameArray?.length >= 0 ? nameArray[0] : "";
+  const restName = nameArray?.length > 0 ? nameArray.slice(1).join(" ") : "";
   const initialValues = {
-    name: firstName || "",
-    surname: restName || "",
+    name: firstName,
+    surname: restName,
     email: editPatient?.email || "",
     phone_number: formatPhoneNumber(editPatient?.phone_number || ""),
     street: editPatient?.street || "",

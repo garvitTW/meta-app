@@ -94,9 +94,18 @@ function AddDoctorProfile() {
     setFieldValue(e.target.name, value);
   };
 
+  const handleTabChange = (key) => {
+    handleSubmit();
+  };
+
   return (
     <div className="Patients_section Organization-section AddOrganisationProfile Add_Organisation_Professional">
-      <TabsWithNavigation tabs={addDoctorTabs} heading="Add Doctor" />
+      <TabsWithNavigation
+        tabs={addDoctorTabs}
+        heading="Add Doctor"
+        handleTabsChange={handleTabChange}
+        errors={errors}
+      />
       <DoctorProfileDetailsForm
         handleSubmit={handleSubmit}
         formikProps={formikProps}

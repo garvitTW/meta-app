@@ -2,11 +2,14 @@ import { Col, Row, Tab, Tabs } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
 import URL from "../../constants/routesURL";
 
-function EditOrganisationTabs() {
+function EditOrganisationTabs({ handleTabChanges = () => {}, errors = {} }) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const handleTabChange = (eventKey) => {
-    navigate(eventKey);
+    if (Object.keys(errors).length === 0) {
+      handleTabChanges();
+      navigate(eventKey);
+    }
   };
   return (
     <Row>
@@ -15,7 +18,7 @@ function EditOrganisationTabs() {
       </Col>
       <Col md={12}>
         <Tabs
-          defaultActiveKey={pathname}
+          activeKey={pathname}
           id="uncontrolled-tab-example"
           className="organise_tabs"
           onSelect={handleTabChange}

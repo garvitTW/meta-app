@@ -8,7 +8,6 @@ import { Store } from "../../../../store/Store";
 import { Type } from "../../../../constants/storeAction.constants";
 import AddOrganisationTabs from "../../../../components/addOrganisationTabs";
 import {
-  formatPhoneNumber,
   generateProfileDetailsInitialValue,
   profileDetailsHandleChange,
 } from "../../../../utils/helperFunction";
@@ -43,6 +42,10 @@ function AddOrganisationProfile() {
     },
   });
 
+  const handleTabChange = (key) => {
+    handleSubmit();
+  };
+
   const formikProps = {
     touched: touched,
     errors: errors,
@@ -58,7 +61,7 @@ function AddOrganisationProfile() {
 
   return (
     <div className="Patients_section Organization-section AddOrganisationProfile">
-      <AddOrganisationTabs />
+      <AddOrganisationTabs handleTabChanges={handleTabChange} errors={errors} />
       <OrganisationProfileDetails
         handleSubmit={handleSubmit}
         formikProps={formikProps}

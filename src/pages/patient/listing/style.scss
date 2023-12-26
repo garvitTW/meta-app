@@ -254,6 +254,40 @@
   }
 }
 
+.confirmDelete {
+  .modal-dialog {
+    max-width: 100%;
+    width: 500px;
+    position: absolute;
+    top: 47%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%) !important;
+    transform: translate(-50%, -50%) !important;
+  }
+
+  .modal-body {
+    border: 0;
+    color: white;
+  }
+
+  .modal-header {
+    border: 0;
+    color: white;
+
+    .btn-close {
+      color: #fff;
+      background-image: url("../../../assests/images/dashborad/close.png");
+      background-size: 100%;
+      opacity: 1;
+      box-shadow: none;
+    }
+  }
+
+  .modal-content {
+    border-radius: 12px;
+    background: #272830;
+  }
+}
 .right-header {
   display: flex;
   gap: 20px;

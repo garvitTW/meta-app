@@ -124,4 +124,9 @@ h1 {
   th {
     text-wrap: nowrap;
   }
+  .athena {
+    max-width: 750px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }

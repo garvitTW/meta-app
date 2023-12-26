@@ -94,9 +94,18 @@ function EditDoctorProfile() {
     const value = profileDetailsHandleChange(e);
     setFieldValue(e.target.name, value);
   };
+
+  const handleTabChange = (key) => {
+    handleSubmit();
+  };
   return (
     <div className="Patients_section Organization-section AddOrganisationProfile Add_Organisation_Professional">
-      <TabsWithNavigation tabs={editDoctorTabs} heading="Edit Doctor" />
+      <TabsWithNavigation
+        tabs={editDoctorTabs}
+        heading="Edit Doctor"
+        handleTabsChange={handleTabChange}
+        errors={errors}
+      />
       <DoctorProfileDetailsForm
         doctorUniqueId={editDoctorDetails.unique_id}
         handleSubmit={handleSubmit}

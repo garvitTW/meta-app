@@ -62,7 +62,6 @@ function AddPatient() {
         });
         await patientService.createPatient({
           ...values,
-          name: values.name + " " + values.surname,
           user_type: roles.patient,
         });
 
