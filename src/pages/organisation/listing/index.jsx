@@ -1,5 +1,5 @@
 import PaginationSection from "../../../components/PaginationSection";
-import { Table, InputGroup, Row, Form, Col, Tabs, Tab } from "react-bootstrap";
+import { Table, InputGroup, Row, Form, Col } from "react-bootstrap";
 import Search from "../../../assests/images/dashborad/Search.png";
 import AddIcon from "../../../assests/images/dashborad/add.png";
 import "./style.scss";
@@ -15,6 +15,7 @@ import { useDebounce } from "../../../hooks/debounce";
 import { Store } from "../../../store/Store";
 import { Type } from "../../../constants/storeAction.constants";
 import LoaderSpinner from "../../../components/spinner";
+import { useWindowSize } from "../../../hooks";
 
 import {
   downloadCSV,
@@ -53,14 +54,17 @@ function OrganisationListing() {
   const [organisationIdForPopUp, setOrganisationIdForPopUp] = useState("");
 
   const debouncedSearchTerm = useDebounce(search, 600);
+
   const [showDetails, setShowDetails] = useState(false);
 
   const handleShowDetailsClose = () => setShowDetails(false);
 
   const navigate = useNavigate();
   const handleShow = (name) => setShow(name);
-  const handleTabChange = (eventKey) => {
-    navigate(eventKey);
+
+  const { width, height } = useWindowSize();
+  const containerStyle = {
+    width: width <= 1287 && height <= 720 ? "max-content" : "auto",
   };
 
   const GetPopUpComponent = useMemo(() => {
@@ -87,7 +91,7 @@ function OrganisationListing() {
           await OrganisationService.getOrganisationSummary({
             search: debouncedSearchTerm,
             page: currentPage,
-            // page_num: currentPage,
+            status: status,
           });
 
         setOrganizations(result);
@@ -100,7 +104,7 @@ function OrganisationListing() {
       }
     };
     fetchData();
-  }, [debouncedSearchTerm, currentPage]);
+  }, [debouncedSearchTerm, currentPage, status]);
 
   const handleSwitchToggle = async (organization) => {
     try {
@@ -153,8 +157,8 @@ function OrganisationListing() {
   const filterHandle = useCallback((slug, value) => {
     setCurrentPage(1);
 
-    if (slug === "search") {
-      setSearch(value);
+    if (slug === "Status") {
+      setStatus(value);
     }
   }, []);
 
@@ -198,7 +202,7 @@ function OrganisationListing() {
       <div className="Patients_section Organization-section">
         <div>
           <div className="d-inline-block">
-            <h1>Organization Clinics</h1>
+            <h1>Organization Clinics ({totalItems})</h1>
           </div>
           <div className="right-header">
             <LoaderSpinner loading={loading} />
@@ -229,26 +233,12 @@ function OrganisationListing() {
           </div>
         </div>
 
-        <Tabs
-          defaultActiveKey={URL.ORGANISATION.LISTING}
-          id="uncontrolled-tab-example"
-          className="organise_tabs w-100"
-          onSelect={handleTabChange}
-        >
-          <Tab
-            eventKey={URL.ORGANISATION.LISTING}
-            title={`Registered (${totalItems})`}
-          ></Tab>
-          {/* <Tab eventKey={URL.ORGANISATION.PENDING} title="Pending(6)">
-            <Pending />
-          </Tab>
-          <Tab eventKey={URL.ORGANISATION.DECLINED} title="Declined(9)">
-            <Declined />
-          </Tab> */}
-        </Tabs>
-        <Row className="table-margin">
-          <Col md={12}>
-            <div className="Patienttable">
+        <Row className="mt-4">
+          <Col md={3} className="status_dropdown enable-status">
+            <StatusDropdown status={status} filterHandle={filterHandle} />
+          </Col>
+          <Col md={12} className="mt-4">
+            <div className="Patienttable" style={containerStyle}>
               <Table
                 responsive
                 className="stripednew table-stripednew Patients-table"
