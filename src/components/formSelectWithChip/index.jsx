@@ -9,6 +9,8 @@ function FormSelectWithChip({
   selectedItems,
   removeItem,
 }) {
+  console.log(ItemList, "ItemList>>>>>>>>>>");
+
   return (
     <>
       {" "}

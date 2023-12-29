@@ -28,7 +28,7 @@ import StatusDropdown from "../../../components/statusDropdown";
 const popUpComponents = [
   {
     name: "clinic",
-    component: ClinicListing,
+    // component: ClinicListing,
   },
   {
     name: "doctor",

@@ -12,6 +12,7 @@ import StatusDropdown from "../../../components/statusDropdown";
 import ListingDropdown from "../../../components/listingDropdown";
 import ModalComponent from "../../../components/modal";
 import PatientListing from "../../patient/listing";
+import ClinicListing from "../../clinic/listing";
 import URL from "../../../constants/routesURL";
 import { useNavigate } from "react-router-dom";
 import { Store } from "../../../store/Store";
@@ -23,6 +24,16 @@ import {
   handleDataSelectionForExport,
 } from "../../../utils/helperFunction";
 import DetailsPopUp from "../../../components/detailsPopUp";
+const popUpComponents = [
+  {
+    name: "clinic",
+    component: ClinicListing,
+  },
+  {
+    name: "patient",
+    component: PatientListing,
+  },
+];
 
 function DoctorListing({ organization_id = "", clinic_id = "" }) {
   const { state, dispatch } = useContext(Store);
@@ -32,6 +43,7 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
 
   const [show, setShow] = useState("");
   const navigate = useNavigate();
+  const handleShow = (name) => setShow(name);
   const [clinics, setClinics] = useState([]);
   const [selectedClinic, setSelectedClinic] = useState(initialClinicId);
   const [doctors, setDoctors] = useState([]);
@@ -45,14 +57,15 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
 
   const debouncedSearchTerm = useDebounce(search, 600);
   const [showDetails, setShowDetails] = useState(false);
+  const [organisationIdForPopUp, setOrganisationIdForPopUp] = useState("");
 
   const handleShowDetailsClose = () => setShowDetails(false);
 
-  const handleShow = (id, count) => {
-    if (count > 0) {
-      setShow(id);
-    }
-  };
+  // const handleShow = (id, count) => {
+  //   if (count > 0) {
+  //     setShow(id);
+  //   }
+  // };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -108,6 +121,23 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
     }
   }, [id, user_type]);
 
+  const GetPopUpComponent = useMemo(() => {
+    if (show) {
+      const popUpComponent = popUpComponents?.find(
+        (comp) => comp?.name === show
+      );
+      return popUpComponent ? popUpComponent.component : null;
+    }
+    return null;
+  }, [show]);
+
+  const handlePopUp = (name, id, count) => {
+    if (count > 0 && user_type !== roles.clinic) {
+      setOrganisationIdForPopUp(id);
+      handleShow(name);
+    }
+  };
+
   const getClinicFilter = useCallback(() => {
     if (selectedClinic) {
       return clinics?.find((clinic) => clinic?.clinic_id === selectedClinic)
@@ -137,6 +167,7 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
       try {
         setLoading(true);
         const data = await doctorService.getDoctorDetails(id);
+
         setLoading(false);
         setShowDetails(true);
         dispatch({
@@ -306,7 +337,7 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
                     <th>Doctor Name</th>
                     <th>Doctor ID</th>
                     <th>Email Address</th>
-                    <th>Clinic Name</th>
+                    <th>Clinics</th>
                     <th>Patients</th>
                     <th>Enable/Disable</th>
                   </tr>
@@ -331,11 +362,29 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
                       </td>
                       <td>{doctor?.doctor_uniqueid}</td>
                       <td>{doctor?.doctor_email}</td>
-                      <td className="">{doctor?.clinic_name}</td>
                       <td
                         className="name-text"
                         onClick={() =>
-                          handleShow(doctor?.id, doctor?.patients_count)
+                          handlePopUp(
+                            popUpComponents[0]?.name,
+                            doctor?.id,
+                            doctor?.clinic_name
+                          )
+                        }
+                      >
+                        {doctor?.clinic_name}
+                      </td>
+                      <td
+                        className="name-text"
+                        // onClick={() =>
+                        //   handleShow(doctor?.id, doctor?.patients_count)
+                        // }
+                        onClick={() =>
+                          handlePopUp(
+                            popUpComponents[1]?.name,
+                            doctor?.id,
+                            doctor?.patients_count
+                          )
                         }
                       >
                         {doctor?.patients_count}
@@ -366,9 +415,11 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
           </Col>
         </Row>
       </div>
-      <ModalComponent setShow={setShow} show={show} className="maxWidth">
-        <PatientListing doctor_id={show} />
-      </ModalComponent>
+      {GetPopUpComponent && (
+        <ModalComponent setShow={setShow} show={show} className="maxWidth">
+          <GetPopUpComponent doctor_id={organisationIdForPopUp} />
+        </ModalComponent>
+      )}
       <DetailsPopUp
         show={showDetails}
         handleClose={handleShowDetailsClose}

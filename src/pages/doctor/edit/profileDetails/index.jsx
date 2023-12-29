@@ -36,6 +36,7 @@ function EditDoctorProfile() {
           try {
             const { data } = await clinicService.getClinicNameId({
               organization_id: editDoctorDetails.organization_id,
+              doctor_id: editDoctorDetails.id,
             });
 
             setClinicList(data);

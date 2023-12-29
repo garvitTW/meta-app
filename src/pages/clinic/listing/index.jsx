@@ -36,7 +36,8 @@ const popUpComponents = [
   },
 ];
 
-function ClinicListing({ organization_id = "" }) {
+function ClinicListing({ organization_id = "", doctor_id = "" }) {
+  debugger;
   const { state, dispatch } = useContext(Store);
   const { userInfo, addClinicStep1, editClinicDetails } = state;
   const { user_type, id } = userInfo;
@@ -68,6 +69,7 @@ function ClinicListing({ organization_id = "" }) {
         setLoading(true);
         const { count, results } = await clinicService.getClinicSummary({
           organization_id: selectedOrganisation,
+          doctor_id: doctor_id || "",
           search: debouncedSearchTerm,
           status: status,
           page: currentPage,
@@ -82,7 +84,13 @@ function ClinicListing({ organization_id = "" }) {
       }
     };
     fetchData();
-  }, [debouncedSearchTerm, status, selectedOrganisation, currentPage]);
+  }, [
+    debouncedSearchTerm,
+    doctor_id,
+    status,
+    selectedOrganisation,
+    currentPage,
+  ]);
 
   useEffect(() => {
     if (user_type === roles.admin) {
@@ -246,6 +254,7 @@ function ClinicListing({ organization_id = "" }) {
         Add Clinic
       </button>
     ) : null;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user_type]);
 
   const className =
