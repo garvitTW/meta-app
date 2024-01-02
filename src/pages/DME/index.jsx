@@ -1,12 +1,14 @@
 import "./style.scss";
 import LoaderSpinner from "../../components/spinner";
 import Search from "../../assests/images/dashborad/Search.png";
-import { Table, Row, Col } from "react-bootstrap";
+import { Table, Row, Col, InputGroup } from "react-bootstrap";
 import Closeicon from "../../assests/images/dashborad/closeIcon.svg";
 import { useEffect, useMemo, useState } from "react";
 import { dmeService } from "../../services/dme.service";
 import ModalComponent from "../../components/modal";
 import DmePopUp from "../../components/dmePopup";
+import Dropdown from 'react-bootstrap/Dropdown';
+import tableDropdown from "../../assests/images/table/table_dropdown.svg"
 
 function DMElookUp() {
   const [result, setResult] = useState(false);
@@ -213,6 +215,38 @@ function DMElookUp() {
                 className="customloader"
                 loading={loadingInsurance || loadingResult}
               />
+            </Col>
+            <Col sm={12}>
+                <div className="dropdownarea">
+                   <div className="innerbox">
+                   <Dropdown>
+                   <Dropdown.Toggle id="dropdown-basic">
+                      <img src={tableDropdown} alt="tabledropdown"/>
+                   </Dropdown.Toggle>
+             
+                   <Dropdown.Menu>
+                     <Dropdown.Item > <InputGroup >
+                     <InputGroup.Checkbox
+                      
+                     />
+                     <span >ABC</span>
+                   </InputGroup></Dropdown.Item>
+                   <Dropdown.Item > <InputGroup >
+                   <InputGroup.Checkbox
+                    
+                   />
+                   <span >ABC</span>
+                 </InputGroup></Dropdown.Item>
+                 <Dropdown.Item > <InputGroup >
+                 <InputGroup.Checkbox
+                  
+                 />
+                 <span >ABC</span>
+               </InputGroup></Dropdown.Item>
+                   </Dropdown.Menu>
+                 </Dropdown>
+                   </div>  
+                </div>
             </Col>
           </Row>
 

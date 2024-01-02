@@ -10,6 +10,28 @@ h1 {
   color: #fff;
   margin: 0;
 }
+.dropdownarea{
+  position: relative;
+
+  .innerbox{
+    position: fixed;
+    right: 6%;
+    top: 250px;
+    z-index: 999;
+
+    button{
+      background: transparent;
+      width: auto;
+      padding: 0px;
+    }
+    button:focus{
+      background: transparent;
+    }
+    .dropdown-toggle::after {
+      display:none;
+  }
+  }
+}
 
 .support {
   color: #0aceec !important;
