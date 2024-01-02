@@ -1,15 +1,17 @@
+import { useState } from "react";
 import Header from "../header";
 import SideBar from "../sideBar";
 import "./style.scss";
 function Layout({ children }) {
+  const [isMenuFull,setIsMenuFull]=useState(true);
   return (
     <>
       <div>
         <div className="main_wrapper p-4">
           <div className="side-wrapper">
-            <SideBar />
+            <SideBar isMenuFull={isMenuFull} setIsMenuFull={setIsMenuFull}/>
           </div>
-          <div className="content-wrapper">
+          <div className={isMenuFull?"content-wrapper":"content-wrapper_collpase"}>
             <Header />
             <div>{children}</div>
           </div>
