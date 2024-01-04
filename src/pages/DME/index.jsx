@@ -7,8 +7,86 @@ import { useEffect, useMemo, useState } from "react";
 import { dmeService } from "../../services/dme.service";
 import ModalComponent from "../../components/modal";
 import DmePopUp from "../../components/dmePopup";
-import Dropdown from 'react-bootstrap/Dropdown';
-import tableDropdown from "../../assests/images/table/table_dropdown.svg"
+import Dropdown from "react-bootstrap/Dropdown";
+import tableDropdown from "../../assests/images/table/table_dropdown.svg";
+
+const dmeTableColumns = [
+  {
+    headerName: "HCPCS & Modifiers",
+    headerClass: "",
+    DataKey: "hcpcs_code",
+    DataClass: "support",
+    DataPreFix: "",
+  },
+  {
+    headerName: "Athena Description",
+    headerClass: "athena",
+    DataKey: "dme_description",
+    DataClass: "athena",
+    DataPreFix: "",
+  },
+  {
+    headerName: "SKU",
+    headerClass: "",
+    DataKey: "sku",
+    DataClass: "",
+    DataPreFix: "",
+  },
+  {
+    headerName: "Primary Diagnosis",
+    headerClass: "",
+    DataKey: "diagnosis_name",
+    DataClass: "support curserPointer",
+    DataPreFix: "",
+  },
+  {
+    headerName: "Year of Service",
+    headerClass: "",
+    DataKey: "year_of_service",
+    DataClass: "",
+    DataPreFix: "",
+  },
+  {
+    headerName: "Primary Payor",
+    headerClass: "",
+    DataKey: "primary_payer",
+    DataClass: "",
+    DataPreFix: "",
+  },
+  {
+    headerName: "Primary Outstanding",
+    headerClass: "",
+    DataKey: "primary_outstanding",
+    DataClass: "price",
+    DataPreFix: "$",
+  },
+  {
+    headerName: "Total Charges",
+    headerClass: "",
+    DataKey: "total_charge",
+    DataClass: "price",
+    DataPreFix: "$",
+  },
+  {
+    headerName: "Primary Payments",
+    headerClass: "",
+    DataKey: "primary_payments",
+    DataClass: "price",
+    DataPreFix: "$",
+  },
+];
+
+const defaultSelectedColumns = [
+  dmeTableColumns[0].headerName,
+  dmeTableColumns[1].headerName,
+  dmeTableColumns[2].headerName,
+  dmeTableColumns[3].headerName,
+  dmeTableColumns[4].headerName,
+  dmeTableColumns[5].headerName,
+  dmeTableColumns[6].headerName,
+  dmeTableColumns[7].headerName,
+  dmeTableColumns[8].headerName,
+];
 
 function DMElookUp() {
   const [result, setResult] = useState(false);
@@ -24,6 +102,9 @@ function DMElookUp() {
   const [error, setError] = useState("");
   const [loadingInsurance, setLoadingInsurance] = useState(false);
   const [loadingResult, setLoadingResult] = useState(false);
+  const [selectedColumns, setSelectedColumns] = useState(
+    defaultSelectedColumns
+  );
 
   const insuranceCompanyListToShow = useMemo(() => {
     return insuranceList.filter((insurance) =>
@@ -120,11 +201,31 @@ function DMElookUp() {
     setInsuranceSearchValue("");
   };
 
-  const handleSupportedDMEPopup = (diagnosisName) => {
-    if (diagnosisName.toLowerCase().includes("m170")) {
-      setShow(true);
+  const handleSupportedDMEPopup = (diagnosisName, columnName) => {
+    if (columnName === "Primary Diagnosis") {
+      if (diagnosisName.toLowerCase().includes("m170")) {
+        setShow(true);
+      }
     }
   };
+  const handleShowColumnChange = (value, event) => {
+    event.stopPropagation(); // Prevent the dropdown from closing
+
+    const updatedCheckboxes = selectedColumns.includes(value)
+      ? selectedColumns.filter((item) => item !== value)
+      : [...selectedColumns, value];
+
+    setSelectedColumns(updatedCheckboxes);
+  };
+
+  const columnsToShow = useMemo(
+    () =>
+      dmeTableColumns.filter((column) =>
+        selectedColumns.includes(column.headerName)
+      ),
+    [selectedColumns]
+  );
+
   return (
     <>
       <div className="Patients_section  dme_outer">
@@ -216,38 +317,40 @@ function DMElookUp() {
                 loading={loadingInsurance || loadingResult}
               />
             </Col>
-            <Col sm={12}>
+            {result && (
+              <Col sm={12}>
                 <div className="dropdownarea">
-                   <div className="innerbox">
-                   <Dropdown>
-                   <Dropdown.Toggle id="dropdown-basic">
-                      <img src={tableDropdown} alt="tabledropdown"/>
-                   </Dropdown.Toggle>
-             
-                   <Dropdown.Menu>
-                     <Dropdown.Item > <InputGroup >
-                     <InputGroup.Checkbox
-                      
-                     />
-                     <span >ABC</span>
-                   </InputGroup></Dropdown.Item>
-                   <Dropdown.Item > <InputGroup >
-                   <InputGroup.Checkbox
-                    
-                   />
-                   <span >ABC</span>
-                 </InputGroup></Dropdown.Item>
-                 <Dropdown.Item > <InputGroup >
-                 <InputGroup.Checkbox
-                  
-                 />
-                 <span >ABC</span>
-               </InputGroup></Dropdown.Item>
-                   </Dropdown.Menu>
-                 </Dropdown>
-                   </div>  
+                  <div className="innerbox">
+                    <Dropdown>
+                      <Dropdown.Toggle id="dropdown-basic">
+                        <img src={tableDropdown} alt="tabledropdown" />
+                      </Dropdown.Toggle>
+
+                      <Dropdown.Menu>
+                        {dmeTableColumns.map((column) => (
+                          <Dropdown.Item
+                            key={column.headerName}
+                            onClick={(e) =>
+                              handleShowColumnChange(column.headerName, e)
+                            }
+                          >
+                            <InputGroup>
+                              <InputGroup.Checkbox
+                                id={`checkbox-${column.headerName}`}
+                                checked={selectedColumns.includes(
+                                  column.headerName
+                                )}
+                              />
+                              <span>{column.headerName}</span>
+                            </InputGroup>
+                          </Dropdown.Item>
+                        ))}
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </div>
                 </div>
-            </Col>
+              </Col>
+            )}
           </Row>
 
           {result &&
@@ -260,36 +363,33 @@ function DMElookUp() {
                 >
                   <thead>
                     <tr>
-                      <th>HCPCS & Modifiers</th>
-                      <th className="athena">Athena Description</th>
-                      <th>SKU</th>
-                      <th>Primary Diagnosis</th>
-                      <th>Year of Service</th>
-                      <th>Primary Payor</th>
-                      <th>Primary Outstanding</th>
-                      <th>Total Charges</th>
-                      <th>Primary Payments</th>
+                      {columnsToShow.map((column) => (
+                        <th
+                          key={column.headerName}
+                          className={column?.headerClass}
+                        >
+                          {column?.headerName}
+                        </th>
+                      ))}
                     </tr>
                   </thead>
                   <tbody>
                     {result?.map((res, index) => (
                       <tr key={index}>
-                        <td className="support">{res?.hcpcs_code}</td>
-                        <td className="athena">{res?.dme_description}</td>
-                        <td>{res?.sku}</td>
-                        <td
-                          className="support curserPointer"
-                          onClick={() =>
-                            handleSupportedDMEPopup(res?.diagnosis_name)
-                          }
-                        >
-                          {res?.diagnosis_name}
-                        </td>
-                        <td>{res?.year_of_service}</td>
-                        <td>{res?.primary_payer}</td>
-                        <td className="price">${res?.primary_outstanding}</td>
-                        <td className="price">${res?.total_charge}</td>
-                        <td className="price">${res?.primary_payments}</td>
+                        {columnsToShow.map((row, index) => (
+                          <td
+                            key={index}
+                            className={row?.DataClass}
+                            onClick={() =>
+                              handleSupportedDMEPopup(
+                                res?.diagnosis_name,
+                                row?.headerName
+                              )
+                            }
+                          >
+                            {row?.DataPreFix} {res?.[row.DataKey]}
+                          </td>
+                        ))}
                       </tr>
                     ))}
                   </tbody>

@@ -10,26 +10,26 @@ h1 {
   color: #fff;
   margin: 0;
 }
-.dropdownarea{
+.dropdownarea {
   position: relative;
 
-  .innerbox{
+  .innerbox {
     position: fixed;
-    right: 6%;
-    top: 250px;
+    right: 7%;
+    top: 246px;
     z-index: 999;
 
-    button{
+    button {
       background: transparent;
       width: auto;
       padding: 0px;
     }
-    button:focus{
+    button:focus {
       background: transparent;
     }
     .dropdown-toggle::after {
-      display:none;
-  }
+      display: none;
+    }
   }
 }
 

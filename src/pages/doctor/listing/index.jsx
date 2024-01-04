@@ -1,4 +1,11 @@
-import { useCallback, useContext, useEffect, useMemo, useState } from "react";
+import React, {
+  Suspense,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import "./style.scss";
 import { Row, Col, Table, Form, InputGroup } from "react-bootstrap";
 import Search from "../../../assests/images/dashborad/Search.png";
@@ -11,8 +18,6 @@ import LoaderSpinner from "../../../components/spinner";
 import StatusDropdown from "../../../components/statusDropdown";
 import ListingDropdown from "../../../components/listingDropdown";
 import ModalComponent from "../../../components/modal";
-import PatientListing from "../../patient/listing";
-import ClinicListing from "../../clinic/listing";
 import URL from "../../../constants/routesURL";
 import { useNavigate } from "react-router-dom";
 import { Store } from "../../../store/Store";
@@ -24,16 +29,7 @@ import {
   handleDataSelectionForExport,
 } from "../../../utils/helperFunction";
 import DetailsPopUp from "../../../components/detailsPopUp";
-const popUpComponents = [
-  {
-    name: "clinic",
-    component: ClinicListing,
-  },
-  {
-    name: "patient",
-    component: PatientListing,
-  },
-];
+import popUpComponents from "../../../utils/popUpComponents";
 
 function DoctorListing({ organization_id = "", clinic_id = "" }) {
   const { state, dispatch } = useContext(Store);
@@ -57,15 +53,9 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
 
   const debouncedSearchTerm = useDebounce(search, 600);
   const [showDetails, setShowDetails] = useState(false);
-  const [organisationIdForPopUp, setOrganisationIdForPopUp] = useState("");
+  const [doctorIdForPopUp, setDoctorIdForPopUp] = useState("");
 
   const handleShowDetailsClose = () => setShowDetails(false);
-
-  // const handleShow = (id, count) => {
-  //   if (count > 0) {
-  //     setShow(id);
-  //   }
-  // };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -123,17 +113,17 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
 
   const GetPopUpComponent = useMemo(() => {
     if (show) {
-      const popUpComponent = popUpComponents?.find(
-        (comp) => comp?.name === show
-      );
-      return popUpComponent ? popUpComponent.component : null;
+      const componentLoader = popUpComponents[show];
+      if (componentLoader) {
+        return React.lazy(() => componentLoader());
+      }
     }
     return null;
   }, [show]);
 
   const handlePopUp = (name, id, count) => {
     if (count > 0 && user_type !== roles.clinic) {
-      setOrganisationIdForPopUp(id);
+      setDoctorIdForPopUp(id);
       handleShow(name);
     }
   };
@@ -365,23 +355,16 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
                       <td
                         className="name-text"
                         onClick={() =>
-                          handlePopUp(
-                            popUpComponents[0]?.name,
-                            doctor?.id,
-                            doctor?.clinic_name
-                          )
+                          handlePopUp("clinic", doctor?.id, doctor?.clinic_name)
                         }
                       >
                         {doctor?.clinic_name}
                       </td>
                       <td
                         className="name-text"
-                        // onClick={() =>
-                        //   handleShow(doctor?.id, doctor?.patients_count)
-                        // }
                         onClick={() =>
                           handlePopUp(
-                            popUpComponents[1]?.name,
+                            "patient",
                             doctor?.id,
                             doctor?.patients_count
                           )
@@ -417,7 +400,9 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
       </div>
       {GetPopUpComponent && (
         <ModalComponent setShow={setShow} show={show} className="maxWidth">
-          <GetPopUpComponent doctor_id={organisationIdForPopUp} />
+          <Suspense fallback={<div>Loading...</div>}>
+            <GetPopUpComponent doctor_id={doctorIdForPopUp} />
+          </Suspense>
         </ModalComponent>
       )}
       <DetailsPopUp

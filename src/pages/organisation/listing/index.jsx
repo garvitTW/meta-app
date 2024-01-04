@@ -5,11 +5,15 @@ import AddIcon from "../../../assests/images/dashborad/add.png";
 import "./style.scss";
 import { useNavigate } from "react-router-dom";
 import URL from "../../../constants/routesURL";
-import { useCallback, useContext, useEffect, useMemo, useState } from "react";
+import React, {
+  Suspense,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import ModalComponent from "../../../components/modal";
-import ClinicListing from "../../clinic/listing";
-import DoctorListing from "../../doctor/listing";
-import PatientListing from "../../patient/listing";
 import { OrganisationService } from "../../../services/Organisation.service";
 import { useDebounce } from "../../../hooks/debounce";
 import { Store } from "../../../store/Store";
@@ -24,21 +28,7 @@ import {
 } from "../../../utils/helperFunction";
 import DetailsPopUp from "../../../components/detailsPopUp";
 import StatusDropdown from "../../../components/statusDropdown";
-
-const popUpComponents = [
-  {
-    name: "clinic",
-    // component: ClinicListing,
-  },
-  {
-    name: "doctor",
-    component: DoctorListing,
-  },
-  {
-    name: "patient",
-    component: PatientListing,
-  },
-];
+import popUpComponents from "../../../utils/popUpComponents";
 
 function OrganisationListing() {
   const [show, setShow] = useState("");
@@ -68,8 +58,14 @@ function OrganisationListing() {
   };
 
   const GetPopUpComponent = useMemo(() => {
-    const popUpComponent = popUpComponents.find((comp) => comp.name === show);
-    return popUpComponent ? popUpComponent.component : null;
+    if (show) {
+      const componentLoader = popUpComponents[show];
+
+      if (componentLoader) {
+        return React.lazy(() => componentLoader());
+      }
+    }
+    return null;
   }, [show]);
 
   const handlePopUp = (name, id, count) => {
@@ -293,7 +289,7 @@ function OrganisationListing() {
                         className="name-text"
                         onClick={() =>
                           handlePopUp(
-                            popUpComponents[0].name,
+                            "clinic",
                             organization?.id,
                             organization?.clinics
                           )
@@ -305,7 +301,7 @@ function OrganisationListing() {
                         className="name-text"
                         onClick={() =>
                           handlePopUp(
-                            popUpComponents[1].name,
+                            "doctor",
                             organization?.id,
                             organization?.doctors
                           )
@@ -317,7 +313,7 @@ function OrganisationListing() {
                         className="name-text"
                         onClick={() =>
                           handlePopUp(
-                            popUpComponents[2].name,
+                            "patient",
                             organization?.id,
                             organization?.patients
                           )
@@ -360,7 +356,9 @@ function OrganisationListing() {
       </div>
       <ModalComponent setShow={setShow} show={show} className="maxWidth">
         {GetPopUpComponent && (
-          <GetPopUpComponent organization_id={organisationIdForPopUp} />
+          <Suspense fallback={<div>Loading...</div>}>
+            <GetPopUpComponent organization_id={organisationIdForPopUp} />
+          </Suspense>
         )}
       </ModalComponent>
       <DetailsPopUp

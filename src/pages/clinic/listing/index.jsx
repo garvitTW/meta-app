@@ -2,15 +2,20 @@ import "./style.scss";
 import { Row, Col, Table, Form, InputGroup } from "react-bootstrap";
 import Search from "../../../assests/images/dashborad/Search.png";
 import PaginationSection from "../../../components/PaginationSection";
-import { useCallback, useContext, useEffect, useMemo, useState } from "react";
+import React, {
+  Suspense,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { useDebounce } from "../../../hooks/debounce";
 import LoaderSpinner from "../../../components/spinner";
 import { clinicService } from "../../../services/clinic.service";
 import { OrganisationService } from "../../../services/Organisation.service";
 import StatusDropDown from "../../../components/statusDropdown";
 import ListingDropDown from "../../../components/listingDropdown";
-import DoctorListing from "../../doctor/listing";
-import PatientListing from "../../patient/listing";
 import AddIcon from "../../../assests/images/dashborad/add.png";
 import ModalComponent from "../../../components/modal";
 import { useNavigate } from "react-router-dom";
@@ -24,20 +29,9 @@ import {
   handleDataSelectionForExport,
 } from "../../../utils/helperFunction";
 import DetailsPopUp from "../../../components/detailsPopUp";
-
-const popUpComponents = [
-  {
-    name: "doctor",
-    component: DoctorListing,
-  },
-  {
-    name: "patient",
-    component: PatientListing,
-  },
-];
+import popUpComponents from "../../../utils/popUpComponents";
 
 function ClinicListing({ organization_id = "", doctor_id = "" }) {
-  debugger;
   const { state, dispatch } = useContext(Store);
   const { userInfo, addClinicStep1, editClinicDetails } = state;
   const { user_type, id } = userInfo;
@@ -110,8 +104,14 @@ function ClinicListing({ organization_id = "", doctor_id = "" }) {
   }, [user_type]);
 
   const GetPopUpComponent = useMemo(() => {
-    const popUpComponent = popUpComponents.find((comp) => comp.name === show);
-    return popUpComponent ? popUpComponent.component : null;
+    if (show) {
+      const componentLoader = popUpComponents[show];
+
+      if (componentLoader) {
+        return React.lazy(() => componentLoader());
+      }
+    }
+    return null;
   }, [show]);
   const handleShow = (name) => setShow(name);
 
@@ -351,7 +351,7 @@ function ClinicListing({ organization_id = "", doctor_id = "" }) {
                         className="name-text"
                         onClick={() =>
                           handlePopUp(
-                            popUpComponents[0].name,
+                            "doctor",
                             clinic?.id,
                             clinic?.doctors_count
                           )
@@ -363,7 +363,7 @@ function ClinicListing({ organization_id = "", doctor_id = "" }) {
                         className="name-text"
                         onClick={() =>
                           handlePopUp(
-                            popUpComponents[1].name,
+                            "patient",
                             clinic?.id,
                             clinic?.patients_count
                           )
@@ -399,7 +399,9 @@ function ClinicListing({ organization_id = "", doctor_id = "" }) {
       </div>
       <ModalComponent setShow={setShow} show={show} className="maxWidth">
         {GetPopUpComponent && (
-          <GetPopUpComponent clinic_id={clinicIdForPopUp} />
+          <Suspense fallback={<div>Loading...</div>}>
+            <GetPopUpComponent clinic_id={clinicIdForPopUp} />
+          </Suspense>
         )}
       </ModalComponent>
       <DetailsPopUp
