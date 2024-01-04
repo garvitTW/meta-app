@@ -340,6 +340,7 @@ function DMElookUp() {
                                 checked={selectedColumns.includes(
                                   column.headerName
                                 )}
+                             
                               />
                               <span>{column.headerName}</span>
                             </InputGroup>
