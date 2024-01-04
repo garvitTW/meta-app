@@ -172,6 +172,22 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
     }
   };
 
+  const handleDeleteDoctor = async (id) => {
+    try {
+      setLoading(true);
+      await doctorService.deleteDoctor(id);
+      const doctorAfterDelete = doctors.filter(
+        (doctor) => Number(doctor.id) !== Number(id)
+      );
+      setTotalItems(doctorAfterDelete.length);
+      setDoctors(doctorAfterDelete);
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+      console.log(err);
+    }
+  };
+
   const handleAddDoctor = () => {
     if (addDoctorStep1?.name) {
       dispatch({ type: Type.REMOVE_DOCTOR_STEP_1 });
@@ -411,6 +427,7 @@ function DoctorListing({ organization_id = "", clinic_id = "" }) {
         details={editDoctorDetails}
         faxKey={"doctor_fax"}
         handleEdit={() => navigate(URL.DOCTOR.EDIT.PROFILE_DETAIL)}
+        handleDelete={handleDeleteDoctor}
       />
     </>
   );

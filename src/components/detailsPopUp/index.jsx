@@ -7,19 +7,33 @@ import Edit from "../../assests/images/dashborad/pen.svg";
 import { Button, Modal, Row, Col } from "react-bootstrap";
 import { formatPhoneNumber } from "../../utils/helperFunction";
 import { useState } from "react";
+import { useContext } from "react";
+import { Store } from "../../store/Store";
+import { roles } from "../../constants/common.constants";
 
-function DetailsPopUp({ show, handleClose, details, handleEdit, faxKey }) {
-  const [isDeleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
+function DetailsPopUp({
+  show,
+  handleClose,
+  details,
+  handleEdit,
+  faxKey,
+  handleDelete = () => {},
+}) {
+  const { state } = useContext(Store);
+  const { userInfo } = state;
+  const { user_type } = userInfo;
+  const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] =
+    useState(false);
   const openDeleteConfirmation = () => {
-    setDeleteConfirmationOpen(true);
+    setIsDeleteConfirmationOpen(true);
   };
 
   const closeDeleteConfirmation = () => {
-    setDeleteConfirmationOpen(false);
+    setIsDeleteConfirmationOpen(false);
   };
 
   const handleConfirmDelete = () => {
-    //handleDelete(); // Call the delete function
+    handleDelete(details?.id); // Call the delete function
     closeDeleteConfirmation(); // Close the confirmation modal
     handleClose(); // Close the main modal
   };
@@ -90,14 +104,16 @@ function DetailsPopUp({ show, handleClose, details, handleEdit, faxKey }) {
         </Row>
       </Modal.Body>
       <Modal.Footer>
-        <Button
-          variant="secondary"
-          className="delete-button"
-          onClick={openDeleteConfirmation}
-        >
-          <img src={Delete} alt="delete" />
-          delete
-        </Button>
+        {user_type === roles.clinic && (
+          <Button
+            variant="secondary"
+            className="delete-button"
+            onClick={openDeleteConfirmation}
+          >
+            <img src={Delete} alt="delete" />
+            delete
+          </Button>
+        )}
         <Button
           variant="primary"
           className="edit-button"

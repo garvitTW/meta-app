@@ -190,6 +190,22 @@ function PatientListing({
     }
   };
 
+  const handleDeletePatient = async (id) => {
+    try {
+      setLoading(true);
+      await patientService.deletePatient(id);
+      const patientAfterDelete = patients.filter(
+        (patient) => patient.id !== id
+      );
+      setPatients(patientAfterDelete);
+      setTotalItems(patientAfterDelete.length);
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+      console.log(err);
+    }
+  };
+
   const handleSwitchToggle = async (patient) => {
     try {
       setLoading(true);
@@ -366,6 +382,7 @@ function PatientListing({
         details={editPatient}
         faxKey={"patient_fax"}
         handleEdit={() => navigate(URL.PATIENT.EDIT)}
+        handleDelete={handleDeletePatient}
       />
     </div>
   );

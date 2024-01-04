@@ -37,18 +37,18 @@ h1 {
   }
 
   .dropdown-menu {
-    background: #282C38;
+    background: #282c38;
     width: max-content;
 
     .input-group span:last-child {
       font-size: 14px;
       font-weight: 500;
-      color: #B2B9CD;
+      color: #b2b9cd;
       margin-left: 10px !important;
       line-height: 26px;
     }
-    
-    .form-check-input{
+
+    .form-check-input {
       height: 24px;
       width: 24px;
       border: none;
@@ -62,10 +62,8 @@ h1 {
       border-radius: 4px !important;
       margin: 0px;
       padding: 0px;
-
     }
 
- 
     .form-check-input:checked {
       background-color: #0aceec;
       box-shadow: none;
@@ -74,10 +72,10 @@ h1 {
       margin: 0;
       border-radius: 4px !important;
     }
-    .dropdown-item:focus, .dropdown-item:hover {
+    .dropdown-item:focus,
+    .dropdown-item:hover {
       background-color: #1e1f25;
-  }
-
+    }
   }
 }
 
@@ -169,7 +167,7 @@ h1 {
     font-weight: 700;
     line-height: normal;
     color: #000000;
-    width: 195px;
+    width: 174px;
     padding: 11px 10px;
     border: none;
     display: block;

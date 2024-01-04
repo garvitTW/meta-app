@@ -16,6 +16,9 @@ async function createPatient(body) {
 async function getPatientDetails(id) {
   return apiService.get(apiURL.PATIENT + id + "/");
 }
+async function deletePatient(id) {
+  return apiService.delete(apiURL.PATIENT + id + "/");
+}
 async function updatePatient(id, body) {
   return apiService.put(apiURL.PATIENT + id + "/", body);
 }
@@ -30,4 +33,5 @@ export const patientService = {
   getPatientDetails,
   updatePatient,
   checkPatientMail,
+  deletePatient,
 };

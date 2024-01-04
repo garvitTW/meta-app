@@ -23,6 +23,9 @@ async function deleteDoctorDocument(id) {
 async function getDoctorDetails(id) {
   return apiService.get(apiURL.DOCTOR + id + "/");
 }
+async function deleteDoctor(id) {
+  return apiService.delete(apiURL.DOCTOR + id + "/");
+}
 async function updateDoctor(id, body) {
   return apiService.put(apiURL.DOCTOR + id + "/", body);
 }
@@ -39,4 +42,5 @@ export const doctorService = {
   deleteDoctorDocument,
   updateDoctor,
   checkDoctorMail,
+  deleteDoctor,
 };
