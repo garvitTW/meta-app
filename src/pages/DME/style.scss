@@ -1,6 +1,7 @@
 .dme_outer {
   padding-top: 0px;
 }
+
 h1 {
   font-family: Lato, Sans-serif;
   font-size: 24px;
@@ -10,6 +11,7 @@ h1 {
   color: #fff;
   margin: 0;
 }
+
 .dropdownarea {
   position: relative;
 
@@ -24,25 +26,74 @@ h1 {
       width: auto;
       padding: 0px;
     }
+
     button:focus {
       background: transparent;
     }
+
     .dropdown-toggle::after {
       display: none;
     }
+  }
+
+  .dropdown-menu {
+    background: #282C38;
+    width: max-content;
+
+    .input-group span:last-child {
+      font-size: 14px;
+      font-weight: 500;
+      color: #B2B9CD;
+      margin-left: 10px !important;
+      line-height: 26px;
+    }
+    
+    .form-check-input{
+      height: 24px;
+      width: 24px;
+      border: none;
+      margin: 0px;
+      background-color: transparent;
+    }
+    .input-group span:first-child {
+      background-color: transparent;
+      // border: 2px solid #b2b9cd;
+
+      border-radius: 4px !important;
+      margin: 0px;
+      padding: 0px;
+
+    }
+
+ 
+    .form-check-input:checked {
+      background-color: #0aceec;
+      box-shadow: none;
+      border-color: #0aceec;
+      height: 24px;
+      margin: 0;
+      border-radius: 4px !important;
+    }
+    .dropdown-item:focus, .dropdown-item:hover {
+      background-color: #1e1f25;
+  }
+
   }
 }
 
 .support {
   color: #0aceec !important;
 }
+
 .bottomSpace {
   margin-bottom: 30px;
 }
+
 .customloader {
   margin: 20px auto 0px !important;
   display: block !important;
 }
+
 .formBox {
   padding: 40px 50px 40px 30px;
   background: #1e1f25;
@@ -54,6 +105,7 @@ h1 {
     margin: 0px;
     width: 140px;
   }
+
   p {
     margin-bottom: 25px;
     color: white;
@@ -65,6 +117,7 @@ h1 {
     font-weight: 700;
     padding-bottom: 15px;
   }
+
   input {
     width: 100%;
   }
@@ -74,11 +127,13 @@ h1 {
     top: 12px;
     right: 12px;
   }
+
   .closeicon {
     position: absolute;
     top: 15px;
     right: 12px;
   }
+
   .searchItem {
     width: 95%;
     padding-left: 8px;
@@ -121,6 +176,7 @@ h1 {
     margin: 0px auto 0px;
     height: 45px;
   }
+
   td.price {
     color: #30e0a1;
   }
@@ -146,6 +202,7 @@ h1 {
   th {
     text-wrap: nowrap;
   }
+
   .athena {
     max-width: 750px;
     overflow: hidden;
