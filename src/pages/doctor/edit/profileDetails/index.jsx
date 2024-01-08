@@ -108,7 +108,7 @@ function EditDoctorProfile() {
         errors={errors}
       />
       <DoctorProfileDetailsForm
-        doctorUniqueId={editDoctorDetails.unique_id}
+        doctorUniqueId={editDoctorDetails?.unique_id}
         handleSubmit={handleSubmit}
         formikProps={formikProps}
         isClinic={isClinic}

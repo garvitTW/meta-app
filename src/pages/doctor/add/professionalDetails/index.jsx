@@ -83,20 +83,21 @@ function AddDoctorProfessional() {
     },
   });
 
-  const addService = async () => {
-    try {
-      if (newService) {
-        setLoadingServiceAdd(true);
-        const data = await OrganisationService.postServicesOffered({
-          name: newService,
-        });
-        setServicesOffered([...servicesOffered, data]);
-        setLoadingServiceAdd(false);
-        setNewService("");
-      }
-    } catch (err) {
-      setLoadingServiceAdd(false);
-      console.log(err);
+  const addService = () => {
+    // try {
+    if (newService) {
+      // setLoadingServiceAdd(true);
+      // const data = await OrganisationService.postServicesOffered({
+      //   name: newService,
+      // });
+      const newServiceTOAdd = { id: newService, name: newService };
+      setServicesOffered([...servicesOffered, newServiceTOAdd]);
+      //setLoadingServiceAdd(false);
+      setNewService("");
+      // }
+      // } catch (err) {
+      //   setLoadingServiceAdd(false);
+      //   console.log(err);
     }
   };
   const handleServiceOffered = (service) => {

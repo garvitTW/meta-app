@@ -30,7 +30,10 @@ function EditDoctorProfessional() {
         try {
           const { data } = await OrganisationService.getServicesOffered();
           const fetchedLanguages = await OrganisationService.getLanguages();
-          setServicesOffered(data);
+          const doctorPersonalServices = editDoctorDetails?.add_more_service
+            ? editDoctorDetails?.add_more_service
+            : [];
+          setServicesOffered([...data, ...doctorPersonalServices]);
           setLanguages(fetchedLanguages);
         } catch (err) {
           console.log(err);
@@ -65,7 +68,6 @@ function EditDoctorProfessional() {
         const { documents, ...rest } = values;
         await doctorService.updateDoctor(editDoctorDetails.id, {
           ...editDoctorStep1,
-          clinic: editDoctorStep1.clinics[0],
           ...rest,
         });
 
@@ -81,21 +83,22 @@ function EditDoctorProfessional() {
     },
   });
 
-  const addService = async () => {
-    try {
-      if (newService) {
-        setLoadingServiceAdd(true);
-        const data = await OrganisationService.postServicesOffered({
-          name: newService,
-        });
-        setServicesOffered([...servicesOffered, data]);
-        setLoadingServiceAdd(false);
-        setNewService("");
-      }
-    } catch (err) {
-      setLoadingServiceAdd(false);
-      console.log(err);
+  const addService = () => {
+    // try {
+    if (newService) {
+      // setLoadingServiceAdd(true);
+      // const data = await OrganisationService.postServicesOffered({
+      //   name: newService,
+      // });
+      const newServiceTOAdd = { id: newService, name: newService };
+      setServicesOffered([...servicesOffered, newServiceTOAdd]);
+      //setLoadingServiceAdd(false);
+      setNewService("");
     }
+    // } catch (err) {
+    //   setLoadingServiceAdd(false);
+    //   console.log(err);
+    // }
   };
   const handleServiceOffered = (service) => {
     const updatedServices = values.services_offered.includes(service?.id)

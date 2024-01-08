@@ -21,8 +21,6 @@ function DocumentField({
       : URL.createObjectURL(file);
   };
 
-  console.log(errors);
-
   return (
     <>
       {" "}
@@ -42,9 +40,10 @@ function DocumentField({
               <option disabled value="">
                 Select{" "}
               </option>
-              <option value="LICENSE">License </option>
+              {index === 0 && <option value="LICENSE">License </option>}
+              {/* <option value="LICENSE">License </option>
               <option value="BUSINESS">Business</option>
-              <option value="COMPLIANCE">Compliance</option>
+              <option value="COMPLIANCE">Compliance</option> */}
             </Form.Select>
             <DocumentErrorMessage
               touched={touched}

@@ -196,8 +196,8 @@ function OrganisationListing() {
   return (
     <>
       <div className="Patients_section Organization-section">
-        <div>
-          <div className="d-inline-block">
+        <div className="d-flex justify-content-between">
+          <div>
             <h1>Organization Clinics ({totalItems})</h1>
           </div>
           <div className="right-header">
@@ -233,8 +233,9 @@ function OrganisationListing() {
           <Col md={3} className="status_dropdown enable-status">
             <StatusDropdown status={status} filterHandle={filterHandle} />
           </Col>
+
           <Col md={12} className="mt-4">
-            <div className="Patienttable" style={containerStyle}>
+            <div className="Patienttable">
               <Table
                 responsive
                 className="stripednew table-stripednew Patients-table"
