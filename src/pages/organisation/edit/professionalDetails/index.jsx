@@ -54,8 +54,6 @@ function EditOrganisationProfessional() {
     handleSubmit,
   } = useFormik({
     initialValues: {
-      years: editOrganisationDetails?.years || 0,
-      months: editOrganisationDetails?.months || 0,
       services_offered: editOrganisationDetails?.services_offered || [],
       languages_spoken: editOrganisationDetails?.languages_spoken || [],
       documents:
@@ -176,7 +174,6 @@ function EditOrganisationProfessional() {
 
       <Form onSubmit={handleSubmit} className="Scroll">
         <Row className="AddOrganisationProfile">
-          <YearOfExperience formikProps={formikProps} />
           <Col md={12}>
             <h2 className="mt-0">
               Services offered (Select Minimum 1)

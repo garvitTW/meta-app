@@ -50,8 +50,6 @@ function EditClinicProfessional() {
     handleSubmit,
   } = useFormik({
     initialValues: {
-      years: editClinicDetails?.years || 0,
-      months: editClinicDetails?.months || 0,
       services_offered: editClinicDetails?.services_offered || [],
       languages_spoken: editClinicDetails?.languages_spoken || [],
       documents:

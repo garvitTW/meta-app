@@ -24,11 +24,10 @@ import {
 import DetailsPopUp from "../../../components/detailsPopUp";
 
 const posture_scores = [
-  { name: "90-100%", value: "90-100" },
-  { name: "80-89%", value: "80-89" },
-  { name: "70-79%", value: "70-79" },
-  { name: "50-69%", value: "50-69" },
-  { name: "0-49%", value: "0-49" },
+  { name: "85-100 excellent Chance of injury is unlikely", value: "85-100" },
+  { name: "75-84 Good Chance of injury is minimal", value: "75-84" },
+  { name: "65-74 fair Chance of injury is moderate", value: "65-74" },
+  { name: "<65 poor Chance of injury is high", value: "0-64" },
 ];
 
 function PatientListing({

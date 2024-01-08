@@ -30,10 +30,11 @@ function ClinicProfessionalDetailsForm({
   buttonLabel = "Add Clinic",
   serviceHeading = "Services offered (Select Minimum 1)",
 }) {
+  const otherSpecialization = "Other Specialization...";
   const otherServicePlaceHolder =
     serviceHeading === "Services offered (Select Minimum 1)"
       ? "Other Service..."
-      : "Other Specialization...";
+      : otherSpecialization;
 
   const formikProps = {
     touched: touched,
@@ -42,7 +43,9 @@ function ClinicProfessionalDetailsForm({
   };
   return (
     <Form onSubmit={handleSubmit} className="Scroll">
-      <YearOfExperience formikProps={formikProps} />
+      {otherServicePlaceHolder === otherSpecialization && (
+        <YearOfExperience formikProps={formikProps} />
+      )}
       <div>
         <h2 className="mt-0">
           {serviceHeading}

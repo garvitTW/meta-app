@@ -49,8 +49,6 @@ function AddClinicProfessional() {
     handleSubmit,
   } = useFormik({
     initialValues: {
-      years: 0,
-      months: 0,
       services_offered: [],
       languages_spoken: [],
       documents: [{ ...documentObject }],
