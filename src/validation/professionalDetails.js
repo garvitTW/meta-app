@@ -28,14 +28,14 @@ const validationSchemaProfessionalDetails = Yup.object().shape({
   //   })
   // ),
 
-  documents: Yup.array().of(
-    Yup.object().shape({
-      validity: Yup.string().required("Validity is required"),
-      document_state: Yup.string().required("State is required"),
-      category: Yup.string().required("Category is required"),
-      license_number: Yup.string().required("License number is required"),
-    })
-  ),
+  // documents: Yup.array().of(
+  //   Yup.object().shape({
+  //     validity: Yup.string().required("Validity is required"),
+  //     document_state: Yup.string().required("State is required"),
+  //     category: Yup.string().required("Category is required"),
+  //     license_number: Yup.string().required("License number is required"),
+  //   })
+  // ),
 });
 
 export default validationSchemaProfessionalDetails;

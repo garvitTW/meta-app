@@ -52,10 +52,10 @@ function EditClinicProfessional() {
     initialValues: {
       services_offered: editClinicDetails?.services_offered || [],
       languages_spoken: editClinicDetails?.languages_spoken || [],
-      documents:
-        editClinicDetails?.document.length > 0
-          ? editClinicDetails?.document
-          : [{ ...documentObject, clinic: editClinicDetails?.id }],
+      // documents:
+      //   editClinicDetails?.document.length > 0
+      //     ? editClinicDetails?.document
+      //     : [{ ...documentObject, clinic: editClinicDetails?.id }],
     },
     validationSchema: clinicProfessionalValidationSchema,
     onSubmit: async (values) => {
@@ -67,10 +67,10 @@ function EditClinicProfessional() {
           organization_clinic: editClinicDetails.organization_clinic,
         });
 
-        const uploadDocument = {
-          documents: documents,
-        };
-        await clinicService.postClinicDocument(uploadDocument);
+        // const uploadDocument = {
+        //   documents: documents,
+        // };
+        // await clinicService.postClinicDocument(uploadDocument);
         dispatch({ type: Type.REMOVE_EDIT_CLINIC_DETAILS });
         navigate(URLS.CLINIC.LISTING);
       } catch (err) {

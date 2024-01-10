@@ -51,7 +51,7 @@ function AddClinicProfessional() {
     initialValues: {
       services_offered: [],
       languages_spoken: [],
-      documents: [{ ...documentObject }],
+      // documents: [{ ...documentObject }],
     },
     validationSchema: clinicProfessionalValidationSchema,
     onSubmit: async (values) => {
@@ -65,15 +65,15 @@ function AddClinicProfessional() {
           user_type: "CLINIC",
         });
 
-        const { clinic_id } = data;
-        const documentsWithClinicId = documents.map((document) => {
-          document.clinic = clinic_id;
-          return document;
-        });
-        const uploadDocument = {
-          documents: documentsWithClinicId,
-        };
-        await clinicService.postClinicDocument(uploadDocument);
+        // const { clinic_id } = data;
+        // const documentsWithClinicId = documents.map((document) => {
+        //   document.clinic = clinic_id;
+        //   return document;
+        // });
+        // const uploadDocument = {
+        //   documents: documentsWithClinicId,
+        // };
+        // await clinicService.postClinicDocument(uploadDocument);
         dispatch({ type: Type.REMOVE_CLINIC_STEP_1 });
         navigate(URLS.CLINIC.LISTING);
       } catch (err) {

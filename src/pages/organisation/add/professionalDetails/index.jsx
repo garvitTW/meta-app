@@ -57,7 +57,7 @@ function AddOrganisationProfessional() {
     initialValues: {
       services_offered: [],
       languages_spoken: [],
-      documents: [{ ...documentObject }],
+      // documents: [{ ...documentObject }],
     },
     validationSchema: validationSchemaProfessionalDetails,
     onSubmit: async (values) => {
@@ -70,18 +70,18 @@ function AddOrganisationProfessional() {
           ...rest,
         });
 
-        const { organization_id } = results;
-        const documentsWithOrganisationId = documents.map((document) => {
-          document.organization = organization_id;
-          return document;
-        });
-        const uploadDocument = {
-          documents: documentsWithOrganisationId,
-        };
-        await OrganisationService.postOrganisationClinicDocument(
-          organization_id,
-          uploadDocument
-        );
+        // const { organization_id } = results;
+        // const documentsWithOrganisationId = documents.map((document) => {
+        //   document.organization = organization_id;
+        //   return document;
+        // });
+        // const uploadDocument = {
+        //   documents: documentsWithOrganisationId,
+        // };
+        // await OrganisationService.postOrganisationClinicDocument(
+        //   organization_id,
+        //   uploadDocument
+        // );
         dispatch({ type: Type.REMOVE_ORGANISATION_STEP_1 });
         navigate(URLS.ORGANISATION.LISTING);
       } catch (err) {
@@ -255,24 +255,24 @@ function AddOrganisationProfessional() {
               </ul>
             </div>
           </Col>
-          <Col md={12}>
+          {/* <Col md={12}>
             <h2 className="mt-4">Documents </h2>
             <hr />
-          </Col>
+          </Col> */}
         </Row>
-        <DocumentField
+        {/* <DocumentField
           values={values}
           getFieldProps={getFieldProps}
           touched={touched}
           errors={errors}
           removeDocument={removeDocument}
           uploadFile={uploadFile}
-        />
+        /> */}
 
-        <button className="add_morebtn mt-3" onClick={addDocument}>
+        {/* <button className="add_morebtn mt-3" onClick={addDocument}>
           <img src={AddIcon} className="me-2" alt="add" />
           Add More
-        </button>
+        </button> */}
         <Row className="mt-5">
           <Col md={12}>
             <button

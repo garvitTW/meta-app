@@ -57,10 +57,10 @@ function EditDoctorProfessional() {
       months: editDoctorDetails?.months || 0,
       services_offered: editDoctorDetails?.services_offered || [],
       languages_spoken: editDoctorDetails?.languages_spoken || [],
-      documents:
-        editDoctorDetails?.document.length > 0
-          ? editDoctorDetails?.document
-          : [{ ...documentObject, doctor: editDoctorDetails?.id }],
+      // documents:
+      //   editDoctorDetails?.document.length > 0
+      //     ? editDoctorDetails?.document
+      //     : [{ ...documentObject, doctor: editDoctorDetails?.id }],
     },
     validationSchema: doctorProfessionalValidationSchema,
     onSubmit: async (values) => {
@@ -71,10 +71,10 @@ function EditDoctorProfessional() {
           ...rest,
         });
 
-        const uploadDocument = {
-          documents: documents,
-        };
-        await doctorService.postDoctorDocument(uploadDocument);
+        // const uploadDocument = {
+        //   documents: documents,
+        // };
+        // await doctorService.postDoctorDocument(uploadDocument);
         dispatch({ type: Type.REMOVE_EDIT_DOCTOR_DETAILS });
         navigate(URLS.DOCTOR.LISTING);
       } catch (err) {

@@ -53,7 +53,7 @@ function AddDoctorProfessional() {
       months: 0,
       services_offered: [],
       languages_spoken: [],
-      documents: [{ ...documentObject }],
+      // documents: [{ ...documentObject }],
     },
     validationSchema: doctorProfessionalValidationSchema,
     onSubmit: async (values) => {
@@ -66,15 +66,15 @@ function AddDoctorProfessional() {
           ...rest,
         });
 
-        const { doctor_id } = results;
-        const documentsWithDoctorId = documents.map((document) => {
-          document.doctor = doctor_id;
-          return document;
-        });
-        const uploadDocument = {
-          documents: documentsWithDoctorId,
-        };
-        await doctorService.postDoctorDocument(uploadDocument);
+        // const { doctor_id } = results;
+        // const documentsWithDoctorId = documents.map((document) => {
+        //   document.doctor = doctor_id;
+        //   return document;
+        // });
+        // const uploadDocument = {
+        //   documents: documentsWithDoctorId,
+        // };
+        // await doctorService.postDoctorDocument(uploadDocument);
         dispatch({ type: Type.REMOVE_DOCTOR_STEP_1 });
         navigate(URLS.DOCTOR.LISTING);
       } catch (err) {

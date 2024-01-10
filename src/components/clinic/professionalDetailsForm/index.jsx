@@ -139,24 +139,24 @@ function ClinicProfessionalDetailsForm({
             </ul>
           </div>
         </Col>
-        <Col md={12}>
+        {/* <Col md={12}>
           <h2 className="mt-4">Documents </h2>
           <hr />
-        </Col>
+        </Col> */}
       </Row>
-      <DocumentField
+      {/* <DocumentField
         values={values}
         getFieldProps={getFieldProps}
         touched={touched}
         errors={errors}
         removeDocument={removeDocument}
         uploadFile={uploadFile}
-      />
+      /> */}
 
-      <button className="add_morebtn mt-3" onClick={addDocument}>
+      {/* <button className="add_morebtn mt-3" onClick={addDocument}>
         <img src={AddIcon} className="me-2" alt="add" />
         Add More
-      </button>
+      </button> */}
       <Row className="mt-5">
         <Col md={12}>
           <button className="cancel-buttongry" onClick={handleCancel}>
