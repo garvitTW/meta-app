@@ -17,26 +17,25 @@ const validationSchemaProfessionalDetails = Yup.object().shape({
 
   languages_spoken: Yup.array().min(1, "Please select at least one languages"),
 
-  documents: Yup.array().of(
-    Yup.object().shape({
-      document_type: Yup.string().required("Document type is required"),
-      file: Yup.mixed().required("Please upload a document"),
-      validity: Yup.string().required("Validity is required"),
-      issuer_name: Yup.string().required("Issuer name is required"),
-      category: Yup.string().required("Category is required"),
-      license_number: Yup.string().required("License number is required"),
-    })
-  ),
-
   // documents: Yup.array().of(
   //   Yup.object().shape({
+  //     document_type: Yup.string().required("Document type is required"),
   //     file: Yup.mixed().required("Please upload a document"),
   //     validity: Yup.string().required("Validity is required"),
-  //     state: Yup.string().required("State is required"),
+  //     issuer_name: Yup.string().required("Issuer name is required"),
   //     category: Yup.string().required("Category is required"),
   //     license_number: Yup.string().required("License number is required"),
   //   })
   // ),
+
+  documents: Yup.array().of(
+    Yup.object().shape({
+      validity: Yup.string().required("Validity is required"),
+      document_state: Yup.string().required("State is required"),
+      category: Yup.string().required("Category is required"),
+      license_number: Yup.string().required("License number is required"),
+    })
+  ),
 });
 
 export default validationSchemaProfessionalDetails;

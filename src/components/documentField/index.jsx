@@ -23,8 +23,7 @@ function DocumentField({
 
   return (
     <>
-      {" "}
-      {values.documents.map((document, index) => (
+      {/* {values.documents.map((document, index) => (
         <div className="d-flex Category_div" key={numArray[index]}>
           <div className="mb-2">
             {index === 0 && (
@@ -41,9 +40,9 @@ function DocumentField({
                 Select{" "}
               </option>
               {index === 0 && <option value="LICENSE">License </option>}
-              {/* <option value="LICENSE">License </option>
+               <option value="LICENSE">License </option>
               <option value="BUSINESS">Business</option>
-              <option value="COMPLIANCE">Compliance</option> */}
+              <option value="COMPLIANCE">Compliance</option> 
             </Form.Select>
             <DocumentErrorMessage
               touched={touched}
@@ -167,8 +166,8 @@ function DocumentField({
             />
           </div>
         </div>
-      ))}
-      {/* {values.documents.map((document, index) => (
+      ))} */}
+      {values.documents.map((document, index) => (
         <div className="d-flex Category_div" key={numArray[index]}>
           <div className="mb-2">
             {index === 0 && (
@@ -222,7 +221,7 @@ function DocumentField({
               </p>
             )}
             <Form.Control
-              {...getFieldProps(`documents[${index}].state`)}
+              {...getFieldProps(`documents[${index}].document_state`)}
               type="text"
               placeholder="State"
             />
@@ -230,7 +229,7 @@ function DocumentField({
               touched={touched}
               errors={errors}
               index={index}
-              name="state"
+              name="document_state"
             />
           </div>
 
@@ -259,35 +258,29 @@ function DocumentField({
             />
           </div>
           <div className="Category_div">
-            
-
-            <input
+            {/* <input
               style={{ display: "none" }}
               type="file"
               id={`file-${index}`}
               accept="application/pdf"
-              onChange={(event) => {
-                const file = event.target.files[0];
-                setFieldValue(`documents[${index}].file`, file);
-              }}
-            />
+              onChange={(event) => uploadFile(event, index)}
+            /> */}
             <label
               htmlFor={`file-${index}`}
               className={index === 0 ? "toppad" : "botmbox2"}
             >
-            {values.documents[index].file && (
-              <a
-                href={generateFileUrl(values.documents[index].file)}
-                target="_blank"
-                rel="noopener noreferrer"
-               
-              >
-                <img src={SaveIcon} alt="View" />
-              </a>
-            )}
-              <span>
+              {/* {values.documents[index].file && (
+                <a
+                  href={generateFileUrl(values.documents[index].file)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img src={SaveIcon} alt="View" />
+                </a>
+              )} */}
+              {/* <span>
                 <img className="uploadIcon" src={UploadIcon} alt="Upload" />
-              </span>
+              </span> */}
               {values.documents.length > 1 && (
                 <Button onClick={() => removeDocument(index)}>
                   <img src={DeleteIcon} alt="delete" />
@@ -302,7 +295,7 @@ function DocumentField({
             />
           </div>
         </div>
-      ))} */}
+      ))}
     </>
   );
 }

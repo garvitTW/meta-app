@@ -24,17 +24,10 @@ const sideBarItems = [
     navigate: URL.DASHBOARD,
     roles: [roles.admin, roles.organization, roles.clinic],
   },
-  {
-    id: 2,
-    name: "Patients",
-    image: Patients,
-    hoverIamge: PatientsHover,
-    navigate: URL.PATIENT.LISTING,
-    roles: [roles.admin, roles.organization, roles.clinic],
-  },
+
   {
     id: 3,
-    name: "Organization Clinics",
+    name: "Organization",
     image: Organization,
     hoverIamge: Organizationhover,
     navigate: URL.ORGANISATION.LISTING,
@@ -54,6 +47,14 @@ const sideBarItems = [
     image: Doctors,
     hoverIamge: Doctorshover,
     navigate: URL.DOCTOR.LISTING,
+    roles: [roles.admin, roles.organization, roles.clinic],
+  },
+  {
+    id: 2,
+    name: "Patients",
+    image: Patients,
+    hoverIamge: PatientsHover,
+    navigate: URL.PATIENT.LISTING,
     roles: [roles.admin, roles.organization, roles.clinic],
   },
   {

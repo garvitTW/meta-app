@@ -14,7 +14,7 @@ function AddOrganisationTabs({ handleTabChanges = () => {}, errors = {} }) {
   return (
     <Row>
       <Col>
-        <h1>Add Organization Clinics</h1>
+        <h1>Add Organization</h1>
       </Col>
       <Col md={12}>
         <Tabs

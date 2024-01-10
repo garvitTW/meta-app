@@ -24,7 +24,7 @@ function OrganisationDeclined() {
       <div className="Patients_section Organization-section">
         <Row>
           <Col md={3}>
-            <h1>Organization Clinics</h1>
+            <h1>Organization</h1>
           </Col>
           <Col md={4}>
             <div className="position-relative">

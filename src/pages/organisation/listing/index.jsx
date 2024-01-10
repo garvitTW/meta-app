@@ -198,7 +198,7 @@ function OrganisationListing() {
       <div className="Patients_section Organization-section">
         <div className="d-flex justify-content-between">
           <div>
-            <h1>Organization Clinics ({totalItems})</h1>
+            <h1>Organization ({totalItems})</h1>
           </div>
           <div className="right-header">
             <LoaderSpinner loading={loading} />
@@ -255,13 +255,13 @@ function OrganisationListing() {
                         />
                       </InputGroup>
                     </th>
-                    <th> Organization Clinic Name</th>
-                    <th> Email Address</th>
-                    <th> Clinics</th>
-                    <th> Doctors</th>
+                    <th>Organization Name</th>
+                    <th>Email Address</th>
+                    <th>Clinics</th>
+                    <th>Doctors</th>
                     <th>Patients</th>
-                    <th> Status</th>
-                    <th> Enable/Disable</th>
+                    <th>Status</th>
+                    <th>Enable/Disable</th>
                   </tr>
                 </thead>
                 <tbody>

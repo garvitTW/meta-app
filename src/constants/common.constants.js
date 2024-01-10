@@ -24,22 +24,21 @@ const numArray = [
   99, 100,
 ];
 
-const documentObject = {
-  document_type: "",
-  file: "",
-  validity: "",
-  issuer_name: "",
-  category: "",
-  license_number: "",
-};
-
 // const documentObject = {
-//   category: "",
+//   document_type: "",
 //   file: "",
 //   validity: "",
-//   state: "",
+//   issuer_name: "",
+//   category: "",
 //   license_number: "",
 // };
+
+const documentObject = {
+  category: "",
+  validity: "",
+  document_state: "",
+  license_number: "",
+};
 
 export {
   STORAGE_KEYS,
