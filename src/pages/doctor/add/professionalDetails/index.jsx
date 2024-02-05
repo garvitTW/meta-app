@@ -61,7 +61,7 @@ function AddDoctorProfessional() {
         const { documents, ...rest } = values;
         const { results } = await doctorService.createDoctor({
           ...addDoctorStep1,
-
+          clinic: addDoctorStep1.clinics,
           user_type: "DOCTOR",
           ...rest,
         });

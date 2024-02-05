@@ -2,6 +2,7 @@ const STORAGE_KEYS = {
   AUTH_TOKEN: "authTokenMetaDoc",
   USER_DETAILS: "userDataMetaDoc",
   REMEMBER_ME_DETAILS: "rememberDetailsMetaDoc",
+  REMEMBER_DEVICE_FOR_30_DAYS: "loginMetaUserFor30Days",
 };
 const itemsPerPage = 10;
 const faxRegExp = /^\(\d{3}\)\d{3}-\d{4}$/;

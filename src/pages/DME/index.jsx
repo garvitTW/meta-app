@@ -9,84 +9,11 @@ import ModalComponent from "../../components/modal";
 import DmePopUp from "../../components/dmePopup";
 import Dropdown from "react-bootstrap/Dropdown";
 import tableDropdown from "../../assests/images/table/table_dropdown.svg";
-
-const dmeTableColumns = [
-  {
-    headerName: "HCPCS & Modifiers",
-    headerClass: "",
-    DataKey: "hcpcs_code",
-    DataClass: "support",
-    DataPreFix: "",
-  },
-  {
-    headerName: "Athena Description",
-    headerClass: "athena",
-    DataKey: "dme_description",
-    DataClass: "athena",
-    DataPreFix: "",
-  },
-  {
-    headerName: "SKU",
-    headerClass: "",
-    DataKey: "sku",
-    DataClass: "",
-    DataPreFix: "",
-  },
-  {
-    headerName: "Primary Diagnosis",
-    headerClass: "",
-    DataKey: "diagnosis_name",
-    DataClass: "support curserPointer",
-    DataPreFix: "",
-  },
-  {
-    headerName: "Year of Service",
-    headerClass: "",
-    DataKey: "year_of_service",
-    DataClass: "",
-    DataPreFix: "",
-  },
-  {
-    headerName: "Primary Payor",
-    headerClass: "",
-    DataKey: "primary_payer",
-    DataClass: "",
-    DataPreFix: "",
-  },
-  {
-    headerName: "Primary Outstanding",
-    headerClass: "",
-    DataKey: "primary_outstanding",
-    DataClass: "price",
-    DataPreFix: "$",
-  },
-  {
-    headerName: "Total Charges",
-    headerClass: "",
-    DataKey: "total_charge",
-    DataClass: "price",
-    DataPreFix: "$",
-  },
-  {
-    headerName: "Primary Payments",
-    headerClass: "",
-    DataKey: "primary_payments",
-    DataClass: "price",
-    DataPreFix: "$",
-  },
-];
-
-const defaultSelectedColumns = [
-  dmeTableColumns[0].headerName,
-  dmeTableColumns[1].headerName,
-  dmeTableColumns[2].headerName,
-  dmeTableColumns[3].headerName,
-  dmeTableColumns[4].headerName,
-  dmeTableColumns[5].headerName,
-  dmeTableColumns[6].headerName,
-  dmeTableColumns[7].headerName,
-  dmeTableColumns[8].headerName,
-];
+import {
+  defaultSelectedColumns,
+  dmeTableColumns,
+  dmeTableHeaderName,
+} from "../../constants/dme.constants";
 
 function DMElookUp() {
   const [result, setResult] = useState(false);
@@ -202,7 +129,7 @@ function DMElookUp() {
   };
 
   const handleSupportedDMEPopup = (diagnosisName, columnName) => {
-    if (columnName === "Primary Diagnosis") {
+    if (columnName === dmeTableHeaderName.Primary_Diagnosis) {
       if (diagnosisName.toLowerCase().includes("m170")) {
         setShow(true);
       }
@@ -340,7 +267,6 @@ function DMElookUp() {
                                 checked={selectedColumns.includes(
                                   column.headerName
                                 )}
-                             
                               />
                               <span>{column.headerName}</span>
                             </InputGroup>

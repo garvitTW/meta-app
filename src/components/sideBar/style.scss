@@ -1,4 +1,3 @@
-
 .Sidebar_menu.Scroll {
   height: calc(100vh - 50px) !important;
 }
@@ -18,7 +17,7 @@
     margin-bottom: 28px;
   }
 
-  .collapseSideBar{
+  .collapseSideBar {
     text-align: center;
   }
 
@@ -79,11 +78,10 @@
         cursor: pointer;
         &:last-child {
           padding-left: 15px;
-          
         }
       }
     }
-    .collapsedLi{
+    .collapsedLi {
       padding-right: 15px;
     }
   }

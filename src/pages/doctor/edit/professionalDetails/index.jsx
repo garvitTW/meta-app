@@ -68,6 +68,7 @@ function EditDoctorProfessional() {
         const { documents, ...rest } = values;
         await doctorService.updateDoctor(editDoctorDetails.id, {
           ...editDoctorStep1,
+          clinic: editDoctorStep1.clinics,
           ...rest,
         });
 

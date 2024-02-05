@@ -8,6 +8,7 @@ import { Store } from "../../store/Store";
 import {
   authService,
   setAuthToken,
+  setRememberFor30Days,
   setUserDetails,
 } from "../../services/auth.service";
 import ButtonWithLoader from "../../components/buttonWithLoading";
@@ -109,6 +110,7 @@ function Verification() {
         setOtpValues(["", "", "", "", "", ""]);
         setUserDetails(userInfo);
         setAuthToken(data.token.access_token);
+        setRememberFor30Days(rememberDevice);
         setLoading(false);
         navigate(URL.DASHBOARD);
       }

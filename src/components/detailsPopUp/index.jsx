@@ -6,8 +6,7 @@ import Delete from "../../assests/images/dashborad/trash.svg";
 import Edit from "../../assests/images/dashborad/pen.svg";
 import { Button, Modal, Row, Col } from "react-bootstrap";
 import { formatPhoneNumber } from "../../utils/helperFunction";
-import { useState } from "react";
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import { Store } from "../../store/Store";
 import { roles } from "../../constants/common.constants";
 

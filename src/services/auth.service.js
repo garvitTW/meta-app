@@ -8,6 +8,13 @@ const isAuthenticated = () => {
   return !!token && token;
 };
 
+const isRememberFor30Days = () => {
+  const isRememberFor30DaysTrue = storageService.getFromLocalStorage(
+    STORAGE_KEYS.REMEMBER_DEVICE_FOR_30_DAYS
+  );
+  return !!isRememberFor30DaysTrue && isRememberFor30DaysTrue;
+};
+
 const getUserDetails = () => {
   const userData =
     storageService.getFromLocalStorage(STORAGE_KEYS.USER_DETAILS) ?? null;
@@ -17,6 +24,9 @@ const getUserDetails = () => {
 const logout = () => {
   storageService.removeFromLocalStorage(STORAGE_KEYS.AUTH_TOKEN);
   storageService.removeFromLocalStorage(STORAGE_KEYS.USER_DETAILS);
+  storageService.removeFromLocalStorage(
+    STORAGE_KEYS.REMEMBER_DEVICE_FOR_30_DAYS
+  );
 };
 
 const login = (values) => {
@@ -25,6 +35,13 @@ const login = (values) => {
 
 export const setUserDetails = (user) => {
   storageService.setToLocalStorage(STORAGE_KEYS.USER_DETAILS, user);
+};
+
+export const setRememberFor30Days = (value) => {
+  storageService.setToLocalStorage(
+    STORAGE_KEYS.REMEMBER_DEVICE_FOR_30_DAYS,
+    value
+  );
 };
 
 export const setAuthToken = (token) => {
@@ -45,6 +62,7 @@ const resendOtp = (email) => {
 
 export const authService = {
   isAuthenticated,
+  isRememberFor30Days,
   getUserDetails,
   logout,
   login,
